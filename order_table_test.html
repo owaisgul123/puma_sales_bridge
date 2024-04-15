@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your DataTable Example</title>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Include DataTables CSS and JS files -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+</head>
+<body>
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Depot</th>
+                <th>Type</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+                <th>Product ID</th>
+                <th>Product Quantity</th>
+                <th>Product Indent Price</th>
+                <th>Product Name</th>
+                <th>Product Amount</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here dynamically -->
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            // Your JSON data
+            var jsonData = [{"id":"7","depot":"0","type":"GC \/ Coco","tl_no":"","total_amount":"2408000.0","status":"0","status_value":"pending","legder_balance":"25000","comment":"","product_json":"[{\"p_id\":\"22\",\"quantity\":\"0\",\"indent_price\":\"280\",\"product_name\":\"PMG\",\"amount\":0.0},{\"p_id\":\"23\",\"quantity\":\"0\",\"indent_price\":\"290\",\"product_name\":\"HOBC\",\"amount\":0.0},{\"p_id\":\"24\",\"quantity\":\"8000\",\"indent_price\":\"301\",\"product_name\":\"HOD\",\"amount\":2408000.0}]","approved_time":"","start_time":"","created_at":"2023-11-17 11:52:34","created_by":"46","consignee_name":null,"name":"Testing P2P","current_status":"Pending"},{"id":"6","depot":"0","type":"GC \/ Coco","tl_no":"","total_amount":"27200000.0","status":"0","status_value":"pending","legder_balance":"25000","comment":"","product_json":"[{\"p_id\":\"22\",\"quantity\":\"64000\",\"indent_price\":\"280\",\"product_name\":\"PMG\",\"amount\":17920000.0},{\"p_id\":\"23\",\"quantity\":\"32000\",\"indent_price\":\"290\",\"product_name\":\"HOBC\",\"amount\":9280000.0},{\"p_id\":\"24\",\"quantity\":\"0\",\"indent_price\":\"301\",\"product_name\":\"HOD\",\"amount\":0.0}]","approved_time":"","start_time":"","created_at":"2023-11-16 18:34:14","created_by":"46","consignee_name":null,"name":"Testing P2P","current_status":"Pending"} /* ... add the rest of your data here ... */];
+
+            // Iterate through the data and populate the DataTable
+            $.each(jsonData, function(index, order) {
+                var orderAppended = false; // Flag to track whether order information is appended
+                
+                $.each(JSON.parse(order.product_json), function(i, product) {
+                    if (product.quantity > 0) {
+                        if (!orderAppended) {
+                            $('#example tbody').append('<tr><td>' + order.id + '</td><td>' + order.depot + '</td><td>' + order.type + '</td><td>' + order.total_amount + '</td><td>' + order.status + '</td><td style="display:none;">' + order.id + '</td><td>' + product.p_id + '</td><td>' + product.quantity + '</td><td>' + product.indent_price + '</td><td>' + product.product_name + '</td><td>' + product.amount + '</td><td>' + order.created_at + '</td></tr>');
+                            orderAppended = true;
+                        } else {
+                            $('#example tbody').append('<tr><td></td><td></td><td></td><td></td><td></td><td style="display:none;">' + order.id + '</td><td>' + product.p_id + '</td><td>' + product.quantity + '</td><td>' + product.indent_price + '</td><td>' + product.product_name + '</td><td>' + product.amount + '</td><td></td></tr>');
+                        }
+                    }
+                });
+            });
+
+            // Initialize DataTable
+            $('#example').DataTable({
+                columnDefs: [
+                    { targets: [5], visible: false } // Hide the "Order ID" column
+                ]
+            });
+
+        });
+    </script>
+</body>
+</html>

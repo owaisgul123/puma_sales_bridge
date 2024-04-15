@@ -1,0 +1,13 @@
+
+PUMA SERVICES.
+
+http://151.106.17.246:8080/omCS-CMS-APIS/services/orders/sales_order_services.php?key=03201232927
+http://151.106.17.246:8080/OMCS-CMS-APIS/services/orders/create_sap_suborders.php?key=03201232927
+http://151.106.17.246:8080/omCS-CMS-APIS/services/sap_api_services/api_2/sales_orders.php?key=03201232927
+http://151.106.17.246:8080/omCS-CMS-APIS/services/sap_api_services/api_2/order_check_with_sap.php?key=03201232927
+http://151.106.17.246:8080/omCS-CMS-APIS/services/sap_api_services/api_3/dealers_ledgers.php?key=03201232927
+http://151.106.17.246:8080/OMCS-CMS-APIS/services/controllistner_rebuild.php
+http://151.106.17.246:8080/OMCS-CMS-APIS/services/directnew.php
+
+
+
