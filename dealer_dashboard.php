@@ -499,13 +499,14 @@
                                         <th class="text-center">Name</th>
                                         <th class="text-center">SAP #</th>
                                         <th class="text-center">Is Verified </th>
-                                        <th class="text-center">Email</th>
+                                        <th class="text-center">TM</th>
                                         <th class="text-center">Contact</th>
                                         <th class="text-center">Location</th>
+                                        <th class="text-center">Is-login</th>
                                         <th class="text-center">City</th>
                                         <th class="text-center">Province</th>
                                         <th class="text-center">Region</th>
-                                        <th class="text-center">Created Time</th>
+                                        <!-- <th class="text-center">Created Time</th> -->
 
                                         <!-- <th class="text-center">Edit</th>
                                         <th class="text-center">Delete</th> -->
@@ -530,7 +531,7 @@
                                                 <th>S.No</th>
                                                 <th>User</th>
                                                 <th>Site Name</th>
-                                                <th>Date</th>
+                                                <th>Planned Date</th>
                                                 <th>Complete Time</th>
                                                 <th>Status</th>
                                                 <th>Description</th>
@@ -1441,13 +1442,13 @@
                         data.name,
                         data.sap_no,
                         data.indent_price == '1' ? 'Verified ' : 'Not-Active ',
-                        data.email,
+                        data.asm_name,
                         data.contact,
                         data.location,
+                        data.Nozel_price != '0' ? 'Logged-In' : 'Not-Login Yet ',
                         data.city,
                         data.province,
-                        data.region,
-                        data.created_at
+                        data.region
                     ]).draw();
 
                     if (data.indent_price == '1') {
@@ -1478,8 +1479,7 @@
         console.log(
             "<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
             fromdate + "&to=" + todate + "")
-        fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
-                fromdate + "&to=" + todate + "",
+        fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -2044,13 +2044,13 @@
                 data.sap_no,
                 data.indent_price == '1' ? 'Verified ' : 'Not-Active ',
 
-                data.email,
+                data.asm_name,
                 data.contact,
                 data.location,
+                data.Nozel_price != '0' ? 'Logged-In' : 'Not-Login Yet ',
                 data.city,
                 data.province,
-                data.region,
-                data.created_at
+                data.region
             ]).draw();
 
             if (data.indent_price == '1') {

@@ -677,7 +677,7 @@
                         $('#password').val(response[0]['description']);
                         $('#confirm_password').val(response[0]['description']);
                         $('#number').val(response[0]['telephone']);
-                        $('#role').val('Sales');
+                        $('#role').val(response[0]['privilege']);
                         var row_id = $('#row_id').val(response[0]['id']);
 
 

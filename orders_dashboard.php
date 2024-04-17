@@ -109,6 +109,30 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3">
+                            <label for="inputEmail4">From</label>
+
+                            <input type="date" class="form-control" name="fromdate" id="fromdate"
+                                value="<?php echo date('Y-m-01') ?>">
+
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputEmail4">To</label>
+
+                            <input type="date" class="form-control" name="todate" id="todate"
+                                value="<?php echo date('Y-m-30') ?>">
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <input type="btn" class="btn btn-primary mt-3" name="btn_get" id="btn_get" value="Get"
+                                onclick="fetchtable()">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3">
                             <label for="inputEmail4">Region</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="regions"
@@ -438,6 +462,7 @@
                                         <th class="text-center">City</th>
                                         <th class="text-center">Province</th>
                                         <th class="text-center">Region</th>
+                                        <th class="text-center">Amount Payable</th>
                                         <th class="text-center">View Orders</th>
                                         <th class="text-center">Track</th>
 
@@ -960,6 +985,35 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
+
+    <div id="orderSalesAmountModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        data-bs-scroll="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">Amount Payable</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                Amount Payable
+                            </div>
+                            <div class="col-md-6">
+                                <span id="order_amount_payable"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
     <!-- JAVASCRIPT -->
 
     <?php include 'script_tags.php'; ?>
@@ -1406,17 +1460,19 @@
 
 
     function fetchtable() {
+        var fromdate = $('#fromdate').val();
+        var todate = $('#todate').val();
         $('#loader').show();
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
         };
         console.log("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>");
-        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
+        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 dealers_data = response;
 
                 $('#dealers_count').html(response.length);
@@ -1426,7 +1482,7 @@
                 $.each(response, function(index, data) {
                     $('#loader').hide();
                     var status = data.status_value;
-                    console.log(status)
+                    // console.log(status)
                     var status_value = '';
 
                     if (status == 'pending') {
@@ -1456,33 +1512,60 @@
                             ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
                     }
 
-                    $message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
-                    track = (data.is_tracker == 1) ? "<a href='trip_board_salesOrder.php?no=" + data
-                        .SaleOrder +
-                        "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>" :
-                        "----";
-                    d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
+                    message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
+                    // Initialize variables
+                    var track = "";
+                    var d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
+                    var payableAmount = ''; // Initialize payableAmount variable
 
-                    table.row.add([
-                        index + 1,
-                        data.created_at,
-                        data.name,
-                        // data.name,
-                        d_type,
-                        data.consignee_name,
-                        parseFloat(data.total_amount).toLocaleString(),
-                        // data.legder_balance,
-                        data.SaleOrder,
-                        status_value,
-                        $message,
-                        data.city,
-                        data.province,
-                        data.region,
-                        '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
-                        data.id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
-                        track,
-                    ]).draw();
+                    // Log data for debugging
+                    // console.log(data.is_tracker);
+                    // console.log(data.SaleOrder);
+
+                    // Check if data.is_tracker is equal to 1
+                    if (parseInt(data.is_tracker) === 1) {
+                        // If data.is_tracker is 1, generate track link
+                        track = "<a href='trip_board_salesOrder.php?no=" + data.SaleOrder +
+                            "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>";
+                    } else {
+                        // If data.is_tracker is not 1, display ----
+                        track = "----";
+                    }
+
+                    // Call amount_payable function
+                    amount_payable(data.SaleOrder)
+                        .then(amount => {
+                            // Store the amount in a variable
+                            payableAmount = amount;
+                            // Add row to table after getting the amount
+                            table.row.add([
+                                index + 1,
+                                data.created_at,
+                                data.name,
+                                d_type,
+                                data.consignee_name,
+                                parseFloat(data.total_amount).toLocaleString(),
+                                data.SaleOrder,
+                                status_value,
+                                message,
+                                data.city,
+                                data.province,
+                                data.region,
+                                parseFloat(payableAmount)
+                                .toLocaleString(), // Use payableAmount here
+                                '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
+                                data.id +
+                                ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
+                                track,
+                            ]).draw();
+                        })
+
+
+                        .catch(error => {
+                            console.error("Error:", error);
+                            // Handle error
+                        });
+
 
                     if (data.delivered_status === '0') {
                         pendingCount_order++;
@@ -1979,7 +2062,7 @@
         var tm_counts = $('#asm_users').val();
         // Get other selected values similarly
 
-        console.log(selectedCity)
+        // console.log(selectedCity)
 
         // Filter the dealers based on selected values
         // var filteredDealers = dealers_data.filter(function(dealer) {
@@ -2013,14 +2096,14 @@
         // console.log('Distinct TM Count:', distinctTmCount);
         // console.log('Distinct ASM No Count:', distinctASMCount);
 
-        console.log(filteredData)
+        // console.log(filteredData)
         table.clear().draw();
         var pendingCount_order = 0;
         var completeCount_order = 0;
         $.each(filteredData, function(index, data) {
             // $('#loader').hide();
             var status = data.status_value;
-            console.log(status)
+            // console.log(status)
             var status_value = '';
 
             if (status == 'pending') {
@@ -2051,32 +2134,58 @@
             }
 
             message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
-            d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
-            track = (data.is_tracker == 1) ? "<a href='trip_board_salesOrder.php?no=" + data
-                .SaleOrder +
-                "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>" : "----";
+            // Initialize variables
+            var track = "";
+            var d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
+            var payableAmount = ''; // Initialize payableAmount variable
 
-            // var amounts = parseFloat(data.total_amount)
-            table.row.add([
-                index + 1,
-                data.created_at,
-                data.name,
-                // data.name,
-                d_type,
-                data.consignee_name,
-                parseFloat(data.total_amount).toLocaleString(),
-                // data.legder_balance,
-                data.SaleOrder,
-                status_value,
-                $message,
-                data.city,
-                data.province,
-                data.region,
-                '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
-                data.id +
-                ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
-                track,
-            ]).draw();
+            // Log data for debugging
+            // console.log(data.is_tracker);
+            // console.log(data.SaleOrder);
+
+            // Check if data.is_tracker is equal to 1
+            if (parseInt(data.is_tracker) === 1) {
+                // If data.is_tracker is 1, generate track link
+                track = "<a href='trip_board_salesOrder.php?no=" + data.SaleOrder +
+                    "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>";
+            } else {
+                // If data.is_tracker is not 1, display ----
+                track = "----";
+            }
+
+            // Call amount_payable function
+            amount_payable(data.SaleOrder)
+                .then(amount => {
+                    // Store the amount in a variable
+                    payableAmount = amount;
+                    // Add row to table after getting the amount
+                    table.row.add([
+                        index + 1,
+                        data.created_at,
+                        data.name,
+                        d_type,
+                        data.consignee_name,
+                        parseFloat(data.total_amount).toLocaleString(),
+                        data.SaleOrder,
+                        status_value,
+                        message,
+                        data.city,
+                        data.province,
+                        data.region,
+                        parseFloat(payableAmount)
+                        .toLocaleString(), // Use payableAmount here
+                        '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
+                        data.id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
+                        track,
+                    ]).draw();
+                })
+
+                .catch(error => {
+                    console.error("Error:", error);
+                    // Handle error
+                });
+
             if (data.delivered_status === '0') {
                 pendingCount_order++;
             } else if (data.delivered_status === '1') {
@@ -2143,51 +2252,51 @@
         chart_datas(filteredData, 'tm_chart', 'asm', 'TM')
 
 
-        var filteredTaskData = task_data.filter(function(item) {
-            // return selectedCity.includes(item.city);
-            return (
-                (selectedCity.length === 0 || selectedCity.includes(item.city)) &&
-                (selectedProvince.length === 0 || selectedProvince.includes(item.province)) &&
-                (regions.length === 0 || regions.includes(item.region)) &&
-                (terri.length === 0 || terri.includes(item.district)) &&
-                (rm_counts.length === 0 || rm_counts.includes(item.tm)) &&
-                (tm_counts.length === 0 || tm_counts.includes(item.asm))
-            );
-        });
+        // var filteredTaskData = task_data.filter(function(item) {
+        //     // return selectedCity.includes(item.city);
+        //     return (
+        //         (selectedCity.length === 0 || selectedCity.includes(item.city)) &&
+        //         (selectedProvince.length === 0 || selectedProvince.includes(item.province)) &&
+        //         (regions.length === 0 || regions.includes(item.region)) &&
+        //         (terri.length === 0 || terri.includes(item.district)) &&
+        //         (rm_counts.length === 0 || rm_counts.includes(item.tm)) &&
+        //         (tm_counts.length === 0 || tm_counts.includes(item.asm))
+        //     );
+        // });
 
-        $('#task_count').html(filteredTaskData.length);
-        task_table.clear().draw();
-        $.each(filteredTaskData, function(index, data) {
-            task_table.row.add([
-                index + 1,
-                data.user_name,
-                data.dealer_name,
-                data.time,
-                (data.status === 1) ? 'Complete' : 'Pending',
-                data.description,
-                data.task_create_time,
+        // $('#task_count').html(filteredTaskData.length);
+        // task_table.clear().draw();
+        // $.each(filteredTaskData, function(index, data) {
+        //     task_table.row.add([
+        //         index + 1,
+        //         data.user_name,
+        //         data.dealer_name,
+        //         data.time,
+        //         (data.status === 1) ? 'Complete' : 'Pending',
+        //         data.description,
+        //         data.task_create_time,
 
-            ]).draw(false);
-        });
+        //     ]).draw(false);
+        // });
 
-        var pendingCount = 0;
-        var completeCount = 0;
+        // var pendingCount = 0;
+        // var completeCount = 0;
 
-        // Loop through the array and count Pending and Complete records
-        $.each(filteredTaskData, function(index, record) {
-            if (record.current_status === 'Pending') {
-                pendingCount++;
-            } else if (record.current_status === 'Complete') {
-                completeCount++;
-            }
-        });
+        // // Loop through the array and count Pending and Complete records
+        // $.each(filteredTaskData, function(index, record) {
+        //     if (record.current_status === 'Pending') {
+        //         pendingCount++;
+        //     } else if (record.current_status === 'Complete') {
+        //         completeCount++;
+        //     }
+        // });
 
-        $('#Pending_tasks').text(pendingCount);
-        $('#completed_tasks').text(completeCount);
-        // table.clear().draw();
-        // task_datas(filteredTaskData, 'region_chart', 'user_name', 'Users Task')
-        task_datas(filteredTaskData, 'task_users', 'user_name', 'Users Task')
-        task_datas(filteredTaskData, 'task_status', 'current_status', 'Task Status')
+        // $('#Pending_tasks').text(pendingCount);
+        // $('#completed_tasks').text(completeCount);
+        // // table.clear().draw();
+        // // task_datas(filteredTaskData, 'region_chart', 'user_name', 'Users Task')
+        // task_datas(filteredTaskData, 'task_users', 'user_name', 'Users Task')
+        // task_datas(filteredTaskData, 'task_status', 'current_status', 'Task Status')
 
 
         // Update the DataTable with filtered data
@@ -2797,7 +2906,7 @@
         } else if (user == 'ASM') {
             $('#asm_div').removeClass('d-none')
 
-        }else if (user == 'orders_dealers') {
+        } else if (user == 'orders_dealers') {
             $('#dealers_orders_list').removeClass('d-none')
 
         }
@@ -2841,6 +2950,70 @@
 
         }
 
+    }
+
+    // function amount_payable(salesOrders) {
+    //     if (salesOrders != "") {
+    //         var requestOptions = {
+    //             method: 'GET',
+    //             redirect: 'follow'
+    //         };
+    //         console.log("<?php echo $api_url; ?>get/payment_api/get_InitialSet9.php?key=03201232927&SalesOrder=" + salesOrders + "");
+    //         fetch("<?php echo $api_url; ?>get/payment_api/get_InitialSet9.php?key=03201232927&SalesOrder=" + salesOrders + "", requestOptions)
+    //             .then(response => response.json())
+    //             .then(response => {
+    //                 console.log(response)
+    //                 if (response.length > 0) {
+
+    //                     $.each(response, function (index, data) {
+    //                         console.log(data.CUSTOMER_PAYABLE)
+    //                         // $('#order_sales').text(salesOrders)
+    //                         var amount = data.CUSTOMER_PAYABLE;
+    //                         $('#order_amount_payable').text(parseFloat(amount).toLocaleString())
+
+
+    //                     });
+    //                 }
+    //                 $('#orderSalesAmountModal').modal('show');
+    //             })
+    //             .catch(error => console.log('error', error));
+
+    //     }
+
+    // }
+    function amount_payable(salesOrders) {
+        return new Promise((resolve, reject) => {
+            if (salesOrders != "") {
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
+                // console.log(
+                //     "<?php echo $api_url; ?>get/payment_api/get_InitialSet9.php?key=03201232927&SalesOrder=" +
+                //     salesOrders + "");
+                fetch("<?php echo $api_url; ?>get/payment_api/get_InitialSet9.php?key=03201232927&SalesOrder=" +
+                        salesOrders + "", requestOptions)
+                    .then(response => response.json())
+                    .then(response => {
+                        // console.log(response)
+                        if (response.length > 0) {
+                            var amounts = response.map(data => data.CUSTOMER_PAYABLE);
+                            var totalAmount = amounts.reduce((total, amount) => total + parseFloat(amount),
+                                0);
+                            // $('#orderSalesAmountModal').modal('show');
+                            resolve(totalAmount);
+                        } else {
+                            reject("No data found for the given sales order.");
+                        }
+                    })
+                    .catch(error => {
+                        console.log('error', error);
+                        reject(error);
+                    });
+            } else {
+                // reject("Invalid sales order.");
+            }
+        });
     }
     </script>
 </body>
