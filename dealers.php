@@ -189,7 +189,7 @@ dea<?php include 'session/session_input.php'; ?>
                                         <th class="text-center">S.No</th>
                                         <th class="text-center">Name</th>
                                         <th class="text-center">Sap</th>
-                                        <th class="text-center">Email</th>
+                                        <!-- <th class="text-center">Email</th> -->
                                         <th class="text-center">Contact</th>
                                         <th class="text-center">Password</th>
                                         <!-- <th class="text-center">Indent Price (PMG)</th>
@@ -925,7 +925,7 @@ dea<?php include 'session/session_input.php'; ?>
                             index + 1,
                             data.name,
                             data.sap_no,
-                            data.email,
+                            // data.email,
                             data.contact,
                             '********',
                             data.acount,
