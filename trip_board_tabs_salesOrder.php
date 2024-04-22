@@ -95,13 +95,14 @@ foreach ($array as $category) {
                                 <th>Order Sap</th>
                                 <th>Material</th>
                                 <th>QTY</th>
-                                <th>price</th>
-                                <th>Status</th>
+                                <th>Order Amount</th>
+                                <th>Trip Status</th>
                                 <th>Map</th>
                                 <th>Distance</th>
                                 <th>Active Time</th>
                                 <th>ETA</th>
                                 <th>Close Time</th>
+                                <th>Completion Duration</th>
                             </tr>
                         </thead>
                         <tbody>';
@@ -128,23 +129,38 @@ foreach ($array as $category) {
                 $current_status + '</span>';
         } else if ($salesapstatus == 1) {
             $status_value =
-                '<span  class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">'.$current_status.'</span>';
+                '<span  class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">' . $current_status . '</span>';
         } else if ($salesapstatus == 2) {
-            $status_value = '<span  class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">'.$current_status.'</span>';
+            $status_value = '<span  class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">' . $current_status . '</span>';
         }
+        $completeTimeStr = $product["close_time"];
+        $lastVisitDateStr = $product["active_time"];
+
+        // Create DateTime objects from the date-time strings
+        $completeTime = new DateTime($completeTimeStr);
+
+        // Last Visit Date
+        $lastVisitDate = new DateTime($lastVisitDateStr);
+        
+        // Calculate the difference
+        $difference = $completeTime->diff($lastVisitDate);
+        
+        // Format the difference
+        $formattedDifference = $difference->format('%h:%i:%s');
         $product_html .= '<tr style="background-color:#FFF">
                                 <td class="text-center">' . $product["name"] . '</td>
                                 <td>' . $product["dealer_sap"] . '</td>
                                 <td>' . $product["salesapNo"] . '</td>
                                 <td>' . $product["product_name"] . '</td>
                                 <td>' . $product["qty"] . '</td>
-                                <td>' . $product["price"] . '</td>
+                                <td>' . number_format($product["price"], 2, '.', ',') . '</td>
                                 <td>' . $status_value . '</td>
                                 <td>' . $status_btn . '</td>
-                                <td>' . $product["distance"] . '</td>
+                                <td>' . round($product["distance"]) . '</td>
                                 <td>' . $product["active_time"] . '</td>
                                 <td>' . $product["eta"] . '</td>
-                                <td>' . $product["close_time"] . '</td>'
+                                <td>' . $product["close_time"] . '</td>
+                                <td>' . $formattedDifference . '</td>'
         ;
     }
 

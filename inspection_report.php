@@ -9,7 +9,7 @@
 
     <meta charset="utf-8" />
     <title>
-        Users |
+        Visits |
         <?php echo $_SESSION['user_name']; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,6 +78,30 @@
         <!-- ============================================================== -->
         <div class="main-content">
             <div class="page-content">
+            <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="inputEmail4">From</label>
+
+                            <input type="date" class="form-control" name="fromdate" id="fromdate"
+                                value="<?php echo date('Y-m-01') ?>">
+
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputEmail4">To</label>
+
+                            <input type="date" class="form-control" name="todate" id="todate"
+                                value="<?php echo date('Y-m-30') ?>">
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <input type="btn" class="btn btn-primary mt-3" name="btn_get" id="btn_get" value="Get"
+                                onclick="fetchtable()">
+
+                        </div>
+                    </div>
+                </div>
                 <div class="container-fluid">
                     <!-- <div class="row">
 
@@ -94,14 +118,15 @@
 
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
-                                   
+
                                     <tr>
                                         <th class="text-center">S.No</th>
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Complete Time</th>
+                                        <th class="text-center">Dealer Sign</th>
                                         <th class="text-center">User</th>
                                         <th class="text-center">Dealer</th>
-                                        <th class="text-center">Type</th>
+                                        <th class="text-center">Mode</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Inspection</th>
                                         <th class="text-center">Sales Performance</th>
@@ -112,7 +137,7 @@
                                         <th class="text-center">Stock Variaions</th>
 
                                     </tr>
-                                    
+
                                 </thead>
                                 <tbody>
                                 </tbody>
@@ -159,20 +184,23 @@
 
                                 </div>
                                 <div class="col-md-12">
-                                    Date : <span id="survey_time"></span>
+                                    Planned Date : <span id="survey_time"></span>
                                 </div>
                                 <div class="col-md-12">
-                                    Complete Time : <span id="survey_complete_time"></span>
+                                    Completion Date : <span id="survey_complete_time"></span>
                                 </div>
-                                
+                                <div id='last_recon'>
+
+                                </div>
+
                                 <div class="col-md-12">
                                     Site Name : <span id="survey_dealer_name"></span>
                                 </div>
                                 <div class="col-md-12">
-                                Inspector Name : <span id="survey_ispector_name"></span>
+                                    TM Name : <span id="survey_ispector_name"></span>
                                 </div>
-                                <div class="col-md-12">
-                                Inspection Type : <span id="survey_type"></span>
+                                <div class="col-md-12 d-none">
+                                    Planned Type : <span id="survey_type"></span>
                                 </div>
                             </div>
                             <div class="row" id="survey-container">
@@ -354,7 +382,7 @@
                                 <div class="col-md-12">
                                     Time : <span id="survey_time_stock_variation"></span>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     Site Name : <span id="survey_dealer_name_stock_variation"></span>
                                 </div>
@@ -625,9 +653,9 @@
 
         });
         fetchtable();
-        var names = <?php echo isset ($_GET['name']) ? 'true' : 'false'; ?>;
+        var names = <?php echo isset($_GET['name']) ? 'true' : 'false'; ?>;
         if (names) {
-            var usersnames = <?php echo isset ($_GET['name']) ? json_encode($_GET['name']) : 'null'; ?>;
+            var usersnames = <?php echo isset($_GET['name']) ? json_encode($_GET['name']) : 'null'; ?>;
             // alert(usersnames);
             lubes_table.search(usersnames).draw();
         }
@@ -843,7 +871,7 @@
 
     }
 
-    function get_tas_sales_data(task_id, dealer_id, dealer_name,isp_date,comp_date,username,type) {
+    function get_tas_sales_data(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type) {
         // Clear existing content
         // $('#survey-container').empty();
         var currentDate = new Date();
@@ -944,7 +972,7 @@
 
     }
 
-    function get_task_wet_stock(task_id, dealer_id, dealer_name,isp_date,comp_date,username,type) {
+    function get_task_wet_stock(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type) {
         // Clear existing content
         // $('#survey-container').empty();
         var currentDate = new Date();
@@ -979,6 +1007,8 @@
                     var t1_4 = result.length > 1 ? result[3] : null;
                     var sumPMG = 0;
                     var sumHSD = 0;
+                    var limitPMG = 0;
+                    var limitHSD = 0;
 
                     // Iterate through the JSON data
                     $.each(result, function(index, item) {
@@ -996,11 +1026,15 @@
                     console.log("Sum of HSD: ", sumHSD);
                     var PMGArray = [];
                     var HSDArray = [];
+                    var PMGArraylimit = [];
+                    var HSDArraylimit = [];
 
                     // Initialize arrays with empty strings
                     for (var i = 0; i < 4; i++) {
                         PMGArray.push('---');
                         HSDArray.push('---');
+                        PMGArraylimit.push('---');
+                        HSDArraylimit.push('---');
                     }
 
                     // Iterate through the JSON data
@@ -1012,9 +1046,12 @@
                         if (item.name === "PMG") {
                             PMGArray[index] = difference
                                 .toLocaleString(); // Convert to string to keep consistency with empty strings
+                            PMGArraylimit[index] = item.max_limit;
                         } else if (item.name === "HSD") {
                             HSDArray[index] = difference
                                 .toLocaleString(); // Convert to string to keep consistency with empty strings
+                            HSDArraylimit[index] = item.max_limit;
+
                         }
                     });
 
@@ -1026,22 +1063,53 @@
                     <tr>
                         <th>Date</th>
                         <th>Product</th>
-                        <th>${t1_1 ? t1_1.lorry_no : '---'}</th>
-                        <th>${t1_2 ? t1_2.lorry_no : '---'}</th>
-                        <th>${t1_3 ? t1_3.lorry_no : '---'}</th>
-                        <th>${t1_4 ? t1_4.lorry_no : '---'}</th>
+                        <th>Tank-1</th>
+                        <th>Tank-2</th>
+                        <th>Tank-3</th>
+                        <th>Tank-4</th>
                     </tr>
                     <tr>
                         <td>${t1_1 ? t1_1.created_at : '---'}</td>
                         <th>PMG</th>
+                        <td>${PMGArraylimit[0]}</td>
+                        <td>${PMGArraylimit[1]}</td>
+                        <td>${PMGArraylimit[2]}</td>
+                        <td>${PMGArraylimit[3]}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <th>HSD</th>
+                        <td>${HSDArraylimit[0]}</td>
+                        <td>${HSDArraylimit[1]}</td>
+                        <td>${HSDArraylimit[2]}</td>
+                        <td>${HSDArraylimit[3]}</td>
+                    </tr>
+                   
+                    
+                   
+                   
+                </table>
+                <h6>Total Stock available</h6>
+                <table class="dynamic_table" style="width:100%">
+                <tr>
+                        <th>Product</th>
+                        <th>SUM</th>
+                        <th>Tank-1</th>
+                        <th>Tank-2</th>
+                        <th>Tank-3</th>
+                        <th>Tank-4</th>
+                    </tr>
+                    <tr>
+                        <td>PMG</td>
+                        <td>${PMGArray[0]}</td>
                         <td>${PMGArray[0]}</td>
                         <td>${PMGArray[1]}</td>
                         <td>${PMGArray[2]}</td>
                         <td>${PMGArray[3]}</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <th>HSD</th>
+                        <td>HSD</td>
+                        <td>${HSDArray[0]}</td>
                         <td>${HSDArray[0]}</td>
                         <td>${HSDArray[1]}</td>
                         <td>${HSDArray[2]}</td>
@@ -1052,24 +1120,7 @@
                    
                    
                 </table>
-                <h6>Total Stock available</h6>
-                        <table class="dynamic_table" style="width:100%">
-                    <tr>
-                        <th>PMG</th>
-                        <td>${sumPMG.toLocaleString()}</td>
-                        
-                    </tr>
-                    <tr>
-                        <th>HSD</th>
-                        <td>${sumHSD.toLocaleString()}</td>
-                        
-                    </tr>
-                   
-                   
-                    
-                   
-                   
-                </table>`;
+               `;
 
                     $('#survey-container').append(table);
 
@@ -1097,11 +1148,13 @@
 
     }
 
-    function get_task_despensing_unit(task_id, dealer_id, dealer_name,isp_date,comp_date,username,type) {
+
+    function get_task_despensing_unit(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
+        last_visit_id) {
         // Clear existing content
         // $('#survey-container').empty();
         var currentDate = new Date();
-
+        // alert(last_visit_id)
         // Format the date as needed
         var formattedDate = currentDate.toLocaleString();
         $('#labelc').text('Dispensing Unit Meter Reading');
@@ -1111,6 +1164,61 @@
         $('#survey_dealer_name').text(dealer_name);
         $('#survey_ispector_name').text(username);
         $('#survey_type').text(type);
+
+
+        $('#last_recon').empty();
+
+        const requestOptions1 = {
+            method: "GET",
+            redirect: "follow"
+        };
+
+        fetch("<?php echo $api_url; ?>get/inspection/get_second_last_visit_recon.php?key=03201232927&id=" +
+                last_visit_id + "",
+                requestOptions1)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(result)
+                if (result.length > 0) {
+
+                    var last_time = result[0]['created_at'];
+
+
+
+                    var completeTimeStr = comp_date;
+                    var lastVisitDateStr = last_time;
+
+                    // Parse the date-time strings into Date objects
+                    var completeTime = new Date(completeTimeStr);
+                    var lastVisitDate = new Date(lastVisitDateStr);
+
+                    // Calculate the difference in milliseconds
+                    var differenceMs = completeTime - lastVisitDate;
+
+                    // Convert milliseconds to days
+                    var differenceDays = differenceMs / (1000 * 60 * 60 * 24);
+
+                    // Round the difference to get whole days
+                    differenceDays = Math.round(differenceDays);
+                    var divs = `<div class="col-md-12">
+                                    Last Visit Date : <span id="">${last_time}</span>
+                                </div>
+                                <div class="col-md-12">
+                                    Days Since Last Visit : <span id="">${differenceDays}</span>
+                                </div>`;
+                    $('#last_recon').append(divs);
+
+                    // alert(result[0]['created_at']);
+                } else {
+                    // alert("First TIme")
+                    var divs = `<div class="col-md-12">
+                                    Last Visit Date : <span id="">First Time</span>
+                                </div>`;
+
+                    $('#last_recon').append(divs);
+                }
+            })
+            .catch((error) => console.error(error));
 
         $('#survey-container').empty();
         var requestOptions = {
@@ -1235,27 +1343,27 @@
                     <tr>
                         <th>Date - P</th>
                         <th></th>
-                        <td>${HSDArray[0] != '---' ?  parseFloat(HSDArray[0].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[1] != '---' ?  parseFloat(HSDArray[1].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[2] != '---' ?  parseFloat(HSDArray[2].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[3] != '---' ?  parseFloat(HSDArray[3].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[4] != '---' ?  parseFloat(HSDArray[4].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[5] != '---' ?  parseFloat(HSDArray[5].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[6] != '---' ?  parseFloat(HSDArray[6].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[7] != '---' ?  parseFloat(HSDArray[7].new_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[0] != '---' ? parseFloat(HSDArray[0].new_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[1] != '---' ? parseFloat(HSDArray[1].new_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[2] != '---' ? parseFloat(HSDArray[2].new_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[3] != '---' ? parseFloat(HSDArray[3].new_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[4] != '---' ? parseFloat(HSDArray[4].new_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[5] != '---' ? parseFloat(HSDArray[5].new_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[6] != '---' ? parseFloat(HSDArray[6].new_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[7] != '---' ? parseFloat(HSDArray[7].new_reading).toLocaleString() : '---'}</td>
 
                     </tr>
                     <tr>
                         <th>Date - L</th>
                         <th></th>
-                        <td>${HSDArray[0] != '---' ?  parseFloat(HSDArray[0].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[1] != '---' ?  parseFloat(HSDArray[1].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[2] != '---' ?  parseFloat(HSDArray[2].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[3] != '---' ?  parseFloat(HSDArray[3].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[4] != '---' ?  parseFloat(HSDArray[4].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[5] != '---' ?  parseFloat(HSDArray[5].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[6] != '---' ?  parseFloat(HSDArray[6].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[7] != '---' ?  parseFloat(HSDArray[7].old_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[0] != '---' ? parseFloat(HSDArray[0].old_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[1] != '---' ? parseFloat(HSDArray[1].old_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[2] != '---' ? parseFloat(HSDArray[2].old_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[3] != '---' ? parseFloat(HSDArray[3].old_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[4] != '---' ? parseFloat(HSDArray[4].old_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[5] != '---' ? parseFloat(HSDArray[5].old_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[6] != '---' ? parseFloat(HSDArray[6].old_reading).toLocaleString() : '---'}</td>
+                        <td>${HSDArray[7] != '---' ? parseFloat(HSDArray[7].old_reading).toLocaleString() : '---'}</td>
 
                     </tr>
                     <tr>
@@ -1285,7 +1393,7 @@
 
     }
 
-    function get_task_stock_variations(task_id, dealer_id, dealer_name,isp_date,comp_date,username,type) {
+    function get_task_stock_variations(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type) {
         // Clear existing content
         var currentDate = new Date();
 
@@ -1380,12 +1488,13 @@
     }
 
     function fetchtable() {
-
+        var fromdate = $('#fromdate').val();
+        var todate = $('#todate').val();
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
         };
-        fetch("<?php echo $api_url; ?>get/get_all_dealers_inspection_report_data.php?key=03201232927",
+        fetch("<?php echo $api_url; ?>get/get_all_dealers_inspection_report_data.php?key=03201232927&from=" +fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -1408,27 +1517,36 @@
                             '<button type="button"  class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle text-danger"></i></button>';
                     }
 
-                    var inspection_btn = '<button type="button"  onclick="displaySurvey(' + data.id +',' +data.id + ',' + data.dealer_id + ', \'' + data.dealer_name +'\',\'' + data.time +'\',\'' + data.visit_close_time +'\',\'' + data.name +'\',\'' + data.type +'\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                    var inspection_btn = '<button type="button"  onclick="displaySurvey(' + data.id + ',' +
+                        data.id + ',' + data.dealer_id + ', \'' + data.dealer_name + '\',\'' + data.time +
+                        '\',\'' + data.visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
+                        '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                     var inpection = (data.inspection == 1) ? inspection_btn : "---";
 
                     var sales_performace_btn = '<button type="button" onclick="get_tas_sales_data(' +
                         data
                         .id + ',' + data
                         .dealer_id + ', \'' + data.dealer_name +
-                        '\',\'' + data.time +'\',\'' + data.visit_close_time +'\',\'' + data.name +'\',\'' + data.type +'\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                        '\',\'' + data.type +
+                        '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                     var sales_performance = (data.sales_status == 1) ? sales_performace_btn : "---";
 
                     var measurement_btn = '<button type="button" onclick="measure_price(' +
                         data
                         .id + ',' + data.id + ',' + data.dealer_id + ', \'' + data.dealer_name +
-                        '\',\'' + data.time +'\',\'' + data.visit_close_time +'\',\'' + data.name +'\',\'' + data.type +'\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                        '\',\'' + data.type +
+                        '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                     var measurements = (data.measurement_status == 1) ? measurement_btn : "---";
 
                     var wet_stock_btn = '<button type="button"  onclick="get_task_wet_stock(' + data
                         .id +
                         ',' + data
                         .dealer_id + ', \'' + data.dealer_name +
-                        '\',\'' + data.time +'\',\'' + data.visit_close_time +'\',\'' + data.name +'\',\'' + data.type +'\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                        '\',\'' + data.type +
+                        '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                     var wet_stocks = (data.wet_stock_status == 1) ? wet_stock_btn : "---";
 
                     var dispensing_unit_btn =
@@ -1436,23 +1554,32 @@
                         data.id +
                         ',' +
                         data.dealer_id + ', \'' + data.dealer_name +
-                        '\',\'' + data.time +'\',\'' + data.visit_close_time +'\',\'' + data.name +'\',\'' + data.type +'\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                        '\',\'' + data.type +
+                        '\',' + data.last_visit_id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                     var dispensing_units = (data.dispensing_status == 1) ? dispensing_unit_btn : "---";
 
                     var stock_variatins_btn =
                         '<button type="button"  onclick="get_task_stock_variations(' +
                         data.id +
                         ',' +
-                        data.dealer_id + ', \'' + data.dealer_name +'\',\'' + data.time +'\',\'' + data.visit_close_time +'\',\'' + data.name +'\',\'' + data.type +'\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        data.dealer_id + ', \'' + data.dealer_name + '\',\'' + data.time + '\',\'' + data
+                        .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
+                        '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                     var stock_variations = (data.stock_variations_status == 1) ? stock_variatins_btn :
                         "---";
-
+                    var dealer_sign = (data.dealer_sign != null) ?
+                        '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
+                        '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
+                        "---";
                     lubes_table.row.add([
 
 
                         index + 1,
                         data.time,
                         data.visit_close_time,
+                        dealer_sign,
                         data.name,
                         data.dealer_name,
                         data.type,
@@ -1494,7 +1621,7 @@
 
     }
 
-    function displaySurvey(id, inspection_id, dealer_id, dealer_name,isp_date,comp_date,username,type) {
+    function displaySurvey(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type) {
         // Clear existing content
         // alert(dealer_name);
         var currentDate = new Date();
@@ -1659,7 +1786,7 @@
         $('#survey_modal').modal('show');
     }
 
-    function measure_price(id, inspection_id, dealer_id, dealer_name,isp_date,comp_date,username,type) {
+    function measure_price(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type) {
         // Clear existing content
         var currentDate = new Date();
 

@@ -575,7 +575,7 @@
                                                                 <th class="text-center">S.No</th>
                                                                 <th class="text-center">Date</th>
                                                                 <th class="text-center">Site Name</th>
-                                                                <th class="text-center">Type</th>
+                                                                <th class="text-center">Mode</th>
                                                                 <th class="text-center">Depot</th>
                                                                 <th class="text-center">Total Amount</th>
                                                                 <!-- <th class="text-center">Ledger Amount</th> -->
@@ -724,9 +724,10 @@
                                                                 <th class="text-center">S.No</th>
                                                                 <th class="text-center">Date</th>
                                                                 <th class="text-center">Complete Time</th>
+                                                                <th class="text-center">Dealer Sign</th>
                                                                 <th class="text-center">User</th>
                                                                 <th class="text-center">Dealer</th>
-                                                                <th class="text-center">Type</th>
+                                                                <th class="text-center">Mode</th>
                                                                 <th class="text-center">Status</th>
                                                                 <th class="text-center">Inspection</th>
                                                                 <th class="text-center">Sales Performance</th>
@@ -1975,7 +1976,7 @@
                                                 <th class="text-center">Date</th>
                                                 <th class="text-center">Site Name</th>
                                                 <!-- <th class="text-center">Customer</th>
-                                        <th class="text-center">SAP Code</th> -->
+                                                <th class="text-center">SAP Code</th> -->
                                                 <th class="text-center">Product Type</th>
                                                 <th class="text-center">Rate</th>
                                                 <th class="text-center">Qty(Ltr)</th>
@@ -2793,6 +2794,9 @@ function dealers_visits() {
                     '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                 var stock_variations = (data.stock_variations_status == 1) ? stock_variatins_btn :
                     "---";
+                    var dealer_sign = (data.dealer_sign != null) ? '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
+                        '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
+                    "---";
 
                 lubes_table.row.add([
 
@@ -2800,6 +2804,7 @@ function dealers_visits() {
                     index + 1,
                         data.time,
                         data.visit_close_time,
+                        dealer_sign,
                         data.name,
                         data.dealer_name,
                     data.type,

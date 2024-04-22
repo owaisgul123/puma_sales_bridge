@@ -210,7 +210,7 @@
                             <select data-live-search="true" class="form-control selectpicker" id="task_status_select"
                                 name="task_status_select" required multiple>
                                 <option value="Pending">Pending</option>
-                                <option value="Late">Late</option>
+                                <option value="Overdue">Overdue</option>
                                 <option value="Upcoming">Upcoming</option>
                                 <option value="Complete">Complete</option>
 
@@ -295,9 +295,9 @@
                                                     <small> Complete</small> : <span id="completed_tasks"
                                                         class="text-success">0</span>
                                                 </h6>
-                                                <h6 onclick="check_task_status('Late')" class="mb-0 font-size-12"
+                                                <h6 onclick="check_task_status('Overdue')" class="mb-0 font-size-12"
                                                     style="cursor: pointer">
-                                                    <small> Late</small> : <span id="late_tasks"
+                                                    <small> Overdue</small> : <span id="late_tasks"
                                                         class="text-danger">0</span>
                                                 </h6>
                                                 <h6 onclick="check_task_status('Upcoming')" class="mb-0 font-size-12"
@@ -450,7 +450,7 @@
 
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 ">
                             <div class="card">
                                 <div class="card-body">
                                     <canvas id="tm_chart"></canvas>
@@ -464,7 +464,7 @@
                     </div>
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="card">
                                 <div class="card-body" style="height: 350px;">
                                     <strong>Task</strong>
@@ -475,7 +475,7 @@
 
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="card">
                                 <div class="card-body" style="height: 350px;">
                                     <strong>Visits Status</strong>
@@ -496,7 +496,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">S.No</th>
-                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Site Name</th>
                                         <th class="text-center">SAP #</th>
                                         <th class="text-center">Is Verified </th>
                                         <th class="text-center">TM</th>
@@ -694,7 +694,7 @@
                                                                         <th class="text-center">Privilege</th>
                                                                         <th class="text-center">Pending
                                                                         </th>
-                                                                        <th class="text-center">Late
+                                                                        <th class="text-center">Overdue
                                                                         </th>
                                                                         <th class="text-center">Upcoming
                                                                         </th>
@@ -1537,7 +1537,7 @@
                         pendingCount++;
                     } else if (record.current_status === 'Complete') {
                         completeCount++;
-                    } else if (record.current_status === 'Late') {
+                    } else if (record.current_status === 'Overdue') {
                         lateCount++;
                     } else if (record.current_status === 'Upcoming') {
                         upcomingCount++;
@@ -1561,6 +1561,7 @@
                 requestOptions)
             .then(response => response.json())
             .then(response => {
+                users_tasking.clear().draw();
 
                 $('#vistes_users').html(response.length);
                 $.each(response, function(index, data) {
@@ -1573,7 +1574,7 @@
                     //     '<div class="container-fluid">' +
                     //     '<div class="row">' +
                     //     '<div class="col-md-3"><small>Pending : ' + data.sum_pending + '</small></div>' +
-                    //     '<div class="col-md-3"><small>Late : ' + data.sum_Late + '</small> </div>' +
+                    //     '<div class="col-md-3"><small>Overdue : ' + data.sum_Late + '</small> </div>' +
                     //     '<div class="col-md-3"><small>Upcoming : ' + data.sum_Upcoming + '</small></div>' +
                     //     '<div class="col-md-3"><small>Complete : ' + data.sum_Complete + ' </small></div>' +
                     //     '</div>' +
@@ -1585,21 +1586,21 @@
                     // Append the HTML content to the container
                     // $('#liat_vist_users').append(htmlContent);
                     var lang = data.privilege;
-                        if (lang == 'ZM') {
-                            lang = 'GRM';
-                        } else if (lang == 'TM') {
-                            lang = 'RM';
+                    if (lang == 'ZM') {
+                        lang = 'GRM';
+                    } else if (lang == 'TM') {
+                        lang = 'RM';
 
-                        } else if (lang == 'Admin') {
-                            lang = 'Admin';
+                    } else if (lang == 'Admin') {
+                        lang = 'Admin';
 
-                        }else if (lang == 'ASM') {
-                            lang = 'TM';
+                    } else if (lang == 'ASM') {
+                        lang = 'TM';
 
-                        } else {
-                            lang = data.privilege;
+                    } else {
+                        lang = data.privilege;
 
-                        }
+                    }
                     users_tasking.row.add([
                         index + 1,
                         (data.user_name),
@@ -2116,7 +2117,7 @@
                 pendingCount++;
             } else if (record.current_status === 'Complete') {
                 completeCount++;
-            } else if (record.current_status === 'Late') {
+            } else if (record.current_status === 'Overdue') {
                 lateCount++;
             } else if (record.current_status === 'Upcoming') {
                 upcomingCount++;
@@ -2669,7 +2670,7 @@
                 pendingCount++;
             } else if (record.current_status === 'Complete') {
                 completeCount++;
-            } else if (record.current_status === 'Late') {
+            } else if (record.current_status === 'Overdue') {
                 lateCount++;
             } else if (record.current_status === 'Upcoming') {
                 upcomingCount++;

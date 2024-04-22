@@ -1,4 +1,5 @@
-dea<?php include 'session/session_input.php'; ?>
+dea
+<?php include 'session/session_input.php'; ?>
 <!doctype html>
 <html lang="en">
 
@@ -187,15 +188,15 @@ dea<?php include 'session/session_input.php'; ?>
                                 <thead>
                                     <tr>
                                         <th class="text-center">S.No</th>
-                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Site Name</th>
                                         <th class="text-center">Sap</th>
                                         <!-- <th class="text-center">Email</th> -->
-                                        <th class="text-center">Contact</th>
-                                        <th class="text-center">Password</th>
+                                        <th class="text-center">Cell No</th>
+                                        <!-- <th class="text-center">Password</th> -->
                                         <!-- <th class="text-center">Indent Price (PMG)</th>
                                         <th class="text-center">Nozzle Price (PMG)</th> -->
                                         <th class="text-center">Ledger Balance</th>
-                                        <th class="text-center">GRM</th>
+                                        <!-- <th class="text-center">GRM</th> -->
                                         <th class="text-center">RM</th>
                                         <th class="text-center">TM</th>
                                         <th class="text-center">Verify</th>
@@ -923,13 +924,13 @@ dea<?php include 'session/session_input.php'; ?>
                         var encryptedId = encryptId(originalId, key, iv);
                         table.row.add([
                             index + 1,
-                            data.name,
+                            capitalizeFirstLetter(data.name),
                             data.sap_no,
                             // data.email,
                             data.contact,
-                            '********',
-                            data.acount,
-                            data.zm_name,
+                            // '********',
+                            parseFloat(data.acount).toLocaleString(),
+                            // data.zm_name,
                             data.tm_name,
                             data.asm_name,
                             '<label class="switch"><input type="checkbox" id="checkbox" onclick="check(' + data.id + ')" ' +
@@ -1034,6 +1035,9 @@ dea<?php include 'session/session_input.php'; ?>
             });
 
 
+        }
+        function capitalizeFirstLetter(str) {
+            return str.toLowerCase().replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
         }
 
         function check(id) {

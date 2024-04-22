@@ -228,7 +228,7 @@
                                             <div class="flex-grow-1 ms-3">
                                                 <h6 class="mb-0 font-size-15"><small> Invoiced </small>: <span
                                                         id="Pending_orders">0</span> </h6>
-                                                <h6 class="mb-0 font-size-15"><small> Scheduled</small> : <span
+                                                <h6 class="mb-0 font-size-15 "><small> Scheduled</small> : <span
                                                         id="completed_orders">0</span> </h6>
                                                 <h6 onclick="getting_listing('orders_dealers')"
                                                     class="mb-0 font-size-12 " style="cursor: pointer"><small> Dealers
@@ -452,7 +452,7 @@
                                         <th class="text-center">S.No</th>
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Site Name</th>
-                                        <th class="text-center">Type</th>
+                                        <th class="text-center">Mode</th>
                                         <th class="text-center">Depot</th>
                                         <th class="text-center">Total Amount</th>
                                         <!-- <th class="text-center">Ledger Amount</th> -->
@@ -462,7 +462,7 @@
                                         <th class="text-center">City</th>
                                         <th class="text-center">Province</th>
                                         <th class="text-center">Region</th>
-                                        <th class="text-center">Amount Payable</th>
+                                        <th class="text-center">Amount Receivable</th>
                                         <th class="text-center">View Orders</th>
                                         <th class="text-center">Track</th>
 
@@ -1512,9 +1512,10 @@
                             ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
                     }
 
-                    message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
+                    // message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
                     // Initialize variables
                     var track = "";
+                    var message = "";
                     var d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
                     var payableAmount = ''; // Initialize payableAmount variable
 
@@ -1530,6 +1531,14 @@
                     } else {
                         // If data.is_tracker is not 1, display ----
                         track = "----";
+                    }
+
+                    if (parseInt(data.delivered_status) === 1) {
+                        // If data.is_tracker is 1, generate track link
+                        message = "Invoiced";
+                    } else {
+                        // If data.is_tracker is not 1, display ----
+                        message = "Scheduled";
                     }
 
                     // Call amount_payable function
@@ -1567,9 +1576,9 @@
                         });
 
 
-                    if (data.delivered_status === '0') {
+                    if (data.delivered_status == '0') {
                         pendingCount_order++;
-                    } else if (data.delivered_status === '1') {
+                    } else if (data.delivered_status == '1') {
                         completeCount_order++;
                     }
                 });
@@ -2186,9 +2195,9 @@
                     // Handle error
                 });
 
-            if (data.delivered_status === '0') {
+            if (data.delivered_status == '0') {
                 pendingCount_order++;
-            } else if (data.delivered_status === '1') {
+            } else if (data.delivered_status == '1') {
                 completeCount_order++;
             }
         });

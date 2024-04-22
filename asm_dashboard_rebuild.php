@@ -216,7 +216,7 @@
                             <select data-live-search="true" class="form-control selectpicker" id="task_status_select"
                                 name="task_status_select" required multiple>
                                 <option value="Pending">Pending</option>
-                                <option value="Late">Late</option>
+                                <option value="Overdue">Overdue</option>
                                 <option value="Upcoming">Upcoming</option>
                                 <option value="Complete">Complete</option>
 
@@ -301,9 +301,9 @@
                                                     <small> Complete</small> : <span id="completed_tasks"
                                                         class="text-success">0</span>
                                                 </h6>
-                                                <h6 onclick="check_task_status('Late')" class="mb-0 font-size-12"
+                                                <h6 onclick="check_task_status('Overdue')" class="mb-0 font-size-12"
                                                     style="cursor: pointer">
-                                                    <small> Late</small> : <span id="late_tasks"
+                                                    <small> Overdue</small> : <span id="late_tasks"
                                                         class="text-danger">0</span>
                                                 </h6>
                                                 <h6 onclick="check_task_status('Upcoming')" class="mb-0 font-size-12"
@@ -503,7 +503,7 @@
                         </div>
 
                     </div>
-                    <div class="row">
+                    <div class="row d-none">
 
                         <div class="col-md-6">
                             <div class="card">
@@ -601,7 +601,7 @@
                                                 <th class="text-center">Date</th>
                                                 <th class="text-center">Site Name</th>
                                                 <th class="text-center">Username</th>
-                                                <th class="text-center">Type</th>
+                                                <th class="text-center">Mode</th>
                                                 <th class="text-center">Depot</th>
                                                 <th class="text-center">Total Amount</th>
                                                 <!-- <th class="text-center">Ledger Amount</th> -->
@@ -1668,7 +1668,8 @@
                 $.each(response, function(index, data) {
                     task_table.row.add([
                         index + 1,
-                        '<a href="inspection_report.php?name='+data.user_name+'" target="_blank">'+data.user_name+'</a>',
+                        '<a href="inspection_report.php?name=' + data.user_name +
+                        '" target="_blank">' + data.user_name + '</a>',
                         data.dealer_name,
                         data.time,
                         data.visit_close_time,
@@ -1712,7 +1713,7 @@
                         pendingCount++;
                     } else if (record.current_status === 'Complete') {
                         completeCount++;
-                    } else if (record.current_status === 'Late') {
+                    } else if (record.current_status === 'Overdue') {
                         lateCount++;
                     } else if (record.current_status === 'Upcoming') {
                         upcomingCount++;
@@ -1748,7 +1749,7 @@
                         '<div class="container-fluid">' +
                         '<div class="row">' +
                         '<div class="col-md-3"><small>Pending : ' + data.sum_pending + '</small></div>' +
-                        '<div class="col-md-3"><small>Late : ' + data.sum_Late + '</small> </div>' +
+                        '<div class="col-md-3"><small>Overdue : ' + data.sum_Late + '</small> </div>' +
                         '<div class="col-md-3"><small>Upcoming : ' + data.sum_Upcoming + '</small></div>' +
                         '<div class="col-md-3"><small>Complete : ' + data.sum_Complete + ' </small></div>' +
                         '</div>' +
@@ -1768,7 +1769,7 @@
 
             })
             .catch(error => console.log('error', error));
-        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
+        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -2350,7 +2351,8 @@
         $.each(filteredTaskData, function(index, data) {
             task_table.row.add([
                 index + 1,
-                '<a href="inspection_report.php?name='+data.user_name+'" target="_blank">'+data.user_name+'</a>',
+                '<a href="inspection_report.php?name=' + data.user_name + '" target="_blank">' + data
+                .user_name + '</a>',
                 data.dealer_name,
                 data.time,
                 data.visit_close_time,
@@ -2374,7 +2376,7 @@
                 pendingCount++;
             } else if (record.current_status === 'Complete') {
                 completeCount++;
-            } else if (record.current_status === 'Late') {
+            } else if (record.current_status === 'Overdue') {
                 lateCount++;
             } else if (record.current_status === 'Upcoming') {
                 upcomingCount++;
@@ -3072,7 +3074,7 @@
                 pendingCount++;
             } else if (record.current_status === 'Complete') {
                 completeCount++;
-            } else if (record.current_status === 'Late') {
+            } else if (record.current_status === 'Overdue') {
                 lateCount++;
             } else if (record.current_status === 'Upcoming') {
                 upcomingCount++;

@@ -66,7 +66,7 @@
                                         <th class="text-center">S.No</th>
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Site Name</th>
-                                        <th class="text-center">Type</th>
+                                        <th class="text-center">Mode</th>
                                         <!-- <th class="text-center">Depot</th> -->
                                         <th class="text-center">Total Amount</th>
                                         <th class="text-center">Ledger Amount</th>
@@ -79,7 +79,7 @@
                                         <th class="text-center">S.No</th>
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Site Name</th>
-                                        <th class="text-center">Type</th>
+                                        <th class="text-center">Mode</th>
                                         <!-- <th class="text-center">Depot</th> -->
                                         <th class="text-center">Total Amount</th>
                                         <th class="text-center">Ledger Amount</th>
