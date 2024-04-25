@@ -42,43 +42,30 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
                         <!-- <li><a href="users.php" data-key="t-level-1.1"> Users </a></li> -->
-                        <li><a href="tm_dashboard.php?id=<?php echo $_SESSION['user_id'];?>&pre=<?php echo $_SESSION['privilege'];?>" data-key="t-level-1.13"> RM Dashboard</a></li>
+                        <li><a href="tm_dashboard_rebulid.php?id=<?php echo $_SESSION['user_id'];?>&pre=<?php echo $_SESSION['privilege'];?>" data-key="t-level-1.13"> RM Dashboard</a></li>
 
                         <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
-                        <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li>
-                        <li><a href="special_orders.php" data-key="t-level-1.4"> Approved Orders </a></li>
-                        <li><a href="approved_orders.php" data-key="t-level-1.5"> Complete Orders </a></li>
-                        <!-- <li><a href="containers_sizes.php" data-key="t-level-1.10"> Container Sizes </a></li> -->
-                        <!-- <li><a href="nozle.php" data-key="t-level-1.6"> Products Price </a></li> -->
-                        <li><a href="order_report.php" data-key="t-level-1.7"> Order Report </a></li>
-                        <!-- <li><a href="servey_category.php" data-key="t-level-1.8"> Survey Category </a></li>
-                        <li><a href="survey_questions.php" data-key="t-level-1.9"> Survey Questions </a></li> -->
-                        <!-- <li><a href="multiple_task.php" data-key="t-level-1.10"> Visits Task</a></li> -->
-                        <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
-                        <li><a href="dealers_sales_performance.php" data-key="t-level-1.11">Dealers Sales Performance</a></li>
-                        <li><a href="manage_calander.php" data-key="t-level-1.12"> Task Calander</a></li>
-                        <li><a href="dealers_heri.php" data-key="t-level-1.13"> Retail Hierarchy</a></li>
-
-
-                        <li>
+                        
+                          <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
-                                <span class="menu-item" data-key="t-multi-level">Complaint Setup</span>
+                                <span class="menu-item" data-key="t-multi-level">Manage Orders</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="complaint_object_part.php" data-key="t-level-1.1">Object Part</a></li>
-                                <li><a href="complaint_damage_overview.php" data-key="t-level-1.1">Damage Overview</a></li>
+                                <li><a href="orders_dashboard.php" data-key="t-level-1.16"> Order Dashboard</a></li>
+                                <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li>
 
                             </ul>
                         </li>
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
-                                <span class="menu-item" data-key="t-multi-level">Uniform Setup</span>
+                                <span class="menu-item" data-key="t-multi-level">Manage Inspection</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="uniform_grades.php" data-key="t-level-1.1">Grade</a></li>
-                                <!-- <li><a href="complaint_damage_overview.php" data-key="t-level-1.1">Damage Overview</a></li> -->
+                                <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
+                                <li><a href="manage_calander.php" data-key="t-level-1.12"> Task Calander</a></li>
+                                <li><a href="inspection_report_tm.php?id=<?php echo $_SESSION['user_id'];?>" data-key="t-level-1.14">All Inspection</a></li>
 
                             </ul>
                         </li>

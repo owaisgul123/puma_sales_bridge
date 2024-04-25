@@ -100,7 +100,7 @@
 
         <!-- Left Sidebar End -->
         <?php
-        $pre = $_GET['pre'];
+        $pre = $_SESSION['privilege'];
         $disabledAttribute = ($pre == 'ASM') ? 'disabled' : '';
 
         // $disabledAttribute = (strpos($pre, 'TM') === 0) ? 'disabled' : '';
@@ -202,7 +202,7 @@
                             <label for="inputEmail4">TM</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="asm_users"
-                                name="asm_users" required multiple>
+                                name="asm_users" required multiple <?php echo $disabledAttribute; ?>>
                                 <option value="">Select</option>
 
 

@@ -11,10 +11,10 @@ if ($_SESSION['privilege'] == 'Admin') {
     header("Location: $redirectUrl");
 
 } elseif ($_SESSION['privilege'] == 'TM') {
-    $redirectUrl = "tm_dashboard.php?id=$user_id&pre=$privilege";
+    $redirectUrl = "tm_dashboard_rebulid.php?id=$user_id&pre=$privilege";
     header("Location: $redirectUrl");
 } elseif ($_SESSION['privilege'] == 'ASM') {
-    $redirectUrl = "asm_dashboard.php?id=$user_id&pre=$privilege";
+    $redirectUrl = "asm_dashboard_rebuild.php?id=$user_id&pre=$privilege";
     header("Location: $redirectUrl");
 
 }

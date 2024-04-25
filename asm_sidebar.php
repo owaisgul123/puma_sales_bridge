@@ -42,22 +42,37 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
                         <!-- <li><a href="users.php" data-key="t-level-1.1"> Users </a></li> -->
-                        <li><a href="asm_dashboard.php?id=<?php echo $_SESSION['user_id'];?>&pre=<?php echo $_SESSION['privilege'];?>" data-key="t-level-1.13"> TM Dashboard</a></li>
+                       
+
+                        <li><a href="asm_dashboard_rebuild.php?id=<?php echo $_SESSION['user_id']; ?>&pre=<?php echo $_SESSION['privilege']; ?>"
+                                data-key="t-level-1.13"> TM Dashboard</a></li>
 
                         <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
-                        <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li>
-                        <li><a href="special_orders.php" data-key="t-level-1.4"> Approved Orders </a></li>
-                        <li><a href="approved_orders.php" data-key="t-level-1.5"> Complete Orders </a></li>
-                        <!-- <li><a href="containers_sizes.php" data-key="t-level-1.10"> Container Sizes </a></li> -->
-                        <!-- <li><a href="nozle.php" data-key="t-level-1.6"> Products Price </a></li> -->
-                        <li><a href="order_report.php" data-key="t-level-1.7"> Order Report </a></li>
-                        <!-- <li><a href="servey_category.php" data-key="t-level-1.8"> Survey Category </a></li>
-                        <li><a href="survey_questions.php" data-key="t-level-1.9"> Survey Questions </a></li> -->
-                        <!-- <li><a href="multiple_task.php" data-key="t-level-1.10"> Visits Task</a></li>
-                        <li><a href="dealers_sales_performance.php" data-key="t-level-1.11">Dealers Sales Performance</a></li>
-                        <li><a href="dealers_heri.php" data-key="t-level-1.13"> Retail Hierarchy</a></li> -->
-                        <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
-                        <li><a href="manage_calander.php" data-key="t-level-1.12"> Task Calander</a></li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
+                                <span class="menu-item" data-key="t-multi-level">Manage Orders</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="orders_dashboard.php" data-key="t-level-1.16"> Order Dashboard</a></li>
+                                <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
+                                <span class="menu-item" data-key="t-multi-level">Manage Inspection</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
+                                <li><a href="manage_calander.php" data-key="t-level-1.12"> Task Calander</a></li>
+                                <li><a href="inspection_report.php"
+                                        data-key="t-level-1.14">All Inspection</a></li>
+
+                            </ul>
+                        </li>
 
 
 
@@ -75,7 +90,7 @@
 
                     </ul>
                 </li> -->
-           
+
 
 
             </ul>
@@ -665,68 +680,68 @@
 
 
 <script>
-var username = '';
+    var username = '';
 
-function get_settings() {
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    console.log("<?php echo $api_url; ?>get/get_settings.php?key=03201232927")
-    fetch("<?php echo $api_url; ?>get/get_settings.php?key=03201232927", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            console.log(result)
+    function get_settings() {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        console.log("<?php echo $api_url; ?>get/get_settings.php?key=03201232927")
+        fetch("<?php echo $api_url; ?>get/get_settings.php?key=03201232927", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
 
-            var username = result['name']
-            var logo = result['logo']
-            var color = result['color']
-            var text_color = result['text_color']
-            var inactive_color = result['inactive_color']
-
-
-            if (color != "") {
-                $('#sidebar_color').css("background-color", color);
-
-            }
-
-            if (text_color != "") {
-
-                // $("#sidebar_color").find("*").css("color", text_color);
-                $('#sidebar_color  .active').css('color', text_color);
-
-            }
-            if (inactive_color != "") {
-                $("#sidebar_color").find("*").css("color", inactive_color);
-                $('#sidebar_color  .active').css('color', text_color);
-
-                // $('.active').css('color', text_color);
-
-            }
+                var username = result['name']
+                var logo = result['logo']
+                var color = result['color']
+                var text_color = result['text_color']
+                var inactive_color = result['inactive_color']
 
 
-            var image = $(".logo_image");
+                if (color != "") {
+                    $('#sidebar_color').css("background-color", color);
 
-            // Change the src attribute of the image
-            image.attr("src", "<?php echo $api_url; ?>" + logo);
-            $(".small_logo").attr("src", "<?php echo $api_url; ?>" + logo);
-            $('.project_name').text(username);
+                }
 
-            console.log(username)
-        })
-        .catch(error => console.log('error', error));
-}
-get_settings();
+                if (text_color != "") {
+
+                    // $("#sidebar_color").find("*").css("color", text_color);
+                    $('#sidebar_color  .active').css('color', text_color);
+
+                }
+                if (inactive_color != "") {
+                    $("#sidebar_color").find("*").css("color", inactive_color);
+                    $('#sidebar_color  .active').css('color', text_color);
+
+                    // $('.active').css('color', text_color);
+
+                }
+
+
+                var image = $(".logo_image");
+
+                // Change the src attribute of the image
+                image.attr("src", "<?php echo $api_url; ?>" + logo);
+                $(".small_logo").attr("src", "<?php echo $api_url; ?>" + logo);
+                $('.project_name').text(username);
+
+                console.log(username)
+            })
+            .catch(error => console.log('error', error));
+    }
+    get_settings();
 </script>
 <script>
-function post_new_data() {
-    var user_id = "<?php echo $_SESSION['user_id'] ?>";
-    var pre = "<?php echo $_SESSION['privilege'] ?>";
-    var u_name = "<?php echo $_SESSION['user_name']; ?>";
+    function post_new_data() {
+        var user_id = "<?php echo $_SESSION['user_id'] ?>";
+        var pre = "<?php echo $_SESSION['privilege'] ?>";
+        var u_name = "<?php echo $_SESSION['user_name']; ?>";
 
-    localStorage.setItem("user_id", user_id);
-    localStorage.setItem("prev", pre);
-    localStorage.setItem("name", u_name);
-    window.open('fleet/maps-google.php', '_blank');
-}
+        localStorage.setItem("user_id", user_id);
+        localStorage.setItem("prev", pre);
+        localStorage.setItem("name", u_name);
+        window.open('fleet/maps-google.php', '_blank');
+    }
 </script>

@@ -99,7 +99,13 @@
         <?php include 'sidebar.php'; ?>
 
         <!-- Left Sidebar End -->
+        <?php
+        $pre =  $_SESSION['privilege'];
+        $disabledAttribute = ($pre == 'TM') ? 'disabled' : '';
 
+        // $disabledAttribute = (strpos($pre, 'TM') === 0) ? 'disabled' : '';
+        
+        ?>
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
@@ -132,7 +138,7 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 d-none">
                             <label for="inputEmail4">Region</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="regions"
@@ -144,7 +150,7 @@
                             </select>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 d-none">
                             <label for="inputEmail4">Province</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="province"
@@ -156,7 +162,7 @@
                             </select>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 d-none">
                             <label for="inputEmail4">City</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="city" name="city"
@@ -168,7 +174,7 @@
                             </select>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 d-none">
                             <label for="inputEmail4">District</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="district"
@@ -180,11 +186,11 @@
                             </select>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 ">
                             <label for="inputEmail4">RM</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="tm_user"
-                                name="tm_user" required multiple>
+                                name="tm_user" required multiple <?php echo $disabledAttribute; ?>>
                                 <option value="">Select</option>
 
 
@@ -192,7 +198,7 @@
                             </select>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 d-none">
                             <label for="inputEmail4">TM</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="asm_users"
@@ -305,8 +311,8 @@
                                                     <small> Upcoming</small> : <span id="upcoming_tasks"
                                                         class="text-info">0</span>
                                                 </h6>
-                                                <h6 onclick="getting_listing('listing_users')" class="mb-0 font-size-12"
-                                                    style="cursor: pointer">
+                                                <h6 onclick="getting_listing('listing_users')"
+                                                    class="mb-0 font-size-12 d-none" style="cursor: pointer">
                                                     <small> Visits Users</small> : <span id="vistes_users"
                                                         class="text-info">0</span>
                                                 </h6>
@@ -325,6 +331,41 @@
                             </div>
                         </div>
                         <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar">
+                                                <div class="avatar-title rounded bg-primary-subtle ">
+                                                    <i class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6 class="mb-0 font-size-15">Order</h6>
+                                            </div>
+
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6 class="mb-0 font-size-12"><small> Invoiced </small>: <span
+                                                        id="Pending_orders">0</span> </h6>
+                                                <h6 class="mb-0 font-size-12"><small> Scheduled</small> : <span
+                                                        id="completed_orders">0</span> </h6>
+                                                <h6 onclick="getting_listing('orders_dealers')"
+                                                    class="mb-0 font-size-12 " style="cursor: pointer"><small> Dealers
+                                                        Order</small> : <span id="no_of_dealers_orders">0</span> </h6>
+                                            </div>
+                                        </div>
+
+                                        <div>
+
+                                            <h4 class="mt-4 pt-1 mb-0 font-size-22" id="dealers_order_count">0</h4>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-none">
                             <div class="card">
                                 <div class="card-body">
                                     <div>
@@ -374,7 +415,7 @@
                                             <div class="flex-grow-1 ms-3">
                                                 <h6 class="mb-0 font-size-15">TM</h6>
                                             </div>
-                                            <div class="flex-grow-1 ms-3" onclick="getting_listing('ASM')">
+                                            <!-- <div class="flex-grow-1 ms-3" onclick="getting_listing('ASM')">
                                                 <svg style="float: right;" xmlns="http://www.w3.org/2000/svg" width="24"
                                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -383,7 +424,7 @@
                                                     <circle cx="12" cy="5" r="1"></circle>
                                                     <circle cx="12" cy="19" r="1"></circle>
                                                 </svg>
-                                            </div>
+                                            </div> -->
 
 
                                         </div>
@@ -439,7 +480,7 @@
 
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="card">
                                 <div class="card-body">
                                     <canvas id="rm_chart"></canvas>
@@ -450,7 +491,7 @@
 
                         </div>
 
-                        <div class="col-md-6 ">
+                        <div class="col-md-6 d-none">
                             <div class="card">
                                 <div class="card-body">
                                     <canvas id="tm_chart"></canvas>
@@ -462,9 +503,9 @@
                         </div>
 
                     </div>
-                    <div class="row">
+                    <div class="row d-none">
 
-                        <div class="col-md-6 d-none">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body" style="height: 350px;">
                                     <strong>Task</strong>
@@ -475,7 +516,7 @@
 
 
                         </div>
-                        <div class="col-md-6 d-none">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body" style="height: 350px;">
                                     <strong>Visits Status</strong>
@@ -496,17 +537,16 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">S.No</th>
-                                        <th class="text-center">Site Name</th>
+                                        <th class="text-center">Name</th>
                                         <th class="text-center">SAP #</th>
                                         <th class="text-center">Is Verified </th>
-                                        <th class="text-center">TM</th>
+                                        <th class="text-center">Email</th>
                                         <th class="text-center">Contact</th>
                                         <th class="text-center">Location</th>
-                                        <th class="text-center">Is-login</th>
                                         <th class="text-center">City</th>
                                         <th class="text-center">Province</th>
                                         <th class="text-center">Region</th>
-                                        <!-- <th class="text-center">Created Time</th> -->
+                                        <th class="text-center">Created Time</th>
 
                                         <!-- <th class="text-center">Edit</th>
                                         <th class="text-center">Delete</th> -->
@@ -531,7 +571,7 @@
                                                 <th>S.No</th>
                                                 <th>User</th>
                                                 <th>Site Name</th>
-                                                <th>Planned Date</th>
+                                                <th>Date</th>
                                                 <th>Complete Time</th>
                                                 <th>Status</th>
                                                 <th>Description</th>
@@ -545,6 +585,44 @@
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+
+                                <div class="card-body" style="overflow: auto;">
+                                    <div id="loader" style="display: none;text-align: center;">Loading Data...</div>
+
+                                    <table id="order_tables" class="display" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">S.No</th>
+                                                <th class="text-center">Date</th>
+                                                <th class="text-center">Site Name</th>
+                                                <th class="text-center">Username</th>
+                                                <th class="text-center">Mode</th>
+                                                <th class="text-center">Depot</th>
+                                                <th class="text-center">Total Amount</th>
+                                                <!-- <th class="text-center">Ledger Amount</th> -->
+                                                <th class="text-center">Sales Order</th>
+                                                <th class="text-center">Sap Status</th>
+                                                <th class="text-center">Execution Status</th>
+                                                <th class="text-center">City</th>
+                                                <th class="text-center">Province</th>
+                                                <th class="text-center">Region</th>
+                                                <th class="text-center">View Orders</th>
+                                                <th class="text-center">Track</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -682,29 +760,97 @@
                                             <div class="card-body">
 
 
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <table id="users_tasking" class="display"
-                                                                style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="text-center">S.No</th>
-                                                                        <th class="text-center">Users</th>
-                                                                        <th class="text-center">Privilege</th>
-                                                                        <th class="text-center">Pending
-                                                                        </th>
-                                                                        <th class="text-center">Overdue
-                                                                        </th>
-                                                                        <th class="text-center">Upcoming
-                                                                        </th>
-                                                                        <th class="text-center">Complete
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                </tbody>
-                                                            </table>
+                                                <div class="mx-n4 simplebar-scrollable-y" data-simplebar="init"
+                                                    style="max-height: 421px;">
+                                                    <div class="simplebar-wrapper" style="margin: 0px;">
+                                                        <div class="simplebar-height-auto-observer-wrapper">
+                                                            <div class="simplebar-height-auto-observer"></div>
+                                                        </div>
+                                                        <div class="simplebar-mask">
+                                                            <div class="simplebar-offset"
+                                                                style="right: 0px; bottom: 0px;">
+                                                                <div class="simplebar-content-wrapper" tabindex="0"
+                                                                    role="region" aria-label="scrollable content"
+                                                                    style="height: auto; overflow: hidden scroll;">
+                                                                    <div class="simplebar-content"
+                                                                        style="padding: 0px;">
+                                                                        <div class="border-bottom loyal-customers-box pt-2"
+                                                                            id='liat_vist_users'>
+
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="simplebar-placeholder"
+                                                            style="width: 325px; height: 432px;"></div>
+                                                    </div>
+                                                    <div class="simplebar-track simplebar-horizontal"
+                                                        style="visibility: hidden;">
+                                                        <div class="simplebar-scrollbar"
+                                                            style="width: 0px; display: none;"></div>
+                                                    </div>
+                                                    <div class="simplebar-track simplebar-vertical"
+                                                        style="visibility: visible;">
+                                                        <div class="simplebar-scrollbar"
+                                                            style="height: 410px; transform: translate3d(0px, 0px, 0px); display: block;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid user_lists" id="dealers_orders_list">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>Dealers Orders</h4>
+                                        <div class="card">
+                                            <div class="card-body">
+
+
+                                                <div class="mx-n4 simplebar-scrollable-y" data-simplebar="init"
+                                                    style="max-height: 421px;">
+                                                    <div class="simplebar-wrapper" style="margin: 0px;">
+                                                        <div class="simplebar-height-auto-observer-wrapper">
+                                                            <div class="simplebar-height-auto-observer"></div>
+                                                        </div>
+                                                        <div class="simplebar-mask">
+                                                            <div class="simplebar-offset"
+                                                                style="right: 0px; bottom: 0px;">
+                                                                <div class="simplebar-content-wrapper" tabindex="0"
+                                                                    role="region" aria-label="scrollable content"
+                                                                    style="height: auto; overflow: hidden scroll;">
+                                                                    <div class="simplebar-content"
+                                                                        style="padding: 0px;">
+                                                                        <div class="border-bottom loyal-customers-box pt-2"
+                                                                            id='list_dealers_no'>
+
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="simplebar-placeholder"
+                                                            style="width: 325px; height: 432px;"></div>
+                                                    </div>
+                                                    <div class="simplebar-track simplebar-horizontal"
+                                                        style="visibility: hidden;">
+                                                        <div class="simplebar-scrollbar"
+                                                            style="width: 0px; display: none;"></div>
+                                                    </div>
+                                                    <div class="simplebar-track simplebar-vertical"
+                                                        style="visibility: visible;">
+                                                        <div class="simplebar-scrollbar"
+                                                            style="height: 410px; transform: translate3d(0px, 0px, 0px); display: block;">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -968,7 +1114,53 @@
             </div>
         </div>
     </div>
+    <div id="products_price_backlog_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel"
+        aria-hidden="true" data-bs-scroll="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">Order Detail</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-nowrap table-hover mb-1" id="product_price_backlog">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th class="text-center">S.No</th>
+                                                <th class="text-center">Date</th>
+                                                <th class="text-center">Site Name</th>
+                                                <!-- <th class="text-center">Customer</th>
+                                        <th class="text-center">SAP Code</th> -->
+                                                <th class="text-center">Product Type</th>
+                                                <th class="text-center">Rate</th>
+                                                <th class="text-center">Qty</th>
+                                                <th class="text-center">Delivered</th>
+                                                <th class="text-center">Depot</th>
+                                                <!-- <th class="text-center">Delivery Type</th> -->
+                                                <th class="text-center">Order Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
     <!-- JAVASCRIPT -->
 
     <?php include 'script_tags.php'; ?>
@@ -980,18 +1172,13 @@
     var type;
     var subtype;
     var dealers_data = "";
+    var dealers_order_data = "";
+
     var task_data = "";
     $(document).ready(function() {
         $('.multi_select').select2();
         $('.selectpicker').select2();
-        users_tasking = $('#users_tasking').DataTable({
-            dom: 'Bfrtip',
 
-
-            buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-
-        });
 
 
         ///banner image start
@@ -1171,36 +1358,22 @@
 
 
         });
-        // $('.selectpicker').on('change', function() {
-        //     table.search(this.value).draw();
-        // });
-
-        // $('.selectpicker').on('change', function() {
-        //     // Clear the array before updating it
-        //     selectedValues = [];
-
-        //     // Iterate over all select elements with class 'all_select'
-        //     $('.selectpicker').each(function() {
-        //         // Get the selected value of each select and push it into the array
-        //         selectedValues.push($(this).val());
-        //     });
-
-        //     var searchString = selectedValues.join(' ');
-
-        //     // Perform search and redraw the DataTable
-        //     table.search(searchString).draw();
-        //     // Log the array or perform other actions with it
-        //     console.log(selectedValues);
-        //     var rowCount = table.rows({
-        //         search: 'applied'
-        //     }).count();
-        //     console.log(rowCount)
-
-        //     $('#dealers_count').html(rowCount)
+        order_tables = $('#order_tables').DataTable({
+            dom: 'Bfrtip',
 
 
+            buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
 
-        // });
+
+        });
+        product_price_backlog = $('#product_price_backlog').DataTable({
+            dom: 'Bfrtip',
+
+
+            buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+        });
+
 
 
 
@@ -1335,7 +1508,7 @@
                                 )
                                 $('#insert_form')[0].reset();
                                 $('#offcanvasRight').modal('hide');
-                                fetchtable();
+                                // fetchtable();
                                 $('#insert').val("Save");
                                 document.getElementById("insert").disabled = false;
                                 location.reload();
@@ -1393,7 +1566,7 @@
                                 document.getElementById("imagePreview").src = ""
                                 $('#insert_form')[0].reset();
                                 $('#offcanvasRight').modal('hide');
-                                fetchtable();
+                                // fetchtable();
                                 $('#insert').val("Save");
                                 document.getElementById("insert").disabled = false;
                                 location.reload();
@@ -1427,7 +1600,7 @@
         fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
-            .then(response => {
+            .then(async response => {
                 console.log(response)
                 dealers_data = response;
                 var verifiedCount = 0;
@@ -1442,14 +1615,15 @@
                         data.name,
                         data.sap_no,
                         data.indent_price == '1' ? 'Verified ' : 'Not-Active ',
-                        data.asm_name,
+                        data.email,
                         data.contact,
                         data.location,
-                        data.Nozel_price != '0' ? 'Logged-In' : 'Not-Login Yet ',
                         data.city,
                         data.province,
-                        data.region
+                        data.region,
+                        data.created_at
                     ]).draw();
+
 
                     if (data.indent_price == '1') {
                         verifiedCount++;
@@ -1460,17 +1634,18 @@
                         loginCount++;
                     }
                 });
+
                 $('#verified_dealers').html(verifiedCount);
                 $('#nonverified_dealers').html(nonVerifiedCount);
                 $('#logined_dealers').html(loginCount);
 
                 // check_data(response);
-                chart_datas(response, 'lineChart', 'province', 'Province')
-                chart_datas(response, 'region_chart', 'region', 'Region')
-                chart_datas(response, 'city_chart', 'city', 'City')
-                chart_datas(response, 'terr_chart', 'district', 'District')
-                chart_datas(response, 'rm_chart', 'tm', 'RM')
-                chart_datas(response, 'tm_chart', 'asm', 'TM')
+                // chart_datas(response, 'lineChart', 'province', 'Province')
+                // chart_datas(response, 'region_chart', 'region', 'Region')
+                // chart_datas(response, 'city_chart', 'city', 'City')
+                // chart_datas(response, 'terr_chart', 'district', 'District')
+                // chart_datas(response, 'rm_chart', 'tm', 'RM')
+                // chart_datas(response, 'tm_chart', 'asm', 'TM')
                 // chart_datas(response, 'depot_chart', 'actual_depot', 'Depot')
                 // chart_datas(response, 'rural_urban', 'cat_2', 'Cat-2')
 
@@ -1479,7 +1654,8 @@
         console.log(
             "<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
             fromdate + "&to=" + todate + "")
-        fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
+        fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -1502,7 +1678,7 @@
                         data.description,
                         data.task_create_time,
                     ]).draw(false);
-                    ''
+
                     // var existingUser = uniqueUsers.find(function(user) {
                     //     return user === data.user_name;
                     // });
@@ -1561,55 +1737,29 @@
                 requestOptions)
             .then(response => response.json())
             .then(response => {
-                users_tasking.clear().draw();
 
                 $('#vistes_users').html(response.length);
                 $.each(response, function(index, data) {
 
 
-                    // htmlContent = '<div class="container-fluid">' +
-                    //     '<div class="row">' +
-                    //     '<div class="col-md-4">' + data.user_name + '</div>' +
-                    //     ' <div class="col-md-8">' +
-                    //     '<div class="container-fluid">' +
-                    //     '<div class="row">' +
-                    //     '<div class="col-md-3"><small>Pending : ' + data.sum_pending + '</small></div>' +
-                    //     '<div class="col-md-3"><small>Overdue : ' + data.sum_Late + '</small> </div>' +
-                    //     '<div class="col-md-3"><small>Upcoming : ' + data.sum_Upcoming + '</small></div>' +
-                    //     '<div class="col-md-3"><small>Complete : ' + data.sum_Complete + ' </small></div>' +
-                    //     '</div>' +
-                    //     '</div>' +
-                    //     '</div>' +
-                    //     '</div>' +
-                    //     '</div>';
+                    htmlContent = '<div class="container-fluid">' +
+                        '<div class="row">' +
+                        '<div class="col-md-4">' + data.user_name + '</div>' +
+                        ' <div class="col-md-8">' +
+                        '<div class="container-fluid">' +
+                        '<div class="row">' +
+                        '<div class="col-md-3"><small>Pending : ' + data.sum_pending + '</small></div>' +
+                        '<div class="col-md-3"><small>Overdue : ' + data.sum_Late + '</small> </div>' +
+                        '<div class="col-md-3"><small>Upcoming : ' + data.sum_Upcoming + '</small></div>' +
+                        '<div class="col-md-3"><small>Complete : ' + data.sum_Complete + ' </small></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
 
                     // Append the HTML content to the container
-                    // $('#liat_vist_users').append(htmlContent);
-                    var lang = data.privilege;
-                    if (lang == 'ZM') {
-                        lang = 'GRM';
-                    } else if (lang == 'TM') {
-                        lang = 'RM';
-
-                    } else if (lang == 'Admin') {
-                        lang = 'Admin';
-
-                    } else if (lang == 'ASM') {
-                        lang = 'TM';
-
-                    } else {
-                        lang = data.privilege;
-
-                    }
-                    users_tasking.row.add([
-                        index + 1,
-                        (data.user_name),
-                        lang,
-                        data.sum_pending,
-                        data.sum_Late,
-                        data.sum_Upcoming,
-                        data.sum_Complete
-                    ]).draw();
+                    $('#liat_vist_users').append(htmlContent);
                 });
 
 
@@ -1619,7 +1769,115 @@
 
             })
             .catch(error => console.log('error', error));
+        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
+                requestOptions)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+                dealers_order_data = response;
 
+                $('#dealers_order_count').html(response.length);
+                order_tables.clear().draw();
+                var pendingCount_order = 0;
+                var completeCount_order = 0;
+                $.each(response, function(index, data) {
+                    $('#loader').hide();
+                    var status = data.status_value;
+                    console.log(status)
+                    var status_value = '';
+
+                    if (status == 'pending') {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-primary approved_check" data-key="t-new">' +
+                            status + '</span>';
+                    } else if (status == 'Not Yet Processed') {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-info" data-key="t-new">Pending</span>';
+                    } else if (status == 'Completely Processed') {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">Released</span>';
+                    } else if (status == 3) {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-danger" data-key="t-new">Cancel</span>';
+                    } else if (status == 4) {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Special Approval</span>';
+                    } else if (status == 5) {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
+                    }
+
+                    message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
+                    track = (data.is_tracker == 1) ? "<a href='trip_board_salesOrder.php?no=" + data
+                        .SaleOrder +
+                        "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>" :
+                        "----";
+                    d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
+
+                    order_tables.row.add([
+                        index + 1,
+                        data.created_at,
+                        data.name,
+                        data.usersnames,
+                        d_type,
+                        data.consignee_name,
+                        parseFloat(data.total_amount).toLocaleString(),
+                        // data.legder_balance,
+                        data.SaleOrder,
+                        status_value,
+                        message,
+                        data.city,
+                        data.province,
+                        data.region,
+                        '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
+                        data.id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
+                        track,
+                    ]).draw();
+
+                    if (data.delivered_status === '0') {
+                        pendingCount_order++;
+                    } else if (data.delivered_status === '1') {
+                        completeCount_order++;
+                    }
+                });
+
+
+
+                // Loop through the array and count Pending and Complete records
+
+
+                $('#Pending_orders').text(pendingCount_order);
+                $('#completed_orders').text(completeCount_order);
+                try {
+                    setTimeout(async function() {
+                        var tm_ids = "<?php echo $_GET['id'] ?>";
+                        // Code to be executed after the delay
+                        $('#tm_user').val(tm_ids).trigger('change');
+                        const result2 = await filterTable();
+                        console.log('This code executes after a 2-second delay');
+                    }, 2000);
+                } catch (error) {
+                    console.log('error', error);
+                }
+                // check_data(response);
+                // chart_datas(response, 'lineChart', 'province', 'Province')
+                // chart_datas(response, 'region_chart', 'region', 'Region')
+                // chart_datas(response, 'city_chart', 'city', 'City')
+                // chart_datas(response, 'terr_chart', 'district', 'District')
+                // chart_datas(response, 'rm_chart', 'tm', 'RM')
+                // chart_datas(response, 'tm_chart', 'asm', 'TM')
+                // chart_datas(response, 'depot_chart', 'actual_depot', 'Depot')
+                // chart_datas(response, 'rural_urban', 'cat_2', 'Cat-2')
+
+            })
+            .catch(error => console.log('error', error));
         console.log('<?php echo $api_url; ?>get/get_region_district_dealers.php?key=03201232927')
         $.ajax({
             url: '<?php echo $api_url; ?>get/get_region_district_dealers.php?key=03201232927',
@@ -1718,7 +1976,8 @@
                     htmlContent +=
                         '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center">';
                     htmlContent +=
-                        '<a href="tm_dashboard_rebulid.php?id=' + item.id +'&pre=' + item.privilege +'" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-import font-size-14 text-primary ms-1"></i></a> ';
+                        '<a href="tm_dashboard.php?id=' + item.id +
+                        '" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-import font-size-14 text-primary ms-1"></i></a> ';
                     htmlContent += '</h5>';
                     htmlContent += '</div>';
                     htmlContent += '</div>';
@@ -1747,7 +2006,8 @@
                     htmlContent +=
                         '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center">';
                     htmlContent +=
-                        '<a href="asm_dashboard_rebuild.php?id=' + item.id +'&pre=' + item.privilege +'" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-import font-size-14 text-primary ms-1"></i></a> ';
+                        '<a href="asm_dashboard.php?id=' + item.id +
+                        '" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-import font-size-14 text-primary ms-1"></i></a> ';
                     htmlContent += '</h5>';
                     htmlContent += '</div>';
                     htmlContent += '</div>';
@@ -2043,13 +2303,13 @@
                 data.sap_no,
                 data.indent_price == '1' ? 'Verified ' : 'Not-Active ',
 
-                data.asm_name,
+                data.email,
                 data.contact,
                 data.location,
-                data.Nozel_price != '0' ? 'Logged-In' : 'Not-Login Yet ',
                 data.city,
                 data.province,
-                data.region
+                data.region,
+                data.created_at
             ]).draw();
 
             if (data.indent_price == '1') {
@@ -2091,7 +2351,8 @@
         $.each(filteredTaskData, function(index, data) {
             task_table.row.add([
                 index + 1,
-                data.user_name,
+                '<a href="inspection_report.php?name=' + data.user_name + '" target="_blank">' + data
+                .user_name + '</a>',
                 data.dealer_name,
                 data.time,
                 data.visit_close_time,
@@ -2135,6 +2396,151 @@
         // Update the DataTable with filtered data
         // var dataTable = $('#dealer-table').DataTable();
         // table.clear().rows.add(filteredData).draw();
+
+        var filteredData_orders = dealers_order_data.filter(function(item) {
+            // return selectedCity.includes(item.city);
+            return (
+                (selectedCity.length === 0 || selectedCity.includes(item.city)) &&
+                (selectedProvince.length === 0 || selectedProvince.includes(item.province)) &&
+                (regions.length === 0 || regions.includes(item.region)) &&
+                (terri.length === 0 || terri.includes(item.district)) &&
+                (rm_counts.length === 0 || rm_counts.includes(item.tm)) &&
+                (tm_counts.length === 0 || tm_counts.includes(item.asm))
+            );
+        });
+        var distinctTmCount = [...new Set(filteredData_orders.map(dealer => dealer.tm))].length;
+
+        // Calculate count of distinct 'sap_no' values
+        var distinctASMCount = [...new Set(filteredData_orders.map(dealer => dealer.asm))].length;
+        $('#rm_counts').text(distinctTmCount);
+        $('#tm_counts').text(distinctASMCount);
+
+        // Output the results
+        // console.log('Distinct TM Count:', distinctTmCount);
+        // console.log('Distinct ASM No Count:', distinctASMCount);
+
+        console.log(filteredData_orders)
+        order_tables.clear().draw();
+        var pendingCount_order = 0;
+        var completeCount_order = 0;
+        $.each(filteredData_orders, function(index, data) {
+            // $('#loader').hide();
+            var status = data.status_value;
+            console.log(status)
+            var status_value = '';
+
+            if (status == 'pending') {
+                status_value =
+                    '<span id=' + data.id +
+                    ' class="badge rounded-pill cursor-pointer bg-primary approved_check" data-key="t-new">' +
+                    status + '</span>';
+            } else if (status == 'Not Yet Processed') {
+                status_value =
+                    '<span id=' + data.id +
+                    ' class="badge rounded-pill cursor-pointer bg-info" data-key="t-new">Pending</span>';
+            } else if (status == 'Completely Processed') {
+                status_value =
+                    '<span id=' + data.id +
+                    ' class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">Released</span>';
+            } else if (status == 3) {
+                status_value =
+                    '<span id=' + data.id +
+                    ' class="badge rounded-pill cursor-pointer bg-danger" data-key="t-new">Cancel</span>';
+            } else if (status == 4) {
+                status_value =
+                    '<span id=' + data.id +
+                    ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Special Approval</span>';
+            } else if (status == 5) {
+                status_value =
+                    '<span id=' + data.id +
+                    ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
+            }
+
+            message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
+            d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
+            track = (data.is_tracker == 1) ? "<a href='trip_board_salesOrder.php?no=" + data
+                .SaleOrder +
+                "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>" : "----";
+
+
+            order_tables.row.add([
+                index + 1,
+                data.created_at,
+                data.name,
+                data.usersnames,
+                d_type,
+                data.consignee_name,
+                parseFloat(data.total_amount).toLocaleString(),
+                // data.legder_balance,
+                data.SaleOrder,
+                status_value,
+                message,
+                data.city,
+                data.province,
+                data.region,
+                '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
+                data.id +
+                ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
+                track,
+            ]).draw();
+            if (data.delivered_status === '0') {
+                pendingCount_order++;
+            } else if (data.delivered_status === '1') {
+                completeCount_order++;
+            }
+        });
+        var distinctNamesCount = new Set(filteredData_orders.map(function(item) {
+            return item.name;
+        })).size;
+
+        // Count of distinct users and their order count
+        var distinctUsersOrderCount = {};
+        filteredData_orders.forEach(function(item) {
+            if (!distinctUsersOrderCount[item.name]) {
+                distinctUsersOrderCount[item.name] = {
+                    username: item.name,
+                    orderCount: 0
+                };
+            }
+            distinctUsersOrderCount[item.name].orderCount++;
+        });
+
+        // Convert distinctUsersOrderCount to an array
+        var distinctUsersOrderCountArray = [];
+        $.each(distinctUsersOrderCount, function(key, value) {
+            distinctUsersOrderCountArray.push(value);
+        });
+
+        console.log('Distinct Names Count:', distinctNamesCount);
+        console.log('Distinct Users Order Count:', distinctUsersOrderCountArray);
+        console.log('Distinct Users Order Count:', distinctUsersOrderCountArray.length);
+        // liat_vist_users
+        $('#list_dealers_no').empty();
+        $.each(distinctUsersOrderCountArray, function(index, data) {
+            console.log(data.username)
+
+            var htmlContent1 = '<div class="container-fluid">' +
+                '<div class="row">' +
+                '<div class="col-md-6">' + data.username + '</div>' +
+                ' <div class="col-md-6">' +
+                '<div class="container-fluid">' +
+                '<div class="row">' +
+                '<div class="col-md-12" ><small style="float: right;">Orders : ' + data.orderCount +
+                '</small></div>' +
+
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+
+            // Append the HTML content to the container
+            $('#list_dealers_no').append(htmlContent1);
+        });
+        $('#no_of_dealers_orders').text(distinctNamesCount);
+        $('#Pending_orders').text(pendingCount_order);
+        $('#completed_orders').text(completeCount_order);
+        $('#dealers_order_count').text(filteredData_orders.length);
     }
 
 
@@ -2763,6 +3169,9 @@
         } else if (user == 'listing_users') {
             $('#viste_mode').removeClass('d-none')
 
+        } else if (user == 'orders_dealers') {
+            $('#dealers_orders_list').removeClass('d-none')
+
         }
         $('#listing_users').modal('show');
     }
@@ -2776,6 +3185,45 @@
         console.log(value)
         // var searchText = $('#searchInput').val();
         table.search(value).draw();
+    }
+
+    function view_order(id) {
+        if (id != "") {
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+            console.log("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "");
+            fetch("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "", requestOptions)
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response)
+                    if (response.length > 0) {
+                        product_price_backlog.clear().draw();
+
+                        $.each(response, function(index, data) {
+                            product_price_backlog.row.add([
+                                index + 1,
+                                data.date,
+                                data.name,
+                                // data.name,
+                                data.product_name,
+                                data.rate,
+                                data.quantity,
+                                data.delivery_based,
+                                data.consignee_name,
+                                data.amount
+
+                            ]).draw(false);
+
+                        });
+                    }
+                    $('#products_price_backlog_modal').modal('show');
+                })
+                .catch(error => console.log('error', error));
+
+        }
+
     }
     </script>
 </body>

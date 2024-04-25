@@ -660,136 +660,94 @@
     }
 
     function editData(id) {
-        $('#zmRole').hide();
-        $('#tmRole').hide();
-        var settings = {
-            "url": "<?php echo $api_url; ?>get/view_user.php?key=03201232927&id=" + id + "",
-            "method": "GET",
-            "timeout": 0,
-        };
+    $('#zmRole').hide();
+    $('#tmRole').hide();
+    var api_url = "<?php echo $api_url; ?>"; // Define your API URL here
+    var settings = {
+        "url": api_url + "get/view_user.php?key=03201232927&id=" + id,
+        "method": "GET",
+        "timeout": 5000, // Set a reasonable timeout value
+    };
 
-        $.ajax({
-            ...settings,
-            statusCode: {
-                200: function(response) {
-                    // load_all_select()
-                    $('#name').val(response[0]['name']);
-                    $('#email').val(response[0]['email']);
-                    $('#password').val(response[0]['description']);
-                    $('#confirm_password').val(response[0]['description']);
-                    $('#number').val(response[0]['telephone']);
-                    $('#role').val(response[0]['privilege']);
-                    var row_id = $('#row_id').val(response[0]['id']);
-                    var prev = response[0]['privilege'];
-                    // alert(prev)
-                    if (prev == 'ZM' || prev == 'TM' || prev == 'ASM') {
-                        $('#role').val('Sales').trigger('change');
-                        // $("#salesRole, #zmRole, #tmRole,#logisticsSelect").hide();
-                        // if ($("#role").val() === "Sales") {
-                        //     $("#salesRole").show();
-                        // } else if ($("#role").val() === "Logistics") {
-                        //     $("#logisticsSelect").show();
-                        // }
-                    } else {
-                        $('#role').val(prev).trigger('change');
+    $.ajax({
+        ...settings,
+        statusCode: {
+            200: function(response) {
+                $('#name').val(response[0]['name']);
+                $('#email').val(response[0]['email']);
+                $('#password').val(response[0]['description']);
+                $('#confirm_password').val(response[0]['description']);
+                $('#number').val(response[0]['telephone']);
+                $('#role').val(response[0]['privilege']);
+                $('#row_id').val(response[0]['id']);
 
-                    }
+                var prev = response[0]['privilege'];
+                if (prev == 'ZM' || prev == 'TM' || prev == 'ASM') {
+                    $('#role').val('Sales').trigger('change');
+                } else {
+                    $('#role').val(prev).trigger('change');
+                }
 
-
-
-                    // setTimeout(function() {
-                    var role_val = $('#role').val()
-                    if (role_val == 'Sales') {
-                        var privilege = response[0]['privilege']
-
-                        $("#salesRole").show();
-
-                        if (privilege == 'ZM') {
-                            $('#sales').val('ZM');
-                            $('#sales_role_hide').val('ZM');
-                        } else if (privilege == 'TM') {
-
-                            var settings = {
-                                "url": "<?php echo $api_url; ?>get/get_zm_tm.php?key=03201232927&id=" +
-                                    id + "",
-                                "method": "GET",
-                                "timeout": 0,
-                            };
-                            $.ajax({
-                                ...settings,
-                                statusCode: {
-                                    200: function(response) {
-                                        $('#sales').val('TM')
-                                        $('#sales_role_hide').val('TM');
-                                        $('#zmRole').show();
-                                        // alert("hello")
-                                        // alert(response[0]['zm_id'])
-                                        $('#zm_hide').val(response[0]['zm_id'])
-                                        $('#zm').val(response[0]['zm_id']);
-                                    }
-                                }
-                            })
-
-
-                        } else if (privilege == 'ASM') {
-                            var settings = {
-                                "url": "<?php echo $api_url; ?>get/get_asm_tm.php?key=03201232927&id=" +
-                                    id + "",
-                                "method": "GET",
-                                "timeout": 0,
-                            };
-                            $.ajax({
-                                ...settings,
-                                statusCode: {
-                                    200: function(response) {
-                                        $('#sales_role_hide').val('ASM');
-                                        $('#sales').val('ASM');
-                                        $('#tmRole').show();
-                                        // alert("hello")
-                                        // alert(response[0]['tm_id'])
-                                        $('#tm_hide').val(response[0]['tm_id'])
-                                        $('#tm').val(response[0]['tm_id']);
-                                    }
-                                }
-                            })
-                        }
-
-
-                    } else if (prev == 'Logistics') {
-                        var settings = {
-                            "url": "<?php echo $api_url; ?>get/get_logistic_user.php?key=03201232927&id=" +
-                                id + "",
-                            "method": "GET",
-                            "timeout": 0,
-                        };
+                var role_val = $('#role').val();
+                if (role_val == 'Sales') {
+                    var privilege = response[0]['privilege'];
+                    $("#salesRole").show();
+                    if (privilege == 'ZM') {
+                        $('#sales').val('ZM');
+                        $('#sales_role_hide').val('ZM');
+                    } else if (privilege == 'TM') {
                         $.ajax({
-                            ...settings,
+                            url: api_url + "get/get_zm_tm.php?key=03201232927&id=" + id,
+                            method: "GET",
+                            timeout: 5000,
                             statusCode: {
                                 200: function(response) {
-                                    console.log(response)
-                                    $('#logistics').val(response[0]['l_privilege']);
-                                    $('#sales_role_hide').val(response[0]['privilege']);
-                                    $("#logisticsSelect").show();
-                                    // alert("hello")
-                                    // alert(response[0]['tm_id'])
-                                    $('#log_hide').val(response[0]['logistics_id']);
-                                    $('#logistics_role').val(response[0]['logistics_id']);
+                                    $('#sales').val('TM');
+                                    $('#sales_role_hide').val('TM');
+                                    $('#zmRole').show();
+                                    $('#zm_hide').val(response[0]['zm_id']);
+                                    $('#zm').val(response[0]['zm_id']);
                                 }
                             }
-                        })
-
+                        });
+                    } else if (privilege == 'ASM') {
+                        $.ajax({
+                            url: api_url + "get/get_asm_tm.php?key=03201232927&id=" + id,
+                            method: "GET",
+                            timeout: 5000,
+                            statusCode: {
+                                200: function(response) {
+                                    $('#sales_role_hide').val('ASM');
+                                    $('#sales').val('ASM');
+                                    $('#tmRole').show();
+                                    $('#tm_hide').val(response[0]['tm_id']);
+                                    $('#tm').val(response[0]['tm_id']);
+                                }
+                            }
+                        });
                     }
-                    // }, 2000);
-
-
-
-                    // $('#role').value(response[0]['name'])
-
+                } else if (prev == 'Logistics') {
+                    $.ajax({
+                        url: api_url + "get/get_logistic_user.php?key=03201232927&id=" + id,
+                        method: "GET",
+                        timeout: 5000,
+                        statusCode: {
+                            200: function(response) {
+                                $('#logistics').val(response[0]['l_privilege']);
+                                $('#sales_role_hide').val(response[0]['privilege']);
+                                $("#logisticsSelect").show();
+                                $('#log_hide').val(response[0]['logistics_id']);
+                                $('#logistics_role').val(response[0]['logistics_id']);
+                            }
+                        }
+                    });
                 }
             }
-        })
-        $('#offcanvasRight').offcanvas('show')
-    }
+        }
+    });
+    $('#offcanvasRight').offcanvas('show');
+}
+
     $('#add_btn').on('click', function() {
         $('#zmRole').hide();
         $('#tmRole').hide();
