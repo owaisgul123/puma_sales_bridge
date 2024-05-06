@@ -801,7 +801,7 @@
     <!-- JAVASCRIPT -->
 
     <?php include 'script_tags.php'; ?>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js_cdn/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>

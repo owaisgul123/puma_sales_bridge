@@ -69,6 +69,8 @@
                             <ul class="sub-menu" aria-expanded="true">
                                 <li><a href="orders_dashboard.php" data-key="t-level-1.16"> Order Dashboard</a></li>
                                 <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li>
+                                <li><a href="manage_blocked_orders.php" data-key="t-level-1.3">Blocked Orders </a></li>
+
 
                             </ul>
                         </li>

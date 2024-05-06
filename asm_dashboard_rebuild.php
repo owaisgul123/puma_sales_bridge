@@ -1164,7 +1164,7 @@
     <!-- JAVASCRIPT -->
 
     <?php include 'script_tags.php'; ?>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js_cdn/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
@@ -2412,8 +2412,8 @@
 
         // Calculate count of distinct 'sap_no' values
         var distinctASMCount = [...new Set(filteredData_orders.map(dealer => dealer.asm))].length;
-        $('#rm_counts').text(distinctTmCount);
-        $('#tm_counts').text(distinctASMCount);
+        // $('#rm_counts').text(distinctTmCount);
+        // $('#tm_counts').text(distinctASMCount);
 
         // Output the results
         // console.log('Distinct TM Count:', distinctTmCount);

@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="assets/libs/flatpickr/flatpickr.min.css">
 <link href="assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
-
+<script src="js_cdn/chart.js"></script>
 <style>
     .layout-setting-btn{
         display: none;

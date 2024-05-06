@@ -95,7 +95,8 @@
                                         <th class="text-center">Total Amount</th>
                                         <!-- <th class="text-center">Ledger Amount</th> -->
                                         <th class="text-center">Sales Order</th>
-                                        <th class="text-center">Sap Status</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Blocked Time</th>
                                         <th class="text-center">Execution Status</th>
                                         <th class="text-center">View Orders</th>
                                         <th class="text-center">Track</th>
@@ -610,9 +611,9 @@
                 redirect: 'follow'
             };
             console.log(
-                "<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>"
+                "<?php echo $api_url; ?>get/get_all_systems_blocked_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>"
             )
-            fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+            fetch("<?php echo $api_url; ?>get/get_all_systems_blocked_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
                 fromdate + "&to=" + todate + "",
                 requestOptions)
                 .then(response => response.json())
@@ -685,7 +686,8 @@
                             parseFloat(data.total_amount).toLocaleString(),
                             // data.legder_balance,
                             data.SaleOrder,
-                            status_value,
+                            'Blocked',
+                            data.blocked_time,
                             message,
                             '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
                             data.id +

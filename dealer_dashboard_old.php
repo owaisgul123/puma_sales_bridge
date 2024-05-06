@@ -25,63 +25,63 @@
     <?php include 'css_script.php'; ?>
 
     <style>
-        #dropArea {
-            border: 2px dashed #ccc;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
+    #dropArea {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+    }
 
-        #imageContainer {
-            max-width: 100%;
-            max-height: 200px;
-            display: none;
-            position: relative;
-        }
+    #imageContainer {
+        max-width: 100%;
+        max-height: 200px;
+        display: none;
+        position: relative;
+    }
 
-        #imagePreview {
-            max-width: 100%;
-            max-height: 200px;
-        }
+    #imagePreview {
+        max-width: 100%;
+        max-height: 200px;
+    }
 
-        #removeButton {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: none;
-            cursor: pointer;
-            color: red;
-            font-size: 24px;
-        }
+    #removeButton {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: none;
+        cursor: pointer;
+        color: red;
+        font-size: 24px;
+    }
 
-        #dropArea2 {
-            border: 2px dashed #ccc;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
+    #dropArea2 {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+    }
 
-        #imageContainer2 {
-            max-width: 100%;
-            max-height: 200px;
-            display: none;
-            position: relative;
-        }
+    #imageContainer2 {
+        max-width: 100%;
+        max-height: 200px;
+        display: none;
+        position: relative;
+    }
 
-        #imagePreview2 {
-            max-width: 100%;
-            max-height: 200px;
-        }
+    #imagePreview2 {
+        max-width: 100%;
+        max-height: 200px;
+    }
 
-        #removeButton2 {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: none;
-            cursor: pointer;
-            color: red;
-            font-size: 24px;
-        }
+    #removeButton2 {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: none;
+        cursor: pointer;
+        color: red;
+        font-size: 24px;
+    }
     </style>
 </head>
 
@@ -100,13 +100,6 @@
 
         <!-- Left Sidebar End -->
 
-        <?php
-        $pre = $_GET['pre'];
-        $disabledAttribute = ($pre == 'TM') ? 'disabled' : '';
-
-        // $disabledAttribute = (strpos($pre, 'TM') === 0) ? 'disabled' : '';
-        
-        ?>
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
@@ -115,7 +108,31 @@
             <div class="page-content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-3 d-none">
+                        <div class="col-md-3">
+                            <label for="inputEmail4">From</label>
+
+                            <input type="date" class="form-control" name="fromdate" id="fromdate"
+                                value="<?php echo date('Y-m-01') ?>">
+
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputEmail4">To</label>
+
+                            <input type="date" class="form-control" name="todate" id="todate"
+                                value="<?php echo date('Y-m-30') ?>">
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <input type="btn" class="btn btn-primary mt-3" name="btn_get" id="btn_get" value="Get"
+                                onclick="fetchtable()">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3">
                             <label for="inputEmail4">Region</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="regions"
@@ -127,7 +144,7 @@
                             </select>
 
                         </div>
-                        <div class="col-md-3 d-none">
+                        <div class="col-md-3">
                             <label for="inputEmail4">Province</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="province"
@@ -139,7 +156,7 @@
                             </select>
 
                         </div>
-                        <div class="col-md-3 d-none">
+                        <div class="col-md-3">
                             <label for="inputEmail4">City</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="city" name="city"
@@ -151,7 +168,7 @@
                             </select>
 
                         </div>
-                        <div class="col-md-3 d-none">
+                        <div class="col-md-3">
                             <label for="inputEmail4">District</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="district"
@@ -167,7 +184,19 @@
                             <label for="inputEmail4">RM</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="tm_user"
-                                name="tm_user" required multiple <?php echo $disabledAttribute; ?>>
+                                name="tm_user" required multiple>
+                                <option value="">Select</option>
+
+
+
+                            </select>
+
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputEmail4">TM</label>
+
+                            <select data-live-search="true" class="form-control selectpicker" id="asm_users"
+                                name="asm_users" required multiple>
                                 <option value="">Select</option>
 
 
@@ -176,11 +205,14 @@
 
                         </div>
                         <div class="col-md-3 d-none">
-                            <label for="inputEmail4">TM</label>
+                            <label for="inputEmail4">Status</label>
 
-                            <select data-live-search="true" class="form-control selectpicker" id="asm_users"
-                                name="asm_users" required multiple>
-                                <option value="">Select</option>
+                            <select data-live-search="true" class="form-control selectpicker" id="task_status_select"
+                                name="task_status_select" required multiple>
+                                <option value="Pending">Pending</option>
+                                <option value="Overdue">Overdue</option>
+                                <option value="Upcoming">Upcoming</option>
+                                <option value="Complete">Complete</option>
 
 
 
@@ -207,7 +239,25 @@
                                             <div class="flex-grow-1 ms-3">
                                                 <h6 class="mb-0 font-size-15">Dealers</h6>
                                             </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6 onclick="check_dealers_status('Verified')" class="mb-0 font-size-12"
+                                                    style="cursor: pointer">
+                                                    <small> Verified </small>: <span id="verified_dealers"
+                                                        class="text-success">0</span>
+                                                </h6>
 
+                                                <h6 onclick="check_dealers_status('Not-Active')"
+                                                    class="mb-0 font-size-12" style="cursor: pointer">
+                                                    <small> Not-Active </small> : <span id="nonverified_dealers"
+                                                        class="text-danger">0</span>
+                                                </h6>
+                                                <h6 onclick="check_dealers_status('Not-Active')"
+                                                    class="mb-0 font-size-12" style="cursor: pointer">
+                                                    <small> Login </small> : <span id="logined_dealers"
+                                                        class="text-success">0</span>
+                                                </h6>
+
+                                            </div>
 
                                         </div>
 
@@ -232,14 +282,37 @@
                                             </div>
 
                                             <div class="flex-grow-1 ms-3">
-                                                <h6 class="mb-0 font-size-15">Visits Task</h6>
+                                                <h6 class="mb-0 font-size-12">Visits Task</h6>
                                             </div>
                                             <div class="flex-grow-1 ms-3">
-                                                <h6 class="mb-0 font-size-15"><small> Pending</small> : <span
-                                                        id="Pending_tasks">0</span> </h6>
-                                                <h6 class="mb-0 font-size-15"><small> Complete</small>  : <span
-                                                        id="completed_tasks">0</span> </h6>
+                                                <h6 onclick="check_task_status('Pending')" class="mb-0 font-size-12"
+                                                    style="cursor: pointer">
+                                                    <small> Pending</small>: <span id="Pending_tasks"
+                                                        class="text-warning">0</span>
+                                                </h6>
+                                                <h6 onclick="check_task_status('Complete')" class="mb-0 font-size-12"
+                                                    style="cursor: pointer">
+                                                    <small> Complete</small> : <span id="completed_tasks"
+                                                        class="text-success">0</span>
+                                                </h6>
+                                                <h6 onclick="check_task_status('Overdue')" class="mb-0 font-size-12"
+                                                    style="cursor: pointer">
+                                                    <small> Overdue</small> : <span id="late_tasks"
+                                                        class="text-danger">0</span>
+                                                </h6>
+                                                <h6 onclick="check_task_status('Upcoming')" class="mb-0 font-size-12"
+                                                    style="cursor: pointer">
+                                                    <small> Upcoming</small> : <span id="upcoming_tasks"
+                                                        class="text-info">0</span>
+                                                </h6>
+                                                <h6 onclick="getting_listing('listing_users')" class="mb-0 font-size-12"
+                                                    style="cursor: pointer">
+                                                    <small> Visits Users</small> : <span id="vistes_users"
+                                                        class="text-info">0</span>
+                                                </h6>
                                             </div>
+
+
 
                                         </div>
 
@@ -251,7 +324,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 d-none">
+                        <div class="col-md-3">
                             <div class="card">
                                 <div class="card-body">
                                     <div>
@@ -265,6 +338,16 @@
                                             <div class="flex-grow-1 ms-3">
                                                 <h6 class="mb-0 font-size-15">RM</h6>
                                             </div>
+                                            <div class="flex-grow-1 ms-3" onclick="getting_listing('TM')">
+                                                <svg style="float: right;" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-more-vertical">
+                                                    <circle cx="12" cy="12" r="1"></circle>
+                                                    <circle cx="12" cy="5" r="1"></circle>
+                                                    <circle cx="12" cy="19" r="1"></circle>
+                                                </svg>
+                                            </div>
 
 
                                         </div>
@@ -277,7 +360,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 d-none">
+                        <div class="col-md-3">
                             <div class="card">
                                 <div class="card-body">
                                     <div>
@@ -290,6 +373,16 @@
 
                                             <div class="flex-grow-1 ms-3">
                                                 <h6 class="mb-0 font-size-15">TM</h6>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3" onclick="getting_listing('ASM')">
+                                                <svg style="float: right;" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-more-vertical">
+                                                    <circle cx="12" cy="12" r="1"></circle>
+                                                    <circle cx="12" cy="5" r="1"></circle>
+                                                    <circle cx="12" cy="19" r="1"></circle>
+                                                </svg>
                                             </div>
 
 
@@ -346,7 +439,7 @@
 
 
                         </div>
-                        <div class="col-md-6 d-none">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
                                     <canvas id="rm_chart"></canvas>
@@ -357,7 +450,7 @@
 
                         </div>
 
-                        <div class="col-md-6 d-none">
+                        <div class="col-md-6 ">
                             <div class="card">
                                 <div class="card-body">
                                     <canvas id="tm_chart"></canvas>
@@ -369,9 +462,9 @@
                         </div>
 
                     </div>
-                    <div class="row d-none">
+                    <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="card">
                                 <div class="card-body" style="height: 350px;">
                                     <strong>Task</strong>
@@ -382,10 +475,10 @@
 
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="card">
                                 <div class="card-body" style="height: 350px;">
-                                    <strong>Task Status</strong>
+                                    <strong>Visits Status</strong>
                                     <canvas id="task_status"></canvas>
 
                                 </div>
@@ -403,15 +496,17 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">S.No</th>
-                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Site Name</th>
                                         <th class="text-center">SAP #</th>
-                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Is Verified </th>
+                                        <th class="text-center">TM</th>
                                         <th class="text-center">Contact</th>
                                         <th class="text-center">Location</th>
+                                        <th class="text-center">Is-login</th>
                                         <th class="text-center">City</th>
                                         <th class="text-center">Province</th>
                                         <th class="text-center">Region</th>
-                                        <th class="text-center">Created Time</th>
+                                        <!-- <th class="text-center">Created Time</th> -->
 
                                         <!-- <th class="text-center">Edit</th>
                                         <th class="text-center">Delete</th> -->
@@ -436,10 +531,14 @@
                                                 <th>S.No</th>
                                                 <th>User</th>
                                                 <th>Site Name</th>
-                                                <th>Date</th>
-                                                <th>Status</th>
+                                                <th>Planned Date</th>
+                                                <th>Dealer sign</th>
+                                                <th>Complete Time</th>
+                                                <th>RM Approved Time</th>
+                                                <th>RM Approval Status</th>
+                                                <th>View RM Approval</th>
+                                                <th>Visit Status</th>
                                                 <th>Description</th>
-
                                                 <th>Created At</th>
                                             </tr>
                                         </thead>
@@ -458,45 +557,168 @@
             </div>
             <!-- End Page-content -->
 
-            <div id="edit_password_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel"
-                aria-hidden="true" data-bs-scroll="true">
-                <div class="modal-dialog">
+            <div id="listing_users" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+                data-bs-scroll="true">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
                             <h5 class="modal-title" id="myModalLabel">
-                                <h5 id="labelc">Edit Password</h5>
+                                <h5 id="labelc"></h5>
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" id="password_update_form" enctype="multipart/form-data">
-
+                            <div class="container-fluid user_lists" id="tm_div">
                                 <div class="row">
-                                    <div class="col-12">
-                                        <div class="mb-3 row">
-                                            <label for="example-text-input"
-                                                class="col-md-2 col-form-label">Password</label>
-                                            <div class="col-md-10">
-                                                <input type="text" id="edit_password" class="form-control"
-                                                    name='edit_password'>
+                                    <div class="col-md-12">
+                                        <h4>RM List</h4>
+
+                                        <div class="card">
+                                            <div class="card-body">
+
+
+                                                <div class="mx-n4 simplebar-scrollable-y" data-simplebar="init"
+                                                    style="max-height: 421px;">
+                                                    <div class="simplebar-wrapper" style="margin: 0px;">
+                                                        <div class="simplebar-height-auto-observer-wrapper">
+                                                            <div class="simplebar-height-auto-observer"></div>
+                                                        </div>
+                                                        <div class="simplebar-mask">
+                                                            <div class="simplebar-offset"
+                                                                style="right: 0px; bottom: 0px;">
+                                                                <div class="simplebar-content-wrapper" tabindex="0"
+                                                                    role="region" aria-label="scrollable content"
+                                                                    style="height: auto; overflow: hidden scroll;">
+                                                                    <div class="simplebar-content"
+                                                                        style="padding: 0px;">
+                                                                        <div class="border-bottom loyal-customers-box pt-2"
+                                                                            id='apend_rm_users'>
+
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="simplebar-placeholder"
+                                                            style="width: 325px; height: 432px;"></div>
+                                                    </div>
+                                                    <div class="simplebar-track simplebar-horizontal"
+                                                        style="visibility: hidden;">
+                                                        <div class="simplebar-scrollbar"
+                                                            style="width: 0px; display: none;"></div>
+                                                    </div>
+                                                    <div class="simplebar-track simplebar-vertical"
+                                                        style="visibility: visible;">
+                                                        <div class="simplebar-scrollbar"
+                                                            style="height: 410px; transform: translate3d(0px, 0px, 0px); display: block;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
 
-
-                                    </div>
-
-                                    <div class="col-12" style="text-align: right;">
-
-
-                                        <input type="hidden" name="row_id" id="dealer_row_id">
-                                        <button type="button" class="btn btn-secondary waves-effect"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <input class="btn btn-primary waves-effect waves-light" type="submit"
-                                            name="update_pass" id="update_pass" value="Save">
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                            <div class="container-fluid user_lists" id="asm_div">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>TM List</h4>
+                                        <div class="card">
+                                            <div class="card-body">
+
+
+                                                <div class="mx-n4 simplebar-scrollable-y" data-simplebar="init"
+                                                    style="max-height: 421px;">
+                                                    <div class="simplebar-wrapper" style="margin: 0px;">
+                                                        <div class="simplebar-height-auto-observer-wrapper">
+                                                            <div class="simplebar-height-auto-observer"></div>
+                                                        </div>
+                                                        <div class="simplebar-mask">
+                                                            <div class="simplebar-offset"
+                                                                style="right: 0px; bottom: 0px;">
+                                                                <div class="simplebar-content-wrapper" tabindex="0"
+                                                                    role="region" aria-label="scrollable content"
+                                                                    style="height: auto; overflow: hidden scroll;">
+                                                                    <div class="simplebar-content"
+                                                                        style="padding: 0px;">
+                                                                        <div class="border-bottom loyal-customers-box pt-2"
+                                                                            id='apend_tm_users'>
+
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="simplebar-placeholder"
+                                                            style="width: 325px; height: 432px;"></div>
+                                                    </div>
+                                                    <div class="simplebar-track simplebar-horizontal"
+                                                        style="visibility: hidden;">
+                                                        <div class="simplebar-scrollbar"
+                                                            style="width: 0px; display: none;"></div>
+                                                    </div>
+                                                    <div class="simplebar-track simplebar-vertical"
+                                                        style="visibility: visible;">
+                                                        <div class="simplebar-scrollbar"
+                                                            style="height: 410px; transform: translate3d(0px, 0px, 0px); display: block;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid user_lists" id="viste_mode">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>Visit Creation Users</h4>
+                                        <div class="card">
+                                            <div class="card-body">
+
+
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <table id="users_tasking" class="display"
+                                                                style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">S.No</th>
+                                                                        <th class="text-center">Users</th>
+                                                                        <th class="text-center">Privilege</th>
+                                                                        <th class="text-center">Pending
+                                                                        </th>
+                                                                        <th class="text-center">Overdue
+                                                                        </th>
+                                                                        <th class="text-center">Upcoming
+                                                                        </th>
+                                                                        <th class="text-center">Complete
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -751,21 +973,55 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT -->
+    <div id="rm_approval_form" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        data-bs-scroll="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">RM Approval Form</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
-    <?php include 'script_tags.php'; ?>
-    <script src="js_cdn/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+                    <div class="container-fluid">
+                        <div class="row" id='approval_reports'>
 
-    <script>
+
+                        </div>
+
+
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+        <!-- JAVASCRIPT -->
+
+        <?php include 'script_tags.php'; ?>
+        <script src="js_cdn/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+        <script>
         var table;
         var type;
         var subtype;
         var dealers_data = "";
         var task_data = "";
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.multi_select').select2();
             $('.selectpicker').select2();
+            users_tasking = $('#users_tasking').DataTable({
+                dom: 'Bfrtip',
+
+
+                buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+
+            });
 
 
             ///banner image start
@@ -816,11 +1072,11 @@
                         fileExtension === 'gif') {
                         const reader = new FileReader();
 
-                        reader.onload = function (e) {
+                        reader.onload = function(e) {
                             const img = new Image();
                             img.src = e.target.result;
 
-                            img.onload = function () {
+                            img.onload = function() {
                                 resolution.width = img.width;
                                 resolution.height = img.height;
 
@@ -894,11 +1150,11 @@
                         fileExtension2 === 'gif') {
                         const reader2 = new FileReader();
 
-                        reader2.onload = function (e) {
+                        reader2.onload = function(e) {
                             const img2 = new Image();
                             img2.src = e.target.result;
 
-                            img2.onload = function () {
+                            img2.onload = function() {
                                 resolution2.width = img2.width;
                                 resolution2.height = img2.height;
 
@@ -979,7 +1235,7 @@
 
 
             // Event listener for dropdown changes
-            $('.selectpicker').on('change', function () {
+            $('.selectpicker').on('change', function() {
                 filterTable();
             });
 
@@ -987,7 +1243,7 @@
             multi_select();
             // facility_select();
 
-            $('#add_btn').click(function () {
+            $('#add_btn').click(function() {
 
                 $('#row_id').val("");
                 $('#depots').val([]).trigger('change');
@@ -1003,7 +1259,7 @@
 
             });
 
-            $('#password_update_form').on("submit", function (event) {
+            $('#password_update_form').on("submit", function(event) {
                 event.preventDefault();
                 // alert("Name")
 
@@ -1018,12 +1274,12 @@
                         processData: false,
                         method: "POST",
                         data: data,
-                        beforeSend: function () {
+                        beforeSend: function() {
                             $('#update_pass').val("Saving");
                             document.getElementById("update_pass").disabled = true;
 
                         },
-                        success: function (data) {
+                        success: function(data) {
                             console.log(data)
 
                             if (data != 1) {
@@ -1037,7 +1293,7 @@
                             } else {
 
 
-                                setTimeout(function () {
+                                setTimeout(function() {
                                     Swal.fire(
                                         'Success!',
                                         'Record Updated Successfully',
@@ -1054,7 +1310,7 @@
                             }
 
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             // Handle API errors
                             console.log('Error:', error);
                             console.log('Status:', status);
@@ -1066,7 +1322,7 @@
 
             });
 
-            $('#insert_form').on("submit", function (event) {
+            $('#insert_form').on("submit", function(event) {
                 event.preventDefault();
                 update_id = $('#dealer_id').val();
 
@@ -1082,12 +1338,12 @@
                         processData: false,
                         method: "POST",
                         data: data,
-                        beforeSend: function () {
+                        beforeSend: function() {
                             $('#insert').val("Saving");
                             document.getElementById("insert").disabled = true;
 
                         },
-                        success: function (data) {
+                        success: function(data) {
                             console.log(data)
 
                             if (data != 1) {
@@ -1101,7 +1357,7 @@
                             } else {
 
 
-                                setTimeout(function () {
+                                setTimeout(function() {
                                     Swal.fire(
                                         'Success!',
                                         'Record Created Successfully',
@@ -1111,7 +1367,8 @@
                                     $('#offcanvasRight').modal('hide');
                                     fetchtable();
                                     $('#insert').val("Save");
-                                    document.getElementById("insert").disabled = false;
+                                    document.getElementById("insert").disabled =
+                                        false;
                                     location.reload();
 
                                 }, 2000);
@@ -1120,7 +1377,7 @@
 
                         },
 
-                        error: function (error) {
+                        error: function(error) {
                             console.error('Error fetching data:', error);
                         }
 
@@ -1137,13 +1394,13 @@
                         processData: false,
                         method: "POST",
                         data: data,
-                        beforeSend: function () {
+                        beforeSend: function() {
                             var file_
                             $('#insert').val("Saving");
                             document.getElementById("insert").disabled = true;
 
                         },
-                        success: function (data) {
+                        success: function(data) {
                             console.log(data)
 
                             if (data != 1) {
@@ -1157,19 +1414,21 @@
                             } else {
 
 
-                                setTimeout(function () {
+                                setTimeout(function() {
                                     Swal.fire(
                                         'Success!',
                                         'Record Updated Successfully',
                                         'success'
                                     )
-                                    document.getElementById("imagePreview2").src = ""
+                                    document.getElementById("imagePreview2").src =
+                                        ""
                                     document.getElementById("imagePreview").src = ""
                                     $('#insert_form')[0].reset();
                                     $('#offcanvasRight').modal('hide');
                                     fetchtable();
                                     $('#insert').val("Save");
-                                    document.getElementById("insert").disabled = false;
+                                    document.getElementById("insert").disabled =
+                                        false;
                                     location.reload();
 
                                 }, 2000);
@@ -1177,7 +1436,7 @@
                             }
 
                         },
-                        error: function (error) {
+                        error: function(error) {
                             console.error('Error fetching data:', error);
                         }
                     });
@@ -1190,108 +1449,207 @@
 
 
         function fetchtable() {
+            var fromdate = $('#fromdate').val();
+            var todate = $('#todate').val();
             $('#loader').show();
             var requestOptions = {
                 method: 'GET',
                 redirect: 'follow'
             };
-            console.log("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>");
+            console.log(
+                "<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>");
             fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
-                requestOptions)
+                    requestOptions)
                 .then(response => response.json())
-                .then(async response => {
+                .then(response => {
                     console.log(response)
                     dealers_data = response;
-
+                    var verifiedCount = 0;
+                    var nonVerifiedCount = 0;
+                    var loginCount = 0;
                     $('#dealers_count').html(response.length);
                     table.clear().draw();
-                    $.each(response, function (index, data) {
+                    $.each(response, function(index, data) {
                         $('#loader').hide();
                         table.row.add([
                             index + 1,
                             data.name,
                             data.sap_no,
-                            data.email,
+                            data.indent_price == '1' ? 'Verified ' : 'Not-Active ',
+                            data.asm_name,
                             data.contact,
                             data.location,
+                            data.Nozel_price != '0' ? 'Logged-In' : 'Not-Login Yet ',
                             data.city,
                             data.province,
-                            data.region,
-                            data.created_at
+                            data.region
                         ]).draw();
-                    });
 
-                    try {
-                        setTimeout(async function () {
-                            var tm_ids = "<?php echo $_GET['id'] ?>";
-                            // Code to be executed after the delay
-                            $('#tm_user').val(tm_ids).trigger('change');
-                            const result2 = await filterTable();
-                            console.log('This code executes after a 2-second delay');
-                        }, 2000);
-                    } catch (error) {
-                        console.log('error', error);
-                    }
+                        if (data.indent_price == '1') {
+                            verifiedCount++;
+                        } else {
+                            nonVerifiedCount++;
+                        }
+                        if (data.Nozel_price != '0') {
+                            loginCount++;
+                        }
+                    });
+                    $('#verified_dealers').html(verifiedCount);
+                    $('#nonverified_dealers').html(nonVerifiedCount);
+                    $('#logined_dealers').html(loginCount);
+
                     // check_data(response);
-                    // chart_datas(response, 'lineChart', 'province', 'Province')
-                    // chart_datas(response, 'region_chart', 'region', 'Region')
-                    // chart_datas(response, 'city_chart', 'city', 'City')
-                    // chart_datas(response, 'terr_chart', 'district', 'District')
-                    // chart_datas(response, 'rm_chart', 'tm', 'RM')
-                    // chart_datas(response, 'tm_chart', 'asm', 'TM')
+                    chart_datas(response, 'lineChart', 'province', 'Province')
+                    chart_datas(response, 'region_chart', 'region', 'Region')
+                    chart_datas(response, 'city_chart', 'city', 'City')
+                    chart_datas(response, 'terr_chart', 'district', 'District')
+                    chart_datas(response, 'rm_chart', 'tm', 'RM')
+                    chart_datas(response, 'tm_chart', 'asm', 'TM')
                     // chart_datas(response, 'depot_chart', 'actual_depot', 'Depot')
                     // chart_datas(response, 'rural_urban', 'cat_2', 'Cat-2')
 
                 })
                 .catch(error => console.log('error', error));
-
-            fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
-                requestOptions)
+            console.log(
+                "<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "")
+            fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                    fromdate + "&to=" + todate + "",
+                    requestOptions)
                 .then(response => response.json())
-                .then(async response => {
+                .then(response => {
                     console.log(response)
                     task_data = response;
 
                     $('#task_count').html(response.length);
-
+                    var uniqueUsers = [];
                     task_table.clear().draw();
-                    $.each(response, function (index, data) {
+                    $.each(response, function(index, data) {
+                        var dealer_sign = (data.dealer_sign != null) ?
+                            '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
+                            '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
+                            "---";
+
+                        var rm_approval = (data.approved_status != null) ? data.approved_status : "---";
+
+                        if (rm_approval != '---') {
+                            var rm_approval = (data.approved_status != 0) ?
+                                '<button type="button"  onclick="view_rm_approved_report(' + data.task_id +
+                                ',' +
+                                data
+                                .dealer_id +
+                                ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>' :
+                                "---";
+
+                        }
                         task_table.row.add([
                             index + 1,
-                            data.user_name,
+                            '<a href="inspection_report.php?name=' + data.user_name +
+                            '" target="_blank">' + data.user_name + '</a>',
                             data.dealer_name,
                             data.time,
-                            (data.status === 1) ? 'Complete' : 'Pending',
+                            dealer_sign,
+                            (data.visit_close_time != null) ? data.visit_close_time : "---",
+                            (data.approved_at != null) ? data.approved_at : "---",
+                            data.approval_status,
+                            rm_approval,
+                            data.current_status,
+                            // (data.status === '1') ? 'Complete' : 'Pending',
                             data.description,
                             data.task_create_time,
                         ]).draw(false);
+                       
                     });
+
+
 
                     var pendingCount = 0;
                     var completeCount = 0;
+                    var lateCount = 0;
+                    var upcomingCount = 0;
 
                     // Loop through the array and count Pending and Complete records
-                    $.each(response, function (index, record) {
+                    $.each(response, function(index, record) {
                         if (record.current_status === 'Pending') {
                             pendingCount++;
                         } else if (record.current_status === 'Complete') {
                             completeCount++;
+                        } else if (record.current_status === 'Overdue') {
+                            lateCount++;
+                        } else if (record.current_status === 'Upcoming') {
+                            upcomingCount++;
                         }
                     });
 
                     $('#Pending_tasks').text(pendingCount);
                     $('#completed_tasks').text(completeCount);
+                    $('#late_tasks').text(lateCount);
+                    $('#upcoming_tasks').text(upcomingCount);
 
-                    try {
+                    task_datas(response, 'task_users', 'user_name', 'Users Task')
+                    task_datas(response, 'task_status', 'current_status', 'Task Status')
 
 
-                        task_datas(response, 'task_users', 'user_name', 'Users Task')
-                        task_datas(response, 'task_status', 'current_status', 'Task Status')
+                })
+                .catch(error => console.log('error', error));
 
-                        // filterTable();
-                    } catch (error) {
-                        console.log('error', error);
-                    }
+            fetch("<?php echo $api_url; ?>get/inspection/get_all_specific_visits_user.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                    fromdate + "&to=" + todate + "",
+                    requestOptions)
+                .then(response => response.json())
+                .then(response => {
+                    users_tasking.clear().draw();
+
+                    $('#vistes_users').html(response.length);
+                    $.each(response, function(index, data) {
+
+
+                        // htmlContent = '<div class="container-fluid">' +
+                        //     '<div class="row">' +
+                        //     '<div class="col-md-4">' + data.user_name + '</div>' +
+                        //     ' <div class="col-md-8">' +
+                        //     '<div class="container-fluid">' +
+                        //     '<div class="row">' +
+                        //     '<div class="col-md-3"><small>Pending : ' + data.sum_pending + '</small></div>' +
+                        //     '<div class="col-md-3"><small>Overdue : ' + data.sum_Late + '</small> </div>' +
+                        //     '<div class="col-md-3"><small>Upcoming : ' + data.sum_Upcoming + '</small></div>' +
+                        //     '<div class="col-md-3"><small>Complete : ' + data.sum_Complete + ' </small></div>' +
+                        //     '</div>' +
+                        //     '</div>' +
+                        //     '</div>' +
+                        //     '</div>' +
+                        //     '</div>';
+
+                        // Append the HTML content to the container
+                        // $('#liat_vist_users').append(htmlContent);
+                        var lang = data.privilege;
+                        if (lang == 'ZM') {
+                            lang = 'GRM';
+                        } else if (lang == 'TM') {
+                            lang = 'RM';
+
+                        } else if (lang == 'Admin') {
+                            lang = 'Admin';
+
+                        } else if (lang == 'ASM') {
+                            lang = 'TM';
+
+                        } else {
+                            lang = data.privilege;
+
+                        }
+                        users_tasking.row.add([
+                            index + 1,
+                            (data.user_name),
+                            lang,
+                            data.sum_pending,
+                            data.sum_Late,
+                            data.sum_Upcoming,
+                            data.sum_Complete
+                        ]).draw();
+                    });
+
+
 
 
 
@@ -1304,7 +1662,7 @@
                 url: '<?php echo $api_url; ?>get/get_region_district_dealers.php?key=03201232927',
                 method: 'GET',
                 dataType: 'json',
-                success: async function (data) {
+                success: function(data) {
                     console.log(data);
                     var district = JSON.parse(data[0]['district']);
 
@@ -1328,7 +1686,7 @@
                         value: '',
                         text: 'Select District'
                     }));
-                    $.each(district, function (index, item) {
+                    $.each(district, function(index, item) {
 
                         $('#district').append($('<option>', {
                             value: item.district,
@@ -1342,7 +1700,7 @@
                         value: '',
                         text: 'Select City'
                     }));
-                    $.each(city, function (index, item) {
+                    $.each(city, function(index, item) {
 
                         $('#city').append($('<option>', {
                             value: item.city,
@@ -1355,7 +1713,7 @@
                         value: '',
                         text: 'Select'
                     }));
-                    $.each(province, function (index, item) {
+                    $.each(province, function(index, item) {
 
                         $('#province').append($('<option>', {
                             value: item.province,
@@ -1368,7 +1726,7 @@
                         value: '',
                         text: 'Select'
                     }));
-                    $.each(region, function (index, item) {
+                    $.each(region, function(index, item) {
 
                         $('#regions').append($('<option>', {
                             value: item.region,
@@ -1381,24 +1739,62 @@
                         value: '',
                         text: 'Select'
                     }));
-                    $.each(tm, function (index, item) {
+                    $.each(tm, function(index, item) {
 
                         $('#tm_user').append($('<option>', {
                             value: item.id,
                             text: item.name
                         }));
+
+                        var htmlContent = '<div class="d-flex align-items-center">';
+                        htmlContent += '<div class="flex-grow-1 ms-3 overflow-hidden">';
+                        htmlContent += '<h5 class="font-size-15 mb-1 text-truncate">' + item.name +
+                            '</h5>';
+                        htmlContent += '</div>';
+                        htmlContent += '<div class="flex-shrink-0">';
+                        htmlContent +=
+                            '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center">';
+                        htmlContent +=
+                            '<a href="tm_dashboard_rebulid.php?id=' + item.id + '&pre=' + item
+                            .privilege +
+                            '" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-import font-size-14 text-primary ms-1"></i></a> ';
+                        htmlContent += '</h5>';
+                        htmlContent += '</div>';
+                        htmlContent += '</div>';
+
+                        // Append the HTML content to the container
+                        $('#apend_rm_users').append(htmlContent);
                     });
                     $('#asm_users').empty();
                     $('#asm_users').append($('<option>', {
                         value: '',
                         text: 'Select'
                     }));
-                    $.each(asm, function (index, item) {
+                    $.each(asm, function(index, item) {
 
                         $('#asm_users').append($('<option>', {
                             value: item.id,
                             text: item.name
                         }));
+
+                        var htmlContent = '<div class="d-flex align-items-center">';
+                        htmlContent += '<div class="flex-grow-1 ms-3 overflow-hidden">';
+                        htmlContent += '<h5 class="font-size-15 mb-1 text-truncate">' + item.name +
+                            '</h5>';
+                        htmlContent += '</div>';
+                        htmlContent += '<div class="flex-shrink-0">';
+                        htmlContent +=
+                            '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center">';
+                        htmlContent +=
+                            '<a href="asm_dashboard_rebuild.php?id=' + item.id + '&pre=' + item
+                            .privilege +
+                            '" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-import font-size-14 text-primary ms-1"></i></a> ';
+                        htmlContent += '</h5>';
+                        htmlContent += '</div>';
+                        htmlContent += '</div>';
+
+                        // Append the HTML content to the container
+                        $('#apend_tm_users').append(htmlContent);
                     });
 
 
@@ -1406,7 +1802,7 @@
                     // Refresh the Select2 element to display the newly added options
                     // $('#zm').trigger('change.select2');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching data:', error);
                 }
             });
@@ -1425,9 +1821,9 @@
                 url: '<?php echo $api_url; ?>get/depotes.php?key=03201232927',
                 method: 'GET',
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     // Iterate through the data and append options to the select element
-                    $.each(data, function (index, item) {
+                    $.each(data, function(index, item) {
 
                         $('#depots').append($('<option>', {
                             value: item.id,
@@ -1438,7 +1834,7 @@
                     // Refresh the Select2 element to display the newly added options
                     $('#mySelect').trigger('change.select2');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching data:', error);
                 }
             });
@@ -1447,13 +1843,13 @@
                 url: '<?php echo $api_url; ?>get/get_zm.php?key=03201232927',
                 method: 'GET',
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     // Iterate through the data and append options to the select element
                     $('#zm').append($('<option>', {
                         value: '',
                         text: 'Select GRM'
                     }));
-                    $.each(data, function (index, item) {
+                    $.each(data, function(index, item) {
 
                         $('#zm').append($('<option>', {
                             value: item.id,
@@ -1464,7 +1860,7 @@
                     // Refresh the Select2 element to display the newly added options
                     $('#zm').trigger('change.select2');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching data:', error);
                 }
             });
@@ -1473,13 +1869,13 @@
                 url: '<?php echo $api_url; ?>get/get_zm.php?key=03201232927',
                 method: 'GET',
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     // Iterate through the data and append options to the select element
                     $('#products1').append($('<option>', {
                         value: '',
                         text: 'Select Nozel'
                     }));
-                    $.each(data, function (index, item) {
+                    $.each(data, function(index, item) {
 
                         $('#products1').append($('<option>', {
                             value: item.id,
@@ -1490,7 +1886,7 @@
                     // Refresh the Select2 element to display the newly added options
                     $('#products1').trigger('change.select2');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching data:', error);
                 }
             });
@@ -1502,7 +1898,7 @@
                 url: '<?php echo $api_url; ?>get/individual_tm_of_zm.php?key=03201232927&zm_id=' + id + '',
                 method: 'GET',
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     console.log(data)
                     // Iterate through the data and append options to the select element
                     $('#tm').empty();
@@ -1510,7 +1906,7 @@
                         value: '',
                         text: 'Select RM'
                     }));
-                    $.each(data, function (index, item) {
+                    $.each(data, function(index, item) {
 
                         $('#tm').append($('<option>', {
                             value: item.id,
@@ -1521,7 +1917,7 @@
                     // Refresh the Select2 element to display the newly added options
                     // $('#zm').trigger('change.select2');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching data:', error);
                 }
             });
@@ -1533,7 +1929,7 @@
                 url: '<?php echo $api_url; ?>get/individual_asm_of_tm.php?key=03201232927&tm_id=' + id + '',
                 method: 'GET',
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     // Iterate through the data and append options to the select element
                     $('#asm').empty();
@@ -1541,7 +1937,7 @@
                         value: '',
                         text: 'Select TM'
                     }));
-                    $.each(data, function (index, item) {
+                    $.each(data, function(index, item) {
 
                         $('#asm').append($('<option>', {
                             value: item.id,
@@ -1552,7 +1948,7 @@
                     // Refresh the Select2 element to display the newly added options
                     // $('#zm').trigger('change.select2');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching data:', error);
                 }
             });
@@ -1564,9 +1960,9 @@
                 url: '<?php echo $api_url; ?>get/facilities_get.php?key=03201232927',
                 method: 'GET',
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     // Iterate through the data and append options to the select element
-                    $.each(data, function (index, item) {
+                    $.each(data, function(index, item) {
                         $('#facility').append($('<option>', {
                             value: item.id,
                             text: item.facilities
@@ -1576,14 +1972,14 @@
                     // Refresh the Select2 element to display the newly added options
                     $('#facility').trigger('change.select2');
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching data:', error);
                 }
             });
         }
-    </script>
+        </script>
 
-    <script>
+        <script>
         function creat_form() {
             var qty_f = document.getElementById("trip_qtys").value;
             // del_order
@@ -1601,7 +1997,8 @@
 
 
                         '"><td class="text-center">' + (i + 1) +
-                        '</td> <td class="text-primary"><input type="text" class="form-control" id="consignee_code' + (
+                        '</td> <td class="text-primary"><input type="text" class="form-control" id="consignee_code' +
+                        (
                             i + 1) + '" name="lorry_no[]" onchange="get_lorry_data(' + (i + 1) +
                         ')"  required></td> <td> <select id="products" name="products[]" class="form-control "> <option value="">Select</option> <option value="HSD">HSD</option> <option value="PMG">PMG</option> <option value="HOBC">HOBC</option> </select></td> <td class=""><input type="text" class="form-control" id="consignee_name' +
                         (i + 1) +
@@ -1611,7 +2008,7 @@
                         i + '" value="' + i + '" class="btn btn-success btn_remove">X</button></td></tr>');
                     // alert("Create " + i)
                 }
-                $(document).on('click', '.btn_remove', function () {
+                $(document).on('click', '.btn_remove', function() {
                     i--;
                     var button = $(this).val();
                     // alert(button);
@@ -1639,11 +2036,10 @@
             var terri = $('#district').val();
             var rm_counts = $('#tm_user').val();
             var tm_counts = $('#asm_users').val();
+            var task_status_select = $('#task_status_select').val();
+
             // Get other selected values similarly
             console.log(selectedCity)
-            // alert(rm_counts)
-            console.log('dealers_data')
-            console.log(dealers_data)
 
             // Filter the dealers based on selected values
             // var filteredDealers = dealers_data.filter(function(dealer) {
@@ -1655,7 +2051,7 @@
             //     );
             // });
 
-            var filteredData = dealers_data.filter(function (item) {
+            var filteredData = dealers_data.filter(function(item) {
                 // return selectedCity.includes(item.city);
                 return (
                     (selectedCity.length === 0 || selectedCity.includes(item.city)) &&
@@ -1676,25 +2072,41 @@
             // Output the results
             // console.log('Distinct TM Count:', distinctTmCount);
             // console.log('Distinct ASM No Count:', distinctASMCount);
-
+            var verifiedCount = 0;
+            var nonVerifiedCount = 0;
+            var loginCount = 0;
             console.log(filteredData)
             table.clear().draw();
-            $.each(filteredData, function (index, data) {
+            $.each(filteredData, function(index, data) {
                 // $('#loader').hide();
                 table.row.add([
                     index + 1,
                     data.name,
                     data.sap_no,
-                    data.email,
+                    data.indent_price == '1' ? 'Verified ' : 'Not-Active ',
+
+                    data.asm_name,
                     data.contact,
                     data.location,
+                    data.Nozel_price != '0' ? 'Logged-In' : 'Not-Login Yet ',
                     data.city,
                     data.province,
-                    data.region,
-                    data.created_at
+                    data.region
                 ]).draw();
+
+                if (data.indent_price == '1') {
+                    verifiedCount++;
+                } else {
+                    nonVerifiedCount++;
+                }
+                if (data.Nozel_price != '0') {
+                    loginCount++;
+                }
             });
             $('#dealers_count').text(filteredData.length);
+            $('#verified_dealers').html(verifiedCount);
+            $('#nonverified_dealers').html(nonVerifiedCount);
+            $('#logined_dealers').html(loginCount);
             chart_datas(filteredData, 'lineChart', 'province', 'Province')
             chart_datas(filteredData, 'region_chart', 'region', 'Region')
             chart_datas(filteredData, 'city_chart', 'city', 'City')
@@ -1703,7 +2115,7 @@
             chart_datas(filteredData, 'tm_chart', 'asm', 'TM')
 
 
-            var filteredTaskData = task_data.filter(function (item) {
+            var filteredTaskData = task_data.filter(function(item) {
                 // return selectedCity.includes(item.city);
                 return (
                     (selectedCity.length === 0 || selectedCity.includes(item.city)) &&
@@ -1711,38 +2123,72 @@
                     (regions.length === 0 || regions.includes(item.region)) &&
                     (terri.length === 0 || terri.includes(item.district)) &&
                     (rm_counts.length === 0 || rm_counts.includes(item.tm)) &&
-                    (tm_counts.length === 0 || tm_counts.includes(item.asm))
+                    (tm_counts.length === 0 || tm_counts.includes(item.asm)) &&
+                    (task_status_select.length === 0 || task_status_select.includes(item.current_status))
                 );
             });
 
             $('#task_count').html(filteredTaskData.length);
             task_table.clear().draw();
-            $.each(filteredTaskData, function (index, data) {
+            $.each(filteredTaskData, function(index, data) {
+                var dealer_sign = (data.dealer_sign != null) ?
+                    '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
+                    '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
+                    "---";
+
+                var rm_approval = (data.approved_status != null) ? data.approved_status : "---";
+
+                if (rm_approval != '---') {
+                    var rm_approval = (data.approved_status != 0) ?
+                        '<button type="button"  onclick="view_rm_approved_report(' + data.task_id +
+                        ',' +
+                        data
+                        .dealer_id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>' :
+                        "---";
+
+                }
                 task_table.row.add([
                     index + 1,
-                    data.user_name,
+                    '<a href="inspection_report.php?name=' + data.user_name +
+                    '" target="_blank">' + data.user_name + '</a>',
                     data.dealer_name,
                     data.time,
-                    (data.status === 1) ? 'Complete' : 'Pending',
+                    dealer_sign,
+                    (data.visit_close_time != null) ? data.visit_close_time : "---",
+                    (data.approved_at != null) ? data.approved_at : "---",
+                    data.approval_status,
+                    rm_approval,
+                    data.current_status,
+                    // (data.status === '1') ? 'Complete' : 'Pending',
                     data.description,
                     data.task_create_time,
 
                 ]).draw(false);
             });
+
             var pendingCount = 0;
             var completeCount = 0;
+            var lateCount = 0;
+            var upcomingCount = 0;
 
             // Loop through the array and count Pending and Complete records
-            $.each(filteredTaskData, function (index, record) {
+            $.each(filteredTaskData, function(index, record) {
                 if (record.current_status === 'Pending') {
                     pendingCount++;
                 } else if (record.current_status === 'Complete') {
                     completeCount++;
+                } else if (record.current_status === 'Overdue') {
+                    lateCount++;
+                } else if (record.current_status === 'Upcoming') {
+                    upcomingCount++;
                 }
             });
 
             $('#Pending_tasks').text(pendingCount);
             $('#completed_tasks').text(completeCount);
+            $('#late_tasks').text(lateCount);
+            $('#upcoming_tasks').text(upcomingCount);
             // table.clear().draw();
             // task_datas(filteredTaskData, 'region_chart', 'user_name', 'Users Task')
             task_datas(filteredTaskData, 'task_users', 'user_name', 'Users Task')
@@ -1902,7 +2348,7 @@
             document.getElementById("type").value = 'circle';
             circle_point = [];
 
-            google.maps.event.addListener(shape, 'center_changed', function () {
+            google.maps.event.addListener(shape, 'center_changed', function() {
                 var circle_point_edit = [];
                 var lat = this.getCenter().lat();
                 var lng = this.getCenter().lng();
@@ -1914,7 +2360,7 @@
 
 
             })
-            google.maps.event.addListener(shape, 'radius_changed', function () {
+            google.maps.event.addListener(shape, 'radius_changed', function() {
                 var circle_point_edit = [];
                 var lat = this.getCenter().lat();
                 var lng = this.getCenter().lng();
@@ -1950,7 +2396,7 @@
 
             poly_points = [];
 
-            google.maps.event.addListener(polygon.getPath(), 'insert_at', function () {
+            google.maps.event.addListener(polygon.getPath(), 'insert_at', function() {
                 var coordStr_edit = "";
                 var poly_points_edit = [];
                 for (var i = 0; i < polygon.getPath().getLength(); i++) {
@@ -1966,7 +2412,7 @@
                 document.getElementById("type").value = 'polygon';
             });
 
-            google.maps.event.addListener(polygon.getPath(), 'remove_at', function () {
+            google.maps.event.addListener(polygon.getPath(), 'remove_at', function() {
                 var coordStr_edit = "";
                 var poly_points_edit = [];
                 for (var i = 0; i < polygon.getPath().getLength(); i++) {
@@ -1982,7 +2428,7 @@
                 document.getElementById("type").value = 'polygon';
             });
 
-            google.maps.event.addListener(polygon.getPath(), 'set_at', function () {
+            google.maps.event.addListener(polygon.getPath(), 'set_at', function() {
                 var coordStr_edit = "";
                 var poly_points_edit = [];
                 for (var i = 0; i < polygon.getPath().getLength(); i++) {
@@ -2014,7 +2460,7 @@
             $.ajax({
                 ...settings,
                 statusCode: {
-                    200: function (response) {
+                    200: function(response) {
                         // console.log(response[0]['title']);
                         document.getElementById("imagePreview2").src = ""
                         document.getElementById("imagePreview").src = ""
@@ -2061,7 +2507,7 @@
                         get_tm_asm(tm)
                         $('#zm').val(response[0]['zm'])
 
-                        setTimeout(function () {
+                        setTimeout(function() {
                             $('#tm').val(response[0]['tm']);
                             $('#asm').val(response[0]['asm']);
 
@@ -2088,7 +2534,7 @@
                         $.ajax({
                             ...settings,
                             statusCode: {
-                                200: function (response) {
+                                200: function(response) {
                                     var defaultValues = [];
                                     console.log(response)
                                     for (var i = 0; i < response.length; i++) {
@@ -2130,11 +2576,11 @@
 
                     // Add more status code handlers as needed
                 },
-                success: function (data) {
+                success: function(data) {
                     // Additional success handling if needed
 
                 },
-                error: function (xhr, textStatus, errorThrown) {
+                error: function(xhr, textStatus, errorThrown) {
                     Swal.fire(
                         'Server Error!',
                         '',
@@ -2148,13 +2594,15 @@
         }
 
         function line_charts(id, label, data, name) {
+            var randomColor = generateRandomLightColor();
+
             var apexData = {
                 labels: label,
                 datasets: [{
                     label: name,
                     data: data,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: randomColor,
+                    backgroundColor: randomColor,
                     fill: true
                 }]
             };
@@ -2185,14 +2633,25 @@
             });
         }
         // stacked_chart(1)
+        function generateRandomLightColor() {
+            var r = Math.floor(Math.random() * 150) + 100; // Red component biased towards higher values (100-255)
+            var g = Math.floor(Math.random() * 150) + 100; // Green component biased towards higher values (100-255)
+            var b = Math.floor(Math.random() * 150) + 100; // Blue component biased towards higher values (100-255)
 
+            // Convert RGB values to hex
+            var hexColor = '#' + ('0' + r.toString(16)).slice(-2) +
+                ('0' + g.toString(16)).slice(-2) +
+                ('0' + b.toString(16)).slice(-2);
+
+            return hexColor;
+        }
 
 
         function chart_datas(response, id, value, name) {
             var provinceCount = {};
             console.log(value)
             // Loop through the dealers data
-            $.each(response, function (index, dealer) {
+            $.each(response, function(index, dealer) {
                 if (value == 'region') {
                     var province = dealer.region;
 
@@ -2230,7 +2689,7 @@
             var provinceCount = {};
             console.log(response)
             // Loop through the dealers data
-            $.each(response, function (index, dealer) {
+            $.each(response, function(index, dealer) {
                 if (value == 'region') {
                     var province = dealer.region;
 
@@ -2260,6 +2719,29 @@
                 // Check if the province is already in the count, if not, initialize it to 1, otherwise increment
                 provinceCount[province] = (provinceCount[province] || 0) + 1;
             });
+
+            var pendingCount = 0;
+            var completeCount = 0;
+            var lateCount = 0;
+            var upcomingCount = 0;
+
+            // Loop through the array and count Pending and Complete records
+            $.each(response, function(index, record) {
+                if (record.current_status === 'Pending') {
+                    pendingCount++;
+                } else if (record.current_status === 'Complete') {
+                    completeCount++;
+                } else if (record.current_status === 'Overdue') {
+                    lateCount++;
+                } else if (record.current_status === 'Upcoming') {
+                    upcomingCount++;
+                }
+            });
+
+            $('#Pending_tasks').text(pendingCount);
+            $('#completed_tasks').text(completeCount);
+            $('#late_tasks').text(lateCount);
+            $('#upcoming_tasks').text(upcomingCount);
 
             console.log(provinceCount);
             var provincesArray = Object.keys(provinceCount);
@@ -2307,7 +2789,9 @@
                     backgroundColor: ['rgba(255, 99, 132, 0.7)', 'rgba(75, 192, 192, 0.7)',
                         'rgba(255, 205, 86, 0.7)'
                     ],
-                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 205, 86, 1)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)'
+                    ],
                     borderWidth: 1
                 }]
             };
@@ -2332,7 +2816,122 @@
                 }
             });
         };
-    </script>
+
+        function getting_listing(user) {
+            $('.user_lists').addClass('d-none')
+            if (user == 'TM') {
+                $('#tm_div').removeClass('d-none')
+
+            } else if (user == 'ASM') {
+                $('#asm_div').removeClass('d-none')
+
+            } else if (user == 'listing_users') {
+                $('#viste_mode').removeClass('d-none')
+
+            }
+            $('#listing_users').modal('show');
+        }
+
+        function check_task_status(value) {
+            // var searchText = $('#searchInput').val();
+            task_table.search(value).draw();
+        }
+
+        function check_dealers_status(value) {
+            console.log(value)
+            // var searchText = $('#searchInput').val();
+            table.search(value).draw();
+        }
+
+        function view_rm_approved_report(task_id, dealer_id) {
+
+            if (task_id != "") {
+                $.ajax({
+                    url: '<?php echo $api_url; ?>get/inspection/get_visit_tm_response.php?key=03201232927&task_id=' +
+                        task_id + '',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data[0]);
+                        var res = data[0];
+                        // Iterate through the data and append options to the select element
+                        $('#approval_reports').empty();
+                        var sales_approval = (res.sales_approval === '1' ?
+                            '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                            '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                            );
+                        var measurement_approval = (res.measurement_approval === '1' ?
+                            '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                            '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                            );
+                        var wet_stock_approval = (res.wet_stock_approval === '1' ?
+                            '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                            '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                            );
+                        var dispensing_approval = (res.dispensing_approval === '1' ?
+                            '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                            '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                            );
+                        var stock_variations_approval = (res.stock_variations_approval === '1' ?
+                            '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                            '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                            );
+                        var inspection = (res.inspection === '1' ?
+                            '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                            '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                            );
+                        var comment = res.comment;
+                        var rm_name = res.rm_name;
+                        var approved_at = res.approved_at;
+
+                        var div = `
+                            <div class="col-md-12" >
+                               <p>Approved By : ${rm_name}  </p>
+                               <p>Approved At : ${approved_at}  </p>
+
+                                </div><div class="col-md-12" >
+                               <span> ${inspection} : Inspection Report </span>
+
+                                </div>  
+                                <div class="col-md-12" >
+                               <span> ${sales_approval} : Sales Performance Report </span>
+
+                                </div>
+                                <div class="col-md-12" >
+                               <span> ${measurement_approval} : Measurement & Price Report </span>
+
+                                </div>
+                                <div class="col-md-12" >
+                               <span> ${wet_stock_approval} : Wet Stock Management Report </span>
+
+                                </div>
+                                <div class="col-md-12" >
+                               <span> ${stock_variations_approval} : Stock Variaions Report </span>
+
+                                </div>
+                                <div class="col-md-12" >
+                               <span> ${dispensing_approval} : Dispensing Unit Meter Reading Report </span>
+
+                                </div>
+                                <div class="col-md-12 mt-3" >
+                               <span>Comments : ${comment} </span>
+
+                                </div>`;
+                        $('#approval_reports').html(div);
+
+                        $('#rm_approval_form').modal('show');
+
+                        // Refresh the Select2 element to display the newly added options
+                        // $('#zm').trigger('change.select2');
+                    },
+                    error: function(error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            }
+
+        }
+        </script>
 </body>
 
 

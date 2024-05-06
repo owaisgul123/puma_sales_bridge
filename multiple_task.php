@@ -412,9 +412,9 @@
                 method: 'GET',
                 redirect: 'follow'
             };
-            console.log("<?php echo $api_url; ?>get/inspection/outlet_count.php?key=03201232927&id=" + id + "&pre=" +
+            console.log("<?php echo $api_url; ?>get/inspection/get_current_month_visit_dealers.php?key=03201232927&id=" + id + "&pre=" +
                 dataIdValue + "");
-            fetch("<?php echo $api_url; ?>get/inspection/outlet_count.php?key=03201232927&id=" + id + "&pre=" +
+            fetch("<?php echo $api_url; ?>get/inspection/get_current_month_visit_dealers.php?key=03201232927&id=" + id + "&pre=" +
                     dataIdValue + "",
                     requestOptions)
                 .then(response => response.json())

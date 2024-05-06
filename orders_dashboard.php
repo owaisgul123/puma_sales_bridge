@@ -1017,7 +1017,7 @@
     <!-- JAVASCRIPT -->
 
     <?php include 'script_tags.php'; ?>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js_cdn/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
@@ -1468,7 +1468,8 @@
             redirect: 'follow'
         };
         console.log("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>");
-        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
+        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -1533,19 +1534,28 @@
                         track = "----";
                     }
 
+
                     if (parseInt(data.delivered_status) === 1) {
                         // If data.is_tracker is 1, generate track link
                         message = "Invoiced";
                     } else {
                         // If data.is_tracker is not 1, display ----
-                        message = "Scheduled";
+
+                        if (status == 'Not Yet Processed' || status=='pending') {
+                            message = "---";
+
+                        } else {
+                            message = "Scheduled";
+                        }
                     }
+
 
                     // Call amount_payable function
                     amount_payable(data.SaleOrder)
                         .then(amount => {
                             // Store the amount in a variable
                             payableAmount = amount;
+
                             // Add row to table after getting the amount
                             table.row.add([
                                 index + 1,
@@ -1571,7 +1581,7 @@
 
 
                         .catch(error => {
-                            console.error("Error:", error);
+                            // console.error("Error:", error);
                             // Handle error
                         });
 
@@ -2142,17 +2152,11 @@
                     ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
             }
 
-            message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
+            // message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
             // Initialize variables
             var track = "";
             var d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
             var payableAmount = ''; // Initialize payableAmount variable
-
-            // Log data for debugging
-            // console.log(data.is_tracker);
-            // console.log(data.SaleOrder);
-
-            // Check if data.is_tracker is equal to 1
             if (parseInt(data.is_tracker) === 1) {
                 // If data.is_tracker is 1, generate track link
                 track = "<a href='trip_board_salesOrder.php?no=" + data.SaleOrder +
@@ -2160,6 +2164,20 @@
             } else {
                 // If data.is_tracker is not 1, display ----
                 track = "----";
+            }
+
+            if (parseInt(data.delivered_status) === 1) {
+                // If data.is_tracker is 1, generate track link
+                message = "Invoiced";
+            } else {
+                // If data.is_tracker is not 1, display ----
+
+                if (status == 'Not Yet Processed' || status=='pending') {
+                    message = "---";
+
+                } else {
+                    message = "Scheduled";
+                }
             }
 
             // Call amount_payable function
@@ -3012,11 +3030,11 @@
                             // $('#orderSalesAmountModal').modal('show');
                             resolve(totalAmount);
                         } else {
-                            reject("No data found for the given sales order.");
+                            // reject("No data found for the given sales order.");
                         }
                     })
                     .catch(error => {
-                        console.log('error', error);
+                        // console.log('error', error);
                         reject(error);
                     });
             } else {

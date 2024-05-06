@@ -124,7 +124,6 @@
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Complete Time</th>
                                         <th class="text-center">Dealer Sign</th>
-                                        <th class="text-center">RM Approval</th>
                                         <th class="text-center">User</th>
                                         <th class="text-center">Dealer</th>
                                         <th class="text-center">Mode</th>
@@ -156,74 +155,6 @@
 
         </div>
         <!-- end main content-->
-        <div id="rm_approval_form" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-            data-bs-scroll="true">
-            <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
-                        <h5 class="modal-title" id="myModalLabel">
-                            <h5 id="labelc">RM Approval Form</h5>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form id="approvalForm" method="post" enctype="multipart/form-data">
-                                        <div>
-                                            <input type="checkbox" id="sales_approval" name="sales_approval" value="0">
-                                            <label for="sales_approval">Sales Performance Report</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="measurement_approval" name="measurement_approval"
-                                                value="0">
-                                            <label for="measurement_approval">Measurement & Price Report</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="wet_stock_approval" name="wet_stock_approval"
-                                                value="0">
-                                            <label for="wet_stock_approval">Wet Stock Management Report</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="dispensing_approval" name="dispensing_approval"
-                                                value="0">
-                                            <label for="dispensing_approval">Dispensing Unit Meter Reading
-                                                Report</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="stock_variations_approval"
-                                                name="stock_variations_approval" value="0">
-                                            <label for="stock_variations_approval">Stock Variaions Report</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="inspection" name="inspection" value="0">
-                                            <label for="inspection">Inspection Report</label>
-                                        </div>
-                                        <div>
-                                            <label for="comment">Comment:</label><br>
-                                            <textarea class='form-control' id="comment" name="comment" rows="4"
-                                                cols="50" required></textarea>
-                                        </div>
-                                        <input type="hidden" name="task_id" id="app_task_id">
-                                        <input type="hidden" name="app_dealer_id" id="app_dealer_id">
-                                        <input type="hidden" name="rm_id" id="rm_id" value='<?php echo $_SESSION['user_id']; ?>'>
-                                        <button type="submit" class='btn btn-primary' id='app_btn'>Submit</button>
-                                    </form>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
         <div id="survey_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
             data-bs-scroll="true">
             <div class="modal-dialog modal-xl">
@@ -659,11 +590,6 @@
 
         $(document).ready(function () {
             // $('.js-example-basic-multiple').select2();
-            $('input[type="checkbox"]').val(0);
-            $('input[type="checkbox"]').change(function () {
-                // Update checkbox value to 1 if checked, otherwise update to 0
-                $(this).val(this.checked ? 1 : 0);
-            });
             sale_table = $('#sale_table').DataTable({
                 dom: 'Bfrtip',
 
@@ -857,62 +783,6 @@
             });
             // load_all_select();
         })
-
-        $('#approvalForm').on("submit", function (event) {
-            event.preventDefault();
-            // alert("Name")
-
-            var data = new FormData(this);
-            if (confirm("Are you sure you want to submit the form?")) {
-                $.ajax({
-                    url: "<?php echo $api_url; ?>update/rm_visit_approval.php",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: "POST",
-                    data: data,
-                    beforeSend: function () {
-                        $('#app_btn').val("Saving");
-                        document.getElementById("app_btn").disabled = true;
-
-                    },
-                    success: function (data) {
-                        console.log(data)
-
-                        if (data != 1) {
-                            Swal.fire(
-                                'Server Error!',
-                                'Record Not Created',
-                                'error'
-                            )
-                            $('#app_btn').val("Save");
-                            document.getElementById("app_btn").disabled = false;
-                        } else {
-
-
-                            setTimeout(function () {
-                                Swal.fire(
-                                    'Success!',
-                                    'Record Updated Successfully',
-                                    'success'
-                                )
-                                location.reload();
-
-
-                            }, 2000);
-
-                        }
-
-                    }
-                });
-            }
-
-
-        });
-        // load_all_select();
-
-
-
         //     function deleteData(id){
 
         // var settings = {
@@ -1001,7 +871,7 @@
 
         }
 
-        function get_tas_sales_data(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type) {
+        function get_tas_sales_data(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
             // Clear existing content
             // $('#survey-container').empty();
             var currentDate = new Date();
@@ -1017,6 +887,8 @@
             $('#survey_dealer_name').text(dealer_name);
             $('#survey_ispector_name').text(username);
             $('#survey_type').text(type);
+
+            last_vists_dates('sales_performance', last_visit_id, comp_date);
 
             $('#survey-container').empty();
             var requestOptions = {
@@ -1102,7 +974,7 @@
 
         }
 
-        function get_task_wet_stock(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type) {
+        function get_task_wet_stock(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
             // Clear existing content
             // $('#survey-container').empty();
             var currentDate = new Date();
@@ -1118,6 +990,7 @@
             $('#survey_dealer_name').text(dealer_name);
             $('#survey_ispector_name').text(username);
             $('#survey_type').text(type);
+            last_vists_dates('wet_stock', last_visit_id, comp_date);
 
             $('#survey-container').empty();
             var requestOptions = {
@@ -1188,6 +1061,31 @@
                         console.log("PMG Array: ", PMGArray);
                         console.log("HSD Array: ", HSDArray);
 
+                        var sumPMG = 0;
+
+                        // Iterate over the array and accumulate the values
+                        $.each(PMGArray, function (index, value) {
+
+                            if (value !== '---') {
+                                // Remove commas and parse the string to float
+                                var floatValue = parseFloat(value.replace(/,/g, ''));
+                                // Add the float value to the sum
+                                sumPMG += floatValue;
+                            }
+                        });
+
+                        var sumHSD = 0;
+
+                        // Iterate over the array and accumulate the values
+                        $.each(HSDArray, function (index, value) {
+                            if (value !== '---') {
+                                // Remove commas and parse the string to float
+                                var floatValue = parseFloat(value.replace(/,/g, ''));
+                                // Add the float value to the sum
+                                sumHSD += floatValue;
+                            }
+                        });
+
                         var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Wet Stock Management</h6>
                         <table class="dynamic_table" style="width:100%">
                     <tr>
@@ -1231,7 +1129,7 @@
                     </tr>
                     <tr>
                         <td>PMG</td>
-                        <td>${PMGArray[0]}</td>
+                        <td>${sumPMG}</td>
                         <td>${PMGArray[0]}</td>
                         <td>${PMGArray[1]}</td>
                         <td>${PMGArray[2]}</td>
@@ -1239,7 +1137,7 @@
                     </tr>
                     <tr>
                         <td>HSD</td>
-                        <td>${HSDArray[0]}</td>
+                        <td>${sumHSD}</td>
                         <td>${HSDArray[0]}</td>
                         <td>${HSDArray[1]}</td>
                         <td>${HSDArray[2]}</td>
@@ -1278,24 +1176,7 @@
 
         }
 
-
-        function get_task_despensing_unit(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
-            last_visit_id) {
-            // Clear existing content
-            // $('#survey-container').empty();
-            var currentDate = new Date();
-            // alert(last_visit_id)
-            // Format the date as needed
-            var formattedDate = currentDate.toLocaleString();
-            $('#labelc').text('Dispensing Unit Meter Reading');
-            $('#survey_time').text(isp_date);
-            $('#survey_complete_time').text(comp_date);
-
-            $('#survey_dealer_name').text(dealer_name);
-            $('#survey_ispector_name').text(username);
-            $('#survey_type').text(type);
-
-
+        function last_vists_dates(report, last_visit_id, comp_date) {
             $('#last_recon').empty();
 
             const requestOptions1 = {
@@ -1304,10 +1185,11 @@
             };
 
             fetch("<?php echo $api_url; ?>get/inspection/get_second_last_visit_recon.php?key=03201232927&id=" +
-                last_visit_id + "",
+                last_visit_id + "&report=" + report + "",
                 requestOptions1)
                 .then((response) => response.json())
                 .then((result) => {
+                    console.log('lastinf')
                     console.log(result)
                     if (result.length > 0) {
 
@@ -1349,6 +1231,26 @@
                     }
                 })
                 .catch((error) => console.error(error));
+        }
+
+        function get_task_despensing_unit(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
+            last_visit_id) {
+            // Clear existing content
+            // $('#survey-container').empty();
+            var currentDate = new Date();
+            // alert(last_visit_id)
+            // Format the date as needed
+            var formattedDate = currentDate.toLocaleString();
+            $('#labelc').text('Dispensing Unit Meter Reading');
+            $('#survey_time').text(isp_date);
+            $('#survey_complete_time').text(comp_date);
+
+            $('#survey_dealer_name').text(dealer_name);
+            $('#survey_ispector_name').text(username);
+            $('#survey_type').text(type);
+
+
+            last_vists_dates('despensing_unit', last_visit_id, comp_date);
 
             $('#survey-container').empty();
             var requestOptions = {
@@ -1523,7 +1425,8 @@
 
         }
 
-        function get_task_stock_variations(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type) {
+        function get_task_stock_variations(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
+            last_visit_id) {
             // Clear existing content
             var currentDate = new Date();
 
@@ -1538,6 +1441,7 @@
             $('#survey_dealer_name').text(dealer_name);
             $('#survey_ispector_name').text(username);
             $('#survey_type').text(type);
+            last_vists_dates('stock_variation', last_visit_id, comp_date);
 
             $('#survey-container').empty();
 
@@ -1620,15 +1524,12 @@
         function fetchtable() {
             var fromdate = $('#fromdate').val();
             var todate = $('#todate').val();
-            var id = "<?php echo $_SESSION['user_id']; ?>";
             var requestOptions = {
                 method: 'GET',
                 redirect: 'follow'
             };
-            console.log("<?php echo $api_url; ?>get/get_all_tm_dealers_visits.php?key=03201232927&from=" + fromdate + "&to=" +
-                todate + "&tm_id=" + id + "")
-            fetch("<?php echo $api_url; ?>get/get_all_tm_dealers_visits.php?key=03201232927&from=" + fromdate + "&to=" +
-                todate + "&tm_id=" + id + "",
+            fetch("<?php echo $api_url; ?>get/get_all_dealers_inspection_report_data.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "",
                 requestOptions)
                 .then(response => response.json())
                 .then(response => {
@@ -1652,43 +1553,49 @@
                         }
 
                         var inspection_btn = '<button type="button"  onclick="displaySurvey(' + data.id + ',' +
-                            data.id + ',' + data.dealer_id + ', \'' + data.dealer_name + '\',\'' + data.time +
+                            data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") +
+                            '\',\'' + data.time +
                             '\',\'' + data.visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                            '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                         var inpection = (data.inspection == 1) ? inspection_btn : "---";
 
                         var sales_performace_btn = '<button type="button" onclick="get_tas_sales_data(' +
                             data
                                 .id + ',' + data
-                                .dealer_id + ', \'' + data.dealer_name +
-                            '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                                .dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data.time +
+                            '\',\'' + data.visit_close_time + '\',\'' + data.name +
                             '\',\'' + data.type +
-                            '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                         var sales_performance = (data.sales_status == 1) ? sales_performace_btn : "---";
 
                         var measurement_btn = '<button type="button" onclick="measure_price(' +
                             data
-                                .id + ',' + data.id + ',' + data.dealer_id + ', \'' + data.dealer_name +
-                            '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                                .id + ',' + data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'",
+                                    "\\'") + '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data
+                                .name +
                             '\',\'' + data.type +
-                            '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                         var measurements = (data.measurement_status == 1) ? measurement_btn : "---";
 
                         var wet_stock_btn = '<button type="button"  onclick="get_task_wet_stock(' + data
                             .id +
                             ',' + data
-                                .dealer_id + ', \'' + data.dealer_name +
-                            '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                                .dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data.time +
+                            '\',\'' + data.visit_close_time + '\',\'' + data.name +
                             '\',\'' + data.type +
-                            '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                         var wet_stocks = (data.wet_stock_status == 1) ? wet_stock_btn : "---";
 
                         var dispensing_unit_btn =
                             '<button type="button"  onclick="get_task_despensing_unit(' +
                             data.id +
                             ',' +
-                            data.dealer_id + ', \'' + data.dealer_name +
-                            '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                            data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
+                                .time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
                             '\',\'' + data.type +
                             '\',' + data.last_visit_id +
                             ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
@@ -1698,25 +1605,17 @@
                             '<button type="button"  onclick="get_task_stock_variations(' +
                             data.id +
                             ',' +
-                            data.dealer_id + ', \'' + data.dealer_name + '\',\'' + data.time + '\',\'' + data
+                            data.dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
+                                .time + '\',\'' + data
                                 .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                            '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                         var stock_variations = (data.stock_variations_status == 1) ? stock_variatins_btn :
                             "---";
                         var dealer_sign = (data.dealer_sign != null) ?
                             '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
                             '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
                             "---";
-
-
-                        var rm_approval = (data.approved_status != null) ? data.approved_status : "---";
-
-                        if (rm_approval != '---') {
-                            var rm_approval =(data.approved_status != 1) ? '<button type="button"  onclick="rm_approval_func(' + data.id + ',' + data.dealer_id + ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>' : "Approved at "+data.approved_at+"";
-
-                        }
-
-
                         lubes_table.row.add([
 
 
@@ -1724,7 +1623,6 @@
                             data.time,
                             data.visit_close_time,
                             dealer_sign,
-                            rm_approval,
                             data.name,
                             data.dealer_name,
                             data.type,
@@ -1766,14 +1664,8 @@
 
         }
 
-        function rm_approval_func(task_id, dealer_id) {
-            // alert(task_id)
-            $('#app_task_id').val(task_id)
-            $('#app_dealer_id').val(dealer_id)
-            $('#rm_approval_form').modal('show');
-
-        }
-        function displaySurvey(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type) {
+        function displaySurvey(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
+            last_visit_id) {
             // Clear existing content
             // alert(dealer_name);
             var currentDate = new Date();
@@ -1789,6 +1681,8 @@
             $('#survey_dealer_name').text(dealer_name);
             $('#survey_ispector_name').text(username);
             $('#survey_type').text(type);
+
+            last_vists_dates('inspection', last_visit_id, comp_date);
 
             $('#survey-container').empty();
 
@@ -1938,7 +1832,8 @@
             $('#survey_modal').modal('show');
         }
 
-        function measure_price(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type) {
+        function measure_price(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
+            last_visit_id) {
             // Clear existing content
             var currentDate = new Date();
 
@@ -1951,7 +1846,7 @@
             $('#survey_dealer_name').text(dealer_name);
             $('#survey_ispector_name').text(username);
             $('#survey_type').text(type);
-
+            last_vists_dates('price_measurement', last_visit_id, comp_date);
             $('#survey-container').empty();
 
             var requestOptions = {

@@ -274,8 +274,8 @@
                                                     <th class="text-center">S.No</th>
                                                     <th class="text-center">Tank #</th>
                                                     <th class="text-center">Product</th>
-                                                    <th class="text-center">Min Limit</th>
-                                                    <th class="text-center">Max Limit</th>
+                                                    <!-- <th class="text-center">Min Limit</th> -->
+                                                    <th class="text-center">Capacity</th>
                                                     <th class="text-center">Current Dip</th>
                                                     <th class="text-center">Dip</th>
                                                     <th class="text-center">Dip Backlog</th>
@@ -985,18 +985,18 @@
                                     </select>
                                 </div>
 
-                                <div class="col-4">
+                                <div class="col-4 d-none">
                                     <label for="">Min Limit</label>
-                                    <input type="number" class="form-control" name="min_limit">
+                                    <input type="number" class="form-control" name="min_limit" value="0">
                                 </div>
                                 <div class="col-4">
-                                    <label for="">Max Limit</label>
+                                    <label for="">Capacity</label>
                                     <input type="number" class="form-control" name="max_limit">
                                 </div>
 
                             </div>
 
-                            <div class="col-12" style="text-align: right;">
+                            <div class="col-12 mt-5" style="text-align: right;">
                                 <input type="hidden" name="user_id" id="user_id"
                                     value="<?php echo $_SESSION['user_id']; ?>">
                                 <input type="hidden" name="dealer_id" value="<?php echo $_GET['id'] ?>">
@@ -2254,7 +2254,7 @@
                             index + 1,
                             data.lorry_no,
                             data.name,
-                            data.min_limit,
+                            // data.min_limit,
                             data.max_limit,
                             data.current_dip,
                             '<button type="button" id="tank_dip" name="tank_dip" onclick="add_dip(' +

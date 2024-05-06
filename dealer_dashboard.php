@@ -16,7 +16,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNyJWb04pByaU1CTmimoWNl3b86VV6qZ8&callback=initMap&libraries=places,drawing&v=weekly"
         defer></script>
@@ -338,6 +338,7 @@
                                             <div class="flex-grow-1 ms-3">
                                                 <h6 class="mb-0 font-size-15">RM</h6>
                                             </div>
+
                                             <div class="flex-grow-1 ms-3" onclick="getting_listing('TM')">
                                                 <svg style="float: right;" xmlns="http://www.w3.org/2000/svg" width="24"
                                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -411,6 +412,43 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card">
+                                <div class="card-body" style="height: 350px;">
+                                    <strong>RM Approve Status</strong>
+                                    <canvas id="task_status"></canvas>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas id="rms_charts"></canvas>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">RM Approve Status</h5>
+                                </div>
+
+                                <div class="card-body pt-1" style="max-height: 380px; overflow:auto">
+                                    <div class="mx-n4" id='atgs' data-simplebar>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 d-none">
+                            <div class="card">
                                 <div class="card-body">
                                     <canvas id="lineChart"></canvas>
 
@@ -419,7 +457,7 @@
 
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="card">
                                 <div class="card-body">
                                     <canvas id="city_chart"></canvas>
@@ -429,7 +467,7 @@
 
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="card">
                                 <div class="card-body">
                                     <canvas id="terr_chart"></canvas>
@@ -439,7 +477,7 @@
 
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="card">
                                 <div class="card-body">
                                     <canvas id="rm_chart"></canvas>
@@ -450,7 +488,7 @@
 
                         </div>
 
-                        <div class="col-md-6 ">
+                        <div class="col-md-6 d-none">
                             <div class="card">
                                 <div class="card-body">
                                     <canvas id="tm_chart"></canvas>
@@ -475,17 +513,17 @@
 
 
                         </div>
-                        <div class="col-md-6 d-none">
+                        <!-- <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body" style="height: 350px;">
-                                    <strong>Visits Status</strong>
+                                    <strong>RM Approve Status</strong>
                                     <canvas id="task_status"></canvas>
 
                                 </div>
                             </div>
 
 
-                        </div>
+                        </div> -->
                     </div>
                     <div class="card">
 
@@ -532,8 +570,12 @@
                                                 <th>User</th>
                                                 <th>Site Name</th>
                                                 <th>Planned Date</th>
+                                                <th>Dealer sign</th>
                                                 <th>Complete Time</th>
-                                                <th>Status</th>
+                                                <th>RM Approved Time</th>
+                                                <th>RM Approval Status</th>
+                                                <th>View RM Approval</th>
+                                                <th>Visit Status</th>
                                                 <th>Description</th>
                                                 <th>Created At</th>
                                             </tr>
@@ -969,10 +1011,37 @@
         </div>
     </div>
 
+    <div id="rm_approval_form" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        data-bs-scroll="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">RM Approval Form</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+                        <div class="row" id='approval_reports'>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </div>
+
     <!-- JAVASCRIPT -->
 
     <?php include 'script_tags.php'; ?>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js_cdn/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
@@ -1337,7 +1406,8 @@
                                 $('#offcanvasRight').modal('hide');
                                 fetchtable();
                                 $('#insert').val("Save");
-                                document.getElementById("insert").disabled = false;
+                                document.getElementById("insert").disabled =
+                                    false;
                                 location.reload();
 
                             }, 2000);
@@ -1389,13 +1459,15 @@
                                     'Record Updated Successfully',
                                     'success'
                                 )
-                                document.getElementById("imagePreview2").src = ""
+                                document.getElementById("imagePreview2").src =
+                                    ""
                                 document.getElementById("imagePreview").src = ""
                                 $('#insert_form')[0].reset();
                                 $('#offcanvasRight').modal('hide');
                                 fetchtable();
                                 $('#insert').val("Save");
-                                document.getElementById("insert").disabled = false;
+                                document.getElementById("insert").disabled =
+                                    false;
                                 location.reload();
 
                             }, 2000);
@@ -1423,7 +1495,8 @@
             method: 'GET',
             redirect: 'follow'
         };
-        console.log("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>");
+        console.log(
+            "<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>");
         fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
@@ -1479,7 +1552,8 @@
         console.log(
             "<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
             fromdate + "&to=" + todate + "")
-        fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
+        fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -1490,42 +1564,44 @@
                 var uniqueUsers = [];
                 task_table.clear().draw();
                 $.each(response, function(index, data) {
+                    var dealer_sign = (data.dealer_sign != null) ?
+                        '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
+                        '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
+                        "---";
+
+                    var rm_approval = (data.approved_status != null) ? data.approved_status : "---";
+
+                    if (rm_approval != '---') {
+                        var rm_approval = (data.approved_status != 0) ?
+                            '<button type="button"  onclick="view_rm_approved_report(' + data.task_id +
+                            ',' +
+                            data
+                            .dealer_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>' :
+                            "---";
+
+                    }
                     task_table.row.add([
                         index + 1,
                         '<a href="inspection_report.php?name=' + data.user_name +
                         '" target="_blank">' + data.user_name + '</a>',
                         data.dealer_name,
                         data.time,
-                        data.visit_close_time,
+                        dealer_sign,
+                        (data.visit_close_time != null) ? data.visit_close_time : "---",
+                        (data.approved_at != null) ? data.approved_at : "---",
+                        data.approval_status,
+                        rm_approval,
                         data.current_status,
                         // (data.status === '1') ? 'Complete' : 'Pending',
                         data.description,
                         data.task_create_time,
                     ]).draw(false);
-                    ''
-                    // var existingUser = uniqueUsers.find(function(user) {
-                    //     return user === data.user_name;
-                    // });
-                    // // If the user doesn't exist, add it to the uniqueUsers array
-                    // if (!existingUser) {
-                    //     uniqueUsers.push(data.user_name);
-                    //     var htmlContent = '<div class="d-flex align-items-center">';
-                    //     htmlContent += '<div class="flex-grow-1 ms-3 overflow-hidden">';
-                    //     htmlContent += '<h5 class="font-size-15 mb-1 text-truncate">' + data.user_name+
-                    //         '</h5>';
-                    //     htmlContent += '</div>';
-                    //     htmlContent += '<div class="flex-shrink-0">';
 
-                    //     htmlContent += '</div>';
-                    //     htmlContent += '</div>';
-
-                    //     // Append the HTML content to the container
-                    //     $('#liat_vist_users').append(htmlContent);
-                    // }
                 });
 
 
-
+                rm_deatas(response);
                 var pendingCount = 0;
                 var completeCount = 0;
                 var lateCount = 0;
@@ -1550,7 +1626,7 @@
                 $('#upcoming_tasks').text(upcomingCount);
 
                 task_datas(response, 'task_users', 'user_name', 'Users Task')
-                task_datas(response, 'task_status', 'current_status', 'Task Status')
+                task_datas(response, 'task_status', 'approval_status', '')
 
 
             })
@@ -1702,6 +1778,7 @@
                     value: '',
                     text: 'Select'
                 }));
+                $('#apend_rm_users').empty();
                 $.each(tm, function(index, item) {
 
                     $('#tm_user').append($('<option>', {
@@ -1718,7 +1795,9 @@
                     htmlContent +=
                         '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center">';
                     htmlContent +=
-                        '<a href="tm_dashboard_rebulid.php?id=' + item.id +'&pre=' + item.privilege +'" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-import font-size-14 text-primary ms-1"></i></a> ';
+                        '<a href="tm_dashboard_rebulid.php?id=' + item.id + '&pre=' + item
+                        .privilege +
+                        '" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-import font-size-14 text-primary ms-1"></i></a> ';
                     htmlContent += '</h5>';
                     htmlContent += '</div>';
                     htmlContent += '</div>';
@@ -1731,6 +1810,9 @@
                     value: '',
                     text: 'Select'
                 }));
+                
+                $('#apend_tm_users').empty();
+
                 $.each(asm, function(index, item) {
 
                     $('#asm_users').append($('<option>', {
@@ -1747,7 +1829,9 @@
                     htmlContent +=
                         '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center">';
                     htmlContent +=
-                        '<a href="asm_dashboard_rebuild.php?id=' + item.id +'&pre=' + item.privilege +'" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-import font-size-14 text-primary ms-1"></i></a> ';
+                        '<a href="asm_dashboard_rebuild.php?id=' + item.id + '&pre=' + item
+                        .privilege +
+                        '" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-import font-size-14 text-primary ms-1"></i></a> ';
                     htmlContent += '</h5>';
                     htmlContent += '</div>';
                     htmlContent += '</div>';
@@ -1956,7 +2040,8 @@
 
 
                     '"><td class="text-center">' + (i + 1) +
-                    '</td> <td class="text-primary"><input type="text" class="form-control" id="consignee_code' + (
+                    '</td> <td class="text-primary"><input type="text" class="form-control" id="consignee_code' +
+                    (
                         i + 1) + '" name="lorry_no[]" onchange="get_lorry_data(' + (i + 1) +
                     ')"  required></td> <td> <select id="products" name="products[]" class="form-control "> <option value="">Select</option> <option value="HSD">HSD</option> <option value="PMG">PMG</option> <option value="HOBC">HOBC</option> </select></td> <td class=""><input type="text" class="form-control" id="consignee_name' +
                     (i + 1) +
@@ -2088,16 +2173,38 @@
 
         $('#task_count').html(filteredTaskData.length);
         task_table.clear().draw();
+        rm_deatas(filteredTaskData);
         $.each(filteredTaskData, function(index, data) {
+            var dealer_sign = (data.dealer_sign != null) ?
+                '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
+                '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
+                "---";
+
+            var rm_approval = (data.approved_status != null) ? data.approved_status : "---";
+
+            if (rm_approval != '---') {
+                var rm_approval = (data.approved_status != 0) ?
+                    '<button type="button"  onclick="view_rm_approved_report(' + data.task_id +
+                    ',' +
+                    data
+                    .dealer_id +
+                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>' :
+                    "---";
+
+            }
             task_table.row.add([
                 index + 1,
-                data.user_name,
+                '<a href="inspection_report.php?name=' + data.user_name +
+                '" target="_blank">' + data.user_name + '</a>',
                 data.dealer_name,
                 data.time,
-                data.visit_close_time,
+                dealer_sign,
+                (data.visit_close_time != null) ? data.visit_close_time : "---",
+                (data.approved_at != null) ? data.approved_at : "---",
+                data.approval_status,
+                rm_approval,
                 data.current_status,
-
-                // (data.status === 1) ? 'Complete' : 'Pending',
+                // (data.status === '1') ? 'Complete' : 'Pending',
                 data.description,
                 data.task_create_time,
 
@@ -2129,7 +2236,7 @@
         // table.clear().draw();
         // task_datas(filteredTaskData, 'region_chart', 'user_name', 'Users Task')
         task_datas(filteredTaskData, 'task_users', 'user_name', 'Users Task')
-        task_datas(filteredTaskData, 'task_status', 'current_status', 'Task Status')
+        task_datas(filteredTaskData, 'task_status', 'approval_status', '')
 
 
         // Update the DataTable with filtered data
@@ -2622,6 +2729,108 @@
         line_charts(id, provincesArray, countsArray, name)
     }
 
+    function rm_deatas(jsonData) {
+        var labels = [];
+        var datasets = {};
+        $('#atgs').empty();
+
+        // Count approval_status for each tm_name
+        $.each(jsonData, function(index, item) {
+            var tm_name = item.tm_name;
+            var asm_name = item.asm_name;
+            var approval_status = item.approval_status;
+
+            // If tm_name not already in labels array, add it
+            if (labels.indexOf(approval_status) === -1) {
+                labels.push(approval_status);
+            }
+
+            // If dataset object for tm_name not already exists, initialize it
+            if (!datasets.hasOwnProperty(tm_name)) {
+                datasets[tm_name] = {};
+            }
+
+            // If dataset object for approval_status not already exists, initialize it
+            if (!datasets[tm_name].hasOwnProperty(approval_status)) {
+                datasets[tm_name][approval_status] = 0;
+            }
+
+            // Increment count for approval_status
+            datasets[tm_name][approval_status]++;
+        });
+
+        // Convert datasets object to array
+        var chartDatasets = [];
+        // console.log('approvalData')
+        // console.log(datasets)
+        $.each(datasets, function(region, statusObject) {
+            // Create list item HTML
+            var listItemHtml = '<div class="border-bottom loyal-customers-box pt-2">' +
+                '<div class="d-flex align-items-center">' +
+                '<div class="flex-grow-1 ms-3 overflow-hidden">' +
+                '<h5 class="font-size-15 mb-1 text-truncate">' + region + '</h5>' +
+                '<ul>';
+
+            // Loop through the nested object (statusObject) and add status/count pairs
+            $.each(statusObject, function(status, count) {
+                listItemHtml += '<li>' + status + ': ' + count + '</li>';
+            });
+
+            listItemHtml += '</ul>';
+            listItemHtml += '</div>' +
+
+                '</div>' +
+                '</div>';
+
+            // Append the list item HTML to the div with id "atgs"
+            $('#atgs').append(listItemHtml);
+        });
+        $.each(datasets, function(tm_name, approvalData) {
+            // console.log(tm_name)
+            var dataValues = Object.values(approvalData);
+            // console.log(dataValues)
+            chartDatasets.push({
+                label: tm_name,
+                data: dataValues,
+                backgroundColor: 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math
+                    .random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.5)'
+            });
+        });
+
+        // Create chart data
+        var chartData = {
+            labels: labels,
+            datasets: chartDatasets
+        };
+
+        // Create chart options
+        var chartOptions = {
+            responsive: true,
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    stacked: true
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        };
+
+        // Get canvas element
+        var ctx = document.getElementById('rms_charts').getContext('2d');
+        var existingChart = Chart.getChart(ctx);
+        if (existingChart) {
+            existingChart.destroy();
+        }
+        // Create chart
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: chartOptions
+        });
+    }
+
     function task_datas(response, id, value, name) {
         var provinceCount = {};
         console.log(response)
@@ -2648,8 +2857,8 @@
             } else if (value == 'user_name') {
                 var province = dealer.user_name;
 
-            } else if (value == 'current_status') {
-                var province = dealer.current_status;
+            } else if (value == 'approval_status') {
+                var province = dealer.approval_status;
 
             }
 
@@ -2726,7 +2935,9 @@
                 backgroundColor: ['rgba(255, 99, 132, 0.7)', 'rgba(75, 192, 192, 0.7)',
                     'rgba(255, 205, 86, 0.7)'
                 ],
-                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 205, 86, 1)'],
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)',
+                    'rgba(255, 205, 86, 1)'
+                ],
                 borderWidth: 1
             }]
         };
@@ -2776,6 +2987,95 @@
         console.log(value)
         // var searchText = $('#searchInput').val();
         table.search(value).draw();
+    }
+
+    function view_rm_approved_report(task_id, dealer_id) {
+
+        if (task_id != "") {
+            $.ajax({
+                url: '<?php echo $api_url; ?>get/inspection/get_visit_tm_response.php?key=03201232927&task_id=' +
+                    task_id + '',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data[0]);
+                    var res = data[0];
+                    // Iterate through the data and append options to the select element
+                    $('#approval_reports').empty();
+                    var sales_approval = (res.sales_approval === '1' ?
+                        '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                        '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                    );
+                    var measurement_approval = (res.measurement_approval === '1' ?
+                        '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                        '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                    );
+                    var wet_stock_approval = (res.wet_stock_approval === '1' ?
+                        '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                        '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                    );
+                    var dispensing_approval = (res.dispensing_approval === '1' ?
+                        '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                        '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                    );
+                    var stock_variations_approval = (res.stock_variations_approval === '1' ?
+                        '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                        '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                    );
+                    var inspection = (res.inspection === '1' ?
+                        '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                        '<i class="fas fa-times text-danger" style="font-size: 20px;font-weight: bold;"></i>'
+                    );
+                    var comment = res.comment;
+                    var rm_name = res.rm_name;
+                    var approved_at = res.approved_at;
+
+                    var div = `
+                            <div class="col-md-12" >
+                               <p>Approved By : ${rm_name}  </p>
+                               <p>Approved At : ${approved_at}  </p>
+
+                                </div><div class="col-md-12" >
+                               <span> ${inspection} : Inspection Report </span>
+
+                                </div>  
+                                <div class="col-md-12" >
+                               <span> ${sales_approval} : Sales Performance Report </span>
+
+                                </div>
+                                <div class="col-md-12" >
+                               <span> ${measurement_approval} : Measurement & Price Report </span>
+
+                                </div>
+                                <div class="col-md-12" >
+                               <span> ${wet_stock_approval} : Wet Stock Management Report </span>
+
+                                </div>
+                                <div class="col-md-12" >
+                               <span> ${stock_variations_approval} : Stock Variaions Report </span>
+
+                                </div>
+                                <div class="col-md-12" >
+                               <span> ${dispensing_approval} : Dispensing Unit Meter Reading Report </span>
+
+                                </div>
+                                <div class="col-md-12 mt-3" >
+                               <span>Comments : ${comment} </span>
+
+                                </div>`;
+                    $('#approval_reports').html(div);
+
+                    $('#rm_approval_form').modal('show');
+
+                    // Refresh the Select2 element to display the newly added options
+                    // $('#zm').trigger('change.select2');
+                },
+                error: function(error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        }
+
     }
     </script>
 </body>
