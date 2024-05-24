@@ -45,6 +45,8 @@
                         <li><a href="tm_dashboard_rebulid.php?id=<?php echo $_SESSION['user_id'];?>&pre=<?php echo $_SESSION['privilege'];?>" data-key="t-level-1.13"> RM Dashboard</a></li>
 
                         <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
+                        <li><a href="request_verification_approval.php" data-key="t-level-1.2"> Request Verification </a></li>
+                        <!-- <li><a href="activity_logs.php" data-key="t-level-1.2">Activity Logs </a></li> -->
                         
                           <li>
                             <a href="javascript: void(0);" class="has-arrow">

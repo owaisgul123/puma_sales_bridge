@@ -903,8 +903,8 @@
                 .then(result => {
                     console.log(result)
                     if (result.length > 0) {
-                        var first = result.length > 1 ? result[0] : null;
-                        var second = result.length > 1 ? result[1] : null;
+                        var first = result.length > 0 ? result[0] : null;
+                        var second = result.length > 0 ? result[1] : null;
 
                         var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Sales Performance</h6>
                         <table class="dynamic_table" style="width:100%">

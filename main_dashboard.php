@@ -30,4 +30,11 @@ elseif ($_SESSION['privilege'] == 'Logistics') {
     header("Location: $redirectUrl");
 
 }
+elseif ($_SESSION['privilege'] == 'Reporting') {
+    $current_date = date('Y-m-d');
+                        $next_dat = date('Y-m-d', strtotime($current_date . '+1 day'));
+    $redirectUrl = "inspection_report.php";
+    header("Location: $redirectUrl");
+
+}
 ?>

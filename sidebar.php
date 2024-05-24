@@ -18,5 +18,8 @@ elseif($_SESSION['privilege'] == 'TM'){
 elseif($_SESSION['privilege'] == 'Logistics'){
     include 'logistic_sidebar.php';
     
+}elseif($_SESSION['privilege'] == 'Reporting'){
+    include 'reporting_sidebar.php';
+    
 }
 ?>

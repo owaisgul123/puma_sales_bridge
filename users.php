@@ -43,6 +43,67 @@
     transform: translateY(-50%);
     cursor: pointer;
 }
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 7px;
+    left: 0;
+    right: 8px;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(21px);
+    -ms-transform: translateX(21px);
+    transform: translateX(21px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
 </style>
 
 
@@ -91,7 +152,7 @@
                                         <th class="text-center">Password</th>
                                         <th class="text-center">Privilege</th>
                                         <th class="text-center">Contact No</th>
-                                        <!-- <th class="text-center">Edit</th> -->
+                                        <th class="text-center">Active / Non-Active</th>
                                         <th class="text-center">Delete</th>
                                         <th class="text-center">Edit</th>
                                     </tr>
@@ -193,6 +254,7 @@
                                     <option value="Sales">Sales</option>
                                     <option value="Order">Order</option>
                                     <option value="Logistics">Logistics</option>
+                                    <option value="Reporting">Reporting</option>
                                 </select>
 
                             </div>
@@ -517,6 +579,8 @@
 
                 table.clear().draw();
                 $.each(response, function(index, data) {
+                    var prel = "<?php echo $_SESSION['privilege'] ?>";
+
                     var lang = data.privilege;
                     if (lang == 'ZM') {
                         lang = 'GRM';
@@ -544,6 +608,10 @@
                         // '<button type="button"id="edit" name="edit" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"  onclick="editData(' +
                         // data.id +
                         // ')"  class="btn btn-soft-warning waves-effect waves-light"><i class="bx bx-edit-alt font-size-16 align-middle"></i></button>',
+                        (prel == 'Admin' ?
+                            '<td><label class="switch"><input type="checkbox" id="checkbox" onclick="check(' +
+                            data.id + ')" ' + (data.status == 0 ? '' : 'checked') +
+                            '> <span class="slider round"></span></label></td>' : ''),
                         '<button type="button" id="delete" name="delete" onclick="deleteData(' +
                         data.id +
                         ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button>',
@@ -660,93 +728,93 @@
     }
 
     function editData(id) {
-    $('#zmRole').hide();
-    $('#tmRole').hide();
-    var api_url = "<?php echo $api_url; ?>"; // Define your API URL here
-    var settings = {
-        "url": api_url + "get/view_user.php?key=03201232927&id=" + id,
-        "method": "GET",
-        "timeout": 5000, // Set a reasonable timeout value
-    };
+        $('#zmRole').hide();
+        $('#tmRole').hide();
+        var api_url = "<?php echo $api_url; ?>"; // Define your API URL here
+        var settings = {
+            "url": api_url + "get/view_user.php?key=03201232927&id=" + id,
+            "method": "GET",
+            "timeout": 5000, // Set a reasonable timeout value
+        };
 
-    $.ajax({
-        ...settings,
-        statusCode: {
-            200: function(response) {
-                $('#name').val(response[0]['name']);
-                $('#email').val(response[0]['email']);
-                $('#password').val(response[0]['description']);
-                $('#confirm_password').val(response[0]['description']);
-                $('#number').val(response[0]['telephone']);
-                $('#role').val(response[0]['privilege']);
-                $('#row_id').val(response[0]['id']);
+        $.ajax({
+            ...settings,
+            statusCode: {
+                200: function(response) {
+                    $('#name').val(response[0]['name']);
+                    $('#email').val(response[0]['email']);
+                    $('#password').val(response[0]['description']);
+                    $('#confirm_password').val(response[0]['description']);
+                    $('#number').val(response[0]['telephone']);
+                    $('#role').val(response[0]['privilege']);
+                    $('#row_id').val(response[0]['id']);
 
-                var prev = response[0]['privilege'];
-                if (prev == 'ZM' || prev == 'TM' || prev == 'ASM') {
-                    $('#role').val('Sales').trigger('change');
-                } else {
-                    $('#role').val(prev).trigger('change');
-                }
+                    var prev = response[0]['privilege'];
+                    if (prev == 'ZM' || prev == 'TM' || prev == 'ASM') {
+                        $('#role').val('Sales').trigger('change');
+                    } else {
+                        $('#role').val(prev).trigger('change');
+                    }
 
-                var role_val = $('#role').val();
-                if (role_val == 'Sales') {
-                    var privilege = response[0]['privilege'];
-                    $("#salesRole").show();
-                    if (privilege == 'ZM') {
-                        $('#sales').val('ZM');
-                        $('#sales_role_hide').val('ZM');
-                    } else if (privilege == 'TM') {
-                        $.ajax({
-                            url: api_url + "get/get_zm_tm.php?key=03201232927&id=" + id,
-                            method: "GET",
-                            timeout: 5000,
-                            statusCode: {
-                                200: function(response) {
-                                    $('#sales').val('TM');
-                                    $('#sales_role_hide').val('TM');
-                                    $('#zmRole').show();
-                                    $('#zm_hide').val(response[0]['zm_id']);
-                                    $('#zm').val(response[0]['zm_id']);
+                    var role_val = $('#role').val();
+                    if (role_val == 'Sales') {
+                        var privilege = response[0]['privilege'];
+                        $("#salesRole").show();
+                        if (privilege == 'ZM') {
+                            $('#sales').val('ZM');
+                            $('#sales_role_hide').val('ZM');
+                        } else if (privilege == 'TM') {
+                            $.ajax({
+                                url: api_url + "get/get_zm_tm.php?key=03201232927&id=" + id,
+                                method: "GET",
+                                timeout: 5000,
+                                statusCode: {
+                                    200: function(response) {
+                                        $('#sales').val('TM');
+                                        $('#sales_role_hide').val('TM');
+                                        $('#zmRole').show();
+                                        $('#zm_hide').val(response[0]['zm_id']);
+                                        $('#zm').val(response[0]['zm_id']);
+                                    }
                                 }
-                            }
-                        });
-                    } else if (privilege == 'ASM') {
+                            });
+                        } else if (privilege == 'ASM') {
+                            $.ajax({
+                                url: api_url + "get/get_asm_tm.php?key=03201232927&id=" + id,
+                                method: "GET",
+                                timeout: 5000,
+                                statusCode: {
+                                    200: function(response) {
+                                        $('#sales_role_hide').val('ASM');
+                                        $('#sales').val('ASM');
+                                        $('#tmRole').show();
+                                        $('#tm_hide').val(response[0]['tm_id']);
+                                        $('#tm').val(response[0]['tm_id']);
+                                    }
+                                }
+                            });
+                        }
+                    } else if (prev == 'Logistics') {
                         $.ajax({
-                            url: api_url + "get/get_asm_tm.php?key=03201232927&id=" + id,
+                            url: api_url + "get/get_logistic_user.php?key=03201232927&id=" + id,
                             method: "GET",
                             timeout: 5000,
                             statusCode: {
                                 200: function(response) {
-                                    $('#sales_role_hide').val('ASM');
-                                    $('#sales').val('ASM');
-                                    $('#tmRole').show();
-                                    $('#tm_hide').val(response[0]['tm_id']);
-                                    $('#tm').val(response[0]['tm_id']);
+                                    $('#logistics').val(response[0]['l_privilege']);
+                                    $('#sales_role_hide').val(response[0]['privilege']);
+                                    $("#logisticsSelect").show();
+                                    $('#log_hide').val(response[0]['logistics_id']);
+                                    $('#logistics_role').val(response[0]['logistics_id']);
                                 }
                             }
                         });
                     }
-                } else if (prev == 'Logistics') {
-                    $.ajax({
-                        url: api_url + "get/get_logistic_user.php?key=03201232927&id=" + id,
-                        method: "GET",
-                        timeout: 5000,
-                        statusCode: {
-                            200: function(response) {
-                                $('#logistics').val(response[0]['l_privilege']);
-                                $('#sales_role_hide').val(response[0]['privilege']);
-                                $("#logisticsSelect").show();
-                                $('#log_hide').val(response[0]['logistics_id']);
-                                $('#logistics_role').val(response[0]['logistics_id']);
-                            }
-                        }
-                    });
                 }
             }
-        }
-    });
-    $('#offcanvasRight').offcanvas('show');
-}
+        });
+        $('#offcanvasRight').offcanvas('show');
+    }
 
     $('#add_btn').on('click', function() {
         $('#zmRole').hide();
@@ -754,6 +822,28 @@
         $("#salesRole").hide();
 
     })
+
+    function check(id) {
+            // Get the value of the checkbox (0 for unchecked, 1 for checked)
+            var checkboxValue = $('#checkbox').is(':checked') ? 1 : 0;
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $api_url; ?>update/user_active_inactive.php', // Replace with the path to your PHP script
+                data: {
+                    checkboxValue: checkboxValue,
+                    id: id
+                },
+                success: function (response) {
+                    console.log('Record Updated Successfully.');
+                    alert('success!')
+                },
+                error: function (error) {
+                    console.error('Error updating database:', error);
+                }
+            });
+            // You can use the checkboxValue variable as needed
+        }
     </script>
 </body>
 
