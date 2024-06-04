@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 $sales_order = $_GET['no'];
 
 $active_class = 0;
@@ -116,7 +116,7 @@ foreach ($array as $category) {
     foreach ($product_detail as $product) {
         $sub_id = $product["id"];
         $salesapNo = $product["salesapNo"];
-        $salesapstatus = $product["status"];
+       $salesapstatus = $product["status"];
         $current_status = $product["current_status"];
 
         $map_btn = '<button type="button" class=" btn btn-outline-info btn-rounded mb-2" style="width: max-content;font-size: 12px;padding: 2px 10px;" onclick="my_markers(' . $sub_id . ',' . $salesapNo . ');"> Focused
@@ -125,11 +125,9 @@ foreach ($array as $category) {
 
         if ($salesapstatus == 0) {
             $status_value =
-                '<span  class="badge rounded-pill cursor-pointer bg-primary approved_check" data-key="t-new">' +
-                $current_status + '</span>';
+                '<span  class="badge rounded-pill cursor-pointer bg-primary approved_check" data-key="t-new">' + $current_status + '</span>';
         } else if ($salesapstatus == 1) {
-            $status_value =
-                '<span  class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">' . $current_status . '</span>';
+            $status_value = '<span  class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">' . $current_status . '</span>';
         } else if ($salesapstatus == 2) {
             $status_value = '<span  class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">' . $current_status . '</span>';
         }
@@ -179,7 +177,7 @@ curl_close($curl);
 function get_sub($id, $sales_order)
 {
     $curl = curl_init();
-
+    // echo 'http://151.106.17.246:8080/OMCS-CMS-APIS/get/puma_sap_order/get_sap_order_subtripdata_salesOrder.php?key=03201232927&id=' . $id . '&sales_order=' . $sales_order . '';
     curl_setopt_array(
         $curl,
         array(

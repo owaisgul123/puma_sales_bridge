@@ -336,11 +336,11 @@
                                                 <span>Nozel's Tanks</span>
                                             </a>
                                         </li> -->
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab">
                                                 <span>Reconcilation</span>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         <li class="nav-item ">
                                             <a class="nav-link active" data-bs-toggle="tab" href="#post" role="tab">
                                                 <span>Orders</span>
@@ -2774,8 +2774,7 @@ function dealers_visits() {
                 var wet_stock_btn = '<button type="button"  onclick="get_task_wet_stock(' + data
                     .id +
                     ',' + data
-                    .dealer_id + ', \'' + data.dealer_name +
-                    '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                    .dealer_id + ', \'' + data.dealer_name +'\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                 var wet_stocks = (data.wet_stock_status == 1) ? wet_stock_btn : "---";
 
                 var dispensing_unit_btn =

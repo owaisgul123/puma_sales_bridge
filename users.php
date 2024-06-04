@@ -190,7 +190,7 @@ input:checked+.slider:before {
     <!-- chat offcanvas -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header border-bottom">
-            <h5 id="offcanvasRightLabel">Settings</h5>
+            <h5 id="offcanvasRightLabel">Users</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -255,6 +255,7 @@ input:checked+.slider:before {
                                     <option value="Order">Order</option>
                                     <option value="Logistics">Logistics</option>
                                     <option value="Reporting">Reporting</option>
+                                    <option value="Monitoring">Monitoring</option>
                                 </select>
 
                             </div>

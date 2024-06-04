@@ -452,6 +452,7 @@
                                         <th class="text-center">S.No</th>
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Site Name</th>
+                                        <th class="text-center">TM Name</th>
                                         <th class="text-center">Mode</th>
                                         <th class="text-center">Depot</th>
                                         <th class="text-center">Total Amount</th>
@@ -961,7 +962,7 @@
                                                 <th class="text-center">Date</th>
                                                 <th class="text-center">Site Name</th>
                                                 <!-- <th class="text-center">Customer</th>
-                                        <th class="text-center">SAP Code</th> -->
+                                                <th class="text-center">SAP Code</th> -->
                                                 <th class="text-center">Product Type</th>
                                                 <th class="text-center">Rate</th>
                                                 <th class="text-center">Qty (Ltr)</th>
@@ -1560,6 +1561,7 @@
                                 index + 1,
                                 data.created_at,
                                 data.name,
+                                data.usersnames,
                                 d_type,
                                 data.consignee_name,
                                 parseFloat(data.total_amount).toLocaleString(),

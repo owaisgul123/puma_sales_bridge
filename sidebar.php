@@ -21,5 +21,8 @@ elseif($_SESSION['privilege'] == 'Logistics'){
 }elseif($_SESSION['privilege'] == 'Reporting'){
     include 'reporting_sidebar.php';
     
+}elseif($_SESSION['privilege'] == 'Monitoring'){
+    include 'monitor_sidebar.php';
+    
 }
 ?>

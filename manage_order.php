@@ -90,6 +90,7 @@
                                         <th class="text-center">S.No</th>
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Site Name</th>
+                                        <th class="text-center">TM Name</th>
                                         <th class="text-center">Mode</th>
                                         <th class="text-center">Depot</th>
                                         <th class="text-center">Total Amount</th>
@@ -679,6 +680,8 @@
                             index + 1,
                             data.created_at,
                             data.name,
+                            data.usersnames,
+
                             // data.name,
                             d_type,
                             data.consignee_name,

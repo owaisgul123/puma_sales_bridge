@@ -40,34 +40,34 @@
 
 </head>
 <style>
-    #map {
-        height: 400px;
-        width: 100%;
-    }
+#map {
+    height: 400px;
+    width: 100%;
+}
 
+#profile_img {
+    height: 200px;
+    object-fit: fill;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    width: 200px;
+}
+
+@media only screen and (max-width: 450px) {
     #profile_img {
-        height: 200px;
-        object-fit: fill;
+        height: 150px;
+        object-fit: cover;
     }
+}
 
-    .select2-container--default .select2-selection--multiple .select2-selection__rendered {
-        width: 200px;
-    }
+.user-profile-img .overlay-content {
+    background-color: transparent;
+}
 
-    @media only screen and (max-width: 450px) {
-        #profile_img {
-            height: 150px;
-            object-fit: cover;
-        }
-    }
-
-    .user-profile-img .overlay-content {
-        background-color: transparent;
-    }
-
-    .nav-pills .nav-link {
-        border: 1px solid #005ac6;
-    }
+.nav-pills .nav-link {
+    border: 1px solid #005ac6;
+}
 </style>
 
 <body>
@@ -76,7 +76,13 @@
 
     <!-- Begin page -->
     <div id="layout-wrapper">
+        <?php
+        $pre = $_SESSION['privilege'];
+        // $disabledAttribute = ($pre != 'Admin') ? 'd-none' : '';
 
+        // $disabledAttribute = (strpos($pre, 'TM') === 0) ? 'disabled' : '';
+        
+        ?>
 
         <?php include 'header.php'; ?>
         <!-- ========== Left Sidebar Start ========== -->
@@ -142,7 +148,7 @@
                             <div class="tab-pane active" id="overview" role="tabpanel">
                                 <div class="card">
                                     <div class="card-body">
-                                        <button id="add" class="btn btn-primary mb-3"> Add</button>
+                                        <button id="add" class="btn btn-primary mb-3  add_button"> Add</button>
                                         <br>
 
                                         <table id="myTable2" class="display" style="width:100%">
@@ -166,7 +172,7 @@
                                 <div class="card">
                                     <div class="card-body">
 
-                                        <button id="add_dispenser" class="btn btn-primary mb-3"> Add</button>
+                                        <button id="add_dispenser" class="btn btn-primary mb-3 add_button"> Add</button>
                                         <br>
 
                                         <table id="dispenser_table" class="display" style="width:100%">
@@ -176,7 +182,10 @@
                                                     <th class="text-center">Despensor</th>
                                                     <th class="text-center">Description</th>
                                                     <th class="text-center">Created At</th>
+                                                    <?php if ($pre == 'Admin') { ?>
                                                     <th class="text-center">Delete</th>
+
+                                                    <?php } ?>
 
 
                                                 </tr>
@@ -195,7 +204,7 @@
                                 <div class="card">
                                     <div class="card-body">
 
-                                        <button id="addnozel" class="btn btn-primary mb-3"> Add</button>
+                                        <button id="addnozel" class="btn btn-primary mb-3 add_button"> Add</button>
                                         <br>
 
                                         <table id="myTable3" class="display" style="width:100%">
@@ -207,7 +216,10 @@
                                                     <th class="text-center">Tank</th>
                                                     <th class="text-center">Dispenser</th>
                                                     <th class="text-center">Created At</th>
+                                                    <?php if ($pre == 'Admin') { ?>
                                                     <th class="text-center">Delete</th>
+
+                                                    <?php } ?>
 
                                                 </tr>
                                             </thead>
@@ -226,7 +238,8 @@
                                     <div class="card-body">
                                         <div class="mx-n3 px-3" data-simplebar style="max-height: 580px;">
 
-                                            <button id="add_products" class="btn btn-primary mb-3"> Add</button>
+                                            <button id="add_products" class="btn btn-primary mb-3 add_button">
+                                                Add</button>
                                             <br>
 
                                             <div class="mt-4">
@@ -242,8 +255,10 @@
                                                                 <th class="text-center">Indent Price</th>
                                                                 <th class="text-center">Nozel Price</th>
                                                                 <th class="text-center">Update Time</th>
+                                                                <?php if ($pre == 'Admin') { ?>
                                                                 <th class="text-center">Edit</th>
                                                                 <th class="text-center">Log</th>
+                                                                <?php } ?>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -265,7 +280,7 @@
                             <div class="tab-pane" id="tanks_panel" role="tabpanel">
                                 <div class="card">
                                     <div class="card-body">
-                                        <button id="add_tanks" class="btn btn-primary mb-3"> Add</button>
+                                        <button id="add_tanks" class="btn btn-primary mb-3 add_button"> Add</button>
                                         <br>
 
                                         <table id="tanks_table" class="display" style="width:100%">
@@ -277,9 +292,12 @@
                                                     <!-- <th class="text-center">Min Limit</th> -->
                                                     <th class="text-center">Capacity</th>
                                                     <th class="text-center">Current Dip</th>
+                                                    <?php if ($pre == 'Admin') { ?>
                                                     <th class="text-center">Dip</th>
                                                     <th class="text-center">Dip Backlog</th>
                                                     <th class="text-center">Delete</th>
+                                                    <?php } ?>
+
 
 
                                                 </tr>
@@ -307,7 +325,7 @@
                                     <div class="card-body">
                                         <div class="mx-n3 px-3" data-simplebar style="max-height: 580px;">
 
-                                            <button id="add_users" class="btn btn-primary mb-3"> Add</button>
+                                            <button id="add_users" class="btn btn-primary mb-3 add_button"> Add</button>
                                             <br>
 
                                             <div class="mt-4">
@@ -321,7 +339,10 @@
                                                                 <th class="text-center">Password</th>
                                                                 <th class="text-center">Phone</th>
                                                                 <!-- <th class="text-center">Active/In-Active</th> -->
+                                                                <?php if ($pre == 'Admin') { ?>
                                                                 <th class="text-center">Edit</th>
+
+                                                                <?php } ?>
                                                                 <!-- <th class="text-center">Delete</th> -->
                                                             </tr>
                                                         </thead>
@@ -1502,1927 +1523,1921 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNyJWb04pByaU1CTmimoWNl3b86VV6qZ8&callback=initMap"></script>
 
 <script>
-    var table;
-    var lat, lng;
-    var geofence;
-    var marker;
-    var coordinates;
-    let map;
-    var circle;
+var table;
+var lat, lng;
+var geofence;
+var marker;
+var coordinates;
+let map;
+var circle;
 
-    // ================================================================ modal intitailize start
+// ================================================================ modal intitailize start
 
-    $(document).on('click', '#update_ledgers', function () {
+$(document).on('click', '#update_ledgers', function() {
 
-        // var id = $(this).attr("id");
-        $('#ledger_modal').modal('show');
-    })
-    $(document).on('click', '#add', function () {
+    // var id = $(this).attr("id");
+    $('#ledger_modal').modal('show');
+})
+$(document).on('click', '#add', function() {
 
-        // var id = $(this).attr("id");
-        $('#add_facility').modal('show');
+    // var id = $(this).attr("id");
+    $('#add_facility').modal('show');
+});
+
+$(document).on('click', '#addnozel', function() {
+
+    // var id = $(this).attr("id");
+    $('#add_nozel').modal('show');
+});
+
+$(document).on('click', '#add_dispenser', function() {
+
+    // var id = $(this).attr("id");
+    $('#dispenser_modal').modal('show');
+});
+
+$(document).on('click', '#add_tanks', function() {
+
+    // var id = $(this).attr("id");
+    $('#add_tanks_modal').modal('show');
+});
+
+$(document).on('click', '#nozel_tanks_panel_add', function() {
+
+    // var id = $(this).attr("id");
+    $('#add_nozel_tanks').modal('show');
+});
+$(document).on('click', '#add_complaints', function() {
+
+    // var id = $(this).attr("id");
+    $('#complaints_modals').modal('show');
+});
+$(document).on('click', '#add_users', function() {
+
+    // var id = $(this).attr("id");
+    $('#users_modal').modal('show');
+});
+
+$(document).on('click', '#add_products', function() {
+
+    // var id = $(this).attr("id");
+    $('#products_modal').modal('show');
+});
+
+$(document).on('click', '#add_targets', function() {
+
+    // var id = $(this).attr("id");
+    $('#target_modal').modal('show');
+});
+
+//=============================================================modal intitailize start
+
+//  ============================================================tabel instailize start
+
+
+
+
+table2 = $('#myTable2').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+table3 = $('#myTable3').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+table4 = $('#tanks_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+table = $('#myTable').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+nozel_tanks_table = $('#nozel_tanks_panel_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+complaint_table = $('#complaint_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+users_table = $('#users_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+products_table = $('#products_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+product_price_backlog = $('#product_price_backlog').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+suborders_tables = $('#suborders_tables').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+lubes_table = $('#lubes_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+targeted_table = $('#targeted_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+sale_table = $('#sale_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+wet_stock = $('#wet_stock').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+despensing_unit_table = $('#despensing_unit_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+stock_variations_table = $('#stock_variations_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+dispenser_table = $('#dispenser_table').DataTable({
+    dom: 'Bfrtip',
+
+
+    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+});
+
+
+//========================================================== tabel intailize end
+
+var decryptedId = "";
+$(document).ready(function() {
+    var encryptedIdFromUrl = '<?php echo $_GET['id']; ?>'; // Replace with the actual encrypted ID
+    var key = 'Hamza Ansari';
+    var iv = CryptoJS.lib.WordArray.random(16);
+
+    // Decrypt the ID
+    decryptedId = decryptId(encryptedIdFromUrl, key, iv);
+    // alert(decryptedId)
+
+    setTimeout(function() {
+        // Code to be executed after the delay
+        $('input[name="dealer_id"]').val(decryptedId);
+        console.log('This code executes after a 2-second delay');
+    }, 2000);
+
+    var prel_role = "<?php echo $_SESSION['privilege'] ?>";
+    if (prel_role != 'Admin') {
+        $('.add_button').addClass('d-none');
+    } else {
+        $('.add_button').removeClass('d-none');
+
+    }
+
+    fetchtable();
+    // order_details();
+    // orderlist();
+    facilities();
+    nozels();
+    tanks_view();
+    nozels_tanks_form();
+    multiselect();
+    tank_select();
+    // dealers_complaints();
+    dealers_products();
+    dealers_users();
+    // dealers_visits();
+    // get_dealer_target();
+    d_dispenser();
+    // get_response_answers(1);
+    all_products();
+    // get_ledger_backlog()
+    $('.multi_select').select2({
+        dropdownParent: $('#add_nozel_tanks')
     });
-
-    $(document).on('click', '#addnozel', function () {
-
-        // var id = $(this).attr("id");
-        $('#add_nozel').modal('show');
-    });
-
-    $(document).on('click', '#add_dispenser', function () {
-
-        // var id = $(this).attr("id");
-        $('#dispenser_modal').modal('show');
-    });
-
-    $(document).on('click', '#add_tanks', function () {
-
-        // var id = $(this).attr("id");
-        $('#add_tanks_modal').modal('show');
-    });
-
-    $(document).on('click', '#nozel_tanks_panel_add', function () {
-
-        // var id = $(this).attr("id");
-        $('#add_nozel_tanks').modal('show');
-    });
-    $(document).on('click', '#add_complaints', function () {
-
-        // var id = $(this).attr("id");
-        $('#complaints_modals').modal('show');
-    });
-    $(document).on('click', '#add_users', function () {
-
-        // var id = $(this).attr("id");
-        $('#users_modal').modal('show');
-    });
-
-    $(document).on('click', '#add_products', function () {
-
-        // var id = $(this).attr("id");
-        $('#products_modal').modal('show');
-    });
-
-    $(document).on('click', '#add_targets', function () {
-
-        // var id = $(this).attr("id");
-        $('#target_modal').modal('show');
-    });
-
-    //=============================================================modal intitailize start
-
-    //  ============================================================tabel instailize start
-
-
-
-
-    table2 = $('#myTable2').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-    table3 = $('#myTable3').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    table4 = $('#tanks_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    table = $('#myTable').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    nozel_tanks_table = $('#nozel_tanks_panel_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-    complaint_table = $('#complaint_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    users_table = $('#users_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-    products_table = $('#products_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    product_price_backlog = $('#product_price_backlog').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-    suborders_tables = $('#suborders_tables').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    lubes_table = $('#lubes_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    targeted_table = $('#targeted_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    sale_table = $('#sale_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    wet_stock = $('#wet_stock').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    despensing_unit_table = $('#despensing_unit_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    stock_variations_table = $('#stock_variations_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-    dispenser_table = $('#dispenser_table').DataTable({
-        dom: 'Bfrtip',
-
-
-        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-    });
-
-
-    //========================================================== tabel intailize end
-
-    var decryptedId = "";
-    $(document).ready(function () {
-        var encryptedIdFromUrl = '<?php echo $_GET['id']; ?>'; // Replace with the actual encrypted ID
-        var key = 'Hamza Ansari';
-        var iv = CryptoJS.lib.WordArray.random(16);
-
-        // Decrypt the ID
-        decryptedId = decryptId(encryptedIdFromUrl, key, iv);
-        // alert(decryptedId)
-
-        setTimeout(function () {
-            // Code to be executed after the delay
-            $('input[name="dealer_id"]').val(decryptedId);
-            console.log('This code executes after a 2-second delay');
-        }, 2000);
-        fetchtable();
-        // order_details();
-        // orderlist();
-        facilities();
-        nozels();
-        tanks_view();
-        nozels_tanks_form();
-        multiselect();
-        tank_select();
-        // dealers_complaints();
-        dealers_products();
-        dealers_users();
-        // dealers_visits();
-        // get_dealer_target();
-        d_dispenser();
-        // get_response_answers(1);
-        all_products();
-        // get_ledger_backlog()
-        $('.multi_select').select2({
-            dropdownParent: $('#add_nozel_tanks')
-        });
-        ////=================================================== graph 
-
-        var options = {
-            series: [{
-                name: 'Inflation',
-                data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
-            }],
-            chart: {
-                height: 350,
-                type: 'bar',
+    ////=================================================== graph 
+
+    var options = {
+        series: [{
+            name: 'Inflation',
+            data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
+        }],
+        chart: {
+            height: 350,
+            type: 'bar',
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 10,
+                dataLabels: {
+                    position: 'top', // top, center, bottom
+                },
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            formatter: function(val) {
+                return val + "%";
             },
-            plotOptions: {
-                bar: {
-                    borderRadius: 10,
-                    dataLabels: {
-                        position: 'top', // top, center, bottom
-                    },
+            offsetY: -20,
+            style: {
+                fontSize: '12px',
+                colors: ["#304758"]
+            }
+        },
+
+        xaxis: {
+            categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                "Dec"
+            ],
+            position: 'top',
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false
+            },
+            crosshairs: {
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        colorFrom: '#D8E3F0',
+                        colorTo: '#BED1E6',
+                        stops: [0, 100],
+                        opacityFrom: 0.4,
+                        opacityTo: 0.5,
+                    }
                 }
             },
-            dataLabels: {
+            tooltip: {
                 enabled: true,
-                formatter: function (val) {
+            }
+        },
+        yaxis: {
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false,
+            },
+            labels: {
+                show: false,
+                formatter: function(val) {
                     return val + "%";
-                },
-                offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
-            },
-
-            xaxis: {
-                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
-                    "Dec"
-                ],
-                position: 'top',
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false
-                },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 0.4,
-                            opacityTo: 0.5,
-                        }
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                }
-            },
-            yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false,
-                },
-                labels: {
-                    show: false,
-                    formatter: function (val) {
-                        return val + "%";
-                    }
-                }
-
-            },
-            title: {
-                text: 'Monthly Inflation in Argentina, 2002',
-                floating: true,
-                offsetY: 330,
-                align: 'center',
-                style: {
-                    color: '#444'
                 }
             }
-        };
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
+        },
+        title: {
+            text: 'Monthly Inflation in Argentina, 2002',
+            floating: true,
+            offsetY: 330,
+            align: 'center',
+            style: {
+                color: '#444'
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
+});
+
+///================================================================ get functions start 
+function product_tankss() {
+    var product = $('#nozzels_products').val();
+    // alert(product)
+
+    $.ajax({
+        url: '<?php echo $api_url; ?>get/get_dealers_product_tank.php?key=03201232927&dealer_id=' +
+            decryptedId + '&product=' +
+            product + '',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log(data)
+            $('#product_tank').empty();
+            // Iterate through the data and append options to the select element
+            $('#product_tank').append($('<option>', {
+                value: '',
+                text: 'Select Tank '
+            }));
+            $.each(data, function(index, item) {
+
+                $('#product_tank').append($('<option>', {
+                    value: item.id,
+                    text: item.lorry_no
+                }));
+            });
+
+            // Refresh the Select2 element to display the newly added options
+            // $('#depots').trigger('change.select2');
+        },
+        error: function(error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+}
+
+
+function multiselect() {
+    $.ajax({
+        url: '<?php echo $api_url; ?>get/get_dealers_tanks.php?key=03201232927&dealer_id=' + decryptedId +
+            '&key=03201232927',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Iterate through the data and append options to the select element
+            $('#tanks_select').append($('<option>', {
+                value: '',
+                text: 'Select Tank '
+            }));
+            $.each(data, function(index, item) {
+
+                $('#tanks_select').append($('<option>', {
+                    value: item.id,
+                    text: item.lorry_no
+                }));
+            });
+
+            // Refresh the Select2 element to display the newly added options
+            // $('#depots').trigger('change.select2');
+        },
+        error: function(error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+}
+
+function tank_select() {
+    $.ajax({
+        url: '<?php echo $api_url; ?>get/get_dealers_nozels.php?key=03201232927&dealer_id=' + decryptedId +
+            '&key=03201232927',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Iterate through the data and append options to the select element
+            $('#nozel_select').append($('<option>', {
+                value: '',
+                text: 'Select Nozel '
+            }));
+            $.each(data, function(index, item) {
+
+                $('#nozel_select').append($('<option>', {
+                    value: item.id,
+                    text: item.name
+                }));
+            });
+
+            // Refresh the Select2 element to display the newly added options
+            // $('#depots').trigger('change.select2');
+        },
+        error: function(error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+}
+
+
+
+
+function initMap() {
+
+    gmarkers = [];
+    map = new google.maps.Map(document.getElementById("map-canvas"), {
+        center: {
+            lat: parseFloat(30.3753),
+            lng: parseFloat(69.3451)
+        },
+        zoom: 16,
+        mapTypeId: "roadmap",
 
     });
 
-    ///================================================================ get functions start 
-    function product_tankss() {
-        var product = $('#nozzels_products').val();
-        // alert(product)
 
-        $.ajax({
-            url: '<?php echo $api_url; ?>get/get_dealers_product_tank.php?key=03201232927&dealer_id=' +
-                decryptedId + '&product=' +
-                product + '',
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data)
-                $('#product_tank').empty();
-                // Iterate through the data and append options to the select element
-                $('#product_tank').append($('<option>', {
-                    value: '',
-                    text: 'Select Tank '
-                }));
-                $.each(data, function (index, item) {
+    // google.maps.event.addListener(drawingManager, 'polygoncomplete', polygon);
+}
 
-                    $('#product_tank').append($('<option>', {
-                        value: item.id,
-                        text: item.lorry_no
-                    }));
-                });
+function fetchtable() {
 
-                // Refresh the Select2 element to display the newly added options
-                // $('#depots').trigger('change.select2');
-            },
-            error: function (error) {
-                console.error('Error fetching data:', error);
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch("<?php echo $api_url; ?>get/dealer_profile.php?id=" + decryptedId + "&key=03201232927", requestOptions)
+        .then(response => response.json())
+        .then(response => {
+            // var cordinates = response[0]['cordinates'];
+            // var index = cordinates.indexOf(',');
+            //  lat = cordinates.substring(0, index);
+            //  long = cordinates.substring(index + 1); 
+            //  console.log(lat+"lat");
+            //  console.log(long+"long");
+            console.log(response);
+
+            coordinates = response[0]['co-ordinates'];
+            [lat, lng] = coordinates.split(', ');
+            console.log("Latitude (lat):", lat);
+            console.log("Longitude (lng):", lng);
+            $('#user').text(response[0]['name'])
+            $('#position').text(response[0]['housekeeping']);
+            $('#date').text(response[0]['created_at']);
+            $('#location').text(response[0]['location']);
+            $('#phone_no').text(response[0]['contact']);
+            $('#email').text(response[0]['email']);
+            $('#indent_price').text(response[0]['indent_price']);
+            $('#nozel_price').text(response[0]['Nozel_price']);
+            $('#ledger').text(response[0]['acount']);
+            $('#ledger_old_value').val(response[0]['acount']);
+            $('#ledger_amount').val(response[0]['acount']);
+
+
+
+            var banner = response[0]['banner'];
+            var logo = response[0]['logo'];
+            var base_url = '<?php echo $api_url; ?>';
+
+            if (banner != '') {
+                banner = base_url + 'uploads/' + banner;
+
+                $("#profile_img").attr("src", banner);
+
+            } else {
+
             }
-        });
-    }
 
+            if (logo != '') {
+                logo = base_url + 'uploads/' + logo;
+                $("#profile_logo").attr("src", logo);
 
-    function multiselect() {
-        $.ajax({
-            url: '<?php echo $api_url; ?>get/get_dealers_tanks.php?key=03201232927&dealer_id=' + decryptedId +
-                '&key=03201232927',
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                // Iterate through the data and append options to the select element
-                $('#tanks_select').append($('<option>', {
-                    value: '',
-                    text: 'Select Tank '
-                }));
-                $.each(data, function (index, item) {
+            } else {
 
-                    $('#tanks_select').append($('<option>', {
-                        value: item.id,
-                        text: item.lorry_no
-                    }));
-                });
-
-                // Refresh the Select2 element to display the newly added options
-                // $('#depots').trigger('change.select2');
-            },
-            error: function (error) {
-                console.error('Error fetching data:', error);
             }
-        });
-    }
+            const newCenter = {
+                lat: parseFloat(lat),
+                lng: parseFloat(lng)
+            }; // New center coordinates
+            map.setCenter(newCenter);
 
-    function tank_select() {
-        $.ajax({
-            url: '<?php echo $api_url; ?>get/get_dealers_nozels.php?key=03201232927&dealer_id=' + decryptedId +
-                '&key=03201232927',
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                // Iterate through the data and append options to the select element
-                $('#nozel_select').append($('<option>', {
-                    value: '',
-                    text: 'Select Nozel '
-                }));
-                $.each(data, function (index, item) {
-
-                    $('#nozel_select').append($('<option>', {
-                        value: item.id,
-                        text: item.name
-                    }));
-                });
-
-                // Refresh the Select2 element to display the newly added options
-                // $('#depots').trigger('change.select2');
-            },
-            error: function (error) {
-                console.error('Error fetching data:', error);
-            }
-        });
-    }
-
-
-
-
-    function initMap() {
-
-        gmarkers = [];
-        map = new google.maps.Map(document.getElementById("map-canvas"), {
-            center: {
-                lat: parseFloat(30.3753),
-                lng: parseFloat(69.3451)
-            },
-            zoom: 16,
-            mapTypeId: "roadmap",
-
-        });
-
-
-        // google.maps.event.addListener(drawingManager, 'polygoncomplete', polygon);
-    }
-
-    function fetchtable() {
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("<?php echo $api_url; ?>get/dealer_profile.php?id=" + decryptedId + "&key=03201232927", requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                // var cordinates = response[0]['cordinates'];
-                // var index = cordinates.indexOf(',');
-                //  lat = cordinates.substring(0, index);
-                //  long = cordinates.substring(index + 1); 
-                //  console.log(lat+"lat");
-                //  console.log(long+"long");
-                console.log(response);
-
-                coordinates = response[0]['co-ordinates'];
-                [lat, lng] = coordinates.split(', ');
-                console.log("Latitude (lat):", lat);
-                console.log("Longitude (lng):", lng);
-                $('#user').text(response[0]['name'])
-                $('#position').text(response[0]['housekeeping']);
-                $('#date').text(response[0]['created_at']);
-                $('#location').text(response[0]['location']);
-                $('#phone_no').text(response[0]['contact']);
-                $('#email').text(response[0]['email']);
-                $('#indent_price').text(response[0]['indent_price']);
-                $('#nozel_price').text(response[0]['Nozel_price']);
-                $('#ledger').text(response[0]['acount']);
-                $('#ledger_old_value').val(response[0]['acount']);
-                $('#ledger_amount').val(response[0]['acount']);
-
-
-
-                var banner = response[0]['banner'];
-                var logo = response[0]['logo'];
-                var base_url = '<?php echo $api_url; ?>';
-
-                if (banner != '') {
-                    banner = base_url + 'uploads/' + banner;
-
-                    $("#profile_img").attr("src", banner);
-
-                } else {
-
-                }
-
-                if (logo != '') {
-                    logo = base_url + 'uploads/' + logo;
-                    $("#profile_logo").attr("src", logo);
-
-                } else {
-
-                }
-                const newCenter = {
+            var circle = new google.maps.Circle({
+                center: {
                     lat: parseFloat(lat),
                     lng: parseFloat(lng)
-                }; // New center coordinates
-                map.setCenter(newCenter);
+                },
+                radius: 100, // in meters
+                map: map,
+                fillColor: '#FF0000',
+                fillOpacity: 0.2,
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.4,
+                strokeWeight: 2
+            });
 
-                var circle = new google.maps.Circle({
-                    center: {
-                        lat: parseFloat(lat),
-                        lng: parseFloat(lng)
-                    },
-                    radius: 100, // in meters
-                    map: map,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.2,
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.4,
-                    strokeWeight: 2
-                });
+            // Create a marker
+            var marker = new google.maps.Marker({
+                position: {
+                    lat: parseFloat(lat),
+                    lng: parseFloat(lng)
+                },
+                map: map,
+            });
+            var infoWindow = new google.maps.InfoWindow({
+                content: response[0]['name']
+            });
 
-                // Create a marker
-                var marker = new google.maps.Marker({
-                    position: {
-                        lat: parseFloat(lat),
-                        lng: parseFloat(lng)
-                    },
-                    map: map,
-                });
-                var infoWindow = new google.maps.InfoWindow({
-                    content: response[0]['name']
-                });
+            // // Open the info window on the marker by default
+            infoWindow.open(map, marker);
 
-                // // Open the info window on the marker by default
-                infoWindow.open(map, marker);
-
-            })
-            .catch(error => console.log('error', error));
+        })
+        .catch(error => console.log('error', error));
 
 
-    }
+}
 
-    function order_details() {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("<?php echo $api_url; ?>get/dealers_order_count.php?id=" + decryptedId + "&key=03201232927",
+function order_details() {
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch("<?php echo $api_url; ?>get/dealers_order_count.php?id=" + decryptedId + "&key=03201232927",
             requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response);
-                $('#total_orders').text(response[0]['total']);
-            })
-            .catch(error => console.log('error', error));
+        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            $('#total_orders').text(response[0]['total']);
+        })
+        .catch(error => console.log('error', error));
 
 
-    }
+}
 
-    function orderlist() {
+function orderlist() {
 
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("<?php echo $api_url; ?>get/dealers_syb_orders.php?id=" + decryptedId + "&key=03201232927",
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch("<?php echo $api_url; ?>get/dealers_syb_orders.php?id=" + decryptedId + "&key=03201232927",
             requestOptions)
-            .then(response => response.json())
-            .then(response => {
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+
+            table.clear().draw();
+            $.each(response, function(index, data) {
+                var status = data.status;
+                console.log(status)
+                var status_value = '';
+
+                if (status == 0) {
+                    status_value =
+                        '<span id=' + data.id +
+                        ' class="badge rounded-pill cursor-pointer bg-primary approved_check" data-key="t-new">Pending</span>';
+                } else if (status == 1) {
+                    status_value =
+                        '<span id=' + data.id +
+                        ' class="badge rounded-pill cursor-pointer bg-info" data-key="t-new">Approved</span>';
+                } else if (status == 2) {
+                    status_value =
+                        '<span id=' + data.id +
+                        ' class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">Complete</span>';
+                } else if (status == 3) {
+                    status_value =
+                        '<span id=' + data.id +
+                        ' class="badge rounded-pill cursor-pointer bg-danger" data-key="t-new">Cancel</span>';
+                } else if (status == 4) {
+                    status_value =
+                        '<span id=' + data.id +
+                        ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Special Approval</span>';
+                } else if (status == 5) {
+                    status_value =
+                        '<span id=' + data.id +
+                        ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
+                }
+
+
+
+                table.row.add([
+                    index + 1,
+                    data.created_at,
+                    data.name,
+                    // data.name,
+                    data.type,
+                    data.consignee_name,
+                    data.total_amount,
+                    data.legder_balance,
+                    status_value,
+                    '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
+                    data.id +
+                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
+                    // '<button type="button" id="delete" name="delete" onclick="deleteData(' +
+                    // data.id +
+                    // ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button>'
+                ]).draw(false);
+            });
+
+        })
+        .catch(error => console.log('error', error));
+
+
+}
+
+function dealers_complaints() {
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch("<?php echo $api_url; ?>get/get_dealers_complaints.php?id=" + decryptedId + "&key=03201232927",
+            requestOptions)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+
+            complaint_table.clear().draw();
+            $.each(response, function(index, data) {
+
+
+
+                complaint_table.row.add([
+
+                    index + 1,
+                    data.created_at,
+                    data.name,
+                    data.email,
+                    data.phone,
+                    data.priority,
+                    data.subject,
+                    data.message,
+                    data.status_value
+                ]).draw(false);
+
+
+            });
+
+        })
+        .catch(error => console.log('error', error));
+
+
+}
+
+
+function dealers_visits() {
+    // alert('Hamza')
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch("<?php echo $api_url; ?>get/get_dealers_inspections.php?id=" + decryptedId + "&key=03201232927",
+            requestOptions)
+        .then(response => response.json())
+        .then(response => {
+
+            lubes_table.clear().draw();
+            $.each(response, function(index, data) {
+                console.log('Visit')
                 console.log(response)
 
-                table.clear().draw();
-                $.each(response, function (index, data) {
-                    var status = data.status;
-                    console.log(status)
-                    var status_value = '';
-
-                    if (status == 0) {
-                        status_value =
-                            '<span id=' + data.id +
-                            ' class="badge rounded-pill cursor-pointer bg-primary approved_check" data-key="t-new">Pending</span>';
-                    } else if (status == 1) {
-                        status_value =
-                            '<span id=' + data.id +
-                            ' class="badge rounded-pill cursor-pointer bg-info" data-key="t-new">Approved</span>';
-                    } else if (status == 2) {
-                        status_value =
-                            '<span id=' + data.id +
-                            ' class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">Complete</span>';
-                    } else if (status == 3) {
-                        status_value =
-                            '<span id=' + data.id +
-                            ' class="badge rounded-pill cursor-pointer bg-danger" data-key="t-new">Cancel</span>';
-                    } else if (status == 4) {
-                        status_value =
-                            '<span id=' + data.id +
-                            ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Special Approval</span>';
-                    } else if (status == 5) {
-                        status_value =
-                            '<span id=' + data.id +
-                            ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
-                    }
 
 
+                lubes_table.row.add([
 
-                    table.row.add([
-                        index + 1,
-                        data.created_at,
-                        data.name,
-                        // data.name,
-                        data.type,
-                        data.consignee_name,
-                        data.total_amount,
-                        data.legder_balance,
-                        status_value,
-                        '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
-                        data.id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
-                        // '<button type="button" id="delete" name="delete" onclick="deleteData(' +
-                        // data.id +
-                        // ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button>'
-                    ]).draw(false);
-                });
+                    index + 1,
+                    data.time,
+                    data.name,
+                    data.current_status,
+                    '<button type="button"  onclick="displaySurvey(' +
+                    data
+                    .id + ',' + data.id + ',' + data.dealer_id +
+                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
+                    '<button type="button" onclick="get_tas_sales_data(' + data.id + ',' + data
+                    .dealer_id +
+                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
+                    '<button type="button" onclick="displaySurvey(' +
+                    data
+                    .id + ',' + data.id + ',' + data.dealer_id +
+                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
+                    '<button type="button"  onclick="get_task_wet_stock(' + data.id + ',' + data
+                    .dealer_id +
+                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
+                    '<button type="button"  onclick="get_task_despensing_unit(' + data.id + ',' +
+                    data.dealer_id +
+                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
+                    '<button type="button"  onclick="get_task_stock_variations(' + data.id + ',' +
+                    data.dealer_id +
+                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
+                ]).draw(false);
 
-            })
-            .catch(error => console.log('error', error));
+
+            });
+
+        })
+        .catch(error => console.log('error', error));
 
 
-    }
+}
 
-    function dealers_complaints() {
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("<?php echo $api_url; ?>get/get_dealers_complaints.php?id=" + decryptedId + "&key=03201232927",
+function tanks_view() {
+    var prel_role = "<?php echo $_SESSION['privilege'] ?>";
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch("<?php echo $api_url; ?>get/get_dealers_tanks.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
 
-                complaint_table.clear().draw();
-                $.each(response, function (index, data) {
+            table4.clear().draw();
+            if (response.length > 0) {
 
 
+                $.each(response, function(index, data) {
 
-                    complaint_table.row.add([
+                    table4.row.add([
 
                         index + 1,
-                        data.created_at,
+                        data.lorry_no,
                         data.name,
-                        data.email,
-                        data.phone,
-                        data.priority,
-                        data.subject,
-                        data.message,
-                        data.status_value
-                    ]).draw(false);
-
-
-                });
-
-            })
-            .catch(error => console.log('error', error));
-
-
-    }
-
-
-    function dealers_visits() {
-        // alert('Hamza')
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("<?php echo $api_url; ?>get/get_dealers_inspections.php?id=" + decryptedId + "&key=03201232927",
-            requestOptions)
-            .then(response => response.json())
-            .then(response => {
-
-                lubes_table.clear().draw();
-                $.each(response, function (index, data) {
-                    console.log('Visit')
-                    console.log(response)
-
-
-
-                    lubes_table.row.add([
-
-                        index + 1,
-                        data.time,
-                        data.name,
-                        data.current_status,
-                        '<button type="button"  onclick="displaySurvey(' +
-                        data
-                            .id + ',' + data.id + ',' + data.dealer_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
-                        '<button type="button" onclick="get_tas_sales_data(' + data.id + ',' + data
-                            .dealer_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
-                        '<button type="button" onclick="displaySurvey(' +
-                        data
-                            .id + ',' + data.id + ',' + data.dealer_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
-                        '<button type="button"  onclick="get_task_wet_stock(' + data.id + ',' + data
-                            .dealer_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
-                        '<button type="button"  onclick="get_task_despensing_unit(' + data.id + ',' +
-                        data.dealer_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
-                        '<button type="button"  onclick="get_task_stock_variations(' + data.id + ',' +
-                        data.dealer_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
-                    ]).draw(false);
-
-
-                });
-
-            })
-            .catch(error => console.log('error', error));
-
-
-    }
-
-    function tanks_view() {
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("<?php echo $api_url; ?>get/get_dealers_tanks.php?key=03201232927&dealer_id=" + decryptedId + "",
-            requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
-
-                table4.clear().draw();
-                if (response.length > 0) {
-
-
-                    $.each(response, function (index, data) {
-
-                        table4.row.add([
-
-                            index + 1,
-                            data.lorry_no,
-                            data.name,
-                            // data.min_limit,
-                            data.max_limit,
-                            data.current_dip,
-                            '<button type="button" id="tank_dip" name="tank_dip" onclick="add_dip(' +
+                        // data.min_limit,
+                        data.max_limit,
+                        data.current_dip,
+                        (prel_role == 'Admin' ?
+                            '<td> <button type="button" id="tank_dip" name="tank_dip" onclick="add_dip(' +
                             data
-                                .id + ',' + data.current_dip +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-plus-square font-size-16 align-middle"></i></button>',
-                            '<button type="button" id="tank_dip" name="tank_dip" onclick="get_dip_backlog(' +
+                            .id + ',' + data.current_dip +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-plus-square font-size-16 align-middle"></i></button></td>' :
+                            ''),
+                        (prel_role == 'Admin' ?
+                            '<td> <button type="button" id="tank_dip" name="tank_dip" onclick="get_dip_backlog(' +
                             data
-                                .id + ',' + data.current_dip +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
-                            '<button type="button" id="delete" name="delete" onclick="deleteDatatank(' +
+                            .id + ',' + data.current_dip +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button></td>' :
+                            ''),
+                        (prel_role == 'Admin' ?
+                            '<td><button type="button" id="delete" name="delete" onclick="deleteDatatank(' +
                             data.id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button>'
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button></td>' :
+                            '')
 
 
-                        ]).draw(false);
+                    ]).draw(false);
 
-                        $('#atgs').append('<div class="border-bottom loyal-customers-box pt-2">' +
-                            ' <div class="d-flex align-items-center">' +
-                            '<i class="fas fa-truck-moving font-size-14 text-dark ms-1"></i>' +
-                            '<div class="flex-grow-1 ms-3 overflow-hidden">' +
-                            '<h5 class="font-size-15 mb-1 text-truncate">' + data.lorry_no + '</h5>' +
-                            '<p>' + data.update_time + '</p>' +
-                            '</div>' +
-                            '<div class="flex-shrink-0">' +
-                            '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center"> ' +
-                            data.current_dip +
-                            '</h5>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>')
-
-
-
-
-                    });
-                } else {
                     $('#atgs').append('<div class="border-bottom loyal-customers-box pt-2">' +
                         ' <div class="d-flex align-items-center">' +
                         '<i class="fas fa-truck-moving font-size-14 text-dark ms-1"></i>' +
                         '<div class="flex-grow-1 ms-3 overflow-hidden">' +
-                        '<h5 class="font-size-15 mb-1 text-truncate">No ATGS Found</h5>' +
+                        '<h5 class="font-size-15 mb-1 text-truncate">' + data.lorry_no + '</h5>' +
+                        '<p>' + data.update_time + '</p>' +
                         '</div>' +
                         '<div class="flex-shrink-0">' +
-                        '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center"> ---</h5>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>')
-                }
-
-            })
-            .catch(error => console.log('error', error));
-
-
-
-
-    }
-
-    function dealers_products() {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/dealers_products.php?key=03201232927&dealer_id=" + decryptedId + "",
-            requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                var selectElement = $("#dealer_products");
-                var nozzels_products = $("#nozzels_products");
-
-                selectElement.append($('<option>', {
-                    value: '',
-                    text: 'Select Product'
-                }));
-
-                var targeted_product = $("#targeted_product");
-
-                targeted_product.append($('<option>', {
-                    value: '',
-                    text: 'Select Product'
-                }));
-
-                nozzels_products.append($('<option>', {
-                    value: '',
-                    text: 'Select Product'
-                }));
-                $.each(result, function (index, data) {
-
-                    console.log(data.name)
-                    selectElement.append($('<option>', {
-                        value: data.id,
-                        text: data.name
-                    }));
-                    nozzels_products.append($('<option>', {
-                        value: data.id,
-                        text: data.name
-                    }));
-                    targeted_product.append($('<option>', {
-                        value: data.id,
-                        text: data.name
-                    }));
-
-                    products_table.row.add([
-
-                        index + 1,
-                        data.name,
-                        data.from,
-                        data.to,
-                        data.indent_price,
-                        data.nozel_price,
-                        data.update_time,
-                        '<button type="button" id="tank_dip" name="tank_dip" onclick="edit_product_price(' +
-                        data
-                            .id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-plus-square font-size-16 align-middle"></i></button>',
-                        '<button type="button" id="tank_dip" name="tank_dip" onclick="get_product_price_backlog(' +
-                        data
-                            .id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
-
-
-                    ]).draw(false);
-
-                    $('#currents_products').append('<div class="border-bottom loyal-customers-box pt-2">' +
-                        ' <div class="d-flex align-items-center">' +
-                        '<i class="fas fa-gas-pump font-size-14 text-dark ms-1"></i>' +
-                        '<div class="flex-grow-1 ms-3 overflow-hidden">' +
-                        '<h5 class="font-size-15 mb-1 text-truncate">' + data.name + '</h5>' +
-                        '<p>Duration : ' + data.from + ' - ' + data.to + '</p>' +
-                        '<p>Indent Price : ' + data.indent_price + '</p>' +
-                        '<p>Nozel Price : ' + data.nozel_price + '</p>' +
-                        '</div>' +
-                        '<div class="flex-shrink-0">' +
-                        '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-3 rounded text-center"> ' +
-                        data.update_time +
+                        '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center"> ' +
+                        data.current_dip +
                         '</h5>' +
                         '</div>' +
                         '</div>' +
                         '</div>')
+
+
+
+
                 });
-            })
-            .catch(error => console.log('error', error));
-    }
+            } else {
+                $('#atgs').append('<div class="border-bottom loyal-customers-box pt-2">' +
+                    ' <div class="d-flex align-items-center">' +
+                    '<i class="fas fa-truck-moving font-size-14 text-dark ms-1"></i>' +
+                    '<div class="flex-grow-1 ms-3 overflow-hidden">' +
+                    '<h5 class="font-size-15 mb-1 text-truncate">No ATGS Found</h5>' +
+                    '</div>' +
+                    '<div class="flex-shrink-0">' +
+                    '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center"> ---</h5>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>')
+            }
 
-    function all_products() {
-        // alert('Hamza')
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
+        })
+        .catch(error => console.log('error', error));
 
-        fetch("<?php echo $api_url; ?>get/get_all_products.php?key=03201232927",
+
+
+
+}
+
+function dealers_products() {
+    var prel_role = "<?php echo $_SESSION['privilege'] ?>";
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch("<?php echo $api_url; ?>get/dealers_products.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                var products_name = $("#products_name");
+        .then(response => response.json())
+        .then(result => {
+            var selectElement = $("#dealer_products");
+            var nozzels_products = $("#nozzels_products");
 
+            selectElement.append($('<option>', {
+                value: '',
+                text: 'Select Product'
+            }));
+
+            var targeted_product = $("#targeted_product");
+
+            targeted_product.append($('<option>', {
+                value: '',
+                text: 'Select Product'
+            }));
+
+            nozzels_products.append($('<option>', {
+                value: '',
+                text: 'Select Product'
+            }));
+            $.each(result, function(index, data) {
+
+                console.log(data.name)
+                selectElement.append($('<option>', {
+                    value: data.id,
+                    text: data.name
+                }));
+                nozzels_products.append($('<option>', {
+                    value: data.id,
+                    text: data.name
+                }));
+                targeted_product.append($('<option>', {
+                    value: data.id,
+                    text: data.name
+                }));
+
+                products_table.row.add([
+
+                    index + 1,
+                    data.name,
+                    data.from,
+                    data.to,
+                    data.indent_price,
+                    data.nozel_price,
+                    data.update_time,
+                    (prel_role == 'Admin' ?
+                        '<td><button type="button" id="edit" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" name="edit" onclick="editData(' +
+                        data.id +
+                        ')" class="btn btn-soft-warning waves-effect waves-light"><i class="bx bx-edit-alt font-size-16 align-middle"></i></button></td>' :
+                        ''),
+                    '<button type="button" id="tank_dip" name="tank_dip" onclick="get_product_price_backlog(' +
+                    data
+                    .id +
+                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
+
+
+                ]).draw(false);
+
+                $('#currents_products').append('<div class="border-bottom loyal-customers-box pt-2">' +
+                    ' <div class="d-flex align-items-center">' +
+                    '<i class="fas fa-gas-pump font-size-14 text-dark ms-1"></i>' +
+                    '<div class="flex-grow-1 ms-3 overflow-hidden">' +
+                    '<h5 class="font-size-15 mb-1 text-truncate">' + data.name + '</h5>' +
+                    '<p>Duration : ' + data.from + ' - ' + data.to + '</p>' +
+                    '<p>Indent Price : ' + data.indent_price + '</p>' +
+                    '<p>Nozel Price : ' + data.nozel_price + '</p>' +
+                    '</div>' +
+                    '<div class="flex-shrink-0">' +
+                    '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-3 rounded text-center"> ' +
+                    data.update_time +
+                    '</h5>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>')
+            });
+        })
+        .catch(error => console.log('error', error));
+}
+
+function all_products() {
+    // alert('Hamza')
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch("<?php echo $api_url; ?>get/get_all_products.php?key=03201232927",
+            requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            var products_name = $("#products_name");
+
+            products_name.append($('<option>', {
+                value: '',
+                text: 'Select Product'
+            }));
+
+            $.each(result, function(index, data) {
+                console.log('all products')
+                console.log(data.name)
                 products_name.append($('<option>', {
-                    value: '',
-                    text: 'Select Product'
+                    value: data.name,
+                    text: data.name
                 }));
 
-                $.each(result, function (index, data) {
-                    console.log('all products')
-                    console.log(data.name)
-                    products_name.append($('<option>', {
-                        value: data.name,
-                        text: data.name
-                    }));
 
+            });
+        })
+        .catch(error => console.log('error', error));
+}
 
-                });
-            })
-            .catch(error => console.log('error', error));
-    }
+function dealers_users() {
+    var prel_role = "<?php echo $_SESSION['privilege'] ?>";
 
-    function dealers_users() {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
 
-        fetch("<?php echo $api_url; ?>get/dealer_users.php?key=03201232927&dealer_id=" + decryptedId + "",
+    fetch("<?php echo $api_url; ?>get/dealer_users.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-            .then(response => response.json())
-            .then(result => {
+        .then(response => response.json())
+        .then(result => {
 
-                $.each(result, function (index, data) {
+            $.each(result, function(index, data) {
 
-                    console.log(data.name)
+                console.log(data.name)
 
-                    users_table.row.add([
+                users_table.row.add([
 
-                        index + 1,
-                        data.name,
-                        data.email,
-                        data.password,
-                        data.contact,
-                        // data.contact,
-                        '<button type="button" id="tank_dip" name="tank_dip" onclick="edit_dealers_users(' +
+                    index + 1,
+                    data.name,
+                    data.email,
+                    data.password,
+                    data.contact,
+                    // data.contact,
+                    (prel_role == 'Admin' ?
+                        '<td><button type="button" id="tank_dip" name="tank_dip" onclick="edit_dealers_users(' +
                         data
-                            .id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-edit font-size-16 align-middle"></i></button>'
-                        // '<button type="button" id="tank_dip" name="tank_dip" onclick="delete_dealer_(' +
-                        // data
-                        // .id +
-                        // ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-trash-alt font-size-16 align-middle"></i></button>',
+                        .id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-edit font-size-16 align-middle"></i></button>' :
+                        '')
+                    // '<button type="button" id="tank_dip" name="tank_dip" onclick="delete_dealer_(' +
+                    // data
+                    // .id +
+                    // ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-trash-alt font-size-16 align-middle"></i></button>',
 
 
-                    ]).draw(false);
+                ]).draw(false);
 
 
-                });
-            })
-            .catch(error => console.log('error', error));
-    }
+            });
+        })
+        .catch(error => console.log('error', error));
+}
 
-    function get_dealer_target() {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
+function get_dealer_target() {
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
 
-        fetch("<?php echo $api_url; ?>get/get_dealers_product_target.php?key=03201232927&dealer_id=" + decryptedId + "",
+    fetch("<?php echo $api_url; ?>get/get_dealers_product_target.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-            .then(response => response.json())
-            .then(result => {
+        .then(response => response.json())
+        .then(result => {
 
-                $.each(result, function (index, data) {
+            $.each(result, function(index, data) {
 
-                    console.log(data.name)
+                console.log(data.name)
 
-                    targeted_table.row.add([
+                targeted_table.row.add([
 
-                        index + 1,
-                        data.name,
-                        data.date_month,
-                        data.target_amount,
-                        data.description
-
-
-                    ]).draw(false);
+                    index + 1,
+                    data.name,
+                    data.date_month,
+                    data.target_amount,
+                    data.description
 
 
-                });
-            })
-            .catch(error => console.log('error', error));
-    }
+                ]).draw(false);
+
+
+            });
+        })
+        .catch(error => console.log('error', error));
+}
 
 
 
-    function facilities() {
+function facilities() {
 
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("<?php echo $api_url; ?>get/facilities_get.php?key=03201232927&dealer_id=" + decryptedId + "",
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch("<?php echo $api_url; ?>get/facilities_get.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
 
-                table2.clear().draw();
-                $.each(response, function (index, data) {
+            table2.clear().draw();
+            $.each(response, function(index, data) {
 
-                    table2.row.add([
+                table2.row.add([
 
-                        index + 1,
-                        data.name,
-                        data.created_at
-
-
-                    ]).draw(false);
+                    index + 1,
+                    data.name,
+                    data.created_at
 
 
-                });
-
-            })
-            .catch(error => console.log('error', error));
+                ]).draw(false);
 
 
-    }
+            });
 
-    $('#insert').click(function () {
+        })
+        .catch(error => console.log('error', error));
 
-        $('#row_id').val("");
-        // alert("running")
 
-    });
+}
 
-    function d_dispenser() {
+$('#insert').click(function() {
 
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("<?php echo $api_url; ?>get/get_dealers_dispenser.php?key=03201232927&dealer_id=" + decryptedId + "",
+    $('#row_id').val("");
+    // alert("running")
+
+});
+
+function d_dispenser() {
+    var prel_role = "<?php echo $_SESSION['privilege'] ?>";
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch("<?php echo $api_url; ?>get/get_dealers_dispenser.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            $('#product_dispenser').append($('<option>', {
+                value: '',
+                text: 'Select Dispenser '
+            }));
+            dispenser_table.clear().draw();
+            $.each(response, function(index, data) {
+
+                dispenser_table.row.add([
+
+                    index + 1,
+                    data.name,
+                    data.description,
+                    data.created_at,
+                    (prel_role == 'Admin' ?
+                        '<td><button type="button" id="delete" name="delete" onclick="deleteDatadispensor(' +
+                        data.id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button></td>' :
+                        '')
+
+
+                ]).draw(false);
                 $('#product_dispenser').append($('<option>', {
-                    value: '',
-                    text: 'Select Dispenser '
+                    value: data.id,
+                    text: data.name
                 }));
-                dispenser_table.clear().draw();
-                $.each(response, function (index, data) {
-
-                    dispenser_table.row.add([
-
-                        index + 1,
-                        data.name,
-                        data.description,
-                        data.created_at,
-                        '<button type="button" id="delete" name="delete" onclick="deleteDatadispensor(' +
-                        data.id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button>'
 
 
-                    ]).draw(false);
-                    $('#product_dispenser').append($('<option>', {
-                        value: data.id,
-                        text: data.name
-                    }));
+            });
+
+        })
+        .catch(error => console.log('error', error));
 
 
-                });
+}
 
-            })
-            .catch(error => console.log('error', error));
+function nozels() {
+    var prel_role = "<?php echo $_SESSION['privilege'] ?>";
 
-
-    }
-
-    function nozels() {
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("<?php echo $api_url; ?>get/get_dealers_nozels.php?key=03201232927&dealer_id=" + decryptedId + "",
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch("<?php echo $api_url; ?>get/get_dealers_nozels.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
 
-                table3.clear().draw();
-                $.each(response, function (index, data) {
+            table3.clear().draw();
+            $.each(response, function(index, data) {
 
-                    table3.row.add([
+                table3.row.add([
 
-                        index + 1,
-                        data.name,
-                        data.product_name,
-                        data.tank_name,
-                        data.dispenser_name,
-                        data.created_at,
-                        '<button type="button" id="delete" name="delete" onclick="deleteDatanozzels(' +
+                    index + 1,
+                    data.name,
+                    data.product_name,
+                    data.tank_name,
+                    data.dispenser_name,
+                    data.created_at,
+                    (prel_role == 'Admin' ?
+                        '<td><button type="button" id="delete" name="delete" onclick="deleteDatanozzels(' +
                         data.id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button>'
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button></td>' :
+                        '')
 
 
-                    ]).draw(false);
+                ]).draw(false);
 
 
-                });
+            });
 
-            })
-            .catch(error => console.log('error', error));
+        })
+        .catch(error => console.log('error', error));
 
 
-    }
+}
 
-    function nozels_tanks_form() {
+function nozels_tanks_form() {
 
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("<?php echo $api_url; ?>get/get_dealers_tank_nozzels.php?key=03201232927&dealer_id=" + decryptedId + "",
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    fetch("<?php echo $api_url; ?>get/get_dealers_tank_nozzels.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
 
-                nozel_tanks_table.clear().draw();
-                $.each(response, function (index, data) {
+            nozel_tanks_table.clear().draw();
+            $.each(response, function(index, data) {
 
-                    nozel_tanks_table.row.add([
+                nozel_tanks_table.row.add([
 
-                        index + 1,
-                        data.name,
-                        data.lorry_no,
-                        data.created_at
+                    index + 1,
+                    data.name,
+                    data.lorry_no,
+                    data.created_at
 
 
-                    ]).draw(false);
+                ]).draw(false);
 
 
-                });
+            });
 
-            })
-            .catch(error => console.log('error', error));
+        })
+        .catch(error => console.log('error', error));
 
 
-    }
+}
 
-    // $('#insert').click(function() {
+// $('#insert').click(function() {
 
-    //     $('#row_id').val("");
-    //     // alert("running")
+//     $('#row_id').val("");
+//     // alert("running")
 
-    // });
+// });
 
 
-    /// ============================================================== get functions end 
+/// ============================================================== get functions end 
 
-    // ================================================================= post Functions 
+// ================================================================= post Functions 
 
 
-    $('#insert_form_ledgers').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var data = new FormData(this);
+$('#insert_form_ledgers').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var data = new FormData(this);
 
-        $.ajax({
-            url: "<?php echo $api_url; ?>update/update_dealers_ledger.php",
-            cache: false,
-            contentType: false,
-            processData: false,
-            method: "POST",
-            data: data,
-            beforeSend: function () {
-                $('#insert_l').val("Saving");
-                document.getElementById("insert").disabled = true;
+    $.ajax({
+        url: "<?php echo $api_url; ?>update/update_dealers_ledger.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: "POST",
+        data: data,
+        beforeSend: function() {
+            $('#insert_l').val("Saving");
+            document.getElementById("insert").disabled = true;
 
-            },
-            success: function (data) {
-                console.log(data)
+        },
+        success: function(data) {
+            console.log(data)
 
-                if (data != 1) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
-                    )
-                    $('#insert_l').val("Save");
-                    document.getElementById("insert_l").disabled = false;
-                } else {
-
-
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#insert_form_ledgers')[0].reset();
-                        $('#add_facility').modal('hide');
-                        facilities();
-                        $('#insert_l').val("Save");
-                        document.getElementById("insert_l").disabled = false;
-                        location.reload();
-
-                    }, 2000);
-
-                }
-
-            },
-            error: function (xhr, status, error) {
-                // Handle API errors
-                console.log('Error:', error);
-                console.log('Status:', status);
-                console.log('Response:', xhr.responseText);
-            }
-        });
-
-    });
-    $('#insert_form').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var data = new FormData(this);
-
-        $.ajax({
-            url: "<?php echo $api_url; ?>create/dealer_facitlities.php",
-            cache: false,
-            contentType: false,
-            processData: false,
-            method: "POST",
-            data: data,
-            beforeSend: function () {
-                $('#insert').val("Saving");
-                document.getElementById("insert").disabled = true;
-
-            },
-            success: function (data) {
-                console.log(data)
-
-                if (data != 1) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
-                    )
-                    $('#insert').val("Save");
-                    document.getElementById("insert").disabled = false;
-                } else {
-
-
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#insert_form')[0].reset();
-                        $('#add_facility').modal('hide');
-                        facilities();
-                        $('#insert').val("Save");
-                        document.getElementById("insert").disabled = false;
-                        location.reload();
-
-                    }, 2000);
-
-                }
-
-            }
-        });
-
-    });
-    $('#users_from').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var data = new FormData(this);
-
-        $.ajax({
-            url: "<?php echo $api_url; ?>create/dealers_users.php",
-            cache: false,
-            contentType: false,
-            processData: false,
-            method: "POST",
-            data: data,
-            beforeSend: function () {
-                $('#users_btn').val("Saving");
-                document.getElementById("users_btn").disabled = true;
-
-            },
-            success: function (data) {
-                console.log(data)
-
-                if (data != 1) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
-                    )
-                    $('#users_btn').val("Save");
-                    document.getElementById("users_btn").disabled = false;
-                } else {
-
-
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#users_from')[0].reset();
-                        $('#users_modal').modal('hide');
-                        facilities();
-                        $('#users_btn').val("Save");
-                        document.getElementById("users_btn").disabled = false;
-                        location.reload();
-
-
-                    }, 2000);
-
-                }
-
-            },
-            error: function (xhr, status, error) {
-                // Handle API errors
-                console.log('Error:', error);
-                console.log('Status:', status);
-                console.log('Response:', xhr.responseText);
-            }
-
-        });
-
-    });
-
-    $('#dispenser_form').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var data = new FormData(this);
-
-        $.ajax({
-            url: "<?php echo $api_url; ?>create/create_dispenser.php",
-            cache: false,
-            contentType: false,
-            processData: false,
-            method: "POST",
-            data: data,
-            beforeSend: function () {
-                $('#dispenser_btn').val("Saving");
-                document.getElementById("dispenser_btn").disabled = true;
-
-            },
-            success: function (data) {
-                console.log(data)
-
-                if (data != 1) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
-                    )
-                    $('#dispenser_btn').val("Save");
-                    document.getElementById("dispenser_btn").disabled = false;
-                } else {
-
-
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#insert_form1')[0].reset();
-                        $('#add_nozel').modal('hide');
-                        facilities();
-                        $('#dispenser_btn').val("Save");
-                        document.getElementById("dispenser_btn").disabled = false;
-                        location.reload();
-
-
-                    }, 2000);
-
-                }
-
-            }
-        });
-
-    });
-
-    $('#insert_form1').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var data = new FormData(this);
-
-        $.ajax({
-            url: "<?php echo $api_url; ?>create/nozzels.php",
-            cache: false,
-            contentType: false,
-            processData: false,
-            method: "POST",
-            data: data,
-            beforeSend: function () {
-                $('#insert1').val("Saving");
-                document.getElementById("insert1").disabled = true;
-
-            },
-            success: function (data) {
-                console.log(data)
-
-                if (data != 1) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
-                    )
-                    $('#insert1').val("Save");
-                    document.getElementById("insert1").disabled = false;
-                } else {
-
-
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#insert_form1')[0].reset();
-                        $('#add_nozel').modal('hide');
-                        facilities();
-                        $('#insert1').val("Save");
-                        document.getElementById("insert1").disabled = false;
-                        location.reload();
-
-
-                    }, 2000);
-
-                }
-
-            }
-        });
-
-    });
-
-
-
-    $('#tank_form').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var data = new FormData(this);
-
-        $.ajax({
-            url: "<?php echo $api_url; ?>create/create_dealers_tanks.php",
-            cache: false,
-            contentType: false,
-            processData: false,
-            method: "POST",
-            data: data,
-            beforeSend: function () {
-                $('#tank_form_btn').val("Saving");
-                document.getElementById("tank_form_btn").disabled = true;
-
-            },
-            success: function (data) {
-                console.log(data)
-
-                if (data != 1) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
-                    )
-                    $('#tank_form_btn').val("Save");
-                    document.getElementById("tank_form_btn").disabled = false;
-                } else {
-
-
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#tank_form')[0].reset();
-
-                        facilities();
-                        $('#tank_form_btn').val("Save");
-                        document.getElementById("tank_form_btn").disabled = false;
-                        location.reload();
-
-
-                    }, 2000);
-
-                }
-
-            }
-        });
-
-    });
-
-    $('#nozel_tank_form').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var formData = $(this).serialize();
-        console.log(formData);
-        $.ajax({
-            url: "<?php echo $api_url; ?>create/create_dealers_tanks_nozels.php",
-            type: 'POST',
-            data: formData,
-            beforeSend: function () {
-                $('#nozel_tank_btn').val("Saving");
-                document.getElementById("nozel_tank_btn").disabled = true;
-
-            },
-            success: function (data) {
-                console.log(data)
-
-                if (data != 1) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
-                    )
-                    $('#nozel_tank_btn').val("Save");
-                    document.getElementById("nozel_tank_btn").disabled = false;
-                } else {
-
-
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#nozel_tank_form')[0].reset();
-
-                        facilities();
-                        $('#nozel_tank_btn').val("Save");
-                        document.getElementById("nozel_tank_btn").disabled = false;
-                        location.reload();
-
-
-                    }, 2000);
-
-                }
-
-            },
-            error: function (xhr, status, error) {
-                // Handle API errors
-                console.log('Error:', error);
-                console.log('Status:', status);
-                console.log('Response:', xhr.responseText);
-            }
-
-        });
-        console.log('ajax end')
-
-    });
-
-    $('#tank_dip_form').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var formData = $(this).serialize();
-        console.log(formData);
-        $.ajax({
-            url: "<?php echo $api_url; ?>update/dealer_tank_dip.php",
-            type: 'POST',
-            data: formData,
-            beforeSend: function () {
-                $('#dip_btn').val("Saving");
-                document.getElementById("dip_btn").disabled = true;
-
-            },
-            success: function (data) {
-                console.log(data)
-
-                if (data != 1) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
-                    )
-                    $('#dip_btn').val("Save");
-                    document.getElementById("dip_btn").disabled = false;
-                } else {
-
-
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#tank_dip_form')[0].reset();
-
-                        facilities();
-                        $('#dip_btn').val("Save");
-                        document.getElementById("dip_btn").disabled = false;
-                        location.reload();
-
-
-                    }, 2000);
-
-                }
-
-            },
-            error: function (xhr, status, error) {
-                // Handle API errors
-                console.log('Error:', error);
-                console.log('Status:', status);
-                console.log('Response:', xhr.responseText);
-            }
-
-        });
-
-    });
-
-    $('#targeted_from').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var formData = $(this).serialize();
-        console.log(formData);
-        $.ajax({
-            url: "<?php echo $api_url; ?>create/create_dealers_product_target.php",
-            type: 'POST',
-            data: formData,
-            beforeSend: function () {
-                $('#target_btn').val("Saving");
-                document.getElementById("target_btn").disabled = true;
-
-            },
-            success: function (data) {
-                console.log(data)
-
-                if (data != 1) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
-                    )
-                    $('#target_btn').val("Save");
-                    document.getElementById("target_btn").disabled = false;
-                } else {
-
-
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#targeted_from')[0].reset();
-
-                        // facilities();
-                        $('#target_btn').val("Save");
-                        document.getElementById("target_btn").disabled = false;
-                        location.reload();
-
-
-                    }, 2000);
-
-                }
-
-            },
-            error: function (xhr, status, error) {
-                // Handle API errors
+            if (data != 1) {
                 Swal.fire(
                     'Server Error!',
-                    'Duplicate Month Entry',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#insert_l').val("Save");
+                document.getElementById("insert_l").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
+                    Swal.fire(
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
+                    )
+                    $('#insert_form_ledgers')[0].reset();
+                    $('#add_facility').modal('hide');
+                    facilities();
+                    $('#insert_l').val("Save");
+                    document.getElementById("insert_l").disabled = false;
+                    location.reload();
+
+                }, 2000);
+
+            }
+
+        },
+        error: function(xhr, status, error) {
+            // Handle API errors
+            console.log('Error:', error);
+            console.log('Status:', status);
+            console.log('Response:', xhr.responseText);
+        }
+    });
+
+});
+$('#insert_form').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var data = new FormData(this);
+
+    $.ajax({
+        url: "<?php echo $api_url; ?>create/dealer_facitlities.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: "POST",
+        data: data,
+        beforeSend: function() {
+            $('#insert').val("Saving");
+            document.getElementById("insert").disabled = true;
+
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#insert').val("Save");
+                document.getElementById("insert").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
+                    Swal.fire(
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
+                    )
+                    $('#insert_form')[0].reset();
+                    $('#add_facility').modal('hide');
+                    facilities();
+                    $('#insert').val("Save");
+                    document.getElementById("insert").disabled = false;
+                    location.reload();
+
+                }, 2000);
+
+            }
+
+        }
+    });
+
+});
+$('#users_from').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var data = new FormData(this);
+
+    $.ajax({
+        url: "<?php echo $api_url; ?>create/dealers_users.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: "POST",
+        data: data,
+        beforeSend: function() {
+            $('#users_btn').val("Saving");
+            document.getElementById("users_btn").disabled = true;
+
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#users_btn').val("Save");
+                document.getElementById("users_btn").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
+                    Swal.fire(
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
+                    )
+                    $('#users_from')[0].reset();
+                    $('#users_modal').modal('hide');
+                    facilities();
+                    $('#users_btn').val("Save");
+                    document.getElementById("users_btn").disabled = false;
+                    location.reload();
+
+
+                }, 2000);
+
+            }
+
+        },
+        error: function(xhr, status, error) {
+            // Handle API errors
+            console.log('Error:', error);
+            console.log('Status:', status);
+            console.log('Response:', xhr.responseText);
+        }
+
+    });
+
+});
+
+$('#dispenser_form').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var data = new FormData(this);
+
+    $.ajax({
+        url: "<?php echo $api_url; ?>create/create_dispenser.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: "POST",
+        data: data,
+        beforeSend: function() {
+            $('#dispenser_btn').val("Saving");
+            document.getElementById("dispenser_btn").disabled = true;
+
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#dispenser_btn').val("Save");
+                document.getElementById("dispenser_btn").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
+                    Swal.fire(
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
+                    )
+                    $('#insert_form1')[0].reset();
+                    $('#add_nozel').modal('hide');
+                    facilities();
+                    $('#dispenser_btn').val("Save");
+                    document.getElementById("dispenser_btn").disabled = false;
+                    location.reload();
+
+
+                }, 2000);
+
+            }
+
+        }
+    });
+
+});
+
+$('#insert_form1').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var data = new FormData(this);
+
+    $.ajax({
+        url: "<?php echo $api_url; ?>create/nozzels.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: "POST",
+        data: data,
+        beforeSend: function() {
+            $('#insert1').val("Saving");
+            document.getElementById("insert1").disabled = true;
+
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#insert1').val("Save");
+                document.getElementById("insert1").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
+                    Swal.fire(
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
+                    )
+                    $('#insert_form1')[0].reset();
+                    $('#add_nozel').modal('hide');
+                    facilities();
+                    $('#insert1').val("Save");
+                    document.getElementById("insert1").disabled = false;
+                    location.reload();
+
+
+                }, 2000);
+
+            }
+
+        }
+    });
+
+});
+
+
+
+$('#tank_form').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var data = new FormData(this);
+
+    $.ajax({
+        url: "<?php echo $api_url; ?>create/create_dealers_tanks.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: "POST",
+        data: data,
+        beforeSend: function() {
+            $('#tank_form_btn').val("Saving");
+            document.getElementById("tank_form_btn").disabled = true;
+
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#tank_form_btn').val("Save");
+                document.getElementById("tank_form_btn").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
+                    Swal.fire(
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
+                    )
+                    $('#tank_form')[0].reset();
+
+                    facilities();
+                    $('#tank_form_btn').val("Save");
+                    document.getElementById("tank_form_btn").disabled = false;
+                    location.reload();
+
+
+                }, 2000);
+
+            }
+
+        }
+    });
+
+});
+
+$('#nozel_tank_form').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var formData = $(this).serialize();
+    console.log(formData);
+    $.ajax({
+        url: "<?php echo $api_url; ?>create/create_dealers_tanks_nozels.php",
+        type: 'POST',
+        data: formData,
+        beforeSend: function() {
+            $('#nozel_tank_btn').val("Saving");
+            document.getElementById("nozel_tank_btn").disabled = true;
+
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#nozel_tank_btn').val("Save");
+                document.getElementById("nozel_tank_btn").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
+                    Swal.fire(
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
+                    )
+                    $('#nozel_tank_form')[0].reset();
+
+                    facilities();
+                    $('#nozel_tank_btn').val("Save");
+                    document.getElementById("nozel_tank_btn").disabled = false;
+                    location.reload();
+
+
+                }, 2000);
+
+            }
+
+        },
+        error: function(xhr, status, error) {
+            // Handle API errors
+            console.log('Error:', error);
+            console.log('Status:', status);
+            console.log('Response:', xhr.responseText);
+        }
+
+    });
+    console.log('ajax end')
+
+});
+
+$('#tank_dip_form').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var formData = $(this).serialize();
+    console.log(formData);
+    $.ajax({
+        url: "<?php echo $api_url; ?>update/dealer_tank_dip.php",
+        type: 'POST',
+        data: formData,
+        beforeSend: function() {
+            $('#dip_btn').val("Saving");
+            document.getElementById("dip_btn").disabled = true;
+
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#dip_btn').val("Save");
+                document.getElementById("dip_btn").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
+                    Swal.fire(
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
+                    )
+                    $('#tank_dip_form')[0].reset();
+
+                    facilities();
+                    $('#dip_btn').val("Save");
+                    document.getElementById("dip_btn").disabled = false;
+                    location.reload();
+
+
+                }, 2000);
+
+            }
+
+        },
+        error: function(xhr, status, error) {
+            // Handle API errors
+            console.log('Error:', error);
+            console.log('Status:', status);
+            console.log('Response:', xhr.responseText);
+        }
+
+    });
+
+});
+
+$('#targeted_from').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var formData = $(this).serialize();
+    console.log(formData);
+    $.ajax({
+        url: "<?php echo $api_url; ?>create/create_dealers_product_target.php",
+        type: 'POST',
+        data: formData,
+        beforeSend: function() {
+            $('#target_btn').val("Saving");
+            document.getElementById("target_btn").disabled = true;
+
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
                     'error'
                 )
                 $('#target_btn').val("Save");
                 document.getElementById("target_btn").disabled = false;
-                console.log('Error:', error);
-                console.log('Status:', status);
-                console.log('Response:', xhr.responseText);
+            } else {
+
+
+                setTimeout(function() {
+                    Swal.fire(
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
+                    )
+                    $('#targeted_from')[0].reset();
+
+                    // facilities();
+                    $('#target_btn').val("Save");
+                    document.getElementById("target_btn").disabled = false;
+                    location.reload();
+
+
+                }, 2000);
+
             }
 
-        });
+        },
+        error: function(xhr, status, error) {
+            // Handle API errors
+            Swal.fire(
+                'Server Error!',
+                'Duplicate Month Entry',
+                'error'
+            )
+            $('#target_btn').val("Save");
+            document.getElementById("target_btn").disabled = false;
+            console.log('Error:', error);
+            console.log('Status:', status);
+            console.log('Response:', xhr.responseText);
+        }
 
     });
 
-    $('#productts_form').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var formData = $(this).serialize();
-        console.log(formData);
-        $.ajax({
-            url: "<?php echo $api_url; ?>create/create_dealers_products.php",
-            type: 'POST',
-            data: formData,
-            beforeSend: function () {
-                $('#products_btn').val("Saving");
-                document.getElementById("products_btn").disabled = true;
+});
 
-            },
-            success: function (data) {
-                console.log(data)
+$('#productts_form').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var formData = $(this).serialize();
+    console.log(formData);
+    $.ajax({
+        url: "<?php echo $api_url; ?>create/create_dealers_products.php",
+        type: 'POST',
+        data: formData,
+        beforeSend: function() {
+            $('#products_btn').val("Saving");
+            document.getElementById("products_btn").disabled = true;
 
-                if (data != 1) {
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#products_btn').val("Save");
+                document.getElementById("products_btn").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
                     Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
                     )
+                    $('#productts_form')[0].reset();
+
+                    // facilities();
                     $('#products_btn').val("Save");
                     document.getElementById("products_btn").disabled = false;
-                } else {
+                    location.reload();
 
 
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#productts_form')[0].reset();
+                }, 2000);
 
-                        // facilities();
-                        $('#products_btn').val("Save");
-                        document.getElementById("products_btn").disabled = false;
-                        location.reload();
-
-
-                    }, 2000);
-
-                }
-
-            },
-            error: function (xhr, status, error) {
-                // Handle API errors
-                console.log('Error:', error);
-                console.log('Status:', status);
-                console.log('Response:', xhr.responseText);
             }
 
-        });
+        },
+        error: function(xhr, status, error) {
+            // Handle API errors
+            console.log('Error:', error);
+            console.log('Status:', status);
+            console.log('Response:', xhr.responseText);
+        }
 
     });
 
-    $('#complaint_form').on("submit", function (event) {
-        event.preventDefault();
-        // alert("Name")
-        var formData = $(this).serialize();
-        console.log(formData);
-        $.ajax({
-            url: "<?php echo $api_url; ?>create/create_complaints.php",
-            type: 'POST',
-            data: formData,
-            beforeSend: function () {
-                $('#complaint_btn').val("Saving");
-                document.getElementById("complaint_btn").disabled = true;
+});
 
-            },
-            success: function (data) {
-                console.log(data)
+$('#complaint_form').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var formData = $(this).serialize();
+    console.log(formData);
+    $.ajax({
+        url: "<?php echo $api_url; ?>create/create_complaints.php",
+        type: 'POST',
+        data: formData,
+        beforeSend: function() {
+            $('#complaint_btn').val("Saving");
+            document.getElementById("complaint_btn").disabled = true;
 
-                if (data != 1) {
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#complaint_btn').val("Save");
+                document.getElementById("complaint_btn").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
                     Swal.fire(
-                        'Server Error!',
-                        'Record Not Created',
-                        'error'
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
                     )
+                    $('#complaint_form')[0].reset();
+
+
                     $('#complaint_btn').val("Save");
                     document.getElementById("complaint_btn").disabled = false;
-                } else {
+                    location.reload();
 
 
-                    setTimeout(function () {
-                        Swal.fire(
-                            'Success!',
-                            'Record Created Successfully',
-                            'success'
-                        )
-                        $('#complaint_form')[0].reset();
+                }, 2000);
 
-
-                        $('#complaint_btn').val("Save");
-                        document.getElementById("complaint_btn").disabled = false;
-                        location.reload();
-
-
-                    }, 2000);
-
-                }
-
-            },
-            error: function (xhr, status, error) {
-                // Handle API errors
-                console.log('Error:', error);
-                console.log('Status:', status);
-                console.log('Response:', xhr.responseText);
             }
 
-        });
+        },
+        error: function(xhr, status, error) {
+            // Handle API errors
+            console.log('Error:', error);
+            console.log('Status:', status);
+            console.log('Response:', xhr.responseText);
+        }
 
     });
 
-    function add_dip(id, old_dip) {
+});
 
-        $('#tank_id').val(id)
-        $('#old_dip').val(old_dip)
-        $('#tank_dip_modal').modal('show')
-    }
+function add_dip(id, old_dip) {
 
-    function edit_product_price(id) {
+    $('#tank_id').val(id)
+    $('#old_dip').val(old_dip)
+    $('#tank_dip_modal').modal('show')
+}
 
-        $('#row_id').val(id)
-        $.ajax({
-            url: "<?php echo $api_url; ?>get/get_dealer_specific_product.php?key=03201232927&dealer_id=" +
-                decryptedId + "&id=" +
-                id + "",
-            method: "GET",
-            dataType: "json",
-            success: function (data) {
-                data = data[0];
-                console.log(data.indent_price)
+function edit_product_price(id) {
 
-                $('#products_name').val(data.name);
-                $('#from_date').val(data.from);
-                $('#to_date').val(data.to);
-                $('#indent_price_pro').val(parseFloat(data.indent_price));
-                $('#nozel_price_pro').val(parseFloat(data.nozel_price));
-            }
-        });
-        $('#products_modal').modal('show')
-    }
+    $('#row_id').val(id)
+    $.ajax({
+        url: "<?php echo $api_url; ?>get/get_dealer_specific_product.php?key=03201232927&dealer_id=" +
+            decryptedId + "&id=" +
+            id + "",
+        method: "GET",
+        dataType: "json",
+        success: function(data) {
+            data = data[0];
+            console.log(data.indent_price)
 
-    function edit_dealers_users(id) {
+            $('#products_name').val(data.name);
+            $('#from_date').val(data.from);
+            $('#to_date').val(data.to);
+            $('#indent_price_pro').val(parseFloat(data.indent_price));
+            $('#nozel_price_pro').val(parseFloat(data.nozel_price));
+        }
+    });
+    $('#products_modal').modal('show')
+}
 
-        $('#dealer_user_id').val(id)
-        $.ajax({
-            url: "<?php echo $api_url; ?>get/get_dealers_users.php?key=03201232927&dealer_id=" + decryptedId +
-                "&id=" +
-                id + "",
-            method: "GET",
-            dataType: "json",
-            success: function (data) {
-                data = data[0];
-                console.log(data.indent_price)
+function edit_dealers_users(id) {
 
-                $('#usernames').val(data.name);
-                $('#user_email').val(data.email);
-                $('#user_password').val(data.password);
-                $('#user_phone').val(parseInt(data.contact));
-            }
-        });
-        $('#users_modal').modal('show');
-    }
+    $('#dealer_user_id').val(id)
+    $.ajax({
+        url: "<?php echo $api_url; ?>get/get_dealers_users.php?key=03201232927&dealer_id=" + decryptedId +
+            "&id=" +
+            id + "",
+        method: "GET",
+        dataType: "json",
+        success: function(data) {
+            data = data[0];
+            console.log(data.indent_price)
 
-    function get_ledger_backlog() {
+            $('#usernames').val(data.name);
+            $('#user_email').val(data.email);
+            $('#user_password').val(data.password);
+            $('#user_phone').val(parseInt(data.contact));
+        }
+    });
+    $('#users_modal').modal('show');
+}
 
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
+function get_ledger_backlog() {
 
-        fetch("<?php echo $api_url; ?>get/get_dealer_ledger_log.php?key=03201232927&dealer_id=" + decryptedId + "",
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch("<?php echo $api_url; ?>get/get_dealer_ledger_log.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
-                $('#ledger_logs').empty();
-                if (response.length > 0) {
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            $('#ledger_logs').empty();
+            if (response.length > 0) {
 
 
-                    $.each(response, function (index, data) {
+                $.each(response, function(index, data) {
 
-                        var originalDate = data.created_at;
-                        var dateObject = new Date(originalDate);
+                    var originalDate = data.created_at;
+                    var dateObject = new Date(originalDate);
 
-                        var day = dateObject.getDate(); // Extract the day (returns 25)
-                        var month = dateObject.toLocaleString('en-US', {
-                            month: 'short'
-                        }); // Extract the month (returns "Oct")
+                    var day = dateObject.getDate(); // Extract the day (returns 25)
+                    var month = dateObject.toLocaleString('en-US', {
+                        month: 'short'
+                    }); // Extract the month (returns "Oct")
 
-                        console.log("Day:", day);
-                        console.log("Month:", month);
-                        $('#ledger_logs').append('<div class="row timeline-right">' +
-                            '<div class="col-md-6">' +
-                            ' <div class="timeline-icon">' +
-                            '<i class="bx bx-briefcase-alt-2 text-primary h2 mb-0"></i>' +
-                            ' </div>' +
-                            '</div>' +
-                            '<div class="col-md-6">' +
-                            '<div class="timeline-box">' +
-                            '<div class="timeline-date bg-primary text-center rounded">' +
-                            '<h3 class="text-white mb-0 font-size-20">' + day + '</h3>' +
-                            '<p class="mb-0 text-white-50">' + month + '</p>' +
-                            '</div>' +
-                            '<div class="event-content">' +
-                            '<div class="timeline-text">' +
-                            // '<h3 class="font-size-17">' + data.description + '</h3>' +
-                            '<p class="mb-0 mt-2 pt-1 text-muted">Previous Ledger : ' + data.old_ledger +
-                            '</p>' +
-
-                            '<p class="mb-0 mt-2 pt-1 text-muted">Update Ledger : ' + data.new_ledger +
-                            '</p>' +
-                            '<p class="mb-0 mt-2 pt-1 text-muted">Description : ' + data.description +
-                            '</p>' +
-                            '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : ' + data.created_at +
-                            '<p class="mb-0 mt-2 pt-1 text-muted">Action By : ' + data.name +
-                            '</p>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>');
-
-                    });
-                } else {
+                    console.log("Day:", day);
+                    console.log("Month:", month);
                     $('#ledger_logs').append('<div class="row timeline-right">' +
                         '<div class="col-md-6">' +
                         ' <div class="timeline-icon">' +
@@ -3432,89 +3447,90 @@
                         '<div class="col-md-6">' +
                         '<div class="timeline-box">' +
                         '<div class="timeline-date bg-primary text-center rounded">' +
-                        '<h3 class="text-white mb-0 font-size-20">---</h3>' +
-                        '<p class="mb-0 text-white-50">--</p>' +
+                        '<h3 class="text-white mb-0 font-size-20">' + day + '</h3>' +
+                        '<p class="mb-0 text-white-50">' + month + '</p>' +
                         '</div>' +
                         '<div class="event-content">' +
                         '<div class="timeline-text">' +
-                        '<h3 class="font-size-17">Log Not Found</h3>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : --- </p>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : --- </p>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : --- </p>' +
+                        // '<h3 class="font-size-17">' + data.description + '</h3>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Previous Ledger : ' + data.old_ledger +
+                        '</p>' +
+
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Update Ledger : ' + data.new_ledger +
+                        '</p>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Description : ' + data.description +
+                        '</p>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : ' + data.created_at +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Action By : ' + data.name +
+                        '</p>' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>');
-                }
-                $('#ledger_backlog_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
+
+                });
+            } else {
+                $('#ledger_logs').append('<div class="row timeline-right">' +
+                    '<div class="col-md-6">' +
+                    ' <div class="timeline-icon">' +
+                    '<i class="bx bx-briefcase-alt-2 text-primary h2 mb-0"></i>' +
+                    ' </div>' +
+                    '</div>' +
+                    '<div class="col-md-6">' +
+                    '<div class="timeline-box">' +
+                    '<div class="timeline-date bg-primary text-center rounded">' +
+                    '<h3 class="text-white mb-0 font-size-20">---</h3>' +
+                    '<p class="mb-0 text-white-50">--</p>' +
+                    '</div>' +
+                    '<div class="event-content">' +
+                    '<div class="timeline-text">' +
+                    '<h3 class="font-size-17">Log Not Found</h3>' +
+                    '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : --- </p>' +
+                    '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : --- </p>' +
+                    '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : --- </p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+            }
+            $('#ledger_backlog_modal').modal('show');
+        })
+        .catch(error => console.log('error', error));
 
 
 
-    }
+}
 
 
-    function get_dip_backlog(id, old_dip) {
+function get_dip_backlog(id, old_dip) {
 
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
 
-        fetch("<?php echo $api_url; ?>get/get_dealers_tanks_dip_log.php?key=03201232927&tank_id=" + id + "", requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
-                $('#order_logs').empty();
-                if (response.length > 0) {
+    fetch("<?php echo $api_url; ?>get/get_dealers_tanks_dip_log.php?key=03201232927&tank_id=" + id + "", requestOptions)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            $('#order_logs').empty();
+            if (response.length > 0) {
 
 
-                    $.each(response, function (index, data) {
+                $.each(response, function(index, data) {
 
-                        var originalDate = data.created_at;
-                        var dateObject = new Date(originalDate);
+                    var originalDate = data.created_at;
+                    var dateObject = new Date(originalDate);
 
-                        var day = dateObject.getDate(); // Extract the day (returns 25)
-                        var month = dateObject.toLocaleString('en-US', {
-                            month: 'short'
-                        }); // Extract the month (returns "Oct")
+                    var day = dateObject.getDate(); // Extract the day (returns 25)
+                    var month = dateObject.toLocaleString('en-US', {
+                        month: 'short'
+                    }); // Extract the month (returns "Oct")
 
-                        console.log("Day:", day);
-                        console.log("Month:", month);
-                        $('#order_logs').append('<div class="row timeline-right">' +
-                            '<div class="col-md-6">' +
-                            ' <div class="timeline-icon">' +
-                            '<i class="bx bx-briefcase-alt-2 text-primary h2 mb-0"></i>' +
-                            ' </div>' +
-                            '</div>' +
-                            '<div class="col-md-6">' +
-                            '<div class="timeline-box">' +
-                            '<div class="timeline-date bg-primary text-center rounded">' +
-                            '<h3 class="text-white mb-0 font-size-20">' + day + '</h3>' +
-                            '<p class="mb-0 text-white-50">' + month + '</p>' +
-                            '</div>' +
-                            '<div class="event-content">' +
-                            '<div class="timeline-text">' +
-                            // '<h3 class="font-size-17">' + data.description + '</h3>' +
-                            '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : ' + data.previous_dip +
-                            '</p>' +
-
-                            '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : ' + data.current_dip +
-                            '</p>' +
-                            '<p class="mb-0 mt-2 pt-1 text-muted">Description : ' + data.description +
-                            '</p>' +
-                            '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : ' + data.created_at +
-                            '</p>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>');
-
-                    });
-                } else {
+                    console.log("Day:", day);
+                    console.log("Month:", month);
                     $('#order_logs').append('<div class="row timeline-right">' +
                         '<div class="col-md-6">' +
                         ' <div class="timeline-icon">' +
@@ -3524,494 +3540,527 @@
                         '<div class="col-md-6">' +
                         '<div class="timeline-box">' +
                         '<div class="timeline-date bg-primary text-center rounded">' +
-                        '<h3 class="text-white mb-0 font-size-20">---</h3>' +
-                        '<p class="mb-0 text-white-50">--</p>' +
+                        '<h3 class="text-white mb-0 font-size-20">' + day + '</h3>' +
+                        '<p class="mb-0 text-white-50">' + month + '</p>' +
                         '</div>' +
                         '<div class="event-content">' +
                         '<div class="timeline-text">' +
-                        '<h3 class="font-size-17">Log Not Found</h3>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : --- </p>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : --- </p>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : --- </p>' +
+                        // '<h3 class="font-size-17">' + data.description + '</h3>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : ' + data.previous_dip +
+                        '</p>' +
+
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : ' + data.current_dip +
+                        '</p>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Description : ' + data.description +
+                        '</p>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : ' + data.created_at +
+                        '</p>' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>');
-                }
-                $('#dip_backlog_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
+
+                });
+            } else {
+                $('#order_logs').append('<div class="row timeline-right">' +
+                    '<div class="col-md-6">' +
+                    ' <div class="timeline-icon">' +
+                    '<i class="bx bx-briefcase-alt-2 text-primary h2 mb-0"></i>' +
+                    ' </div>' +
+                    '</div>' +
+                    '<div class="col-md-6">' +
+                    '<div class="timeline-box">' +
+                    '<div class="timeline-date bg-primary text-center rounded">' +
+                    '<h3 class="text-white mb-0 font-size-20">---</h3>' +
+                    '<p class="mb-0 text-white-50">--</p>' +
+                    '</div>' +
+                    '<div class="event-content">' +
+                    '<div class="timeline-text">' +
+                    '<h3 class="font-size-17">Log Not Found</h3>' +
+                    '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : --- </p>' +
+                    '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : --- </p>' +
+                    '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : --- </p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+            }
+            $('#dip_backlog_modal').modal('show');
+        })
+        .catch(error => console.log('error', error));
 
 
 
-    }
+}
 
-    function get_product_price_backlog(id) {
+function get_product_price_backlog(id) {
 
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    // console.log("<?php echo $api_url; ?>get/get_dealers_price_backlog.php?key=03201232927&dealer_id="+decryptedId+"&product_id=" +id + "");
+    fetch("<?php echo $api_url; ?>get/get_dealers_price_backlog.php?key=03201232927&dealer_id=" + decryptedId +
+            "&product_id=" +
+            id + "", requestOptions)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            if (response.length > 0) {
+                product_price_backlog.clear().draw();
+
+                $.each(response, function(index, data) {
+                    product_price_backlog.row.add([
+
+                        index + 1,
+                        data.name,
+                        data.from,
+                        data.to,
+                        data.indent_price,
+                        data.nozel_price,
+                        data.created_at,
+
+                    ]).draw(false);
+
+                });
+            }
+            $('#products_price_backlog_modal').modal('show');
+        })
+        .catch(error => console.log('error', error));
+
+
+
+}
+
+function view_order(id) {
+    if (id != "") {
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
         };
-        // console.log("<?php echo $api_url; ?>get/get_dealers_price_backlog.php?key=03201232927&dealer_id="+decryptedId+"&product_id=" +id + "");
-        fetch("<?php echo $api_url; ?>get/get_dealers_price_backlog.php?key=03201232927&dealer_id=" + decryptedId +
-            "&product_id=" +
-            id + "", requestOptions)
+        console.log("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "");
+        fetch("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "", requestOptions)
             .then(response => response.json())
             .then(response => {
                 console.log(response)
                 if (response.length > 0) {
-                    product_price_backlog.clear().draw();
+                    suborders_tables.clear().draw();
 
-                    $.each(response, function (index, data) {
-                        product_price_backlog.row.add([
-
+                    $.each(response, function(index, data) {
+                        suborders_tables.row.add([
                             index + 1,
+                            data.date,
                             data.name,
-                            data.from,
-                            data.to,
-                            data.indent_price,
-                            data.nozel_price,
-                            data.created_at,
-
-                        ]).draw(false);
-
-                    });
-                }
-                $('#products_price_backlog_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
-
-
-
-    }
-
-    function view_order(id) {
-        if (id != "") {
-            var requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-            };
-            console.log("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "");
-            fetch("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "", requestOptions)
-                .then(response => response.json())
-                .then(response => {
-                    console.log(response)
-                    if (response.length > 0) {
-                        suborders_tables.clear().draw();
-
-                        $.each(response, function (index, data) {
-                            suborders_tables.row.add([
-                                index + 1,
-                                data.date,
-                                data.name,
-                                // data.name,
-                                data.product_name,
-                                data.rate,
-                                data.quantity,
-                                data.delivery_based,
-                                data.consignee_name,
-                                data.amount
-
-                            ]).draw(false);
-
-                        });
-                    }
-                    $('#sub_orders_main').modal('show');
-                })
-                .catch(error => console.log('error', error));
-
-        }
-
-    }
-
-
-
-    function displaySurvey(id, inspection_id, dealer_id) {
-        // Clear existing content
-        $('#survey-container').empty();
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/get_dealer_survey_response.php?key=03201232927&inspection_id=" + inspection_id +
-            "&task_id=" + id + "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                create_div(result)
-            })
-            .catch(error => console.log('error', error));
-
-
-
-    }
-
-    function get_tas_sales_data(task_id, dealer_id) {
-        // Clear existing content
-        // $('#survey-container').empty();
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/get_dealers_sales_performance.php?key=03201232927&task_id=" + task_id +
-            "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.length > 0) {
-                    sale_table.clear().draw();
-
-                    $.each(result, function (index, data) {
-                        sale_table.row.add([
-                            index + 1,
-                            data.name,
-                            data.monthly_target,
                             // data.name,
-                            data.target_achived,
-                            data.differnce,
-                            data.reason,
-                            data.created_at
-
-                        ]).draw(false);
-
-                    });
-                }
-                $('#sales_performance').modal('show');
-            })
-            .catch(error => console.log('error', error));
-
-
-
-    }
-
-    function get_task_wet_stock(task_id, dealer_id) {
-        // Clear existing content
-        // $('#survey-container').empty();
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/get_dealer_wet_stock.php?key=03201232927&task_id=" + task_id +
-            "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.length > 0) {
-                    wet_stock.clear().draw();
-
-                    $.each(result, function (index, data) {
-                        wet_stock.row.add([
-                            index + 1,
-                            data.name,
-                            data.lorry_no,
-                            // data.name,
-                            data.dip_old,
-                            data.dip_new,
-                            data.created_at
-
-                        ]).draw(false);
-
-                    });
-                }
-                $('#wet_stock_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
-
-
-
-    }
-
-    function get_task_despensing_unit(task_id, dealer_id) {
-        // Clear existing content
-        // $('#survey-container').empty();
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/get_dealer_task_despensing_unit.php?key=03201232927&task_id=" + task_id +
-            "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.length > 0) {
-                    despensing_unit_table.clear().draw();
-
-                    $.each(result, function (index, data) {
-                        despensing_unit_table.row.add([
-                            index + 1,
                             data.product_name,
-                            data.nozle_name,
-                            // data.name,
-                            data.old_reading,
-                            data.new_reading,
-                            data.created_at
+                            data.rate,
+                            data.quantity,
+                            data.delivery_based,
+                            data.consignee_name,
+                            data.amount
 
                         ]).draw(false);
 
                     });
                 }
-                $('#despensing_unit_modal').modal('show');
+                $('#sub_orders_main').modal('show');
             })
             .catch(error => console.log('error', error));
 
-
-
     }
 
-    function get_task_stock_variations(task_id, dealer_id) {
-        // Clear existing content
+}
 
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
 
-        fetch("<?php echo $api_url; ?>get/get_dealer_task_stock_variation.php?key=03201232927&task_id=" + task_id +
+
+function displaySurvey(id, inspection_id, dealer_id) {
+    // Clear existing content
+    $('#survey-container').empty();
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch("<?php echo $api_url; ?>get/get_dealer_survey_response.php?key=03201232927&inspection_id=" + inspection_id +
+            "&task_id=" + id + "&dealer_id=" + dealer_id + "", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+            create_div(result)
+        })
+        .catch(error => console.log('error', error));
+
+
+
+}
+
+function get_tas_sales_data(task_id, dealer_id) {
+    // Clear existing content
+    // $('#survey-container').empty();
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch("<?php echo $api_url; ?>get/get_dealers_sales_performance.php?key=03201232927&task_id=" + task_id +
             "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.length > 0) {
-                    stock_variations_table.clear().draw();
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+            if (result.length > 0) {
+                sale_table.clear().draw();
 
-                    $.each(result, function (index, data) {
-                        stock_variations_table.row.add([
-                            index + 1,
-                            data.name,
-                            data.opening_stock,
-                            data.purchase_during_inspection_period,
-                            data.total_product_available_for_sale,
-                            data.sales_as_per_meter_reading,
-                            data.book_stock,
-                            data.current_physical_stock,
-                            data.gain_loss,
-                            data.created_at,
+                $.each(result, function(index, data) {
+                    sale_table.row.add([
+                        index + 1,
+                        data.name,
+                        data.monthly_target,
+                        // data.name,
+                        data.target_achived,
+                        data.differnce,
+                        data.reason,
+                        data.created_at
 
-                        ]).draw(false);
+                    ]).draw(false);
 
-                    });
-                }
-                $('#stock_variations_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
+                });
+            }
+            $('#sales_performance').modal('show');
+        })
+        .catch(error => console.log('error', error));
 
 
 
-    }
+}
 
-    function create_div(response) {
-        // Iterate through the API response
-        response.forEach(function (section) {
-            // Create a div for each section
-            var $sectionDiv = $('<div class="col-md-4"></div>');
+function get_task_wet_stock(task_id, dealer_id) {
+    // Clear existing content
+    // $('#survey-container').empty();
 
-            // Append section name
-            $sectionDiv.append('<h2>' + section.name + '</h2>');
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
 
+    fetch("<?php echo $api_url; ?>get/get_dealer_wet_stock.php?key=03201232927&task_id=" + task_id +
+            "&dealer_id=" + dealer_id + "", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+            if (result.length > 0) {
+                wet_stock.clear().draw();
+
+                $.each(result, function(index, data) {
+                    wet_stock.row.add([
+                        index + 1,
+                        data.name,
+                        data.lorry_no,
+                        // data.name,
+                        data.dip_old,
+                        data.dip_new,
+                        data.created_at
+
+                    ]).draw(false);
+
+                });
+            }
+            $('#wet_stock_modal').modal('show');
+        })
+        .catch(error => console.log('error', error));
+
+
+
+}
+
+function get_task_despensing_unit(task_id, dealer_id) {
+    // Clear existing content
+    // $('#survey-container').empty();
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch("<?php echo $api_url; ?>get/get_dealer_task_despensing_unit.php?key=03201232927&task_id=" + task_id +
+            "&dealer_id=" + dealer_id + "", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+            if (result.length > 0) {
+                despensing_unit_table.clear().draw();
+
+                $.each(result, function(index, data) {
+                    despensing_unit_table.row.add([
+                        index + 1,
+                        data.product_name,
+                        data.nozle_name,
+                        // data.name,
+                        data.old_reading,
+                        data.new_reading,
+                        data.created_at
+
+                    ]).draw(false);
+
+                });
+            }
+            $('#despensing_unit_modal').modal('show');
+        })
+        .catch(error => console.log('error', error));
+
+
+
+}
+
+function get_task_stock_variations(task_id, dealer_id) {
+    // Clear existing content
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch("<?php echo $api_url; ?>get/get_dealer_task_stock_variation.php?key=03201232927&task_id=" + task_id +
+            "&dealer_id=" + dealer_id + "", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+            if (result.length > 0) {
+                stock_variations_table.clear().draw();
+
+                $.each(result, function(index, data) {
+                    stock_variations_table.row.add([
+                        index + 1,
+                        data.name,
+                        data.opening_stock,
+                        data.purchase_during_inspection_period,
+                        data.total_product_available_for_sale,
+                        data.sales_as_per_meter_reading,
+                        data.book_stock,
+                        data.current_physical_stock,
+                        data.gain_loss,
+                        data.created_at,
+
+                    ]).draw(false);
+
+                });
+            }
+            $('#stock_variations_modal').modal('show');
+        })
+        .catch(error => console.log('error', error));
+
+
+
+}
+
+function create_div(response) {
+    // Iterate through the API response
+    response.forEach(function(section) {
+        // Create a div for each section
+        var $sectionDiv = $('<div class="col-md-4"></div>');
+
+        // Append section name
+        $sectionDiv.append('<h2>' + section.name + '</h2>');
+
+        // Create a div for each question
+        section.Questions.forEach(function(question) {
             // Create a div for each question
-            section.Questions.forEach(function (question) {
-                // Create a div for each question
-                var $questionDiv = $('<div class="question"></div>');
+            var $questionDiv = $('<div class="question"></div>');
 
-                // Append question text
-                $questionDiv.append('<strong>' + question.question + '</strong><br>');
+            // Append question text
+            $questionDiv.append('<strong>' + question.question + '</strong><br>');
 
-                // Append response
-                if (question.response != 'No') {
+            // Append response
+            if (question.response != 'No') {
 
+                $questionDiv.append(
+                    'Answer: <i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i> <br>'
+                );
+            } else {
+                if (question.cancel_file != null) {
                     $questionDiv.append(
-                        'Answer: <i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i> <br>'
+                        'Answer: <i class="text-danger" style="font-size: 20px;font-weight: bold;">X</i><a href="<?php echo $api_url; ?>uploads/' +
+                        question.cancel_file +
+                        '" target="_blank" style="margin-left: 20px;"><i class="fas fa-image text-info" style="font-size: 20px;font-weight: bold;"></i></a><br>'
                     );
                 } else {
-                    if (question.cancel_file != null) {
-                        $questionDiv.append(
-                            'Answer: <i class="text-danger" style="font-size: 20px;font-weight: bold;">X</i><a href="<?php echo $api_url; ?>uploads/' +
-                            question.cancel_file +
-                            '" target="_blank" style="margin-left: 20px;"><i class="fas fa-image text-info" style="font-size: 20px;font-weight: bold;"></i></a><br>'
-                        );
-                    } else {
-                        $questionDiv.append(
-                            'Answer: <i class="text-danger" style="font-size: 20px;font-weight: bold;">X</i><br>'
-                        );
-                    }
-
-
+                    $questionDiv.append(
+                        'Answer: <i class="text-danger" style="font-size: 20px;font-weight: bold;">X</i><br>'
+                    );
                 }
 
-                // Append additional information if needed
-                // For example, file, created_at, created_by, etc.
 
-                // Append question div to the section
-                $sectionDiv.append($questionDiv);
-            });
+            }
 
-            // Append section div to the survey container
-            $('#survey-container').append($sectionDiv);
-            $('#survey_modal').modal('show');
+            // Append additional information if needed
+            // For example, file, created_at, created_by, etc.
+
+            // Append question div to the section
+            $sectionDiv.append($questionDiv);
         });
-    }
 
-    function decryptId(encryptedId, key, iv) {
-        var decrypted = CryptoJS.AES.decrypt(encryptedId, key, {
-            iv: iv
-        });
-        return decrypted.toString(CryptoJS.enc.Utf8);
-    }
+        // Append section div to the survey container
+        $('#survey-container').append($sectionDiv);
+        $('#survey_modal').modal('show');
+    });
+}
 
-    function deleteDatadispensor(id) {
-        var result = confirm("Are you sure you want to delete this record?");
+function decryptId(encryptedId, key, iv) {
+    var decrypted = CryptoJS.AES.decrypt(encryptedId, key, {
+        iv: iv
+    });
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
 
-        // If the user confirms, proceed with deletion
-        if (result) {
-            // Call a function to delete the item
+function deleteDatadispensor(id) {
+    var result = confirm("Are you sure you want to delete this record?");
 
-
-            var settings = {
-                "url": "<?php echo $api_url; ?>delete/delete_despensor.php?key=03201232927&id=" + id + "",
-                "method": "GET",
-                "timeout": 0,
-            };
-
-            $.ajax({
-                ...settings,
-                statusCode: {
-                    200: function (response) {
-                        Swal.fire(
-                            'Success!',
-                            'Record Deleted Successfully',
-                            'success'
-                        )
-                        setTimeout(function () {
-
-                            location.reload();
+    // If the user confirms, proceed with deletion
+    if (result) {
+        // Call a function to delete the item
 
 
-                        }, 2000);
+        var settings = {
+            "url": "<?php echo $api_url; ?>delete/delete_despensor.php?key=03201232927&id=" + id + "",
+            "method": "GET",
+            "timeout": 0,
+        };
 
-                    },
-                    success: function (data) {
-                        // Additional success handling if needed
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        Swal.fire(
-                            'Server Error!',
-                            'Record Not Deleted',
-                            'error'
-                        )
+        $.ajax({
+            ...settings,
+            statusCode: {
+                200: function(response) {
+                    Swal.fire(
+                        'Success!',
+                        'Record Deleted Successfully',
+                        'success'
+                    )
+                    setTimeout(function() {
 
-                        // console.log("Request failed with status code: " + xhr.status);
-                    }
+                        location.reload();
+
+
+                    }, 2000);
+
+                },
+                success: function(data) {
+                    // Additional success handling if needed
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    Swal.fire(
+                        'Server Error!',
+                        'Record Not Deleted',
+                        'error'
+                    )
+
+                    // console.log("Request failed with status code: " + xhr.status);
                 }
-            })
-        }
-
+            }
+        })
     }
 
-    function deleteDatatank(id) {
-        var result = confirm("Are you sure you want to delete this record?");
+}
 
-        // If the user confirms, proceed with deletion
-        if (result) {
-            // Call a function to delete the item
+function deleteDatatank(id) {
+    var result = confirm("Are you sure you want to delete this record?");
 
-
-            var settings = {
-                "url": "<?php echo $api_url; ?>delete/delete_tank.php?key=03201232927&id=" + id + "",
-                "method": "GET",
-                "timeout": 0,
-            };
-
-            $.ajax({
-                ...settings,
-                statusCode: {
-                    200: function (response) {
-                        Swal.fire(
-                            'Success!',
-                            'Record Deleted Successfully',
-                            'success'
-                        )
-                        setTimeout(function () {
-
-                            location.reload();
+    // If the user confirms, proceed with deletion
+    if (result) {
+        // Call a function to delete the item
 
 
-                        }, 2000);
+        var settings = {
+            "url": "<?php echo $api_url; ?>delete/delete_tank.php?key=03201232927&id=" + id + "",
+            "method": "GET",
+            "timeout": 0,
+        };
 
-                    },
-                    success: function (data) {
-                        // Additional success handling if needed
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        Swal.fire(
-                            'Server Error!',
-                            'Record Not Deleted',
-                            'error'
-                        )
+        $.ajax({
+            ...settings,
+            statusCode: {
+                200: function(response) {
+                    Swal.fire(
+                        'Success!',
+                        'Record Deleted Successfully',
+                        'success'
+                    )
+                    setTimeout(function() {
 
-                        // console.log("Request failed with status code: " + xhr.status);
-                    }
+                        location.reload();
+
+
+                    }, 2000);
+
+                },
+                success: function(data) {
+                    // Additional success handling if needed
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    Swal.fire(
+                        'Server Error!',
+                        'Record Not Deleted',
+                        'error'
+                    )
+
+                    // console.log("Request failed with status code: " + xhr.status);
                 }
-            })
-        }
-
+            }
+        })
     }
-    function deleteDatanozzels(id) {
-        var result = confirm("Are you sure you want to delete this record?");
 
-        // If the user confirms, proceed with deletion
-        if (result) {
-            // Call a function to delete the item
+}
 
+function deleteDatanozzels(id) {
+    var result = confirm("Are you sure you want to delete this record?");
 
-            var settings = {
-                "url": "<?php echo $api_url; ?>delete/delete_nozzels.php?key=03201232927&id=" + id + "",
-                "method": "GET",
-                "timeout": 0,
-            };
-
-            $.ajax({
-                ...settings,
-                statusCode: {
-                    200: function (response) {
-                        Swal.fire(
-                            'Success!',
-                            'Record Deleted Successfully',
-                            'success'
-                        )
-                        setTimeout(function () {
-
-                            location.reload();
+    // If the user confirms, proceed with deletion
+    if (result) {
+        // Call a function to delete the item
 
 
-                        }, 2000);
+        var settings = {
+            "url": "<?php echo $api_url; ?>delete/delete_nozzels.php?key=03201232927&id=" + id + "",
+            "method": "GET",
+            "timeout": 0,
+        };
 
-                    },
-                    success: function (data) {
-                        // Additional success handling if needed
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        Swal.fire(
-                            'Server Error!',
-                            'Record Not Deleted',
-                            'error'
-                        )
+        $.ajax({
+            ...settings,
+            statusCode: {
+                200: function(response) {
+                    Swal.fire(
+                        'Success!',
+                        'Record Deleted Successfully',
+                        'success'
+                    )
+                    setTimeout(function() {
 
-                        // console.log("Request failed with status code: " + xhr.status);
-                    }
+                        location.reload();
+
+
+                    }, 2000);
+
+                },
+                success: function(data) {
+                    // Additional success handling if needed
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    Swal.fire(
+                        'Server Error!',
+                        'Record Not Deleted',
+                        'error'
+                    )
+
+                    // console.log("Request failed with status code: " + xhr.status);
                 }
-            })
-        }
-
+            }
+        })
     }
+
+}
 
 // Call the function with your API response
 // displaySurvey(apiResponse);
