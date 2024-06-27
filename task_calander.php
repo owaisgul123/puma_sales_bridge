@@ -7,8 +7,8 @@
     <meta charset="utf-8" />
     <title>Calendar | <?php echo $_SESSION['user_name'];?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
+    <meta content="BYCO" name="description" />
+    <meta content="P2P" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
@@ -172,7 +172,7 @@
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">
                                 Crafted with <i class="mdi mdi-heart text-danger"></i> by <a
-                                    href="https://Themesdesign.com/" target="_blank" class="text-reset">Themesdesign</a>
+                                    href="https://P2P.com/" target="_blank" class="text-reset">P2P</a>
                             </div>
                         </div>
                     </div>

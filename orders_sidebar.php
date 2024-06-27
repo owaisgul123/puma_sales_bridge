@@ -41,25 +41,28 @@
                         <span class="menu-item" data-key="t-multi-level">Orders </span>
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
+                       
+
+                        <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li>
+                        <li><a href="orders_dashboard.php" data-key="t-level-1.16"> Order Dashboard</a></li>
+                        <li><a href="manage_blocked_orders.php" data-key="t-level-1.3">Blocked Orders </a></li>
+                        <li><a href="nozle.php" data-key="t-level-1.6"> Products Price </a></li>
+                        <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
                         <?php
                         $current_date = date('Y-m-d');
                         $next_dat = date('Y-m-d', strtotime($current_date . '+1 day'));
                         ?>
-                        <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>" data-key="t-level-1.16"> Trip Board</a></li>
+                        <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>"
+                                data-key="t-level-1.16"> Trip Board</a></li>
 
-                        <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li>
-                        <li><a href="orders_dashboard.php" data-key="t-level-1.16"> Order Dashboard</a></li>
-
-                        <!-- <li><a href="special_orders.php" data-key="t-level-1.4"> Approved Orders </a></li> -->
-                       
 
 
 
 
                     </ul>
                 </li>
-               
-               
+
+
 
             </ul>
         </div>

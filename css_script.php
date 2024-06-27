@@ -17,7 +17,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
 <script src="js_cdn/chart.js"></script>
 <style>
-    .layout-setting-btn{
-        display: none;
-    }
+.layout-setting-btn {
+    display: none;
+}
 </style>
+
+<?php
+        $pre_acc = $_SESSION['privilege'];
+
+        // $disabledAttribute = (strpos($pre, 'TM') === 0) ? 'disabled' : '';
+        
+        ?>

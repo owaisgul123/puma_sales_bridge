@@ -24,3 +24,15 @@
 
 <!-- init js -->
 <!-- <script src="assets/js/pages/form-advanced.init.js"></script> -->
+
+<script>
+var table_access = "<?php echo $pre_acc?>";
+
+
+setTimeout(function() {
+    if (table_access != "Admin") {
+        // alert('Hamza');
+        $('.dt-buttons').addClass('d-none')
+    }
+}, 3000);
+</script>

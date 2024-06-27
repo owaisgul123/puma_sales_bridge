@@ -12,8 +12,8 @@
     Product Prices | <?php echo $_SESSION['user_name']; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
+    <meta content="BYCO" name="description" />
+    <meta content="P2P" name="author" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script
@@ -333,7 +333,8 @@
             method: 'GET',
             redirect: 'follow'
         };
-        fetch("<?php echo $api_url; ?>get/get_all_dealers_products.php?key=03201232927",
+        console.log("<?php echo $api_url; ?>get/get_all_dealers_products.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>")
+        fetch("<?php echo $api_url; ?>get/get_all_dealers_products.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -372,7 +373,7 @@
             redirect: 'follow'
         };
 
-        fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927", requestOptions)
+        fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>", requestOptions)
             .then(response => response.json())
             .then(response => {
                 console.log(response)

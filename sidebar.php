@@ -15,6 +15,10 @@ elseif($_SESSION['privilege'] == 'TM'){
     include 'orders_sidebar.php';
     
 }
+elseif($_SESSION['privilege'] == 'Order (GM Team)'){
+    include 'order_bsmteam_sidebar.php';
+    
+}
 elseif($_SESSION['privilege'] == 'Logistics'){
     include 'logistic_sidebar.php';
     

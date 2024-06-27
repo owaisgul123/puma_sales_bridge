@@ -43,6 +43,7 @@
                     <ul class="sub-menu" aria-expanded="true">
     
                         <li><a href="inspection_report.php" data-key="t-level-1.2"> Inspection Report </a></li>
+                        <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
                         
                           
                         

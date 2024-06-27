@@ -33,7 +33,7 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu" user>
-                <li class="menu-title" data-key="t-menu">Dashboard</li>
+                <li class="menu-title" data-key="t-menu">Dashboard </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -42,13 +42,15 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
                         <!-- <li><a href="users.php" data-key="t-level-1.1"> Users </a></li> -->
-                        <li><a href="tm_dashboard_rebulid.php?id=<?php echo $_SESSION['user_id'];?>&pre=<?php echo $_SESSION['privilege'];?>" data-key="t-level-1.13"> RM Dashboard</a></li>
+                       
+
+                        <li><a href="tm_dashboard_rebulid.php?id=<?php echo $_SESSION['user_id']; ?>&pre=<?php echo $_SESSION['privilege']; ?>"
+                                data-key="t-level-1.13"> RM Dashboard</a></li>
 
                         <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
-                        <li><a href="request_verification_approval.php" data-key="t-level-1.2"> Request Verification </a></li>
-                        <!-- <li><a href="activity_logs.php" data-key="t-level-1.2">Activity Logs </a></li> -->
-                        
-                          <li>
+                        <li><a href="nozle.php" data-key="t-level-1.6"> Products Price </a></li>
+
+                        <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
                                 <span class="menu-item" data-key="t-multi-level">Manage Orders</span>
@@ -59,6 +61,10 @@
 
                             </ul>
                         </li>
+                        <?php
+                        $current_date = date('Y-m-d');
+                        $next_dat = date('Y-m-d', strtotime($current_date . '+1 day'));
+                        ?>
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
@@ -67,10 +73,15 @@
                             <ul class="sub-menu" aria-expanded="true">
                                 <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
                                 <li><a href="manage_calander.php" data-key="t-level-1.12"> Task Calander</a></li>
-                                <li><a href="inspection_report_tm.php?id=<?php echo $_SESSION['user_id'];?>" data-key="t-level-1.14">All Inspection</a></li>
+                                <li><a href="inspection_report.php"
+                                        data-key="t-level-1.14">All Inspection</a></li>
+                                        <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>"
+                                data-key="t-level-1.16"> Trip Board</a></li>
 
                             </ul>
                         </li>
+
+
 
                     </ul>
                 </li>
@@ -86,7 +97,7 @@
 
                     </ul>
                 </li> -->
-              
+
 
 
             </ul>
@@ -676,68 +687,68 @@
 
 
 <script>
-var username = '';
+    var username = '';
 
-function get_settings() {
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    console.log("<?php echo $api_url; ?>get/get_settings.php?key=03201232927")
-    fetch("<?php echo $api_url; ?>get/get_settings.php?key=03201232927", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            console.log(result)
+    function get_settings() {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        console.log("<?php echo $api_url; ?>get/get_settings.php?key=03201232927")
+        fetch("<?php echo $api_url; ?>get/get_settings.php?key=03201232927", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
 
-            var username = result['name']
-            var logo = result['logo']
-            var color = result['color']
-            var text_color = result['text_color']
-            var inactive_color = result['inactive_color']
-
-
-            if (color != "") {
-                $('#sidebar_color').css("background-color", color);
-
-            }
-
-            if (text_color != "") {
-
-                // $("#sidebar_color").find("*").css("color", text_color);
-                $('#sidebar_color  .active').css('color', text_color);
-
-            }
-            if (inactive_color != "") {
-                $("#sidebar_color").find("*").css("color", inactive_color);
-                $('#sidebar_color  .active').css('color', text_color);
-
-                // $('.active').css('color', text_color);
-
-            }
+                var username = result['name']
+                var logo = result['logo']
+                var color = result['color']
+                var text_color = result['text_color']
+                var inactive_color = result['inactive_color']
 
 
-            var image = $(".logo_image");
+                if (color != "") {
+                    $('#sidebar_color').css("background-color", color);
 
-            // Change the src attribute of the image
-            image.attr("src", "<?php echo $api_url; ?>" + logo);
-            $(".small_logo").attr("src", "<?php echo $api_url; ?>" + logo);
-            $('.project_name').text(username);
+                }
 
-            console.log(username)
-        })
-        .catch(error => console.log('error', error));
-}
-get_settings();
+                if (text_color != "") {
+
+                    // $("#sidebar_color").find("*").css("color", text_color);
+                    $('#sidebar_color  .active').css('color', text_color);
+
+                }
+                if (inactive_color != "") {
+                    $("#sidebar_color").find("*").css("color", inactive_color);
+                    $('#sidebar_color  .active').css('color', text_color);
+
+                    // $('.active').css('color', text_color);
+
+                }
+
+
+                var image = $(".logo_image");
+
+                // Change the src attribute of the image
+                image.attr("src", "<?php echo $api_url; ?>" + logo);
+                $(".small_logo").attr("src", "<?php echo $api_url; ?>" + logo);
+                $('.project_name').text(username);
+
+                console.log(username)
+            })
+            .catch(error => console.log('error', error));
+    }
+    get_settings();
 </script>
 <script>
-function post_new_data() {
-    var user_id = "<?php echo $_SESSION['user_id'] ?>";
-    var pre = "<?php echo $_SESSION['privilege'] ?>";
-    var u_name = "<?php echo $_SESSION['user_name']; ?>";
+    function post_new_data() {
+        var user_id = "<?php echo $_SESSION['user_id'] ?>";
+        var pre = "<?php echo $_SESSION['privilege'] ?>";
+        var u_name = "<?php echo $_SESSION['user_name']; ?>";
 
-    localStorage.setItem("user_id", user_id);
-    localStorage.setItem("prev", pre);
-    localStorage.setItem("name", u_name);
-    window.open('fleet/maps-google.php', '_blank');
-}
+        localStorage.setItem("user_id", user_id);
+        localStorage.setItem("prev", pre);
+        localStorage.setItem("name", u_name);
+        window.open('fleet/maps-google.php', '_blank');
+    }
 </script>

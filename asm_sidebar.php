@@ -48,6 +48,7 @@
                                 data-key="t-level-1.13"> TM Dashboard</a></li>
 
                         <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
+                        <li><a href="nozle.php" data-key="t-level-1.6"> Products Price </a></li>
 
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
@@ -60,6 +61,10 @@
 
                             </ul>
                         </li>
+                        <?php
+                        $current_date = date('Y-m-d');
+                        $next_dat = date('Y-m-d', strtotime($current_date . '+1 day'));
+                        ?>
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
@@ -70,6 +75,8 @@
                                 <li><a href="manage_calander.php" data-key="t-level-1.12"> Task Calander</a></li>
                                 <li><a href="inspection_report.php"
                                         data-key="t-level-1.14">All Inspection</a></li>
+                                        <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>"
+                                data-key="t-level-1.16"> Trip Board</a></li>
 
                             </ul>
                         </li>

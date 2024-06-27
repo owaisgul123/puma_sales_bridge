@@ -14,8 +14,8 @@ dea
         <?php echo $_SESSION['user_name']; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
+    <meta content="BYCO" name="description" />
+    <meta content="P2P" name="author" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script
@@ -323,7 +323,7 @@ dea
                         <div class="form-group col-md-2">
                             <label for="inputEmail4">Password</label>
                             <span id="lorry_span">
-                                <input type="text" class="form-control" id="password" name="password" required>
+                                <input type="text" class="form-control" id="password" name="password" pattern="^[a-zA-Z0-9\s]*$" required>
 
                             </span>
                         </div>

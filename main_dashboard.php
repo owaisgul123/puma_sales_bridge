@@ -23,6 +23,11 @@ elseif ($_SESSION['privilege'] == 'Order') {
     header("Location: $redirectUrl");
 
 }
+elseif ($_SESSION['privilege'] == 'Order (GM Team)') {
+    $redirectUrl = "manage_order.php";
+    header("Location: $redirectUrl");
+
+}
 elseif ($_SESSION['privilege'] == 'Logistics') {
     $current_date = date('Y-m-d');
                         $next_dat = date('Y-m-d', strtotime($current_date . '+1 day'));
