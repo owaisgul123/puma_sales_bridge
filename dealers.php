@@ -175,7 +175,7 @@ dea
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row <?php echo $$disabledAttribute;?>" >
 
                         <div class="col-md-6">
 
@@ -908,7 +908,7 @@ dea
             method: 'GET',
             redirect: 'follow'
         };
-        console.log("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>");
+        console.log("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>");
         fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())

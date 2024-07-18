@@ -84,6 +84,8 @@
                             <ul class="sub-menu" aria-expanded="true">
                                 <li><a href="servey_category.php" data-key="t-level-1.8"> Survey Category </a></li>
                                 <li><a href="survey_questions.php" data-key="t-level-1.9"> Survey Questions </a></li>
+                                <li><a href="servey_category_rm.php" data-key="t-level-1.8">RM Survey Category </a></li>
+                                <li><a href="survey_questions_rm.php" data-key="t-level-1.9"> RM Survey Questions </a></li>
                                 <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
                                 <!-- <li><a href="dealers_sales_performance.php" data-key="t-level-1.11">Dealers Sales
                                         Performance</a></li> -->

@@ -125,6 +125,7 @@
                                         <th class="text-center">Complete Time</th>
                                         <th class="text-center">Dealer Sign</th>
                                         <th class="text-center">User</th>
+                                        <th class="text-center">Role</th>
                                         <th class="text-center">Dealer</th>
                                         <th class="text-center">Mode</th>
                                         <th class="text-center">Status</th>
@@ -1255,7 +1256,8 @@
                 method: 'GET',
                 redirect: 'follow'
             };
-
+            console.log("<?php echo $api_url; ?>get/get_dealer_task_despensing_unit.php?key=03201232927&task_id=" + task_id +
+                "&dealer_id=" + dealer_id + "")
             fetch("<?php echo $api_url; ?>get/get_dealer_task_despensing_unit.php?key=03201232927&task_id=" + task_id +
                 "&dealer_id=" + dealer_id + "", requestOptions)
                 .then(response => response.json())
@@ -1554,8 +1556,7 @@
                             data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") +
                             '\',\'' + data.time +
                             '\',\'' + data.visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                            '\',' + data.last_visit_id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                            '\',' + data.last_visit_id + ',\'' + data.privilege + '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                         var inpection = (data.inspection == 1) ? inspection_btn : "---";
 
                         var sales_performace_btn = '<button type="button" onclick="get_tas_sales_data(' +
@@ -1622,6 +1623,7 @@
                             data.visit_close_time,
                             dealer_sign,
                             data.name,
+                            data.privilege,
                             data.dealer_name,
                             data.type,
                             data.current_status,
@@ -1663,13 +1665,15 @@
         }
 
         function displaySurvey(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
-            last_visit_id) {
+            last_visit_id, privilege) {
             // Clear existing content
             // alert(dealer_name);
             var currentDate = new Date();
 
             // Format the date as needed
             var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
+
+            var pril = "<?php echo $_SESSION['privilege'] ?>";
 
             // Display the formatted date
             $('#labelc').text('Inspection');
@@ -1689,7 +1693,18 @@
                 redirect: 'follow'
             };
 
-            fetch("<?php echo $api_url; ?>get/get_dealer_survey_response.php?key=03201232927&inspection_id=" +
+            var page_link = '';
+            if (privilege != 'RM') {
+                page_link = 'get_dealer_survey_response';
+            }
+            else {
+                page_link = 'get_dealer_survey_response_rm';
+            }
+            console.log("<?php echo $api_url; ?>get/" + page_link + ".php?key=03201232927&inspection_id=" +
+                inspection_id +
+                "&task_id=" + id + "&dealer_id=" + dealer_id + "")
+
+            fetch("<?php echo $api_url; ?>get/" + page_link + ".php?key=03201232927&inspection_id=" +
                 inspection_id +
                 "&task_id=" + id + "&dealer_id=" + dealer_id + "", requestOptions)
                 .then(response => response.json())
@@ -1808,7 +1823,7 @@
                         ''));
                     row.append($('<td>').text(question.comment));
                     row.append($('<td>').html(question.cancel_file === null ? '---' :
-                        '<a href="<?php echo $api_url; ?>uploads/' + question.cancel_file +
+                        '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + question.cancel_file +
                         '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>'
                     ));
                     tableBody.append(row);

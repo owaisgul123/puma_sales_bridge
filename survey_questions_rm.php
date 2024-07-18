@@ -268,7 +268,7 @@
             x--;
         })
         $.ajax({
-            url: "<?php echo $api_url; ?>get/get_survey_category.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
+            url: "<?php echo $api_url; ?>get/get_survey_category_rm.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
             method: 'GET',
             dataType: 'json',
             success: function(data) {
@@ -339,7 +339,7 @@
             var data = new FormData(this);
 
             $.ajax({
-                url: "<?php echo $api_url; ?>create/survey_questions.php",
+                url: "<?php echo $api_url; ?>create/survey_questions_rm.php",
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -439,7 +439,7 @@
             redirect: 'follow'
         };
 
-        fetch("<?php echo $api_url; ?>get/survey_questions.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
+        fetch("<?php echo $api_url; ?>get/survey_questions_rm.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -470,7 +470,7 @@
     //   alert(id) 
       $.ajax({
         type: 'POST',
-        url: '<?php echo $api_url; ?>update/survey_question.php',  // Replace with the path to your PHP script
+        url: '<?php echo $api_url; ?>update/survey_question_rm.php',  // Replace with the path to your PHP script
         data: { checkboxValue: checkboxValue ,id:id},
         success: function(response) {
           console.log('Record updated successfully.');

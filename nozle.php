@@ -58,12 +58,12 @@
                 <div class="container-fluid">
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <button class="btn btn-soft-primary waves-effect waves-light" type="button"
                                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" id="add_btn"
                                 aria-controls="offcanvasRight"><i
                                     class="bx bxs-add-to-queue font-size-16 align-middle me-2 cursor-pointer"></i>Add</button>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="card">
 
@@ -378,7 +378,7 @@
             .then(response => {
                 console.log(response)
 
-                table.clear().draw();
+                // table.clear().draw();
                 $.each(response, function(index, data) {
 
                     // Create a new option element

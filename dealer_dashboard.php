@@ -400,9 +400,9 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-body" style="height: 400px;">
                                     <canvas id="region_chart"></canvas>
 
                                 </div>
@@ -410,9 +410,9 @@
 
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card">
-                                <div class="card-body" style="height: 350px;">
+                                <div class="card-body" style="height: 400px;">
                                     <strong>RM Approve Status</strong>
                                     <canvas id="task_status"></canvas>
 
@@ -423,7 +423,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-body" style="height: 400px;">
                                     <canvas id="rms_charts"></canvas>
 
                                 </div>
@@ -433,11 +433,10 @@
                         </div>
                         <div class="col-md-4">
                             <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title mb-0">RM Approve Status</h5>
-                                </div>
-
-                                <div class="card-body pt-1" style="max-height: 380px; overflow:auto">
+                               
+                                    
+                                    <div class="card-body pt-1" style="height: 400px; overflow:auto">
+                                        <h5 class="card-title mb-0">RM Approve Status</h5>
                                     <div class="mx-n4" id='atgs' data-simplebar>
 
                                     </div>
@@ -597,7 +596,7 @@
 
             <div id="listing_users" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
                 data-bs-scroll="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
                             <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
@@ -734,14 +733,12 @@
                                                                         <th class="text-center">S.No</th>
                                                                         <th class="text-center">Users</th>
                                                                         <th class="text-center">Privilege</th>
-                                                                        <th class="text-center">Pending
-                                                                        </th>
-                                                                        <th class="text-center">Overdue
-                                                                        </th>
-                                                                        <th class="text-center">Upcoming
-                                                                        </th>
-                                                                        <th class="text-center">Complete
-                                                                        </th>
+                                                                        <th class="text-center">Total Visit</th>
+                                                                        <th class="text-center">Pending</th>
+                                                                        <th class="text-center">Overdue</th>
+                                                                        <th class="text-center">Upcoming</th>
+                                                                        <th class="text-center">Complete</th>
+                                                                        <th class="text-center">Only visit not complete</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -1496,7 +1493,7 @@
             redirect: 'follow'
         };
         console.log(
-            "<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>");
+            "<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>");
         fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
@@ -1680,10 +1677,12 @@
                         index + 1,
                         (data.user_name),
                         lang,
+                        data.total_visits,
                         data.sum_pending,
                         data.sum_Late,
                         data.sum_Upcoming,
-                        data.sum_Complete
+                        data.sum_Complete,
+                        data.only_visited
                     ]).draw();
                 });
 

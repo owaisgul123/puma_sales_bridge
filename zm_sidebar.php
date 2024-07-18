@@ -45,7 +45,7 @@
                        
 
                         <li><a href="dealer_dashboard.php"
-                                data-key="t-level-1.13"> RM Dashboard</a></li>
+                                data-key="t-level-1.13"> Dashboard</a></li>
 
                         <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
                         <li><a href="nozle.php" data-key="t-level-1.6"> Products Price </a></li>
@@ -82,6 +82,40 @@
                         </li>
 
 
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fas fa-shipping-fast icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-multi-level">Logistics</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+
+                        <!-- <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1.2">Admin Dasboard</a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="javascript: void(0);" data-key="t-level-2.1">Level 2.1</a></li>
+                                <li><a href="javascript: void(0);" data-key="t-level-2.2">Level 2.2</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1.2">Tracker Dasboard</a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="javascript: void(0);" data-key="t-level-2.1">Level 2.1</a></li>
+                                <li><a href="javascript: void(0);" data-key="t-level-2.2">Level 2.2</a></li>
+                            </ul>
+                        </li> -->
+
+
+                        <!-- <li><a href="javascript: void(0);" data-key="t-level-1.1">Trip Dashboard</a></li>
+                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Sap Dashboard</a></li>
+                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Intransit Dashboard</a></li>
+                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Sales Dashboard</a></li> -->
+                        <li><a onclick="post_new_data()" data-key="t-level-1.1">Track Map</a></li>
+                        <li><a href="playback.php" data-key="t-level-1.2">Playback </a></li>
+                        <!-- <li><a href="javascript: void(0);" data-key="t-level-1.1">Manage Geofence</a></li>
+                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Playback</a></li>
+                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Fence Details</a></li> -->
 
                     </ul>
                 </li>
