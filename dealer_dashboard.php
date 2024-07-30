@@ -433,10 +433,10 @@
                         </div>
                         <div class="col-md-4">
                             <div class="card">
-                               
-                                    
-                                    <div class="card-body pt-1" style="height: 400px; overflow:auto">
-                                        <h5 class="card-title mb-0">RM Approve Status</h5>
+
+
+                                <div class="card-body pt-1" style="height: 400px; overflow:auto">
+                                    <h5 class="card-title mb-0">RM Approve Status</h5>
                                     <div class="mx-n4" id='atgs' data-simplebar>
 
                                     </div>
@@ -738,7 +738,8 @@
                                                                         <th class="text-center">Overdue</th>
                                                                         <th class="text-center">Upcoming</th>
                                                                         <th class="text-center">Complete</th>
-                                                                        <th class="text-center">Only visit not complete</th>
+                                                                        <th class="text-center">Only visit not complete
+                                                                        </th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -1050,6 +1051,17 @@
     $(document).ready(function() {
         $('.multi_select').select2();
         $('.selectpicker').select2();
+
+        var check_pri = "<?php echo $_SESSION['privilege'] ?>";
+
+
+        setTimeout(function() {
+            if (table_access != "Admin") {
+                // alert('Hamza');
+                $('.dt-buttons').removeClass('d-none')
+            }
+        }, 3000);
+
         users_tasking = $('#users_tasking').DataTable({
             dom: 'Bfrtip',
 
@@ -1485,6 +1497,7 @@
 
 
     function fetchtable() {
+        blocking();
         var fromdate = $('#fromdate').val();
         var todate = $('#todate').val();
         $('#loader').show();
@@ -1493,7 +1506,8 @@
             redirect: 'follow'
         };
         console.log(
-            "<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>");
+            "<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>"
+        );
         fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
@@ -1530,6 +1544,7 @@
                         loginCount++;
                     }
                 });
+                $.unblockUI();
                 $('#verified_dealers').html(verifiedCount);
                 $('#nonverified_dealers').html(nonVerifiedCount);
                 $('#logined_dealers').html(loginCount);
@@ -1549,7 +1564,8 @@
         console.log(
             "<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
             fromdate + "&to=" + todate + "")
-        fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
+        fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -1808,7 +1824,7 @@
                     value: '',
                     text: 'Select'
                 }));
-                
+
                 $('#apend_tm_users').empty();
 
                 $.each(asm, function(index, item) {
@@ -2070,6 +2086,7 @@
     }
 
     function filterTable() {
+        blocking();
         // Get selected values from dropdowns
         var selectedCity = $('#city').val();
         var selectedProvince = $('#province').val();
@@ -2144,6 +2161,7 @@
                 loginCount++;
             }
         });
+        $.unblockUI();
         $('#dealers_count').text(filteredData.length);
         $('#verified_dealers').html(verifiedCount);
         $('#nonverified_dealers').html(nonVerifiedCount);
@@ -3074,6 +3092,21 @@
             });
         }
 
+    }
+
+    function blocking() {
+        $.blockUI({
+            message: '<h1>Please Wait...</h1>',
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
     }
     </script>
 </body>

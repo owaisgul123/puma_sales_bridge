@@ -28,5 +28,8 @@ elseif($_SESSION['privilege'] == 'Logistics'){
 }elseif($_SESSION['privilege'] == 'Monitoring'){
     include 'monitor_sidebar.php';
     
+}elseif($_SESSION['privilege'] == 'Inspection Monitoring'){
+    include 'inspection_monit_sidebar.php';
+    
 }
 ?>

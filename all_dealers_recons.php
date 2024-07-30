@@ -4,14 +4,17 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Users | <?php echo htmlspecialchars($_SESSION['user_name']); ?></title>
+    <title>Dealers Reconciliation |
+        <?php echo $_SESSION['user_name']; ?>
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
+    <meta content="PUMA" name="description" />
+    <meta content="PUMA" name="PUMA" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+
+
     <?php include 'css_script.php'; ?>
 </head>
 
@@ -19,6 +22,7 @@
     <div id="layout-wrapper">
         <?php include 'header.php'; ?>
         <?php include 'sidebar.php'; ?>
+        <?php include 'right_siebar.php'; ?>
 
         <div class="main-content">
             <div class="page-content">
@@ -36,11 +40,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h3>Dealers Reconciliation</h3>
-                            <button id="exportExcel">Export to Excel</button>
-                            <button id="exportPDF">Export to PDF</button>
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-md-12" id="dealer_recon_container"></div>
+                                    <div class="col-md-12" id="dealer_recon_container" style="overflow: auto;"></div>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +63,7 @@
         <div class="offcanvas-body">
             <div class="container-fluid">
                 <div class="form-row mb-4">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12 d-none">
                         <label for="dealers" class="col-md-2 col-form-label">TM</label>
                         <select class="w-100 form-control" id="dealers" name="dealers[]" required>
                             <option value="">Select TM</option>
@@ -78,12 +80,12 @@
                 </div>
                 <div class="col-12">
                     <input type="hidden" name="row_id" id="row_id" value="0">
-                    <input type="hidden" name="user_id" id="user_id" value="<?php echo htmlspecialchars($_SESSION['user_id']); ?>">
+                    <input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['user_id'] ?>">
                     <div class="mb-3 row">
                         <label for="example-text-input" class="col-md-10 col-form-label"></label>
                         <div class="col-md-12 text-center">
-                            <input class="btn rounded-pill btn-primary" type="button" onclick="get_recon()"
-                                name="insert" id="insert" value="Save">
+                            <input class="btn rounded-pill btn-primary" type="button" onclick="getRecon()" name="insert"
+                                id="insert" value="Save">
                         </div>
                     </div>
                 </div>
@@ -92,6 +94,8 @@
     </div>
 
     <?php include 'script_tags.php'; ?>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
 
     <script>
     var table;
@@ -99,31 +103,6 @@
     var subtype;
 
     $(document).ready(function() {
-
-        $('#exportExcel').click(function() {
-            var wb = XLSX.utils.table_to_book(document.getElementById('dealer_recon_container'), {
-                sheet: "Sheet JS"
-            });
-            XLSX.writeFile(wb, "DealerRecons.xlsx");
-        });
-
-        // Export to PDF
-        $('#exportPDF').click(async function() {
-            const {
-                jsPDF
-            } = window.jspdf;
-            const doc = new jsPDF('p', 'pt', 'a4');
-
-            var htmlContent = $('#dealer_recon_container').html();
-
-            await doc.html(htmlContent, {
-                callback: function(doc) {
-                    doc.save('DealerRecons.pdf');
-                },
-                x: 10,
-                y: 10
-            });
-        });
         all_dealers();
         $('.multiple_select').select2();
 
@@ -242,7 +221,7 @@
             redirect: 'follow'
         };
 
-        fetch("<?php echo $api_url; ?>get/get_asm.php?key=03201232927&pre=<?php echo htmlspecialchars($_SESSION['privilege']); ?>&user_id=<?php echo htmlspecialchars($_SESSION['user_id']); ?>",
+        fetch("<?php echo $api_url; ?>get/get_asm.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -258,131 +237,162 @@
             .catch(error => console.log('error', error));
     }
 
-    async function get_recon() {
+    function getRecon() {
         var dealers = $('#dealers').val();
         var from = $('#from').val();
         var to = $('#to').val();
         $('#dealer_recon_container').empty();
 
-        if (dealers.length > 0) {
-            try {
-                var requestOptions = {
-                    method: 'GET',
-                    redirect: 'follow'
-                };
-
-                const response = await fetch(
-                    "<?php echo $api_url; ?>get/all_dealers_department_users.php?key=03201232927&is_role=0&user_id=" +
+        if (from !== '' && to !== '') {
+            blocking();
+            $.ajax({
+                url: "<?php echo $api_url; ?>get/all_dealers_department_users.php?key=03201232927&is_role=1&user_id=" +
                     dealers,
-                    requestOptions
-                );
-                const data = await response.json();
+                method: 'GET',
+                dataType: 'json',
+                success: async function(data) {
+                    if (data.length > 0) {
+                        var tableHtml = `
+                        <table id="recon_table" class="display nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>S #</th>
+                                    <th>Dealer</th>
+                                    <th>TM</th>
+                                    <th>RM</th>
+                                    <th>Region</th>
+                                    <th>Inspection Date (Current)</th>
+                                    <th>Inspection Date (Last)</th>
+                                    <th>Days since last visit</th>
+                                    <th>Product</th>
+                                    <th>Sale</th>
+                                    <th>Daily Nozzle Sale (Avg)</th>
+                                    <th>Monthly Nozzle Sales (Avg)</th>
+                                    <th>Receipt</th>
+                                    <th>Gain/Loss</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
 
-                if (data.length > 0) {
-                    for (const item of data) {
-                        var dealer_id = item.id;
-                        console.log(
-                            "<?php echo $api_url; ?>get/get_dealers_recons_last_visit.php?key=03201232927&dealer_id=" +
-                            dealer_id + "&from=" + from + "&to=" + to)
-                        const reconResponse = await fetch(
-                            "<?php echo $api_url; ?>get/get_dealers_recons_last_visit.php?key=03201232927&dealer_id=" +
-                            dealer_id + "&from=" + from + "&to=" + to,
-                            requestOptions
-                        );
-                        const reconData = await reconResponse.json();
-                        if (reconData.length > 0) {
-                            var table = `
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Dealer</th>
-                                <th>TM</th>
-                                <th>RM</th>
-                                <th>Region</th>
-                                <th>Recons</th>
-                            </tr>
-                        </thead>
-                        <tbody>`;
+                        var di = 1;
+                        for (const item of data) {
+                            var dealer_id = item.id;
+                            const reconResponse = await fetch(
+                                "<?php echo $api_url; ?>get/get_dealers_recons_last_visit.php?key=03201232927&dealer_id=" +
+                                dealer_id + "&from=" + from + "&to=" + to
+                            );
+                            const reconData = await reconResponse.json();
 
-                            for (const dealer of reconData) {
-                                var dealer_name = dealer.name;
-                                // var terr = dealer.terr;
-                                var region = dealer.region;
-                                var zm_name = dealer.zm_name;
-                                var tm_name = dealer.tm_name;
-                                var asm_name = dealer.asm_name;
-                                var recon = dealer.recon;
+                            if (reconData.length > 0) {
+                                for (const dealer of reconData) {
+                                    var dealer_name = dealer.name;
+                                    var region = dealer.region;
+                                    var zm_name = dealer.zm_name;
+                                    var tm_name = dealer.tm_name;
+                                    var asm_name = dealer.asm_name;
+                                    var recon = dealer.recon;
 
-                                if (recon.length > 0) {
+                                    tableHtml += `
+                                    <tr>
+                                        <td>${di}</td>
+                                        <td>${dealer_name}</td>
+                                        <td>${asm_name}</td>
+                                        <td>${tm_name}</td>
+                                        <td>${region}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>`;
 
-
-                                    table += `
-                        <tr>
-                            <td>${dealer_name}</td>
-                            <td>${asm_name}</td>
-                            <td>${tm_name}</td>
-                            <td>${region}</td>
-                            <td>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Inspection Date ( Current )</th>
-                                            <th>Inspection Date ( Last )</th>
-                                            <th>Days since last visit</th>
-                                            <th>Product</th>
-                                            <th>Sale</th>
-                                            <th>Daily Nozzle sale (Avg)</th>
-                                            <th>Monthly Nozzle Sales (Avg)</th>
-                                            <th>Receipt</th>
-                                            <th>Gain/Loss</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-
-                                    for (const recon_item of recon) {
-                                        table += `
-                            <tr>
-                                <td>${recon_item.created_at}</td>
-                                <td>${recon_item.last_visit_date}</td>
-                                <td>${recon_item.no_of_days}</td>
-                                <td>${recon_item.product_name}</td>
-
-                                <td>${recon_item.sales_as_per_meter_reading}</td>
-                                <td>${(recon_item.avg_daily_sale).toFixed(2)}</td>
-                                <td>${(recon_item.avg_month_sale).toFixed(2)}</td>
-                                <td>${recon_item.purchase_during_inspection_period}</td>
-                                <td>${recon_item.gain_loss}</td>
-                            </tr>`;
+                                    if (recon.length > 0) {
+                                        for (const recon_item of recon) {
+                                            tableHtml += `
+                                            <tr>
+                                                <td>${di}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>${recon_item.created_at}</td>
+                                                <td>${recon_item.last_visit_date}</td>
+                                                <td>${recon_item.no_of_days}</td>
+                                                <td>${recon_item.product_name}</td>
+                                                <td>${recon_item.sales_as_per_meter_reading}</td>
+                                                <td>${(recon_item.avg_daily_sale).toFixed(2)}</td>
+                                                <td>${(recon_item.avg_month_sale).toFixed(2)}</td>
+                                                <td>${recon_item.purchase_during_inspection_period}</td>
+                                                <td>${recon_item.gain_loss}</td>
+                                            </tr>`;
+                                        }
                                     }
-
-                                    table += `
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>`;
-                                } else {
-                                    $('#dealer_recon_container').append('Data Not Found');
-
+                                    di++;
                                 }
                             }
-
-                            table += `
-                        </tbody>
-                    </table>`;
-
-                            $('#dealer_recon_container').append(table);
                         }
+
+                        tableHtml += `</tbody></table>`;
+                        $('#dealer_recon_container').html(tableHtml);
+                        initializeDataTable();
+                        $.unblockUI();
+                    } else {
+                        $('#dealer_recon_container').append('Data Not Found');
+                        alert('No Dealers Found');
+                        $.unblockUI();
                     }
-                } else {
-                    $('#dealer_recon_container').append('Data Not Found');
-                    alert('No Dealers Found');
+                },
+                error: function(error) {
+                    console.error('Error fetching data:', error);
                 }
-            } catch (error) {
-                console.log('error', error);
-            }
+            });
         } else {
             $('#dealer_recon_container').append('Data Not Found');
+            alert("Please select both dates");
+            $.unblockUI();
         }
+    }
+
+
+    function initializeDataTable() {
+        $('#recon_table').DataTable({
+            ordering: false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel',
+                {
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape', // Set the orientation to landscape
+                    pageSize: 'A4', // You can also set the page size here
+                    exportOptions: {
+                        columns: ':visible' // Export only visible columns
+                    },
+                    customize: function(doc) {
+                        doc.defaultStyle.alignment = 'center'; // Optional: center align text
+                        doc.styles.tableHeader.alignment = 'center'; // Optional: center align header
+                    }
+                },
+                'print'
+            ]
+        });
+    }
+    function blocking() {
+        $.blockUI({
+            message: '<h1>Please Wait...</h1>',
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
     }
     </script>
 </body>

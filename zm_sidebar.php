@@ -77,6 +77,8 @@
                                         data-key="t-level-1.14">All Inspection</a></li>
                                         <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>"
                                 data-key="t-level-1.16"> Trip Board</a></li>
+                                <li><a href="all_dealers_recons.php" data-key="t-level-1.14">Dealers Reconciliation Report</a></li>
+
 
                             </ul>
                         </li>

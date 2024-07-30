@@ -1461,6 +1461,7 @@
 
 
     function fetchtable() {
+        blocking();
         var fromdate = $('#fromdate').val();
         var todate = $('#todate').val();
         $('#loader').show();
@@ -1657,7 +1658,7 @@
                 chart_datas(response, 'tm_chart', 'asm', 'TM')
                 // chart_datas(response, 'depot_chart', 'actual_depot', 'Depot')
                 // chart_datas(response, 'rural_urban', 'cat_2', 'Cat-2')
-
+                $.unblockUI();
             })
             .catch(error => console.log('error', error));
 
@@ -1852,7 +1853,7 @@
             }
         });
 
-
+        
     }
 
     function update_pass(id) {
@@ -3040,6 +3041,20 @@
                     });
             } else {
                 // reject("Invalid sales order.");
+            }
+        });
+    }
+    function blocking() {
+        $.blockUI({
+            message: '<h1>Please Wait...</h1>',
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
             }
         });
     }

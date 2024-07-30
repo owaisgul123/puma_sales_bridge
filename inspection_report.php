@@ -1425,6 +1425,62 @@
 
         }
 
+        function get_cacual(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
+            // Clear existing content
+            var currentDate = new Date();
+
+            // Format the date as needed
+            var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
+
+            // Display the formatted date
+            $('#labelc').text('Stock Variations');
+            $('#survey_time').text(isp_date);
+            $('#survey_complete_time').text(comp_date);
+
+            $('#survey_dealer_name').text(dealer_name);
+            $('#survey_ispector_name').text(username);
+            $('#survey_type').text(type);
+            last_vists_dates('stock_variation', last_visit_id, comp_date);
+
+            $('#survey-container').empty();
+
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+
+            fetch("<?php echo $api_url; ?>get/get_cacual_visit_detail.php?key=03201232927&task_id=" + task_id +
+                "&dealer_id=" + dealer_id + "", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    if (result.length > 0) {
+                        var first = result[0];
+                        var second = result.length > 1 ? result[1] : null;
+
+                        var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Casual Visit</h6><table class="dynamic_table" style="width:100%">
+                    <tr>
+                        <th>Time</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>${first.visit_time}</td>
+                        <td>${first.description}</td>
+                    </tr>
+                    
+                </table>`;
+
+                        $('#survey-container').append(table);
+                    }
+
+                    $('#survey_modal').modal('show');
+                })
+                .catch(error => console.log('error', error));
+
+
+
+        }
+
         function get_task_stock_variations(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
             last_visit_id) {
             // Clear existing content
@@ -1522,6 +1578,7 @@
         }
 
         function fetchtable() {
+            blocking();
             var fromdate = $('#fromdate').val();
             var todate = $('#todate').val();
             var requestOptions = {
@@ -1615,6 +1672,24 @@
                             '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
                             '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
                             "---";
+
+
+
+                        var cacual_btn =
+                            '<button type="button"  onclick="get_cacual(' +
+                            data.id +
+                            ',' +
+                            data.dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
+                                .time + '\',\'' + data
+                                .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+
+                        var type_btn = (data.status == 1) ? cacual_btn : "";
+                        var insp_type = data.type + ' - ' + type_btn;
+                        var type_txt = (data.type == 'Casual') ? insp_type : data.type;
+
+
                         lubes_table.row.add([
 
 
@@ -1625,7 +1700,7 @@
                             data.name,
                             data.privilege,
                             data.dealer_name,
-                            data.type,
+                            type_txt,
                             data.current_status,
                             inpection,
                             sales_performance,
@@ -1635,6 +1710,7 @@
                             stock_variations,
                             (data.status == 1) ? emailer : "---",
                         ]).draw(false);
+                        $.unblockUI();
 
                         // } else {
                         //     lubes_table.row.add([
@@ -1659,7 +1735,6 @@
 
                 })
                 .catch(error => console.log('error', error));
-
 
 
         }
@@ -2110,6 +2185,21 @@
 
             getPDF2();
         });
+
+        function blocking() {
+            $.blockUI({
+                message: '<h1>Please Wait...</h1>',
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+        }
     </script>
 </body>
 

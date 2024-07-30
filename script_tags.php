@@ -18,6 +18,8 @@
 <!-- color picker js -->
 <script src="assets/libs/@simonwep/pickr/pickr.min.js"></script>
 <script src="assets/libs/@simonwep/pickr/pickr.es5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+
 
 <!-- datepicker js -->
 <script src="assets/libs/flatpickr/flatpickr.min.js"></script>

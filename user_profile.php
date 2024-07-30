@@ -575,6 +575,7 @@
                                                                 <th class="text-center">S.No</th>
                                                                 <th class="text-center">Date</th>
                                                                 <th class="text-center">Site Name</th>
+                                                                <th class="text-center">TM Name</th>
                                                                 <th class="text-center">Mode</th>
                                                                 <th class="text-center">Depot</th>
                                                                 <th class="text-center">Total Amount</th>
@@ -582,8 +583,15 @@
                                                                 <th class="text-center">Sales Order</th>
                                                                 <th class="text-center">Sap Status</th>
                                                                 <th class="text-center">Execution Status</th>
+                                                                <th class="text-center">City</th>
+                                                                <th class="text-center">Province</th>
+                                                                <th class="text-center">Region</th>
+                                                                <th class="text-center">Amount Receivable</th>
                                                                 <th class="text-center">View Orders</th>
                                                                 <th class="text-center">Track</th>
+
+                                                                <!-- <th class="text-center">Edit</th>
+                                        <th class="text-center">Delete</th> -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -2620,8 +2628,9 @@ function orderlist() {
 
             table.clear().draw();
             $.each(response, function(index, data) {
-                var status = data.status;
-                console.log(status)
+                $('#loader').hide();
+                var status = data.status_value;
+                // console.log(status)
                 var status_value = '';
 
                 if (status == 'pending') {
@@ -2632,7 +2641,7 @@ function orderlist() {
                 } else if (status == 'Not Yet Processed') {
                     status_value =
                         '<span id=' + data.id +
-                        ' class="badge rounded-pill cursor-pointer bg-info" data-key="t-new">Pending</span>';
+                        ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Pending</span>';
                 } else if (status == 'Completely Processed') {
                     status_value =
                         '<span id=' + data.id +
@@ -2651,35 +2660,122 @@ function orderlist() {
                         ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
                 }
 
-                message = (data.delivered_status == 1) ? "Delivered" : "Not-Delivered";
-                d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
-                track = (data.is_tracker == 1) ? "<a href='trip_board_salesOrder.php?no=" + data
-                    .SaleOrder +
-                    "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>" : "----";
+                // message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
+                // Initialize variables
+                var track = "";
+                var message = "";
+                var d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
+                var payableAmount = ''; // Initialize payableAmount variable
 
-                table.row.add([
-                    index + 1,
-                    data.created_at,
-                    data.name,
-                    // data.name,
-                    d_type,
-                    data.consignee_name,
-                    parseFloat(data.total_amount).toLocaleString(),
-                    // data.legder_balance,
-                    data.SaleOrder,
-                    status_value,
-                    message,
-                    '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
-                    data.id +
-                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
-                    track,
-                ]).draw(false);
+                // Log data for debugging
+                // console.log(data.is_tracker);
+                // console.log(data.SaleOrder);
+
+                // Check if data.is_tracker is equal to 1
+                if (parseInt(data.is_tracker) === 1) {
+                    // If data.is_tracker is 1, generate track link
+                    track = "<a href='trip_board_salesOrder.php?no=" + data.SaleOrder +
+                        "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>";
+                } else {
+                    // If data.is_tracker is not 1, display ----
+                    track = "----";
+                }
+
+
+                if (parseInt(data.delivered_status) === 1) {
+                    // If data.is_tracker is 1, generate track link
+                    message = "Invoiced";
+                } else {
+                    // If data.is_tracker is not 1, display ----
+
+                    if (status == 'Not Yet Processed' || status == 'pending') {
+                        message = "---";
+
+                    } else {
+                        message = "Scheduled";
+                    }
+                }
+
+
+                // Call amount_payable function
+                amount_payable(data.SaleOrder)
+                    .then(amount => {
+                        // Store the amount in a variable
+                        payableAmount = amount;
+
+                        // Add row to table after getting the amount
+                        table.row.add([
+                            index + 1,
+                            data.created_at,
+                            data.name,
+                            data.usersnames,
+                            d_type,
+                            data.consignee_name,
+                            parseFloat(data.total_amount).toLocaleString(),
+                            data.SaleOrder,
+                            status_value,
+                            message,
+                            data.city,
+                            data.province,
+                            data.region,
+                            parseFloat(payableAmount)
+                            .toLocaleString(), // Use payableAmount here
+                            '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
+                            data.id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
+                            track,
+                        ]).draw();
+                    })
+
+
+                    .catch(error => {
+                        // console.error("Error:", error);
+                        // Handle error
+                    });
+
+
+
             });
 
         })
         .catch(error => console.log('error', error));
 
 
+}
+
+function amount_payable(salesOrders) {
+    return new Promise((resolve, reject) => {
+        if (salesOrders != "") {
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+            // console.log(
+            //     "<?php echo $api_url; ?>get/payment_api/get_InitialSet9.php?key=03201232927&SalesOrder=" +
+            //     salesOrders + "");
+            fetch("<?php echo $api_url; ?>get/payment_api/get_InitialSet9.php?key=03201232927&SalesOrder=" +
+                    salesOrders + "", requestOptions)
+                .then(response => response.json())
+                .then(response => {
+                    // console.log(response)
+                    if (response.length > 0) {
+                        var amounts = response.map(data => data.CUSTOMER_PAYABLE);
+                        var totalAmount = amounts.reduce((total, amount) => total + parseFloat(amount),
+                            0);
+                        // $('#orderSalesAmountModal').modal('show');
+                        resolve(totalAmount);
+                    } else {
+                        // reject("No data found for the given sales order.");
+                    }
+                })
+                .catch(error => {
+                    // console.log('error', error);
+                    reject(error);
+                });
+        } else {
+            // reject("Invalid sales order.");
+        }
+    });
 }
 
 function dealers_complaints() {
@@ -2774,7 +2870,8 @@ function dealers_visits() {
                 var wet_stock_btn = '<button type="button"  onclick="get_task_wet_stock(' + data
                     .id +
                     ',' + data
-                    .dealer_id + ', \'' + data.dealer_name +'\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                    .dealer_id + ', \'' + data.dealer_name +
+                    '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                 var wet_stocks = (data.wet_stock_status == 1) ? wet_stock_btn : "---";
 
                 var dispensing_unit_btn =
@@ -2793,19 +2890,20 @@ function dealers_visits() {
                     '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
                 var stock_variations = (data.stock_variations_status == 1) ? stock_variatins_btn :
                     "---";
-                    var dealer_sign = (data.dealer_sign != null) ? '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
-                        '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
+                var dealer_sign = (data.dealer_sign != null) ? '<a href="<?php echo $api_url; ?>uploads/' +
+                    data.dealer_sign +
+                    '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
                     "---";
 
                 lubes_table.row.add([
 
 
                     index + 1,
-                        data.time,
-                        data.visit_close_time,
-                        dealer_sign,
-                        data.name,
-                        data.dealer_name,
+                    data.time,
+                    data.visit_close_time,
+                    dealer_sign,
+                    data.name,
+                    data.dealer_name,
                     data.type,
                     data.current_status,
                     inpection,

@@ -903,6 +903,7 @@ dea
 
 
     function fetchtable() {
+        blocking();
         $('#loader').show();
         var requestOptions = {
             method: 'GET',
@@ -957,7 +958,7 @@ dea
                             '')
                     ]).draw();
 
-
+                    $.unblockUI();
                 });
             })
             .catch(error => console.log('error', error));
@@ -1773,6 +1774,21 @@ dea
             iv: iv
         });
         return cipher.toString();
+    }
+
+    function blocking() {
+        $.blockUI({
+            message: '<h1>Please Wait...</h1>',
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
     }
     </script>
 </body>

@@ -73,7 +73,7 @@
                             <ul class="sub-menu" aria-expanded="true">
                                 <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
                                 <li><a href="manage_calander.php" data-key="t-level-1.12"> Task Calander</a></li>
-                                <li><a href="inspection_report.php"
+                                <li><a href="inspection_report_tm.php"
                                         data-key="t-level-1.14">All Inspection</a></li>
                                         <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>"
                                 data-key="t-level-1.16"> Trip Board</a></li>

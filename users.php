@@ -257,6 +257,7 @@ input:checked+.slider:before {
                                     <option value="Logistics">Logistics</option>
                                     <option value="Reporting">Reporting</option>
                                     <option value="Monitoring">Monitoring</option>
+                                    <option value="Inspection Monitoring">Inspection Monitoring</option>
                                 </select>
 
                             </div>
