@@ -338,6 +338,7 @@
 
                         tableHtml += `</tbody></table>`;
                         $('#dealer_recon_container').html(tableHtml);
+                        formatNumbers();
                         initializeDataTable();
                         $.unblockUI();
                     } else {
@@ -362,6 +363,7 @@
         $('#recon_table').DataTable({
             ordering: false,
             dom: 'Bfrtip',
+            pageLength: 50,
             buttons: [
                 'copy', 'csv', 'excel',
                 {
@@ -393,6 +395,25 @@
                 color: '#fff'
             }
         });
+    }
+    function formatNumbers() {
+        $('body *').each(function() {
+            var element = $(this);
+            if (element.children().length === 0) { // Only text nodes
+                var html = element.html();
+                // Use a regex that does not match dates
+                var newHtml = html.replace(/\b(?!\d{4}-\d{2}-\d{2})(\d+)\b/g, function(match) {
+                    return formatNumber(match);
+                });
+                element.html(newHtml);
+            }
+        });
+    }
+
+    // Helper function to format number with commas
+    function formatNumber(num) {
+        num = num.replace(/\D/g, ''); // Remove non-digit characters
+        return num.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Format with commas
     }
     </script>
 </body>

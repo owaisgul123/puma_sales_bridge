@@ -733,6 +733,7 @@
                                                                         <th class="text-center">S.No</th>
                                                                         <th class="text-center">Users</th>
                                                                         <th class="text-center">Privilege</th>
+                                                                        <th class="text-center">Total Sites</th>
                                                                         <th class="text-center">Total Visit</th>
                                                                         <th class="text-center">Pending</th>
                                                                         <th class="text-center">Overdue</th>
@@ -1644,6 +1645,8 @@
             })
             .catch(error => console.log('error', error));
 
+            console.log("<?php echo $api_url; ?>get/inspection/get_all_specific_visits_user.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "")
         fetch("<?php echo $api_url; ?>get/inspection/get_all_specific_visits_user.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
                 fromdate + "&to=" + todate + "",
                 requestOptions)
@@ -1693,6 +1696,7 @@
                         index + 1,
                         (data.user_name),
                         lang,
+                        data.total_dealers,
                         data.total_visits,
                         data.sum_pending,
                         data.sum_Late,

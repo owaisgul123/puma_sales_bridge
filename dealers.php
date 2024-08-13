@@ -947,11 +947,7 @@ dea
                             .id + '" onclick="check(' +
                             data.id + ')" ' + (data.indent_price == 0 ? '' : 'checked') +
                             '> <span class="slider round"></span></label></td>' : ''),
-                        (prel == 'Admin' ?
-                            '<td><button type="button" id="edit" name="edit_pa" onclick="update_pass(' +
-                            data.id +
-                            ')" class="btn btn-soft-warning waves-effect waves-light"><i class="bx bx-edit-alt font-size-16 align-middle"></i></button></td>' :
-                            ''),
+                        (prel == 'Admin' ? '<td><button type="button" id="edit" name="edit_pa" onclick="update_pass(' +data.id +')" class="btn btn-soft-warning waves-effect waves-light"><i class="bx bx-edit-alt font-size-16 align-middle"></i></button></td>' :''),
                         (prel == 'Admin' ? '<td><button type="button" id="edit" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" name="edit" onclick="editData(' +
                             data.id +
                             ')" class="btn btn-soft-warning waves-effect waves-light"><i class="bx bx-edit-alt font-size-16 align-middle"></i></button></td>' :

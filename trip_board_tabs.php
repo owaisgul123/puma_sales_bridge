@@ -127,7 +127,7 @@ foreach ($array as $category) {
                                 <td>' . $product["price"] . '</td>
                                 <td>' . $product["current_status"] . '</td>
                                 <td>' . $status_btn . '</td>
-                                <td>' . $product["eta"] . '</td>
+                                <td>' .   substr($product["eta"], 0, 19). '</td>
                                 <td>' . $product["created_at"] . '</td>'
         ;
     }
