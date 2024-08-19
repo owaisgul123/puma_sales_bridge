@@ -124,7 +124,7 @@ foreach ($array as $category) {
                                 <td>' . $product["salesapNo"] . '</td>
                                 <td>' . $product["product_name"] . '</td>
                                 <td>' . $product["qty"] . '</td>
-                                <td>' . $product["price"] . '</td>
+                                <td>' . number_format($product["price"]) . '</td>
                                 <td>' . $product["current_status"] . '</td>
                                 <td>' . $status_btn . '</td>
                                 <td>' .   substr($product["eta"], 0, 19). '</td>

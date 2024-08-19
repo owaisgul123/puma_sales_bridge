@@ -5441,7 +5441,7 @@ function create_div(response) {
         console.log('Ques ' + total_ques);
     })
 
-    var percentage = ((total_ques - r_n_a) / total_ques) * 100;
+    var percentage = (r_yes  / (total_ques-r_n_a)) * 100;
     var row1 = $('<tr>');
     row1.append($('<td>').text(total_ques));
     row1.append($('<td>').text(r_yes));

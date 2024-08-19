@@ -1714,6 +1714,12 @@
                     var type_btn = (data.status == 1) ? cacual_btn : "";
                     var insp_type = data.type + ' - ' + type_btn;
                     var type_txt = (data.type == 'Casual') ? insp_type : data.type;
+                    var current_status = '';
+                    if(data.privilege == 'RM' && data.inspection == 1){
+                        current_status = 'Complete';
+                    }else{
+                        current_status = data.current_status
+                    }
 
 
                     lubes_table.row.add([
@@ -1727,7 +1733,7 @@
                         data.privilege,
                         data.dealer_name,
                         type_txt,
-                        data.current_status,
+                        current_status,
                         inpection,
                         sales_performance,
                         measurements,
@@ -1855,7 +1861,7 @@
             console.log('Ques ' + total_ques);
         })
 
-        var percentage = ((total_ques - r_n_a) / total_ques) * 100;
+        var percentage = (r_yes  / (total_ques-r_n_a)) * 100;
         var row1 = $('<tr>');
         row1.append($('<td>').text(total_ques));
         row1.append($('<td>').text(r_yes));
