@@ -1695,7 +1695,7 @@
                     var stock_variations = (data.stock_variations_status == 1) ? stock_variatins_btn :
                         "---";
                     var dealer_sign = (data.dealer_sign != null) ?
-                        '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
+                        '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + data.dealer_sign +
                         '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
                         "---";
 
@@ -1715,9 +1715,9 @@
                     var insp_type = data.type + ' - ' + type_btn;
                     var type_txt = (data.type == 'Casual') ? insp_type : data.type;
                     var current_status = '';
-                    if(data.privilege == 'RM' && data.inspection == 1){
+                    if (data.privilege == 'RM' && data.inspection == 1) {
                         current_status = 'Complete';
-                    }else{
+                    } else {
                         current_status = data.current_status
                     }
 
@@ -1861,7 +1861,7 @@
             console.log('Ques ' + total_ques);
         })
 
-        var percentage = (r_yes  / (total_ques-r_n_a)) * 100;
+        var percentage = (r_yes / (total_ques - r_n_a)) * 100;
         var row1 = $('<tr>');
         row1.append($('<td>').text(total_ques));
         row1.append($('<td>').text(r_yes));

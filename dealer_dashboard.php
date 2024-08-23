@@ -1578,7 +1578,7 @@
                 task_table.clear().draw();
                 $.each(response, function(index, data) {
                     var dealer_sign = (data.dealer_sign != null) ?
-                        '<a href="<?php echo $api_url; ?>uploads/' + data.dealer_sign +
+                        '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + data.dealer_sign +
                         '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
                         "---";
 
