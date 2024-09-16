@@ -108,8 +108,10 @@
                             <ul class="sub-menu" aria-expanded="true">
                                
                                 <li><a href="inspection_report.php" data-key="t-level-1.14">All Inspection</a></li>
-                                <li><a href="dealers_wise_recon.php" data-key="t-level-1.14">Dealers Reconciliation Report</a></li>
-                                <li><a href="all_dealers_recons.php" data-key="t-level-1.14">Reconciliation Report</a></li>
+                                <!-- <li><a href="dealers_wise_recon.php" data-key="t-level-1.14">Dealers Reconciliation Report</a></li> -->
+                                <!-- <li><a href="all_dealers_recons.php" data-key="t-level-1.14">Reconciliation Report</a></li> -->
+                                <li><a href="all_dealers_recons_new.php" data-key="t-level-1.14">Reconciliation Report</a></li>
+                                <li><a href="all_dealers_recons_latest.php" data-key="t-level-1.14">Reconciliation with Measurement Report</a></li>
 
 
 

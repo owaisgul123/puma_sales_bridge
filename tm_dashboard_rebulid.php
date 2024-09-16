@@ -82,6 +82,36 @@
         color: red;
         font-size: 24px;
     }
+
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .loader-bar {
+        position: relative;
+        width: 70%;
+        height: 30px;
+        background: #ccc;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .loader-percentage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: #3498db;
+        color: #fff;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 10px;
+        transition: width 0.1s;
+    }
     </style>
 </head>
 
@@ -311,8 +341,8 @@
                                                     <small> Upcoming</small> : <span id="upcoming_tasks"
                                                         class="text-info">0</span>
                                                 </h6>
-                                                <h6 onclick="getting_listing('listing_users')"
-                                                    class="mb-0 font-size-12 d-none" style="cursor: pointer">
+                                                <h6 onclick="getting_listing('listing_users')" class="mb-0 font-size-12"
+                                                    style="cursor: pointer">
                                                     <small> Visits Users</small> : <span id="vistes_users"
                                                         class="text-info">0</span>
                                                 </h6>
@@ -415,7 +445,7 @@
                                             <div class="flex-grow-1 ms-3">
                                                 <h6 class="mb-0 font-size-15">TM</h6>
                                             </div>
-                                            <!-- <div class="flex-grow-1 ms-3" onclick="getting_listing('ASM')">
+                                            <div class="flex-grow-1 ms-3" onclick="getting_listing('ASM')">
                                                 <svg style="float: right;" xmlns="http://www.w3.org/2000/svg" width="24"
                                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -424,7 +454,7 @@
                                                     <circle cx="12" cy="5" r="1"></circle>
                                                     <circle cx="12" cy="19" r="1"></circle>
                                                 </svg>
-                                            </div> -->
+                                            </div>
 
 
                                         </div>
@@ -604,7 +634,7 @@
                                     <table id="task_table" class="display" style="width:100%">
                                         <thead>
                                             <tr>
-                                            <th>S.No</th>
+                                                <th>S.No</th>
                                                 <th>User</th>
                                                 <th>Site Name</th>
                                                 <th>Planned Date</th>
@@ -673,7 +703,7 @@
 
             <div id="listing_users" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
                 data-bs-scroll="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
                             <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
@@ -800,42 +830,29 @@
                                             <div class="card-body">
 
 
-                                                <div class="mx-n4 simplebar-scrollable-y" data-simplebar="init"
-                                                    style="max-height: 421px;">
-                                                    <div class="simplebar-wrapper" style="margin: 0px;">
-                                                        <div class="simplebar-height-auto-observer-wrapper">
-                                                            <div class="simplebar-height-auto-observer"></div>
-                                                        </div>
-                                                        <div class="simplebar-mask">
-                                                            <div class="simplebar-offset"
-                                                                style="right: 0px; bottom: 0px;">
-                                                                <div class="simplebar-content-wrapper" tabindex="0"
-                                                                    role="region" aria-label="scrollable content"
-                                                                    style="height: auto; overflow: hidden scroll;">
-                                                                    <div class="simplebar-content"
-                                                                        style="padding: 0px;">
-                                                                        <div class="border-bottom loyal-customers-box pt-2"
-                                                                            id='liat_vist_users'>
-
-                                                                        </div>
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="simplebar-placeholder"
-                                                            style="width: 325px; height: 432px;"></div>
-                                                    </div>
-                                                    <div class="simplebar-track simplebar-horizontal"
-                                                        style="visibility: hidden;">
-                                                        <div class="simplebar-scrollbar"
-                                                            style="width: 0px; display: none;"></div>
-                                                    </div>
-                                                    <div class="simplebar-track simplebar-vertical"
-                                                        style="visibility: visible;">
-                                                        <div class="simplebar-scrollbar"
-                                                            style="height: 410px; transform: translate3d(0px, 0px, 0px); display: block;">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <table id="users_tasking" class="display"
+                                                                style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">S.No</th>
+                                                                        <th class="text-center">Users</th>
+                                                                        <th class="text-center">Privilege</th>
+                                                                        <th class="text-center">Total Sites</th>
+                                                                        <th class="text-center">Total Visit</th>
+                                                                        <th class="text-center">Pending</th>
+                                                                        <th class="text-center">Overdue</th>
+                                                                        <th class="text-center">Upcoming</th>
+                                                                        <th class="text-center">Complete</th>
+                                                                        <th class="text-center">Only visit not complete
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1241,11 +1258,19 @@
 
     var task_data = "";
     $(document).ready(function() {
+        blocking();
         $('.multi_select').select2();
         $('.selectpicker').select2();
 
 
+        users_tasking = $('#users_tasking').DataTable({
+            dom: 'Bfrtip',
 
+
+            buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+
+        });
         ///banner image start
         const dropArea = document.getElementById('dropArea');
         const fileInput = document.getElementById('fileInput');
@@ -1654,6 +1679,7 @@
 
 
     function fetchtable() {
+        blocking();
         var fromdate = $('#fromdate').val();
         var todate = $('#todate').val();
         $('#loader').show();
@@ -1818,34 +1844,66 @@
             })
             .catch(error => console.log('error', error));
 
+        console.log(
+            "<?php echo $api_url; ?>get/inspection/get_all_specific_visits_user.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+            fromdate + "&to=" + todate + "")
         fetch("<?php echo $api_url; ?>get/inspection/get_all_specific_visits_user.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
                 fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
+                users_tasking.clear().draw();
 
                 $('#vistes_users').html(response.length);
                 $.each(response, function(index, data) {
 
 
-                    htmlContent = '<div class="container-fluid">' +
-                        '<div class="row">' +
-                        '<div class="col-md-4">' + data.user_name + '</div>' +
-                        ' <div class="col-md-8">' +
-                        '<div class="container-fluid">' +
-                        '<div class="row">' +
-                        '<div class="col-md-3"><small>Pending : ' + data.sum_pending + '</small></div>' +
-                        '<div class="col-md-3"><small>Overdue : ' + data.sum_Late + '</small> </div>' +
-                        '<div class="col-md-3"><small>Upcoming : ' + data.sum_Upcoming + '</small></div>' +
-                        '<div class="col-md-3"><small>Complete : ' + data.sum_Complete + ' </small></div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>';
+                    // htmlContent = '<div class="container-fluid">' +
+                    //     '<div class="row">' +
+                    //     '<div class="col-md-4">' + data.user_name + '</div>' +
+                    //     ' <div class="col-md-8">' +
+                    //     '<div class="container-fluid">' +
+                    //     '<div class="row">' +
+                    //     '<div class="col-md-3"><small>Pending : ' + data.sum_pending + '</small></div>' +
+                    //     '<div class="col-md-3"><small>Overdue : ' + data.sum_Late + '</small> </div>' +
+                    //     '<div class="col-md-3"><small>Upcoming : ' + data.sum_Upcoming + '</small></div>' +
+                    //     '<div class="col-md-3"><small>Complete : ' + data.sum_Complete + ' </small></div>' +
+                    //     '</div>' +
+                    //     '</div>' +
+                    //     '</div>' +
+                    //     '</div>' +
+                    //     '</div>';
 
                     // Append the HTML content to the container
-                    $('#liat_vist_users').append(htmlContent);
+                    // $('#liat_vist_users').append(htmlContent);
+                    var lang = data.privilege;
+                    if (lang == 'ZM') {
+                        lang = 'GRM';
+                    } else if (lang == 'TM') {
+                        lang = 'RM';
+
+                    } else if (lang == 'Admin') {
+                        lang = 'Admin';
+
+                    } else if (lang == 'ASM') {
+                        lang = 'TM';
+
+                    } else {
+                        lang = data.privilege;
+
+                    }
+                    users_tasking.row.add([
+                        index + 1,
+                        (data.user_name),
+                        lang,
+                        data.total_dealers,
+                        data.total_visits,
+                        data.sum_pending,
+                        data.sum_Late,
+                        data.sum_Upcoming,
+                        data.sum_Complete,
+                        data.only_visited
+                    ]).draw();
                 });
 
 
@@ -2368,11 +2426,55 @@
             );
         });
         console.log('filteredData')
-        console.log(filteredData)
         var distinctTmCount = [...new Set(filteredData.map(dealer => dealer.tm))].length;
 
         // Calculate count of distinct 'sap_no' values
         var distinctASMCount = [...new Set(filteredData.map(dealer => dealer.asm))].length;
+        var asmMap = new Map();
+
+        // Filter the data to include only unique ASM entries
+        filteredData.forEach(dealer => {
+            if (!asmMap.has(dealer.asm)) {
+                asmMap.set(dealer.asm, dealer);
+            }
+        });
+
+        // Convert the map back to an array to get the filtered data
+        var distinctASMdata = Array.from(asmMap.values());
+
+        // Clear the existing options and content
+        // $('#asm_users').empty();
+        $('#apend_tm_users').empty();
+
+        console.log(distinctASMdata)
+        // Iterate through the distinct ASM data
+        $.each(distinctASMdata, function(index, item) {
+            // Append the option to the select element
+            $('#asm_users').append($('<option>', {
+                value: item.asm, // Use item.id directly as the value
+                text: item.asm_name // Use item.name directly as the text
+            }));
+
+            // Create the HTML content for each ASM
+            var htmlContent = `
+        <div class="d-flex align-items-center">
+            <div class="flex-grow-1 ms-3 overflow-hidden">
+                <h5 class="font-size-15 mb-1 text-truncate">${item.asm_name}</h5>
+            </div>
+            <div class="flex-shrink-0">
+                <h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center">
+                    <a href="asm_dashboard_rebuild.php?id=${item.asm}" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-import font-size-14 text-primary ms-1"></i>
+                    </a>
+                </h5>
+            </div>
+        </div>
+    `;
+
+            // Append the HTML content to the container
+            $('#apend_tm_users').append(htmlContent);
+        });
+
         // alert(distinctASMCount)
         $('#rm_counts').text(distinctTmCount);
         $('#tm_counts').text(distinctASMCount);
@@ -3526,6 +3628,45 @@
             data: chartData,
             options: chartOptions
         });
+    }
+
+    function blocking() {
+        $.blockUI({
+            message: `
+                    <div class='loader'>
+                        <div class='loader-bar'>
+                            <div class='loader-percentage'>0%</div>
+                        </div>
+                    </div>`,
+            css: {
+                border: 'none',
+                backgroundColor: 'transparent',
+                cursor: 'wait'
+            },
+            overlayCSS: {
+                backgroundColor: '#aab5a3',
+                opacity: 0.99,
+                cursor: 'wait'
+            }
+        });
+
+        let progress = 0;
+        const estimatedLoadTime = 10000; // 3 seconds
+        const intervalTime = estimatedLoadTime / 100; // Update every 1%
+
+        const interval = setInterval(function() {
+            if (progress < 100) {
+                progress += 1; // Increment progress
+                $('.loader-percentage').text(progress + '%').css('width', progress + '%'); // Update loader
+            } else {
+                clearInterval(interval);
+                unblocking();
+            }
+        }, intervalTime);
+    }
+
+    function unblocking() {
+        $.unblockUI();
     }
     </script>
 </body>

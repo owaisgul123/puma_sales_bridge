@@ -82,6 +82,35 @@
         color: red;
         font-size: 24px;
     }
+    .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.loader-bar {
+    position: relative;
+    width: 70%;
+    height: 30px;
+    background: #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.loader-percentage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #3498db;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 10px;
+    transition: width 0.1s;
+}
     </style>
 </head>
 
@@ -567,6 +596,7 @@
                                             <tr>
                                                 <th>S.No</th>
                                                 <th>User</th>
+                                                <th>Site SAP</th>
                                                 <th>Site Name</th>
                                                 <th>Planned Date</th>
                                                 <th>Dealer sign</th>
@@ -1545,7 +1575,7 @@
                         loginCount++;
                     }
                 });
-                $.unblockUI();
+                // $.unblockUI();
                 $('#verified_dealers').html(verifiedCount);
                 $('#nonverified_dealers').html(nonVerifiedCount);
                 $('#logined_dealers').html(loginCount);
@@ -1598,6 +1628,7 @@
                         index + 1,
                         '<a href="inspection_report.php?name=' + data.user_name +
                         '" target="_blank">' + data.user_name + '</a>',
+                        data.sap_no,
                         data.dealer_name,
                         data.time,
                         dealer_sign,
@@ -1645,8 +1676,9 @@
             })
             .catch(error => console.log('error', error));
 
-            console.log("<?php echo $api_url; ?>get/inspection/get_all_specific_visits_user.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
-                fromdate + "&to=" + todate + "")
+        console.log(
+            "<?php echo $api_url; ?>get/inspection/get_all_specific_visits_user.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+            fromdate + "&to=" + todate + "")
         fetch("<?php echo $api_url; ?>get/inspection/get_all_specific_visits_user.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
                 fromdate + "&to=" + todate + "",
                 requestOptions)
@@ -2165,7 +2197,7 @@
                 loginCount++;
             }
         });
-        $.unblockUI();
+        // $.unblockUI();
         $('#dealers_count').text(filteredData.length);
         $('#verified_dealers').html(verifiedCount);
         $('#nonverified_dealers').html(nonVerifiedCount);
@@ -3100,17 +3132,41 @@
 
     function blocking() {
         $.blockUI({
-            message: '<h1>Please Wait...</h1>',
+            message: `
+                    <div class='loader'>
+                        <div class='loader-bar'>
+                            <div class='loader-percentage'>0%</div>
+                        </div>
+                    </div>`,
             css: {
                 border: 'none',
-                padding: '15px',
-                backgroundColor: '#000',
-                '-webkit-border-radius': '10px',
-                '-moz-border-radius': '10px',
-                opacity: .5,
-                color: '#fff'
+                backgroundColor: 'transparent',
+                cursor: 'wait'
+            },
+            overlayCSS: {
+                backgroundColor: '#aab5a3',
+                opacity: 0.99,
+                cursor: 'wait'
             }
         });
+
+        let progress = 0;
+        const estimatedLoadTime = 10000; // 3 seconds
+        const intervalTime = estimatedLoadTime / 100; // Update every 1%
+
+        const interval = setInterval(function() {
+            if (progress < 100) {
+                progress += 1; // Increment progress
+                $('.loader-percentage').text(progress + '%').css('width', progress + '%'); // Update loader
+            } else {
+                clearInterval(interval);
+                unblocking();
+            }
+        }, intervalTime);
+    }
+
+    function unblocking() {
+        $.unblockUI();
     }
     </script>
 </body>

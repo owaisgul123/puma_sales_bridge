@@ -124,8 +124,8 @@
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Complete Time</th>
                                         <th class="text-center">Dealer Sign</th>
-                                        <th class="text-center">RM Approval</th>
                                         <th class="text-center">User</th>
+                                        <th class="text-center">Role</th>
                                         <th class="text-center">Dealer</th>
                                         <th class="text-center">Mode</th>
                                         <th class="text-center">Status</th>
@@ -156,75 +156,6 @@
 
         </div>
         <!-- end main content-->
-        <div id="rm_approval_form" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-            data-bs-scroll="true">
-            <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
-                        <h5 class="modal-title" id="myModalLabel">
-                            <h5 id="labelc">RM Approval Form</h5>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form id="approvalForm" method="post" enctype="multipart/form-data">
-                                        <div>
-                                            <input type="checkbox" id="sales_approval" name="sales_approval" value="0">
-                                            <label for="sales_approval">Sales Performance Report</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="measurement_approval" name="measurement_approval"
-                                                value="0">
-                                            <label for="measurement_approval">Measurement & Price Report</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="wet_stock_approval" name="wet_stock_approval"
-                                                value="0">
-                                            <label for="wet_stock_approval">Wet Stock Management Report</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="dispensing_approval" name="dispensing_approval"
-                                                value="0">
-                                            <label for="dispensing_approval">Dispensing Unit Meter Reading
-                                                Report</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="stock_variations_approval"
-                                                name="stock_variations_approval" value="0">
-                                            <label for="stock_variations_approval">Stock Variaions Report</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="inspection" name="inspection" value="0">
-                                            <label for="inspection">Inspection Report</label>
-                                        </div>
-                                        <div>
-                                            <label for="comment">Comment:</label><br>
-                                            <textarea class='form-control' id="comment" name="comment" rows="4"
-                                                cols="50" required></textarea>
-                                        </div>
-                                        <input type="hidden" name="task_id" id="app_task_id">
-                                        <input type="hidden" name="app_dealer_id" id="app_dealer_id">
-                                        <input type="hidden" name="rm_id" id="rm_id"
-                                            value='<?php echo $_SESSION['user_id']; ?>'>
-                                        <button type="submit" class='btn btn-primary' id='app_btn'>Submit</button>
-                                    </form>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
         <div id="survey_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
             data-bs-scroll="true">
             <div class="modal-dialog modal-xl">
@@ -660,11 +591,6 @@
 
     $(document).ready(function() {
         // $('.js-example-basic-multiple').select2();
-        $('input[type="checkbox"]').val(0);
-        $('input[type="checkbox"]').change(function() {
-            // Update checkbox value to 1 if checked, otherwise update to 0
-            $(this).val(this.checked ? 1 : 0);
-        });
         sale_table = $('#sale_table').DataTable({
             dom: 'Bfrtip',
 
@@ -858,62 +784,6 @@
         });
         // load_all_select();
     })
-
-    $('#approvalForm').on("submit", function(event) {
-        event.preventDefault();
-        // alert("Name")
-
-        var data = new FormData(this);
-        if (confirm("Are you sure you want to submit the form?")) {
-            $.ajax({
-                url: "<?php echo $api_url; ?>update/rm_visit_approval.php",
-                cache: false,
-                contentType: false,
-                processData: false,
-                method: "POST",
-                data: data,
-                beforeSend: function() {
-                    $('#app_btn').val("Saving");
-                    document.getElementById("app_btn").disabled = true;
-
-                },
-                success: function(data) {
-                    console.log(data)
-
-                    if (data != 1) {
-                        Swal.fire(
-                            'Server Error!',
-                            'Record Not Created',
-                            'error'
-                        )
-                        $('#app_btn').val("Save");
-                        document.getElementById("app_btn").disabled = false;
-                    } else {
-
-
-                        setTimeout(function() {
-                            Swal.fire(
-                                'Success!',
-                                'Record Updated Successfully',
-                                'success'
-                            )
-                            location.reload();
-
-
-                        }, 2000);
-
-                    }
-
-                }
-            });
-        }
-
-
-    });
-    // load_all_select();
-
-
-
     //     function deleteData(id){
 
     // var settings = {
@@ -1104,7 +974,6 @@
 
 
     }
-
 
     function get_task_wet_stock(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
         // Clear existing content
@@ -1310,6 +1179,81 @@
 
     }
 
+    function last_vists_dates(report, last_visit_id, comp_date, current_id) {
+        $('#last_recon').empty();
+
+        const requestOptions = {
+            method: "GET",
+            redirect: "follow"
+        };
+
+        if (last_visit_id != null) {
+
+            var t_id = last_visit_id + "," + current_id;
+        } else {
+            var t_id = current_id;
+
+        }
+        const url =
+            "<?php echo $api_url; ?>get/inspection/get_current_second_last_visit_recon.php?key=03201232927&id=" +
+            t_id + "&report=" + report;
+
+        console.log(url);
+
+        fetch(url, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('lastinf');
+                console.log(result.length);
+
+                if (result.length === 2) {
+                    const lastTime = result[1]['created_at'];
+                    const completeTimeStr = result[0]['created_at'];
+                    const lastVisitDateStr = result[1]['created_at'];
+
+                    $('#survey_complete_time').text(completeTimeStr);
+
+                    const completeTime = new Date(completeTimeStr);
+                    const lastVisitDate = new Date(lastVisitDateStr);
+
+                    const differenceMs = completeTime - lastVisitDate;
+                    let differenceDays = differenceMs / (1000 * 60 * 60 * 24);
+                    differenceDays = Math.round(differenceDays);
+
+                    const divs = `
+                    <div class="col-md-12">
+                                    Completion Date : <span id="">${completeTimeStr}</span>
+                                </div>
+                    <div class="col-md-12">
+                        Last Visit Date: <span id="">${lastTime}</span>
+                    </div>
+                    <div class="col-md-12">
+                        Days Since Last Visit: <span id="">${differenceDays}</span>
+                    </div>`;
+
+                    $('#last_recon').append(divs);
+                } else if (result.length === 1) {
+                    const completeTimeStr = result[0]['created_at'];
+                    const divs = `
+                    <div class="col-md-12">
+                                    Completion Date : <span id="">${completeTimeStr}</span>
+                                </div>
+                    <div class="col-md-12">
+                        Last Visit Date: <span id="">First Time</span>
+                    </div>`;
+
+                    $('#last_recon').append(divs);
+                } else {
+                    const divs = `
+                    <div class="col-md-12">
+                        Last Visit Date: <span id="">First Time</span>
+                    </div>`;
+
+                    $('#last_recon').append(divs);
+                }
+            })
+            .catch((error) => console.error('Error:', error));
+    }
 
 
     function get_task_despensing_unit(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
@@ -1506,6 +1450,62 @@
 
     }
 
+    function get_cacual(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
+        // Clear existing content
+        var currentDate = new Date();
+
+        // Format the date as needed
+        var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
+
+        // Display the formatted date
+        $('#labelc').text('Stock Variations');
+        $('#survey_time').text(isp_date);
+        $('#survey_complete_time').text(comp_date);
+
+        $('#survey_dealer_name').text(dealer_name);
+        $('#survey_ispector_name').text(username);
+        $('#survey_type').text(type);
+        last_vists_dates('stock_variation', last_visit_id, comp_date, task_id);
+
+        $('#survey-container').empty();
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch("<?php echo $api_url; ?>get/get_cacual_visit_detail.php?key=03201232927&task_id=" + task_id +
+                "&dealer_id=" + dealer_id + "", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                if (result.length > 0) {
+                    var first = result[0];
+                    var second = result.length > 1 ? result[1] : null;
+
+                    var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Casual Visit</h6><table class="dynamic_table" style="width:100%">
+                    <tr>
+                        <th>Time</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>${first.visit_time}</td>
+                        <td>${first.description}</td>
+                    </tr>
+                    
+                </table>`;
+
+                    $('#survey-container').append(table);
+                }
+
+                $('#survey_modal').modal('show');
+            })
+            .catch(error => console.log('error', error));
+
+
+
+    }
+
     function get_task_stock_variations(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
         last_visit_id) {
         // Clear existing content
@@ -1603,6 +1603,7 @@
     }
 
     function fetchtable() {
+        blocking();
         var fromdate = $('#fromdate').val();
         var todate = $('#todate').val();
         var id = "<?php echo $_SESSION['user_id']; ?>";
@@ -1610,10 +1611,10 @@
             method: 'GET',
             redirect: 'follow'
         };
-        console.log("<?php echo $api_url; ?>get/get_all_tm_dealers_visits.php?key=03201232927&from=" + fromdate +
+        console.log("<?php echo $api_url; ?>get/get_all_rm_dealers_visits.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&from=" + fromdate +
             "&to=" +
             todate + "&tm_id=" + id + "")
-        fetch("<?php echo $api_url; ?>get/get_all_tm_dealers_visits.php?key=03201232927&from=" + fromdate + "&to=" +
+        fetch("<?php echo $api_url; ?>get/get_all_rm_dealers_visits.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&from=" + fromdate + "&to=" +
                 todate + "&tm_id=" + id + "",
                 requestOptions)
             .then(response => response.json())
@@ -1715,21 +1716,16 @@
                         ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
 
                     var type_btn = (data.status == 1) ? cacual_btn : "";
-
-                    var rm_approval = (data.approved_status != null) ? data.approved_status : "---";
-
-                    if (rm_approval != '---') {
-                        var rm_approval = (data.approved_status != 1) ?
-                            '<button type="button"  onclick="rm_approval_func(' + data.id + ',' + data
-                            .dealer_id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>' :
-                            "Approved at " + data.approved_at + "";
-
-                    }
-
-                    var type_btn = (data.status == 1) ? cacual_btn : "";
                     var insp_type = data.type + ' - ' + type_btn;
                     var type_txt = (data.type == 'Casual') ? insp_type : data.type;
+                    var current_status = '';
+                    if (data.privilege == 'RM' && data.inspection == 1) {
+                        current_status = 'Complete';
+                    } else {
+                        current_status = data.current_status
+                    }
+
+
                     lubes_table.row.add([
 
 
@@ -1737,11 +1733,11 @@
                         data.time,
                         data.visit_close_time,
                         dealer_sign,
-                        rm_approval,
                         data.name,
+                        data.privilege,
                         data.dealer_name,
                         type_txt,
-                        data.current_status,
+                        current_status,
                         inpection,
                         sales_performance,
                         measurements,
@@ -1750,6 +1746,7 @@
                         stock_variations,
                         (data.status == 1) ? emailer : "---",
                     ]).draw(false);
+                    $.unblockUI();
 
                     // } else {
                     //     lubes_table.row.add([
@@ -1775,70 +1772,6 @@
             })
             .catch(error => console.log('error', error));
 
-
-
-    }
-
-    function get_cacual(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
-        // Clear existing content
-        var currentDate = new Date();
-
-        // Format the date as needed
-        var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
-
-        // Display the formatted date
-        $('#labelc').text('Stock Variations');
-        $('#survey_time').text(isp_date);
-        $('#survey_complete_time').text(comp_date);
-
-        $('#survey_dealer_name').text(dealer_name);
-        $('#survey_ispector_name').text(username);
-        $('#survey_type').text(type);
-        last_vists_dates('stock_variation', last_visit_id, comp_date, task_id);
-
-        $('#survey-container').empty();
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/get_cacual_visit_detail.php?key=03201232927&task_id=" + task_id +
-                "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.length > 0) {
-                    var first = result[0];
-                    var second = result.length > 1 ? result[1] : null;
-
-                    var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Casual Visit</h6><table class="dynamic_table" style="width:100%">
-                    <tr>
-                        <th>Time</th>
-                        <th>Description</th>
-                    </tr>
-                    <tr>
-                        <td>${first.visit_time}</td>
-                        <td>${first.description}</td>
-                    </tr>
-                    
-                </table>`;
-
-                    $('#survey-container').append(table);
-                }
-
-                $('#survey_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
-
-
-
-    }
-    function rm_approval_func(task_id, dealer_id) {
-        // alert(task_id)
-        $('#app_task_id').val(task_id)
-        $('#app_dealer_id').val(dealer_id)
-        $('#rm_approval_form').modal('show');
 
     }
 
@@ -2210,82 +2143,6 @@
         $('#m_p_modal').modal('show');
     }
 
-    function last_vists_dates(report, last_visit_id, comp_date, current_id) {
-        $('#last_recon').empty();
-
-        const requestOptions = {
-            method: "GET",
-            redirect: "follow"
-        };
-
-        if (last_visit_id != null) {
-
-            var t_id = last_visit_id + "," + current_id;
-        } else {
-            var t_id = current_id;
-
-        }
-        const url =
-            "<?php echo $api_url; ?>get/inspection/get_current_second_last_visit_recon.php?key=03201232927&id=" +
-            t_id + "&report=" + report;
-
-        console.log(url);
-
-        fetch(url, requestOptions)
-            .then((response) => response.json())
-            .then((result) => {
-                console.log('lastinf');
-                console.log(result.length);
-
-                if (result.length === 2) {
-                    const lastTime = result[1]['created_at'];
-                    const completeTimeStr = result[0]['created_at'];
-                    const lastVisitDateStr = result[1]['created_at'];
-
-                    $('#survey_complete_time').text(completeTimeStr);
-
-                    const completeTime = new Date(completeTimeStr);
-                    const lastVisitDate = new Date(lastVisitDateStr);
-
-                    const differenceMs = completeTime - lastVisitDate;
-                    let differenceDays = differenceMs / (1000 * 60 * 60 * 24);
-                    differenceDays = Math.round(differenceDays);
-
-                    const divs = `
-                    <div class="col-md-12">
-                                    Completion Date : <span id="">${completeTimeStr}</span>
-                                </div>
-                    <div class="col-md-12">
-                        Last Visit Date: <span id="">${lastTime}</span>
-                    </div>
-                    <div class="col-md-12">
-                        Days Since Last Visit: <span id="">${differenceDays}</span>
-                    </div>`;
-
-                    $('#last_recon').append(divs);
-                } else if (result.length === 1) {
-                    const completeTimeStr = result[0]['created_at'];
-                    const divs = `
-                    <div class="col-md-12">
-                                    Completion Date : <span id="">${completeTimeStr}</span>
-                                </div>
-                    <div class="col-md-12">
-                        Last Visit Date: <span id="">First Time</span>
-                    </div>`;
-
-                    $('#last_recon').append(divs);
-                } else {
-                    const divs = `
-                    <div class="col-md-12">
-                        Last Visit Date: <span id="">First Time</span>
-                    </div>`;
-
-                    $('#last_recon').append(divs);
-                }
-            })
-            .catch((error) => console.error('Error:', error));
-    }
-
     function getPDF() {
         var currentDate = new Date();
 
@@ -2364,6 +2221,21 @@
 
         getPDF2();
     });
+
+    function blocking() {
+        $.blockUI({
+            message: '<h1>Please Wait...</h1>',
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+    }
     </script>
 </body>
 

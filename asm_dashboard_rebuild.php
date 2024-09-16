@@ -82,6 +82,36 @@
         color: red;
         font-size: 24px;
     }
+
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .loader-bar {
+        position: relative;
+        width: 70%;
+        height: 30px;
+        background: #ccc;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .loader-percentage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: #3498db;
+        color: #fff;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 10px;
+        transition: width 0.1s;
+    }
     </style>
 </head>
 
@@ -101,7 +131,7 @@
         <!-- Left Sidebar End -->
         <?php
         $pre = $_SESSION['privilege'];
-        $disabledAttribute = ($pre == 'ASM') ? 'disabled' : '';
+        $disabledAttribute = ($pre == 'ASM' || $pre == 'TM') ? 'disabled' : '';
 
         // $disabledAttribute = (strpos($pre, 'TM') === 0) ? 'disabled' : '';
         
@@ -1176,6 +1206,7 @@
 
     var task_data = "";
     $(document).ready(function() {
+        blocking();
         $('.multi_select').select2();
         $('.selectpicker').select2();
 
@@ -1589,6 +1620,7 @@
 
 
     function fetchtable() {
+        blocking();
         var fromdate = $('#fromdate').val();
         var todate = $('#todate').val();
         $('#loader').show();
@@ -1769,7 +1801,8 @@
 
             })
             .catch(error => console.log('error', error));
-        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
+        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -2340,8 +2373,8 @@
                 (selectedProvince.length === 0 || selectedProvince.includes(item.province)) &&
                 (regions.length === 0 || regions.includes(item.region)) &&
                 (terri.length === 0 || terri.includes(item.district)) &&
-                (rm_counts.length === 0 || rm_counts.includes(item.tm)) &&
-                (tm_counts.length === 0 || tm_counts.includes(item.asm)) &&
+                (rm_counts.length === 0 || rm_counts.includes(item.user_id)) &&
+                (tm_counts.length === 0 || tm_counts.includes(item.user_id)) &&
                 (task_status_select.length === 0 || task_status_select.includes(item.current_status))
             );
         });
@@ -3225,7 +3258,47 @@
         }
 
     }
+    function blocking() {
+            $.blockUI({
+                message: `
+                    <div class='loader'>
+                        <div class='loader-bar'>
+                            <div class='loader-percentage'>0%</div>
+                        </div>
+                    </div>`,
+                css: {
+                    border: 'none',
+                    backgroundColor: 'transparent',
+                    cursor: 'wait'
+                },
+                overlayCSS: {
+                    backgroundColor: '#aab5a3',
+                    opacity: 0.99,
+                    cursor: 'wait'
+                }
+            });
+
+            let progress = 0;
+            const estimatedLoadTime = 10000; // 3 seconds
+            const intervalTime = estimatedLoadTime / 100; // Update every 1%
+
+            const interval = setInterval(function() {
+                if (progress < 100) {
+                    progress += 1; // Increment progress
+                    $('.loader-percentage').text(progress + '%').css('width', progress + '%'); // Update loader
+                } else {
+                    clearInterval(interval);
+                    unblocking();
+                }
+            }, intervalTime);
+        }
+
+        function unblocking() {
+            $.unblockUI();
+        }
+
     </script>
+    
 </body>
 
 

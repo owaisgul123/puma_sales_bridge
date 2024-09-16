@@ -73,14 +73,26 @@
                             <ul class="sub-menu" aria-expanded="true">
                                 <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
                                 <li><a href="manage_calander.php" data-key="t-level-1.12"> Task Calander</a></li>
-                                <li><a href="inspection_report_tm.php"
-                                        data-key="t-level-1.14">All Inspection</a></li>
                                         <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>"
                                 data-key="t-level-1.16"> Trip Board</a></li>
 
                             </ul>
                         </li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
+                                <span class="menu-item" data-key="t-multi-level">Reports</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="true">
+                               
+                            <li><a href="inspection_report_rm.php" data-key="t-level-1.14">All RM Inspection</a></li>
+                                <li><a href="inspection_report_tm.php" data-key="t-level-1.14">All TM Inspection</a></li>
+                                <li><a href="rm_tm_recon.php" data-key="t-level-1.14">Reconciliation Report</a></li>
 
+
+
+                            </ul>
+                        </li>
 
 
                     </ul>

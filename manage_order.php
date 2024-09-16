@@ -89,6 +89,7 @@
                                     <tr>
                                         <th class="text-center">S.No</th>
                                         <th class="text-center">Date</th>
+                                        <th class="text-center">Site SAP</th>
                                         <th class="text-center">Site Name</th>
                                         <th class="text-center">TM Name</th>
                                         <th class="text-center">Mode</th>
@@ -679,6 +680,7 @@
                         table.row.add([
                             index + 1,
                             data.created_at,
+                            data.sap_no,
                             data.name,
                             data.usersnames,
 

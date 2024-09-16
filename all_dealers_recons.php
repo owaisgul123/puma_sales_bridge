@@ -314,11 +314,11 @@
                                         for (const recon_item of recon) {
                                             tableHtml += `
                                             <tr>
-                                                <td>${di}</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td style="color: transparent;">${di}</td>
+                                                <td style="color: transparent;">${dealer_name}</td>
+                                                <td style="color: transparent;">${asm_name}</td>
+                                                <td style="color: transparent;">${tm_name}</td>
+                                                <td style="color: transparent;">${region}</td>
                                                 <td>${recon_item.created_at}</td>
                                                 <td>${recon_item.last_visit_date}</td>
                                                 <td>${recon_item.no_of_days}</td>
@@ -368,20 +368,56 @@
                 'copy', 'csv', 'excel',
                 {
                     extend: 'pdfHtml5',
-                    orientation: 'landscape', // Set the orientation to landscape
-                    pageSize: 'A4', // You can also set the page size here
+                    orientation: 'landscape',
+                    pageSize: 'A4',
                     exportOptions: {
-                        columns: ':visible' // Export only visible columns
+                        columns: ':visible'
                     },
                     customize: function(doc) {
-                        doc.defaultStyle.alignment = 'center'; // Optional: center align text
-                        doc.styles.tableHeader.alignment = 'center'; // Optional: center align header
+                        doc.defaultStyle.alignment = 'center';
+                        doc.styles.tableHeader.alignment = 'center';
                     }
                 },
                 'print'
-            ]
+            ],
+            initComplete: function() {
+                var api = this.api();
+                var columnsToSearch = [1, 2, 3, 4]; // Corresponding to Dealer, TM, RM, Region
+
+                api.columns().every(function(index) {
+                    if (columnsToSearch.includes(index)) {
+                        var column = this;
+                        var header = $(column.header());
+
+                        // Create a wrapper element
+                        var wrapper = $('<div style="display: flex; align-items: center;"></div>');
+
+                        // Create and append header text
+                        var headerText = $('<span>' + header.text() + '</span>');
+                        wrapper.append(headerText);
+
+                        // Create and append search input
+                        var input = $(
+                                '<input type="text" placeholder="Search" style="margin-left: 10px;"/>'
+                            )
+                            .appendTo(wrapper) // Add input to the wrapper
+                            .on('keyup change clear', function() {
+                                if (column.search() !== this.value) {
+                                    column
+                                        .search(this.value)
+                                        .draw();
+                                }
+                            });
+
+                        // Replace the header content with the wrapper
+                        header.empty().append(wrapper);
+                    }
+                });
+            }
         });
     }
+
+
     function blocking() {
         $.blockUI({
             message: '<h1>Please Wait...</h1>',
@@ -396,6 +432,7 @@
             }
         });
     }
+
     function formatNumbers() {
         $('body *').each(function() {
             var element = $(this);

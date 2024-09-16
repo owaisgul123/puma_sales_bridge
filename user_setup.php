@@ -215,8 +215,10 @@
                                                     <th class="text-center">Product</th>
                                                     <th class="text-center">Tank</th>
                                                     <th class="text-center">Dispenser</th>
+                                                    <th class="text-center">Last Reading</th>
                                                     <th class="text-center">Created At</th>
                                                     <?php if ($pre == 'Admin') { ?>
+                                                    <th class="text-center">Edit Last Recon</th>
                                                     <th class="text-center">Delete</th>
 
                                                     <?php } ?>
@@ -522,6 +524,75 @@
                                         data-bs-dismiss="modal">Close</button>
                                     <input class="btn btn-primary waves-effect waves-light" type="submit"
                                         name="users_btn" id="users_btn" value="Save">
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+        <div id="recon_update_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+            data-bs-scroll="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                        <h5 class="modal-title" id="myModalLabel">
+                            <h5 id="labelc">Update Nozel Last Recon Reading</h5>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" id="nozel_last_recon_update" enctype="multipart/form-data">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="example-text-input" class="col-md-12 col-form-label">Nozel</label>
+
+                                    <input type="text" class="form-control" name='nozel_name' id="nozel_name" required readonly>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="example-text-input" class="col-md-12 col-form-label">Current Reading</label>
+
+                                    <input type="text" class="form-control" name='nozel_last_recon' id="nozel_last_recon" required readonly>
+
+                                </div>
+                               
+
+                                <div class="col-md-6">
+                                    <label for="example-text-input" class="col-md-12 col-form-label">New Reading</label>
+
+                                    <input type="text" class="form-control" name='nozel_new_reading' id="nozel_new_reading" required >
+                                    <input type="hidden" name="recon_id" id="recon_id" >
+                                    <input type="hidden" name="nozel_id" id="nozel_id" >
+                                    <input type="hidden" name="last_task_id" id="last_task_id" >
+                                    <input type="hidden" name="recon_product_id" id="recon_product_id" >
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="example-text-input" class="col-md-2 col-form-label">Description</label>
+
+                                    <textarea class="form-control" id="recon_description" name="recon_description" rows="4"
+                                        cols="50" required></textarea>
+
+                                </div>
+
+                               
+
+
+                                <div class="col-12" style="text-align: right;">
+                                    <input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                    <input type="hidden" name="dealer_id" value="<?php echo $_GET['id'] ?>">
+                                    <input type="hidden" name="row_id" id='dealer_user_id'>
+                                    <button type="button" class="btn btn-secondary waves-effect"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <input class="btn btn-primary waves-effect waves-light" type="submit"
+                                        name="recon_btn" id="recon_btn" value="Save">
                                 </div>
                             </div>
                         </form>
@@ -2659,7 +2730,9 @@ function nozels() {
                     data.product_name,
                     data.tank_name,
                     data.dispenser_name,
+                    data.new_reading,
                     data.created_at,
+                    (prel_role == 'Admin' ?'<td><button type="button" id="tank_dip" name="tank_dip" onclick="edit_dealers_last_recon(' +data.id +',' +data.recon_data_id +',' +data.new_reading +',' +data.dealer_id +',\'' + data.name +'\',' +data.task_id +',' +data.products +')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-edit font-size-16 align-middle"></i></button>' : ''),
                     (prel_role == 'Admin' ?
                         '<td><button type="button" id="delete" name="delete" onclick="deleteDatanozzels(' +
                         data.id +
@@ -2724,7 +2797,60 @@ function nozels_tanks_form() {
 
 // ================================================================= post Functions 
 
+$('#nozel_last_recon_update').on("submit", function(event) {
+    event.preventDefault();
+    // alert("Name")
+    var data = new FormData(this);
 
+    $.ajax({
+        url: "<?php echo $api_url; ?>update/update_nozels_last_recon.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: "POST",
+        data: data,
+        beforeSend: function() {
+            $('#recon_btn').val("Updating");
+            document.getElementById("recon_btn").disabled = true;
+
+        },
+        success: function(data) {
+            console.log(data)
+
+            if (data != 1) {
+                Swal.fire(
+                    'Server Error!',
+                    'Record Not Created',
+                    'error'
+                )
+                $('#recon_btn').val("Save");
+                document.getElementById("recon_btn").disabled = false;
+            } else {
+
+
+                setTimeout(function() {
+                    Swal.fire(
+                        'Success!',
+                        'Record Created Successfully',
+                        'success'
+                    )
+                   
+                    location.reload();
+
+                }, 2000);
+
+            }
+
+        },
+        error: function(xhr, status, error) {
+            // Handle API errors
+            console.log('Error:', error);
+            console.log('Status:', status);
+            console.log('Response:', xhr.responseText);
+        }
+    });
+
+});
 $('#insert_form_ledgers').on("submit", function(event) {
     event.preventDefault();
     // alert("Name")
@@ -3408,6 +3534,18 @@ function edit_dealers_users(id) {
         }
     });
     $('#users_modal').modal('show');
+}
+
+function edit_dealers_last_recon(nozel_id,recon_id,last_recon_reading,dealer_id,nozel_name,task_id,product_id) {
+
+    $('#recon_id').val(recon_id);
+    $('#nozel_id').val(nozel_id);
+    $('#nozel_last_recon').val(last_recon_reading);
+    $('#nozel_name').val(nozel_name);
+    $('#last_task_id').val(task_id);
+    $('#recon_product_id').val(product_id);
+    
+    $('#recon_update_modal').modal('show');
 }
 
 function get_ledger_backlog() {
