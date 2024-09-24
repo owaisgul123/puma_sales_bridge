@@ -13,18 +13,20 @@
 
     <!-- Ensure the jQuery and SweetAlert scripts are loaded securely -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
     <!-- Include your CSS and other scripts -->
     <?php include 'css_script.php'; ?>
     <style>
-        th{
-            font-size: 10px;
-        }
-        th{
-            font-size: 10px;
-        }
+    th {
+        font-size: 10px;
+    }
+
+    th {
+        font-size: 10px;
+    }
     </style>
 </head>
 
@@ -205,7 +207,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12" style="overflow: auto;">
-                                        <button id="exportButton" class="btn btn-info">Export to Excel</button>
+                                        <button id="exportExcel" class="btn btn-info">Export to Excel</button>
 
                                         <table id="recon_table" style=" width: 100%;" class="table table-bordered">
                                             <thead>
@@ -219,10 +221,12 @@
                                                     <th style="background-color: rgb(2 30 47);color:#FFF">TM</th>
                                                     <th style="background-color: rgb(2 30 47);color:#FFF">Visit Date</th>
                                                     <!-- Dynamic day columns for the selected month will be inserted here -->
-                                                    <th style="background-color: rgb(2 30 47);color:#FFF">Total Visit GM</th>
-                                                    <th style="background-color: rgb(2 30 47);color:#FFF">Total Visit RM</th>
                                                     <th style="background-color: rgb(2 30 47);color:#FFF">Total Visit TM</th>
+                                                    <th style="background-color: rgb(2 30 47);color:#FFF">Total Visit RM</th>
+                                                    <th style="background-color: rgb(2 30 47);color:#FFF">Total Visit GM</th>
                                                 </tr>
+
+
                                             </thead>
                                             <tbody id="data-table-body">
                                                 <!-- Data will be populated here by JavaScript or PHP -->
@@ -333,18 +337,19 @@
         // Find the index of "Visit Date" column (we'll insert after this)
         const lastVisitIndex = $('#recon_table thead tr').find('th:contains("Visit Date")').index();
 
-        // Insert new day headers dynamically after the "Visit Date" column in reverse order
+        // Insert new day headers dynamically after the "Visit Date" column
         for (let day = daysInMonth; day >= 1; day--) {
-            // Generate day in the format "dd-MMM-yy" (e.g., 30-Sep-24)
-            const dayHeader = '<th class="dynamic-day" colspan="3" style="background-color: rgb(2 30 47);color:#FFF">' + ('0' + day).slice(-2) + '-' +
-                getMonthName(month) + '-' +
-                year.slice(-2) + '</th>';
+            const monthName = getMonthName(month);
+            const dayOfWeek = getDayOfDate(year, month, day); // Get the day of the week
+
+            // Generate day header in the format "Day (dd-MMM-yy)"
+            const dayHeader = `<th class="dynamic-day" colspan="3" style="background-color: rgb(2 30 47); color: #FFF">
+            (${('0' + day).slice(-2)}-${monthName}-${year.slice(-2)}) ${dayOfWeek} </th>`;
 
             // Insert the dynamic day header after "Visit Date"
             $('#recon_table thead tr th').eq(lastVisitIndex).after(dayHeader);
         }
     }
-
 
     // Function to get short month name (e.g., "Jan", "Feb")
     function getMonthName(month) {
@@ -355,6 +360,15 @@
         });
     }
 
+    // Function to get the day of the week for a given date
+    function getDayOfDate(year, month, day) {
+        const date = new Date(year, month - 1, day); // Create date object
+        return date.toLocaleString('en-US', {
+            weekday: 'long'
+        }); // Get day of the week
+    }
+
+
     function getRecon_new() {
         var monthSelect = $('#monthSelect').val();
 
@@ -362,7 +376,8 @@
             blocking();
 
             $.ajax({
-                url: "<?php echo $api_url; ?>get/get_admin_current_month_visit_report_with_total.php?key=03201232927&months=" +monthSelect,
+                url: "<?php echo $api_url; ?>get/get_admin_current_month_visit_report_with_total.php?key=03201232927&months=" +
+                    monthSelect,
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -430,28 +445,32 @@
                                     '<td style="width: 150px;">' + (index + 1) +
                                     '</td>' +
                                     // Serial number
-                                    '<td style="width: 150px;">' + item.site + '</td>' +
-                                    '<td style="width: 150px;">' + item.dealer_sap +
+                                    '<td style="width: 150px;" class="cell_size">' + item.site +
                                     '</td>' +
-                                    '<td style="width: 150px;">' + item.region +
+                                    '<td style="width: 150px;" class="cell_size">' + item
+                                    .dealer_sap +
                                     '</td>' +
-                                    '<td style="width: 150px;">' + item.city + '</td>' +
-                                    '<td style="width: 150px;">' + item.rm_name +
+                                    '<td style="width: 150px;" class="cell_size">' + item.region +
                                     '</td>' +
-                                    '<td style="width: 150px;">' + item.tm_name +
+                                    '<td style="width: 150px;" class="cell_size">' + item.city +
                                     '</td>' +
-                                    '<td style="width: 150px;font-weight: bold">' + item
+                                    '<td style="width: 150px;" class="cell_size">' + item.rm_name +
+                                    '</td>' +
+                                    '<td style="width: 150px;" class="cell_size">' + item.tm_name +
+                                    '</td>' +
+                                    '<td style="width: 150px;font-weight: bold" class="cell_size">' +
+                                    item
                                     .plan_data + '</td>' +
                                     dateInfoHtml +
-                                    '<td style="width: 150px;">' + item.gm_count +
-                                    '</td>' +
-                                    // Total GM Visits
-                                    '<td style="width: 150px;">' + item.rm_count +
-                                    '</td>' +
-                                    // Total RM Visits
-                                    '<td style="width: 150px;">' + item.tm_count +
+                                    '<td style="width: 150px;" class="cell_size">' + item.tm_count +
                                     '</td>' +
                                     // Total TM Visits
+                                    '<td style="width: 150px;" class="cell_size">' + item.rm_count +
+                                    '</td>' +
+                                    // Total RM Visits
+                                    '<td style="width: 150px;" class="cell_size">' + item.gm_count +
+                                    '</td>' +
+                                    // Total GM Visits
                                     '</tr>';
                             } else {
                                 // This is not the last item
@@ -475,34 +494,44 @@
 
                                     dateInfoHtml +=
 
-                                        '<td style="width: 33%; height: 100%; background-color:' +dateInfo.tm_color + ';color: transparent;">'+result_tm+'</td>' +
-                                        '<td style="width: 33%; height: 100%; background-color:' +dateInfo.rm_color + ';color: transparent;">'+result_rm+'</td>' +
-                                        '<td style="width: 33%; height: 100%; background-color:' +dateInfo.gm_color + ';color: transparent;">'+result_gm+'</td>';
+                                        '<td style="width: 33%; height: 100%; background-color:' +
+                                        dateInfo.tm_color + ';color: transparent;">' +
+                                        result_tm + '</td>' +
+                                        '<td style="width: 33%; height: 100%; background-color:' +
+                                        dateInfo.rm_color + ';color: transparent;">' +
+                                        result_rm + '</td>' +
+                                        '<td style="width: 33%; height: 100%; background-color:' +
+                                        dateInfo.gm_color + ';color: transparent;">' +
+                                        result_gm + '</td>';
                                 });
                                 rowHtml = '<tr>' +
-                                    '<td style="width: 150px;">' + (index + 1) +
+                                    '<td style="width: 150px;" >' + (index + 1) +
                                     '</td>' +
                                     // Serial number
-                                    '<td style="width: 150px;">' + item.site + '</td>' +
-                                    '<td style="width: 150px;">' + item.dealer_sap +
+                                    '<td style="width: 150px;" class="cell_size">' + item.site +
                                     '</td>' +
-                                    '<td style="width: 150px;">' + item.region +
+                                    '<td style="width: 150px;" class="cell_size">' + item
+                                    .dealer_sap +
                                     '</td>' +
-                                    '<td style="width: 150px;">' + item.city + '</td>' +
-                                    '<td style="width: 150px;">' + item.rm_name +
+                                    '<td style="width: 150px;" class="cell_size">' + item.region +
                                     '</td>' +
-                                    '<td style="width: 150px;">' + item.tm_name +
+                                    '<td style="width: 150px;" class="cell_size">' + item.city +
                                     '</td>' +
-                                    '<td style="width: 150px;">' + item.plan_data +
+                                    '<td style="width: 150px;" class="cell_size">' + item.rm_name +
+                                    '</td>' +
+                                    '<td style="width: 150px;" class="cell_size">' + item.tm_name +
+                                    '</td>' +
+                                    '<td style="width: 150px;" class="cell_size">' + item
+                                    .plan_data +
                                     '</td>' +
                                     dateInfoHtml +
-                                    '<td style="width: 150px;">' + item.gm_count +
+                                    '<td style="width: 150px;" class="cell_size">' + item.gm_count +
                                     '</td>' +
                                     // Total GM Visits
-                                    '<td style="width: 150px;">' + item.rm_count +
+                                    '<td style="width: 150px;" class="cell_size">' + item.rm_count +
                                     '</td>' +
                                     // Total RM Visits
-                                    '<td style="width: 150px;">' + item.tm_count +
+                                    '<td style="width: 150px;" class="cell_size">' + item.tm_count +
                                     '</td>' +
                                     // Total TM Visits
                                     '</tr>';
@@ -557,41 +586,320 @@
     }
     </script>
     <script>
-    $(document).ready(function() {
-        $('#exportButton').click(function() {
-            exportTableToExcel('recon_table', 'retail_Performance_report_<?php echo date('F j, Y'); ?>.xlsx');
-        });
-    });
+    function exportTableToExcel() {
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('Report');
 
-    function exportTableToExcel(tableId, filename) {
-        var table = document.getElementById(tableId);
-        var wb = XLSX.utils.table_to_book(table, {
-            sheet: "Sheet1"
-        });
-        var wbout = XLSX.write(wb, {
-            bookType: 'xlsx',
-            type: 'binary'
+        // Add static header in the first column
+        worksheet.mergeCells('A1:C1');
+        worksheet.mergeCells('A2:C2');
+        worksheet.mergeCells('A3:C3');
+
+        // Set the main header
+        worksheet.getCell('A1').value = "Puma Energy Pakistan Pvt. Ltd.";
+        worksheet.getCell('A1').alignment = {
+            horizontal: 'center',
+            vertical: 'middle'
+        };
+        worksheet.getCell('A1').font = {
+            bold: true,
+            size: 14,
+            name: 'Aptos Narrow'
+        };
+
+        // Set the second line under the merged cell
+        worksheet.getCell('A2').value = "Retail Sites Performance";
+        worksheet.getCell('A2').alignment = {
+            horizontal: 'center',
+            vertical: 'middle'
+        };
+        worksheet.getCell('A2').font = {
+            bold: true,
+            size: 14,
+            name: 'Aptos Narrow'
+        };
+
+        // Set date in A3 (visually part of the merged area)
+        worksheet.getCell('A3').value = " <?php echo date('F j, Y'); ?>";
+        worksheet.getCell('A3').alignment = {
+            horizontal: 'center',
+            vertical: 'middle'
+        };
+        worksheet.getCell('A3').font = {
+            size: 11,
+            name: 'Aptos Narrow'
+        };
+
+        // Add a spacing row
+        worksheet.addRow([]);
+
+        // Visit By section
+        worksheet.getCell('D1').value = "Visit By";
+        worksheet.getCell('D1').font = {
+            bold: true,
+            size: 11,
+            name: 'Aptos Narrow'
+        };
+        worksheet.getCell('D1').alignment = {
+            horizontal: 'center',
+            vertical: 'middle'
+        };
+
+        // Start from row 2 for visit titles
+        let bcell = 2;
+        const visitByTitles = ["TM", "RM", "GM", "SGM", "CEO", "GM SC", "CFO", "Director", "Chairman"];
+        visitByTitles.forEach((title) => {
+            worksheet.getCell(`D${bcell}`).value = title;
+            worksheet.getCell(`D${bcell}`).alignment = {
+                horizontal: 'left',
+                horizontal: 'center',
+                vertical: 'middle'
+            };
+            worksheet.getCell(`D${bcell}`).font = {
+                size: 11,
+                name: 'Aptos Narrow'
+            };
+            bcell++;
         });
 
-        function s2ab(s) {
-            var buf = new ArrayBuffer(s.length);
-            var view = new Uint8Array(buf);
-            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-            return buf;
-        }
+        // Add another spacing row
+        worksheet.addRow([]);
 
-        var blob = new Blob([s2ab(wbout)], {
-            type: "application/octet-stream"
+        // Category by Color section
+        worksheet.getCell('E1').value = "Category by Color";
+        worksheet.getCell('E1').font = {
+            bold: true,
+            size: 11,
+            name: 'Aptos Narrow'
+        };
+        worksheet.getCell('E1').alignment = {
+            horizontal: 'center',
+            vertical: 'middle'
+        };
+
+        const categoryColors = [{
+                color: 'D5EAF8',
+                label: 'Light Blue'
+            },
+            {
+                color: '1695D9',
+                label: 'Blue'
+            },
+            {
+                color: 'FFFF1F',
+                label: 'Yellow'
+            },
+            {
+                color: 'FFA67F',
+                label: 'Light Orange'
+            },
+            {
+                color: 'FF0000',
+                label: 'Red'
+            },
+            {
+                color: 'D3F3D1',
+                label: 'Light Green'
+            },
+            {
+                color: 'F29BD9',
+                label: 'Pink'
+            },
+            {
+                color: 'D0D0D0',
+                label: 'Gray'
+            },
+            {
+                color: '00A93B',
+                label: 'Dark Green'
+            }
+        ];
+        categoryColors.forEach((category, index) => {
+            const colorCell = worksheet.getCell(`E${index + 2}`);
+            colorCell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: {
+                    argb: category.color
+                }
+            };
+            colorCell.alignment = {
+                horizontal: 'left',
+                vertical: 'middle'
+            };
+            colorCell.font = {
+                size: 11,
+                name: 'Aptos Narrow'
+            };
         });
-        var link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+
+        worksheet.addRow([]);
+
+        worksheet.getCell('F1').value = "Date";
+        worksheet.getCell('F1').font = {
+            bold: true,
+            size: 11,
+            name: 'Aptos Narrow'
+        };
+        worksheet.getCell('F1').alignment = {
+            horizontal: 'center',
+            vertical: 'middle'
+        };
+        worksheet.getCell('F2').value = " <?php echo date('F j, Y'); ?>";
+        worksheet.getCell('F2').alignment = {
+            horizontal: 'center',
+            vertical: 'middle'
+        };
+        worksheet.getCell('F2').font = {
+            size: 11,
+            name: 'Aptos Narrow'
+        };
+
+        worksheet.addRow([]);
+
+        let currentColumn = 1;
+        const maxColumns = 16384;
+
+        $('#recon_table thead tr').each(function() {
+            const headerCells = $(this).find('th');
+
+            headerCells.each(function() {
+                const colspan = parseInt($(this).attr('colspan')) || 1;
+                const cellValue = $(this).text();
+                const cellColor = $(this).css('background-color');
+                const fontColor = $(this).css('color');
+
+                if (currentColumn > maxColumns) {
+                    console.error('Maximum column limit exceeded.');
+                    return;
+                }
+
+                const headerCell = worksheet.getCell(12, currentColumn);
+                headerCell.value = cellValue;
+                headerCell.fill = {
+                    type: 'pattern',
+                    pattern: 'solid',
+                    fgColor: {
+                        argb: rgbToHex(cellColor)
+                    }
+                };
+                headerCell.font = {
+                    color: {
+                        argb: rgbToHex(fontColor)
+                    },
+                    bold: true,
+                    size: 11,
+                    name: 'Aptos Narrow'
+                };
+                headerCell.alignment = {
+                    horizontal: 'center',
+                    vertical: 'middle'
+                };
+
+                if (colspan > 1) {
+                    worksheet.mergeCells(12, currentColumn, 12, currentColumn + colspan - 1);
+                }
+
+                currentColumn += colspan;
+            });
+        });
+
+        worksheet.views = [{
+            state: 'frozen',
+            ySplit: 12,
+            zoomScale: 70
+        }];
+
+        // Default column width
+        const numberOfColumns = currentColumn - 1;
+        worksheet.columns = Array(numberOfColumns).fill({
+            width: 20
+        });
+
+        // Update column widths for cells with the "cell_size" class
+        $('#data-table-body tr').each(function(rowIndex) {
+            const rowData = [];
+            $(this).find('td').each(function(cellIndex) {
+                const cellValue = $(this).text().trim();
+                rowData.push(cellValue);
+
+                if ($(this).hasClass('cell_size')) {
+                    worksheet.getColumn(cellIndex + 1).width =
+                        40; // Increase width for 'cell_size' class
+                } else {
+                    worksheet.getColumn(cellIndex + 1).width =
+                        12; // Increase width for 'cell_size' class
+
+                }
+            });
+
+            const newRow = worksheet.addRow(rowData);
+            newRow.height = 20;
+
+            newRow.eachCell((cell) => {
+                cell.alignment = {
+                    horizontal: 'center',
+                    vertical: 'middle'
+                };
+
+                // Apply background colors based on special characters
+                if (cell.value === '@') {
+                    cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: {
+                            argb: 'D5EAF8'
+                        }
+                    };
+                    cell.value = '';
+                } else if (cell.value === '#') {
+                    cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: {
+                            argb: '1695D9'
+                        }
+                    };
+                    cell.value = '';
+                } else if (cell.value === '$') {
+                    cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: {
+                            argb: 'FFFF1F'
+                        }
+                    };
+                    cell.value = '';
+                }
+            });
+        });
+
+        workbook.xlsx.writeBuffer().then(function(data) {
+            const blob = new Blob([data], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+            saveAs(blob, `retail_Performance_report_${new Date().toLocaleDateString()}.xlsx`);
+        });
     }
+
+    // Helper function to convert RGB color to hex format
+    function rgbToHex(rgb) {
+        const result = rgb.match(/\d+/g);
+        return result ? ((1 << 24) + (result[0] << 16) + (result[1] << 8) + +result[2]).toString(16).slice(1)
+            .toUpperCase() : 'FFFFFF';
+    }
+
+
+
+
+
+
+
+
+    $(document).ready(function() {
+        $('#exportExcel').click(exportTableToExcel);
+    });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </body>
 
 </html>
