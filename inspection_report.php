@@ -1610,159 +1610,178 @@
             method: 'GET',
             redirect: 'follow'
         };
-        fetch("<?php echo $api_url; ?>get/get_all_dealers_inspection_report_data.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
+        console.log(
+            "<?php echo $api_url; ?>get/get_all_dealers_inspection_report_data.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&id=<?php echo $_SESSION['user_id'] ?>&from=" +
+            fromdate + "&to=" + todate + "");
+        fetch("<?php echo $api_url; ?>get/get_all_dealers_inspection_report_data.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
 
-                lubes_table.clear().draw();
-                $.each(response, function(index, data) {
-                    // console.log(data.dealer_name)
-                    // console.log(response)
+                if (response.length > 0) {
 
 
-                    // if (data.current_status == 'Complete') {
-                    var emailer = '';
-                    if (data.email_status != 1) {
-                        emailer = '<button type="button"  onclick="send_email(' + data.id +
+
+                    lubes_table.clear().draw();
+                    $.each(response, function(index, data) {
+                        // console.log(data.dealer_name)
+                        // console.log(response)
+
+
+                        // if (data.current_status == 'Complete') {
+                        var emailer = '';
+                        if (data.email_status != 1) {
+                            emailer = '<button type="button"  onclick="send_email(' + data.id +
+                                ',' +
+                                data.dealer_id +
+                                ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle"></i></button>';
+                        } else {
+                            emailer =
+                                '<button type="button"  class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle text-danger"></i></button>';
+                        }
+
+                        var inspection_btn = '<button type="button"  onclick="displaySurvey(' + data.id +
                             ',' +
-                            data.dealer_id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle"></i></button>';
-                    } else {
-                        emailer =
-                            '<button type="button"  class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle text-danger"></i></button>';
-                    }
+                            data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'",
+                                "\\'") +
+                            '\',\'' + data.time +
+                            '\',\'' + data.visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
+                            '\',' + data.last_visit_id + ',\'' + data.privilege +
+                            '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        var inpection = (data.inspection == 1) ? inspection_btn : "---";
 
-                    var inspection_btn = '<button type="button"  onclick="displaySurvey(' + data.id + ',' +
-                        data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") +
-                        '\',\'' + data.time +
-                        '\',\'' + data.visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                        '\',' + data.last_visit_id + ',\'' + data.privilege +
-                        '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                    var inpection = (data.inspection == 1) ? inspection_btn : "---";
+                        var sales_performace_btn = '<button type="button" onclick="get_tas_sales_data(' +
+                            data
+                            .id + ',' + data
+                            .dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
+                            .time +
+                            '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                            '\',\'' + data.type +
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        var sales_performance = (data.sales_status == 1) ? sales_performace_btn : "---";
 
-                    var sales_performace_btn = '<button type="button" onclick="get_tas_sales_data(' +
-                        data
-                        .id + ',' + data
-                        .dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data.time +
-                        '\',\'' + data.visit_close_time + '\',\'' + data.name +
-                        '\',\'' + data.type +
-                        '\',' + data.last_visit_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                    var sales_performance = (data.sales_status == 1) ? sales_performace_btn : "---";
+                        var measurement_btn = '<button type="button" onclick="measure_price(' +
+                            data
+                            .id + ',' + data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace(
+                                "'",
+                                "\\'") + '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' +
+                            data
+                            .name +
+                            '\',\'' + data.type +
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        var measurements = (data.measurement_status == 1) ? measurement_btn : "---";
 
-                    var measurement_btn = '<button type="button" onclick="measure_price(' +
-                        data
-                        .id + ',' + data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'",
-                            "\\'") + '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data
-                        .name +
-                        '\',\'' + data.type +
-                        '\',' + data.last_visit_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                    var measurements = (data.measurement_status == 1) ? measurement_btn : "---";
+                        var wet_stock_btn = '<button type="button"  onclick="get_task_wet_stock(' + data
+                            .id +
+                            ',' + data
+                            .dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
+                            .time +
+                            '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                            '\',\'' + data.type +
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        var wet_stocks = (data.wet_stock_status == 1) ? wet_stock_btn : "---";
 
-                    var wet_stock_btn = '<button type="button"  onclick="get_task_wet_stock(' + data
-                        .id +
-                        ',' + data
-                        .dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data.time +
-                        '\',\'' + data.visit_close_time + '\',\'' + data.name +
-                        '\',\'' + data.type +
-                        '\',' + data.last_visit_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                    var wet_stocks = (data.wet_stock_status == 1) ? wet_stock_btn : "---";
+                        var dispensing_unit_btn =
+                            '<button type="button"  onclick="get_task_despensing_unit(' +
+                            data.id +
+                            ',' +
+                            data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
+                            .time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                            '\',\'' + data.type +
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        var dispensing_units = (data.dispensing_status == 1) ? dispensing_unit_btn : "---";
 
-                    var dispensing_unit_btn =
-                        '<button type="button"  onclick="get_task_despensing_unit(' +
-                        data.id +
-                        ',' +
-                        data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
-                        .time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
-                        '\',\'' + data.type +
-                        '\',' + data.last_visit_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                    var dispensing_units = (data.dispensing_status == 1) ? dispensing_unit_btn : "---";
-
-                    var stock_variatins_btn =
-                        '<button type="button"  onclick="get_task_stock_variations(' +
-                        data.id +
-                        ',' +
-                        data.dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
-                        .time + '\',\'' + data
-                        .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                        '\',' + data.last_visit_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                    var stock_variations = (data.stock_variations_status == 1) ? stock_variatins_btn :
-                        "---";
-                    var dealer_sign = (data.dealer_sign != null) ?
-                        '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + data.dealer_sign +
-                        '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
-                        "---";
+                        var stock_variatins_btn =
+                            '<button type="button"  onclick="get_task_stock_variations(' +
+                            data.id +
+                            ',' +
+                            data.dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
+                            .time + '\',\'' + data
+                            .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        var stock_variations = (data.stock_variations_status == 1) ? stock_variatins_btn :
+                            "---";
+                        var dealer_sign = (data.dealer_sign != null) ?
+                            '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + data
+                            .dealer_sign +
+                            '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
+                            "---";
 
 
 
-                    var cacual_btn =
-                        '<button type="button"  onclick="get_cacual(' +
-                        data.id +
-                        ',' +
-                        data.dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
-                        .time + '\',\'' + data
-                        .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                        '\',' + data.last_visit_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        var cacual_btn =
+                            '<button type="button"  onclick="get_cacual(' +
+                            data.id +
+                            ',' +
+                            data.dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
+                            .time + '\',\'' + data
+                            .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
+                            '\',' + data.last_visit_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
 
-                    var type_btn = (data.status == 1) ? cacual_btn : "";
-                    var insp_type = data.type + ' - ' + type_btn;
-                    var type_txt = (data.type == 'Casual') ? insp_type : data.type;
-                    var current_status = '';
-                    if (data.privilege == 'RM' && data.inspection == 1) {
-                        current_status = 'Complete';
-                    } else {
-                        current_status = data.current_status
-                    }
-
-
-                    lubes_table.row.add([
+                        var type_btn = (data.status == 1) ? cacual_btn : "";
+                        var insp_type = data.type + ' - ' + type_btn;
+                        var type_txt = (data.type == 'Casual') ? insp_type : data.type;
+                        var current_status = '';
+                        if (data.privilege == 'RM' && data.inspection == 1) {
+                            current_status = 'Complete';
+                        } else {
+                            current_status = data.current_status
+                        }
 
 
-                        index + 1,
-                        data.time,
-                        data.visit_close_time,
-                        dealer_sign,
-                        data.name,
-                        data.privilege,
-                        data.dealer_name,
-                        type_txt,
-                        current_status,
-                        inpection,
-                        sales_performance,
-                        measurements,
-                        wet_stocks,
-                        dispensing_units,
-                        stock_variations,
-                        (data.status == 1) ? emailer : "---",
-                    ]).draw(false);
+                        lubes_table.row.add([
+
+
+                            index + 1,
+                            data.time,
+                            data.visit_close_time,
+                            dealer_sign,
+                            data.name,
+                            data.privilege,
+                            data.dealer_name,
+                            type_txt,
+                            current_status,
+                            inpection,
+                            sales_performance,
+                            measurements,
+                            wet_stocks,
+                            dispensing_units,
+                            stock_variations,
+                            (data.status == 1) ? emailer : "---",
+                        ]).draw(false);
+                        $.unblockUI();
+
+                        // } else {
+                        //     lubes_table.row.add([
+
+                        //         index + 1,
+                        //         data.time,
+                        //         data.name,
+                        //         data.current_status,
+                        //         '---',
+                        //         '---',
+                        //         '---',
+                        //         '---',
+                        //         '---',
+                        //         '---',
+                        //         '---',
+                        //     ]).draw(false);
+                        // }
+
+
+
+                    });
+                } else {
                     $.unblockUI();
+                }
 
-                    // } else {
-                    //     lubes_table.row.add([
-
-                    //         index + 1,
-                    //         data.time,
-                    //         data.name,
-                    //         data.current_status,
-                    //         '---',
-                    //         '---',
-                    //         '---',
-                    //         '---',
-                    //         '---',
-                    //         '---',
-                    //         '---',
-                    //     ]).draw(false);
-                    // }
-
-
-
-                });
 
             })
             .catch(error => console.log('error', error));

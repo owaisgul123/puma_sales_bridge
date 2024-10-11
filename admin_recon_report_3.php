@@ -525,13 +525,13 @@
                                     .plan_data +
                                     '</td>' +
                                     dateInfoHtml +
-                                    '<td style="width: 150px;" class="cell_size">' + item.gm_count +
+                                    '<td style="width: 150px;" class="cell_size">' + item.tm_count +
                                     '</td>' +
-                                    // Total GM Visits
+                                    // Total TM Visits
                                     '<td style="width: 150px;" class="cell_size">' + item.rm_count +
                                     '</td>' +
                                     // Total RM Visits
-                                    '<td style="width: 150px;" class="cell_size">' + item.tm_count +
+                                    '<td style="width: 150px;" class="cell_size">' + item.gm_count +
                                     '</td>' +
                                     // Total TM Visits
                                     '</tr>';

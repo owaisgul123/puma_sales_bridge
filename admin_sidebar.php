@@ -129,6 +129,20 @@
 
                             </ul>
                         </li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <span class="menu-item" data-key="t-multi-level">Lubes Setup</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="lubes_category.php" data-key="t-level-1.1">Category</a></li>
+                                <li><a href="lubes_sizes.php" data-key="t-level-1.1">Sizes</a>
+                                </li>
+                                <li><a href="lubes_products.php" data-key="t-level-1.1">Products</a>
+                                <li><a href="all_lubes_orders.php" data-key="t-level-1.1">Lubes Orders</a>
+
+
+                            </ul>
+                        </li>
                         <!-- <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 
