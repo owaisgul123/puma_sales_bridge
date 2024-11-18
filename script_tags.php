@@ -28,13 +28,13 @@
 <!-- <script src="assets/js/pages/form-advanced.init.js"></script> -->
 
 <script>
-var table_access = "<?php echo $pre_acc?>";
-
+var table_access = "<?php echo $pre_acc; ?>";
+// alert(table_access);
 
 setTimeout(function() {
-    if (table_access != "Admin") {
-        // alert('Hamza');
-        $('.dt-buttons').addClass('d-none')
+    if (table_access != "Admin" && table_access != "ZM") {
+        // If table_access is neither "Admin" nor "ZM", hide .dt-buttons
+        $('.dt-buttons').addClass('d-none');
     }
 }, 3000);
 </script>

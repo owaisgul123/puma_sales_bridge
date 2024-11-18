@@ -148,7 +148,7 @@
                             <label for="inputEmail4">To</label>
 
                             <input type="date" class="form-control" name="todate" id="todate"
-                                value="<?php echo date('Y-m-30') ?>">
+                                value="<?php echo (new DateTime('last day of this month'))->modify('+1 day')->format('Y-m-d'); ?>">
 
                         </div>
                         <div class="col-md-3">
@@ -565,6 +565,7 @@
                                         <th class="text-center">Site Name</th>
                                         <th class="text-center">SAP #</th>
                                         <th class="text-center">Is Verified </th>
+                                        <th class="text-center">RM</th>
                                         <th class="text-center">TM</th>
                                         <th class="text-center">Contact</th>
                                         <th class="text-center">Location</th>
@@ -1557,6 +1558,7 @@
                         data.name,
                         data.sap_no,
                         data.indent_price == '1' ? 'Verified ' : 'Not-Active ',
+                        data.tm_name,
                         data.asm_name,
                         data.contact,
                         data.location,
@@ -2178,6 +2180,7 @@
                 data.name,
                 data.sap_no,
                 data.indent_price == '1' ? 'Verified ' : 'Not-Active ',
+                data.tm_name,
 
                 data.asm_name,
                 data.contact,
@@ -2246,19 +2249,20 @@
             }
             task_table.row.add([
                 index + 1,
-                '<a href="inspection_report.php?name=' + data.user_name +
-                '" target="_blank">' + data.user_name + '</a>',
-                data.dealer_name,
-                data.time,
-                dealer_sign,
-                (data.visit_close_time != null) ? data.visit_close_time : "---",
-                (data.approved_at != null) ? data.approved_at : "---",
-                data.approval_status,
-                rm_approval,
-                data.current_status,
-                // (data.status === '1') ? 'Complete' : 'Pending',
-                data.description,
-                data.task_create_time,
+                        '<a href="inspection_report.php?name=' + data.user_name +
+                        '" target="_blank">' + data.user_name + '</a>',
+                        data.sap_no,
+                        data.dealer_name,
+                        data.time,
+                        dealer_sign,
+                        (data.visit_close_time != null) ? data.visit_close_time : "---",
+                        (data.approved_at != null) ? data.approved_at : "---",
+                        data.approval_status,
+                        rm_approval,
+                        data.current_status,
+                        // (data.status === '1') ? 'Complete' : 'Pending',
+                        data.description,
+                        data.task_create_time,
 
             ]).draw(false);
         });
