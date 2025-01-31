@@ -1,4 +1,6 @@
-<?php include 'session/session_input.php'; ?>
+<?php include 'session/session_input.php'; 
+
+?>
 <!doctype html>
 <html lang="en">
 

@@ -29,7 +29,7 @@ function clean($string)
 //Tpl_puma
 
 
-$filetpl = "https://mytrakker.tpltrakker.com/TrakkerServices_Stag/Api/Home/GetVLL/00903315646/5646";
+$filetpl = "https://mytrakker.tpltrakker.com/TrakkerServices/Api/Home/GetVLL/00903315646/3156";
 $datatpl = file_get_contents($filetpl);
 $arraytpl = json_decode($datatpl, true);
 
@@ -101,7 +101,7 @@ mysqli_close($connection);
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="refresh" content="400">
+	<meta http-equiv="refresh" content="100">
 	<title>Puma Data</title>
 	<style>
 		.progress {

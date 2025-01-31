@@ -201,6 +201,7 @@ dea
                                         <th class="text-center">RM</th>
                                         <th class="text-center">TM</th>
                                         <th class="text-center">View</th>
+                                        <th class="text-center">View Sales</th>
                                         <?php if ($pre == 'Admin') { ?>
                                         <th class="text-center">Send Notification</th>
                                         <th class="text-center">Verify</th>
@@ -934,6 +935,9 @@ dea
                         data.tm_name,
                         data.asm_name,
                         '<td><a type="button" id="View" name="view" href="user_profile.php?id=' +
+                        encodeURIComponent(encryptedId) +
+                        '" target="_blank" class="btn btn-soft-warning waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></a></td>',
+                        '<td><a type="button" id="View" name="view" href="dealer_sales.php?id=' +
                         encodeURIComponent(encryptedId) +
                         '" target="_blank" class="btn btn-soft-warning waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></a></td>',
                         (prel == 'Admin' ?

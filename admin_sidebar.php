@@ -100,6 +100,7 @@
 
                             </ul>
                         </li>
+                        
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
@@ -113,6 +114,7 @@
                                 <li><a href="all_dealers_recons_latest.php" data-key="t-level-1.14">Reconciliation with Measurement Report</a></li>
                                 <li><a href="admin_recon_report_3.php" data-key="t-level-1.14">Visit Calander Report</a></li>
                                 <li><a href="all_visit_info.php" data-key="t-level-1.14">Visit History Report</a></li>
+                                <li><a href="all_dealers_recons_product_wise_new.php" data-key="t-level-1.14"> Reconciliation Analyzing Report</a></li>
 
 
 

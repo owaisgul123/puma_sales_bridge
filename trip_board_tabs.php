@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(9);
 $currnt_date = $_GET['from'];
 $tommorrow = $_GET['to'];
 

@@ -48,11 +48,11 @@
                                 data-key="t-level-1.13"> Dashboard</a></li>
 
                         <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
-                        <li><a href="nozle.php" data-key="t-level-1.6"> Products Price </a></li>
+                        <!-- <li><a href="nozle.php" data-key="t-level-1.6"> Products Price </a></li> -->
+                        <li><a href="all_dealers_recons_product_wise_new.php" data-key="t-level-1.14"> Gain / Loss Board</a></li>
 
-                        <li>
+                        <!-- <li>
                             <a href="javascript: void(0);" class="has-arrow">
-                                <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
                                 <span class="menu-item" data-key="t-multi-level">Manage Orders</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
@@ -60,28 +60,25 @@
                                 <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li>
 
                             </ul>
-                        </li>
+                        </li> -->
                         <?php
                         $current_date = date('Y-m-d');
                         $next_dat = date('Y-m-d', strtotime($current_date . '+1 day'));
                         ?>
-                        <li>
+                        <!-- <li>
                             <a href="javascript: void(0);" class="has-arrow">
-                                <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
                                 <span class="menu-item" data-key="t-multi-level">Manage Inspection</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
                                 <li><a href="manage_calander.php" data-key="t-level-1.12"> Task Calander</a></li>
-                                <!-- <li><a href="inspection_report.php"
-                                        data-key="t-level-1.14">All Inspection</a></li> -->
+                                <li><a href="inspection_report.php"
+                                        data-key="t-level-1.14">All Inspection</a></li>
                                         <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>"
                                 data-key="t-level-1.16"> Trip Board</a></li>
-                                <!-- <li><a href="all_dealers_recons.php" data-key="t-level-1.14">Dealers Reconciliation Report</a></li> -->
 
 
                             </ul>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
@@ -103,40 +100,22 @@
 
                     </ul>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fas fa-shipping-fast icon nav-icon"></i>
                         <span class="menu-item" data-key="t-multi-level">Logistics</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
 
-                        <!-- <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1.2">Admin Dasboard</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" data-key="t-level-2.1">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);" data-key="t-level-2.2">Level 2.2</a></li>
-                            </ul>
-                        </li>
-
-                        <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1.2">Tracker Dasboard</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" data-key="t-level-2.1">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);" data-key="t-level-2.2">Level 2.2</a></li>
-                            </ul>
-                        </li> -->
+                        
 
 
-                        <!-- <li><a href="javascript: void(0);" data-key="t-level-1.1">Trip Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Sap Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Intransit Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Sales Dashboard</a></li> -->
+                       
                         <li><a onclick="post_new_data()" data-key="t-level-1.1">Track Map</a></li>
                         <li><a href="playback.php" data-key="t-level-1.2">Playback </a></li>
-                        <!-- <li><a href="javascript: void(0);" data-key="t-level-1.1">Manage Geofence</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Playback</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Fence Details</a></li> -->
-
+                      
                     </ul>
-                </li>
+                </li> -->
                 <!-- <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fas fa-money-check-alt icon nav-icon"></i>
