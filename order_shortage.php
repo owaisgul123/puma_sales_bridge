@@ -9,7 +9,7 @@
 
     <meta charset="utf-8" />
     <title>
-        Order Shortage | <?php echo $_SESSION['user_name'];?>
+        ORDER SHORTAGE | <?php echo $_SESSION['user_name'];?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
@@ -59,22 +59,23 @@
                     </div>
                     <div class="card">
                         <div class="card-body" style="overflow: auto;">
-                            <h3>Order Shortage</h3>
+                            <h3>ORDER SHORTAGE</h3>
 
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>S.No</th>
-                                        <th>Received at</th>
-                                        <th>Site Name</th>
-                                        <th>JD code</th>
-                                        <th>Order #</th>
-                                        <th>Sales Order #</th>
-                                        <th>Product</th>
-                                        <th>Order Quantity</th>
-                                        <th>Received Quantity</th>
-                                        <th>Shortage Quantity</th>
-                                        <th>File</th>
+                                        <th>S.NO</th>
+                                        <th>RECEIVED AT</th>
+                                        <th>SITE NAME</th>
+                                        <th>SITE CODE</th>
+                                        <th>ORDER #</th>
+                                        <th>SALES ORDER #</th>
+                                        <th>PRODUCT</th>
+                                        <th>ORDER QUANTITY</th>
+                                        <th>RECEIVED QUANTITY</th>
+                                        <th>SHORTAGE QUANTITY</th>
+                                        <th>FILE</th>
+
 
                                     </tr>
                                 </thead>
@@ -422,7 +423,8 @@
 
                     console.log(data)
                     var product_json = data.product_json;
-                    jsonString = product_json.replace(/([{,])\s*(\w+)\s*:/g, '$1"$2":').replace(/:\s*(\w+)\s*([,}])/g, ': "$1"$2');
+                    jsonString = product_json.replace(/([{,])\s*(\w+)\s*:/g, '$1"$2":').replace(
+                        /:\s*(\w+)\s*([,}])/g, ': "$1"$2');
 
                     const jsonData = JSON.parse(jsonString);
 
@@ -445,14 +447,15 @@
                         index + 1,
                         data.created_at,
                         data.customer_name,
-                        data.customer_id,
+                        data.sap_no,
                         data.order_id,
                         data.SaleOrder,
                         product_name,
                         parseFloat(quantity).toLocaleString(),
                         parseFloat(quantity_rec).toLocaleString(),
                         parseFloat(quantity_less).toLocaleString(),
-                        '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/'+data.file+'" target="_blank">View File</a>'
+                        '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + data.file +
+                        '" target="_blank">View File</a>'
 
 
                     ]).draw(false);

@@ -9,7 +9,7 @@
 
     <meta charset="utf-8" />
     <title>
-        Products |
+        OMCS DEALERS |
         <?php echo $_SESSION['user_name']; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

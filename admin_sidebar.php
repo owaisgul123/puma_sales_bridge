@@ -47,6 +47,8 @@
                         <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
                         <li><a href="omcs_pumps.php" data-key="t-level-1.15">OMCS Dealer</a></li>
                         <li><a href="user_logs.php" data-key="t-level-1.15">User Logs</a></li>
+                        <li><a href="user_login_log.php" data-key="t-level-1.15">User Login / Logout Logs</a></li>
+
 
 
                         <?php
@@ -100,6 +102,26 @@
 
                             </ul>
                         </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <span class="menu-item" data-key="t-multi-level">Manage Inspection (Eng)</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="true">
+                            <li><a href="eng_dealers_assign.php" data-key="t-level-1.1">Users Dealers (Eng)</a>
+
+                                <li><a href="servey_category_eng.php" data-key="t-level-1.8"> Survey Category </a></li>
+                                <li><a href="survey_questions_eng.php" data-key="t-level-1.9"> Survey Questions </a></li>
+                                
+                                <li><a href="multiple_task_eng.php" data-key="t-level-1.10"> Plan Task</a></li>
+                                     
+                                <li><a href="inspection_report_eng.php" data-key="t-level-1.14">All Inspection</a></li>
+                                <li><a href="follow_ups.php" data-key="t-level-1.14">Inspection Follow-Up</a></li>
+
+
+
+                            </ul>
+                        </li>
                         
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
@@ -126,8 +148,7 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
                                 <li><a href="containers_sizes.php" data-key="t-level-1.10"> Container Sizes </a></li>
-                                <!-- <li><a href="complaint_object_part.php" data-key="t-level-1.1">Object Part</a></li>
-                                <li><a href="complaint_damage_overview.php" data-key="t-level-1.1">Damage Overview</a> -->
+                                <!-- <li><a href="complaint_object_part.php" data-key="t-level-1.1">Object Part</a></li> -->
                                 </li>
 
                             </ul>

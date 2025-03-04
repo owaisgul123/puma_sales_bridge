@@ -204,9 +204,23 @@
                                 <option value="not_required">Image Not Required</option>
                             </select>
                         </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Answer </label>
+                            <select class="form-control  " name="answer[]" id="answer">
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                <option value="N/A">N/A</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Action TIme (Hours)</label>
+                            <input type="number" class="form-control" id="action_time" name="action_time[]" step="1">
 
+                        </div>
 
                     </div>
+
                     <div class="row my-3">
                         <div class="col-md-12">
                             <button class="add_field_button  btn rounded-pill btn-primary" style="float: right;">Add
@@ -241,300 +255,320 @@
     <?php include 'script_tags.php'; ?>
 
     <script>
-    var table;
-    var type;
-    var subtype;
-    $(document).ready(function() {
-        // $('.js-example-basic-multiple').select2();
+        var table;
+        var type;
+        var subtype;
+        $(document).ready(function () {
+            // $('.js-example-basic-multiple').select2();
 
-        var max_fields = 10; //maximum input boxes allowed
-        var wrapper = $(".input_fields_wrap"); //Fields wrapper
-        var add_button = $(".add_field_button"); //Add button ID
+            var max_fields = 10; //maximum input boxes allowed
+            var wrapper = $(".input_fields_wrap"); //Fields wrapper
+            var add_button = $(".add_field_button"); //Add button ID
 
-        var x = 1; //initlal text box count
-        $(add_button).click(function(e) { //on add input button click
-            e.preventDefault();
-            if (x < max_fields) { //max input box allowed
-                x++; //text box increment
-                $(wrapper).append(
-                    '<div><div class="row mb-3 row mb-3 mt-3"><div class="col-md-6"><label class="form-label">Question </label><input class="form-control price" id="questions" name="questions[]" required></div><div class="form-group col-md-6"><label for="inputEmail4">Image Required </label><select class="form-control select_ " name="file_req[]" id="file_req"><option value="">Select</option><option value="required">Image Required</option><option value="not_required">Image Not Required</option></select></div></div><a href="#" class="remove_field btn btn-danger" style="float:right">X</a></div>'
-                ); //add input box
-            }
-        });
+            var x = 1; //initlal text box count
+            $(add_button).click(function (e) { //on add input button click
+                e.preventDefault();
+                if (x < max_fields) { //max input box allowed
+                    x++; //text box increment
+                    $(wrapper).append(
+                        `<div><div class="row mb-3 row mb-3 mt-3"><div class="col-md-6"><label class="form-label">Question </label><input class="form-control price" id="questions" name="questions[]" required></div><div class="form-group col-md-6"><label for="inputEmail4">Image Required </label><select class="form-control select_ " name="file_req[]" id="file_req"><option value="">Select</option><option value="required">Image Required</option><option value="not_required">Image Not Required</option></select></div><div class="form-group col-md-6">
+                            <label for="inputEmail4">Answer </label>
+                            <select class="form-control  " name="answer[]" id="answer">
+                                <option value="">Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                <option value="N/A">N/A</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Action TIme (Hours)</label>
+                            <input type="number" class="form-control" id="action_time" name="action_time[]" step="1">
 
-        $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
-            e.preventDefault();
-            $(this).parent('div').remove();
-            x--;
-        })
-        $.ajax({
-            url: "<?php echo $api_url; ?>get/get_survey_category_eng.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                $('#category').empty();
-                $('#category').append($('<option>', {
-                    value: '',
-                    text: 'Select'
-                }));
-                // Iterate through the data and append options to the select element
-                $.each(data, function(index, item) {
-                    $('#category').append($('<option>', {
-                        value: item.id,
-                        text: item.name
-                    }));
-                });
-
-                // Refresh the Select2 element to display the newly added options
-                $('#category').trigger('change.select2');
-            },
-            error: function(error) {
-                console.error('Error fetching data:', error);
-            }
-        });
-
-        $("#role").on("change", function() {
-            var selectedRole = $(this).val();
-            // Hide all secondary dropdowns
-            $("#salesRole, #zmRole, #tmRole,#logisticsSelect").hide();
-            if (selectedRole === "Sales") {
-                $("#salesRole").show();
-            } else if (selectedRole === "Logistics") {
-                $("#logisticsSelect").show();
-            }
-        });
-
-        $("#sales").on("change", function() {
-            var selectedSalesRole = $(this).val();
-            // alert(selectedSalesRole)
-            // Hide all secondary dropdowns
-            $("#zmRole, #tmRole").hide();
-            if (selectedSalesRole === "TM") {
-                $("#zmRole").show();
-            } else if (selectedSalesRole === "ASM") {
-                $("#tmRole").show();
-            }
-        });
-
-        table = $('#myTable').DataTable({
-            dom: 'Bfrtip',
-
-
-            buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-        });
-        fetchtable();
-        $('#add_btn').click(function() {
-
-            $('#row_id').val("");
-
-            $('#insert_form')[0].reset();
-            // alert("running")
-
-        });
-
-        $('#insert_form').on("submit", function(event) {
-            event.preventDefault();
-            // alert("Name")
-            var data = new FormData(this);
-
-            $.ajax({
-                url: "<?php echo $api_url; ?>create/survey_questions_eng.php",
-                cache: false,
-                contentType: false,
-                processData: false,
-                method: "POST",
-                data: data,
-                beforeSend: function() {
-                    $('#insert').val("Saving");
-                    document.getElementById("insert").disabled = true;
-
-                },
-                success: function(data) {
-                    console.log(data)
-
-                    if (data != 1) {
-                        Swal.fire(
-                            'Server Error!',
-                            'Record Not Created',
-                            'error'
-                        )
-                        $('#insert').val("Save");
-                        document.getElementById("insert").disabled = false;
-                    } else {
-
-
-                        setTimeout(function() {
-                            Swal.fire(
-                                'Success!',
-                                'Record Created Successfully',
-                                'success'
-                            )
-                            $('#insert_form')[0].reset();
-                            $('#offcanvasRight').modal('hide');
-                            fetchtable();
-                            $("#salesRole, #zmRole, #tmRole,#logisticsSelect")
-                                .hide();
-                            $('#insert').val("Save");
-                            document.getElementById("insert").disabled = false;
-
-                            location.reload();
-
-
-                        }, 2000);
-
-                    }
-
-                },
-                error: function(xhr, status, error) {
-                    // Handle API errors
-                    console.log('Error:', error);
-                    console.log('Status:', status);
-                    console.log('Response:', xhr.responseText);
+                        </div>
+</div><a href="#" class="remove_field btn btn-danger" style="float:right">X</a></div>`
+                    ); //add input box
                 }
             });
 
-        });
-        load_all_select();
-    })
-
-
-    function all_dealers() {
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927", requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
-
-                table.clear().draw();
-                $.each(response, function(index, data) {
-
-                    // Create a new option element
-                    var newOption = $('<option>', {
-                        value: data.id,
-                        text: data.name
+            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+                e.preventDefault();
+                $(this).parent('div').remove();
+                x--;
+            })
+            $.ajax({
+                url: "<?php echo $api_url; ?>get/get_survey_category_eng.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#category').empty();
+                    $('#category').append($('<option>', {
+                        value: '',
+                        text: 'Select'
+                    }));
+                    // Iterate through the data and append options to the select element
+                    $.each(data, function (index, item) {
+                        $('#category').append($('<option>', {
+                            value: item.id,
+                            text: item.name
+                        }));
                     });
 
-                    // Append the new option to the select
-                    $('#dealers').append(newOption);
+                    // Refresh the Select2 element to display the newly added options
+                    $('#category').trigger('change.select2');
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
 
-                    // Trigger the change event to notify Select2 about the update
-                    $('#dealers').trigger('change');
+            $("#role").on("change", function () {
+                var selectedRole = $(this).val();
+                // Hide all secondary dropdowns
+                $("#salesRole, #zmRole, #tmRole,#logisticsSelect").hide();
+                if (selectedRole === "Sales") {
+                    $("#salesRole").show();
+                } else if (selectedRole === "Logistics") {
+                    $("#logisticsSelect").show();
+                }
+            });
+
+            $("#sales").on("change", function () {
+                var selectedSalesRole = $(this).val();
+                // alert(selectedSalesRole)
+                // Hide all secondary dropdowns
+                $("#zmRole, #tmRole").hide();
+                if (selectedSalesRole === "TM") {
+                    $("#zmRole").show();
+                } else if (selectedSalesRole === "ASM") {
+                    $("#tmRole").show();
+                }
+            });
+
+            table = $('#myTable').DataTable({
+                dom: 'Bfrtip',
+
+
+                buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+            });
+            fetchtable();
+            $('#add_btn').click(function () {
+
+                $('#row_id').val("");
+
+                $('#insert_form')[0].reset();
+                // alert("running")
+
+            });
+
+            $('#insert_form').on("submit", function (event) {
+                event.preventDefault();
+                // alert("Name")
+                var data = new FormData(this);
+
+                $.ajax({
+                    url: "<?php echo $api_url; ?>create/survey_questions_eng.php",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    method: "POST",
+                    data: data,
+                    beforeSend: function () {
+                        $('#insert').val("Saving");
+                        document.getElementById("insert").disabled = true;
+
+                    },
+                    success: function (data) {
+                        console.log(data)
+
+                        if (data != 1) {
+                            Swal.fire(
+                                'Server Error!',
+                                'Record Not Created',
+                                'error'
+                            )
+                            $('#insert').val("Save");
+                            document.getElementById("insert").disabled = false;
+                        } else {
+
+
+                            setTimeout(function () {
+                                Swal.fire(
+                                    'Success!',
+                                    'Record Created Successfully',
+                                    'success'
+                                )
+                                $('#insert_form')[0].reset();
+                                $('#offcanvasRight').modal('hide');
+                                fetchtable();
+                                $("#salesRole, #zmRole, #tmRole,#logisticsSelect")
+                                    .hide();
+                                $('#insert').val("Save");
+                                document.getElementById("insert").disabled = false;
+
+                                location.reload();
+
+
+                            }, 2000);
+
+                        }
+
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle API errors
+                        console.log('Error:', error);
+                        console.log('Status:', status);
+                        console.log('Response:', xhr.responseText);
+                    }
                 });
-            })
-            .catch(error => console.log('error', error));
+
+            });
+            load_all_select();
+        })
 
 
-    }
+        function all_dealers() {
 
-    function fetchtable() {
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
 
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
+            fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927", requestOptions)
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response)
 
-        fetch("<?php echo $api_url; ?>get/survey_questions_eng.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
-                requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
+                    table.clear().draw();
+                    $.each(response, function (index, data) {
 
-                table.clear().draw();
-                $.each(response, function(index, data) {
-                    table.row.add([
-                        index + 1,
-                        data.name,
-                        data.question,
-                        data.file,
+                        // Create a new option element
+                        var newOption = $('<option>', {
+                            value: data.id,
+                            text: data.name
+                        });
 
+                        // Append the new option to the select
+                        $('#dealers').append(newOption);
 
-                        '<label class="switch"><input type="checkbox" id="checkbox" onclick="check(' + data.id + ')" ' +
-                (data.status == 0 ? '' : 'checked') + '> <span class="slider round"></span></label>'
-                    ]).draw(false);
-                });
-            })
-            .catch(error => console.log('error', error));
+                        // Trigger the change event to notify Select2 about the update
+                        $('#dealers').trigger('change');
+                    });
+                })
+                .catch(error => console.log('error', error));
 
 
-    }
-
-    function check(id) {
-      // Get the value of the checkbox (0 for unchecked, 1 for checked)
-      var checkboxValue = $('#checkbox').is(':checked') ? 1 : 0;
-    //   alert(id) 
-      $.ajax({
-        type: 'POST',
-        url: '<?php echo $api_url; ?>update/survey_question_eng.php',  // Replace with the path to your PHP script
-        data: { checkboxValue: checkboxValue ,id:id},
-        success: function(response) {
-          console.log('Record updated successfully.');
-          alert('success!')
-        },
-        error: function(error) {
-          console.error('Error updating database:', error);
         }
-      });
-      // You can use the checkboxValue variable as needed
-    }
-    function load_all_select() {
 
-        $.ajax({
-            url: '<?php echo $api_url; ?>get/get_tm.php?key=03201232927',
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                $('#zm').empty();
+        function fetchtable() {
 
-                // Iterate through the data and append options to the select element
-                $.each(data, function(index, item) {
-                    $('#tm').append($('<option>', {
-                        value: item.id,
-                        text: item.name
-                    }));
-                });
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
 
-                // Refresh the Select2 element to display the newly added options
-                $('#tm').trigger('change.select2');
-            },
-            error: function(error) {
-                console.error('Error fetching data:', error);
-            }
-        });
+            fetch("<?php echo $api_url; ?>get/survey_questions_eng.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
+                requestOptions)
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response)
 
-        $.ajax({
-            url: '<?php echo $api_url; ?>get/get_zm.php?key=03201232927',
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                $('#zm').empty();
-                console.log('ZM')
-                console.log(data)
-                // Iterate through the data and append options to the select element
-                $.each(data, function(index, item) {
-                    $('#zm').append($('<option>', {
-                        value: item.id,
-                        text: item.name
-                    }));
-                });
-
-                // Refresh the Select2 element to display the newly added options
-                $('#zm').trigger('change.select2');
-            },
-            error: function(error) {
-                console.error('Error fetching data:', error);
-            }
-        });
+                    table.clear().draw();
+                    $.each(response, function (index, data) {
+                        table.row.add([
+                            index + 1,
+                            data.name,
+                            data.question,
+                            data.file,
 
 
+                            '<label class="switch"><input type="checkbox" id="checkbox" onclick="check(' +
+                            data.id + ')" ' +
+                            (data.status == 0 ? '' : 'checked') +
+                            '> <span class="slider round"></span></label>'
+                        ]).draw(false);
+                    });
+                })
+                .catch(error => console.log('error', error));
 
 
-    }
+        }
+
+        function check(id) {
+            // Get the value of the checkbox (0 for unchecked, 1 for checked)
+            var checkboxValue = $('#checkbox').is(':checked') ? 1 : 0;
+            //   alert(id) 
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $api_url; ?>update/survey_question_eng.php', // Replace with the path to your PHP script
+                data: {
+                    checkboxValue: checkboxValue,
+                    id: id
+                },
+                success: function (response) {
+                    console.log('Record updated successfully.');
+                    alert('success!')
+                },
+                error: function (error) {
+                    console.error('Error updating database:', error);
+                }
+            });
+            // You can use the checkboxValue variable as needed
+        }
+
+        function load_all_select() {
+
+            $.ajax({
+                url: '<?php echo $api_url; ?>get/get_tm.php?key=03201232927',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#zm').empty();
+
+                    // Iterate through the data and append options to the select element
+                    $.each(data, function (index, item) {
+                        $('#tm').append($('<option>', {
+                            value: item.id,
+                            text: item.name
+                        }));
+                    });
+
+                    // Refresh the Select2 element to display the newly added options
+                    $('#tm').trigger('change.select2');
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+
+            $.ajax({
+                url: '<?php echo $api_url; ?>get/get_zm.php?key=03201232927',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#zm').empty();
+                    console.log('ZM')
+                    console.log(data)
+                    // Iterate through the data and append options to the select element
+                    $.each(data, function (index, item) {
+                        $('#zm').append($('<option>', {
+                            value: item.id,
+                            text: item.name
+                        }));
+                    });
+
+                    // Refresh the Select2 element to display the newly added options
+                    $('#zm').trigger('change.select2');
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+
+
+
+
+        }
     </script>
 </body>
 

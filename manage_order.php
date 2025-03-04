@@ -87,20 +87,21 @@
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">S.No</th>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Site SAP</th>
-                                        <th class="text-center">Site Name</th>
-                                        <th class="text-center">TM Name</th>
-                                        <th class="text-center">Mode</th>
-                                        <th class="text-center">Depot</th>
-                                        <th class="text-center">Total Amount</th>
-                                        <!-- <th class="text-center">Ledger Amount</th> -->
-                                        <th class="text-center">Sales Order</th>
-                                        <th class="text-center">Sap Status</th>
-                                        <th class="text-center">Execution Status</th>
-                                        <th class="text-center">View Orders</th>
-                                        <th class="text-center">Track</th>
+                                        <th class="text-center">S.NO</th>
+                                        <th class="text-center">DATE</th>
+                                        <th class="text-center">SITE CODE</th>
+                                        <th class="text-center">SITE NAME</th>
+                                        <th class="text-center">TERRITORY MANAGER</th>
+                                        <th class="text-center">MODE</th>
+                                        <th class="text-center">DEPOT</th>
+                                        <th class="text-center">TOTAL AMOUNT</th>
+                                        <!-- <th class="text-center">LEDGER AMOUNT</th> -->
+                                        <th class="text-center">SALES ORDER</th>
+                                        <th class="text-center">SAP STATUS</th>
+                                        <th class="text-center">EXECUTION STATUS</th>
+                                        <th class="text-center">VIEW ORDERS</th>
+                                        <th class="text-center">TRACK</th>
+
                                         <!-- <th class="text-center">Delete</th> -->
                                     </tr>
                                 </thead>
@@ -398,353 +399,353 @@
     <?php include 'script_tags.php'; ?>
 
     <script>
-        var table;
-        var type;
-        var subtype;
-        $(document).ready(function () {
+    var table;
+    var type;
+    var subtype;
+    $(document).ready(function() {
 
-            table = $('#myTable').DataTable({
-                dom: 'Bfrtip',
-
-
-                buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-            });
-
-            product_price_backlog = $('#product_price_backlog').DataTable({
-                dom: 'Bfrtip',
+        table = $('#myTable').DataTable({
+            dom: 'Bfrtip',
 
 
-                buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+            buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
 
-            });
+        });
 
-            fetchtable();
-            $('#add_btn').click(function () {
+        product_price_backlog = $('#product_price_backlog').DataTable({
+            dom: 'Bfrtip',
 
-                $('#row_id').val("");
 
-                $('#insert_form')[0].reset();
+            buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
 
-            });
+        });
 
-            $('#insert_form').on("submit", function (event) {
-                event.preventDefault();
-                // alert("Name")
-                var data = new FormData(this);
+        fetchtable();
+        $('#add_btn').click(function() {
 
-                $.ajax({
-                    url: "<?php echo $api_url; ?>create/users.php",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: "POST",
-                    data: data,
-                    beforeSend: function () {
-                        $('#insert').val("Saving");
-                        document.getElementById("insert").disabled = true;
+            $('#row_id').val("");
 
-                    },
-                    success: function (data) {
-                        console.log(data)
+            $('#insert_form')[0].reset();
 
-                        if (data != 1) {
+        });
+
+        $('#insert_form').on("submit", function(event) {
+            event.preventDefault();
+            // alert("Name")
+            var data = new FormData(this);
+
+            $.ajax({
+                url: "<?php echo $api_url; ?>create/users.php",
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: "POST",
+                data: data,
+                beforeSend: function() {
+                    $('#insert').val("Saving");
+                    document.getElementById("insert").disabled = true;
+
+                },
+                success: function(data) {
+                    console.log(data)
+
+                    if (data != 1) {
+                        Swal.fire(
+                            'Server Error!',
+                            'Record Not Created',
+                            'error'
+                        )
+                        $('#insert').val("Save");
+                        document.getElementById("insert").disabled = false;
+                    } else {
+
+
+                        setTimeout(function() {
                             Swal.fire(
-                                'Server Error!',
-                                'Record Not Created',
-                                'error'
+                                'Success!',
+                                'Record Created Successfully',
+                                'success'
                             )
+                            $('#insert_form')[0].reset();
+                            $('#offcanvasRight').modal('hide');
+                            fetchtable();
                             $('#insert').val("Save");
                             document.getElementById("insert").disabled = false;
-                        } else {
 
-
-                            setTimeout(function () {
-                                Swal.fire(
-                                    'Success!',
-                                    'Record Created Successfully',
-                                    'success'
-                                )
-                                $('#insert_form')[0].reset();
-                                $('#offcanvasRight').modal('hide');
-                                fetchtable();
-                                $('#insert').val("Save");
-                                document.getElementById("insert").disabled = false;
-
-                            }, 2000);
-
-                        }
+                        }, 2000);
 
                     }
-                });
 
+                }
             });
 
-            $('#approved_orders').on("submit", function (event) {
-                event.preventDefault();
-                // alert("Name")
-                var data = new FormData(this);
+        });
 
-                $.ajax({
-                    url: "<?php echo $api_url; ?>update/approved_orders.php",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: "POST",
-                    data: data,
-                    beforeSend: function () {
-                        $('#app_btn').val("Saving");
-                        document.getElementById("app_btn").disabled = true;
+        $('#approved_orders').on("submit", function(event) {
+            event.preventDefault();
+            // alert("Name")
+            var data = new FormData(this);
 
-                    },
-                    success: function (data) {
-                        console.log(data)
+            $.ajax({
+                url: "<?php echo $api_url; ?>update/approved_orders.php",
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: "POST",
+                data: data,
+                beforeSend: function() {
+                    $('#app_btn').val("Saving");
+                    document.getElementById("app_btn").disabled = true;
 
-                        if (data != 1) {
+                },
+                success: function(data) {
+                    console.log(data)
+
+                    if (data != 1) {
+                        Swal.fire(
+                            'Server Error!',
+                            'Record Not Created',
+                            'error'
+                        )
+                        $('#app_btn').val("Save");
+                        document.getElementById("app_btn").disabled = false;
+                    } else {
+
+
+                        setTimeout(function() {
                             Swal.fire(
-                                'Server Error!',
-                                'Record Not Created',
-                                'error'
+                                'Success!',
+                                'Record Created Successfully',
+                                'success'
                             )
+                            $('#approved_orders')[0].reset();
+                            $('#approved_order_modal').modal('hide');
+                            fetchtable();
                             $('#app_btn').val("Save");
                             document.getElementById("app_btn").disabled = false;
-                        } else {
 
-
-                            setTimeout(function () {
-                                Swal.fire(
-                                    'Success!',
-                                    'Record Created Successfully',
-                                    'success'
-                                )
-                                $('#approved_orders')[0].reset();
-                                $('#approved_order_modal').modal('hide');
-                                fetchtable();
-                                $('#app_btn').val("Save");
-                                document.getElementById("app_btn").disabled = false;
-
-                            }, 2000);
-
-                        }
+                        }, 2000);
 
                     }
-                });
 
+                }
             });
 
-            $('#ins_orders_update').on("submit", function (event) {
-                event.preventDefault();
-                alert("Name")
-                var data = new FormData(this);
+        });
 
-                $.ajax({
-                    url: "<?php echo $api_url; ?>update/send_special_approval.php",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: "POST",
-                    data: data,
-                    beforeSend: function () {
-                        $('#sp_btn').val("Saving");
-                        document.getElementById("sp_btn").disabled = true;
+        $('#ins_orders_update').on("submit", function(event) {
+            event.preventDefault();
+            alert("Name")
+            var data = new FormData(this);
 
-                    },
-                    success: function (data) {
-                        console.log(data)
+            $.ajax({
+                url: "<?php echo $api_url; ?>update/send_special_approval.php",
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: "POST",
+                data: data,
+                beforeSend: function() {
+                    $('#sp_btn').val("Saving");
+                    document.getElementById("sp_btn").disabled = true;
 
-                        if (data != 1) {
+                },
+                success: function(data) {
+                    console.log(data)
+
+                    if (data != 1) {
+                        Swal.fire(
+                            'Server Error!',
+                            'Record Not Created',
+                            'error'
+                        )
+                        $('#sp_btn').val("Save");
+                        document.getElementById("sp_btn").disabled = false;
+                    } else {
+
+
+                        setTimeout(function() {
                             Swal.fire(
-                                'Server Error!',
-                                'Record Not Created',
-                                'error'
+                                'Success!',
+                                'Record Created Successfully',
+                                'success'
                             )
+                            $('#ins_orders_update')[0].reset();
+                            $('#in_balanced_order_modal').modal('hide');
+                            fetchtable();
                             $('#sp_btn').val("Save");
                             document.getElementById("sp_btn").disabled = false;
-                        } else {
 
-
-                            setTimeout(function () {
-                                Swal.fire(
-                                    'Success!',
-                                    'Record Created Successfully',
-                                    'success'
-                                )
-                                $('#ins_orders_update')[0].reset();
-                                $('#in_balanced_order_modal').modal('hide');
-                                fetchtable();
-                                $('#sp_btn').val("Save");
-                                document.getElementById("sp_btn").disabled = false;
-
-                            }, 2000);
-
-                        }
+                        }, 2000);
 
                     }
+
+                }
+            });
+
+        });
+
+        $(document).on('click', '.approved_check', function() {
+
+            var id = $(this).attr("id");
+            // alert(employee_id)
+            $('#order_approval').val(id);
+            $('#approved_order_modal').modal('show');
+        });
+
+        $(document).on('click', '.insuficient_check', function() {
+
+            var id = $(this).attr("id");
+            // alert(employee_id)
+            $('#spe_approval').val(id);
+            $('#in_balanced_order_modal').modal('show');
+        });
+
+    })
+
+
+
+    function fetchtable() {
+        var fromdate = $('#fromdate').val();
+        var todate = $('#todate').val();
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        console.log(
+            "<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>"
+        )
+        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "",
+                requestOptions)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+
+                table.clear().draw();
+                $.each(response, function(index, data) {
+                    var status = data.status_value;
+                    console.log(status)
+                    var status_value = '';
+
+                    if (status == 'pending') {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-primary approved_check" data-key="t-new">' +
+                            status + '</span>';
+                    } else if (status == 'Not Yet Processed') {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-info" data-key="t-new">Pending</span>';
+                    } else if (status == 'Completely Processed') {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">Released</span>';
+                    } else if (status == 3) {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-danger" data-key="t-new">Cancel</span>';
+                    } else if (status == 4) {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Special Approval</span>';
+                    } else if (status == 5) {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
+                    }
+                    // 
+                    // message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
+                    d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
+                    track = (data.is_tracker == 1) ? "<a href='trip_board_salesOrder.php?no=" + data
+                        .SaleOrder +
+                        "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>" :
+                        "----";
+                    console.log(data.is_tracker)
+                    console.log(data.SaleOrder)
+
+                    if (parseInt(data.delivered_status) === 1) {
+                        // If data.is_tracker is 1, generate track link
+                        message = "Invoiced";
+                    } else {
+                        // If data.is_tracker is not 1, display ----
+
+                        if (status == 'Not Yet Processed' || status == 'pending') {
+                            message = "---";
+
+                        } else {
+                            message = "Scheduled";
+                        }
+                    }
+
+                    table.row.add([
+                        index + 1,
+                        data.created_at,
+                        data.sap_no,
+                        data.name,
+                        data.usersnames,
+
+                        // data.name,
+                        d_type,
+                        data.consignee_name,
+                        parseFloat(data.total_amount).toLocaleString(),
+                        // data.legder_balance,
+                        data.SaleOrder,
+                        status_value,
+                        message,
+                        '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
+                        data.id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
+                        track,
+                        // '<button type="button" id="delete" name="delete" onclick="deleteData(' +
+                        // data.id +
+                        // ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button>'
+                    ]).draw(false);
                 });
-
-            });
-
-            $(document).on('click', '.approved_check', function () {
-
-                var id = $(this).attr("id");
-                // alert(employee_id)
-                $('#order_approval').val(id);
-                $('#approved_order_modal').modal('show');
-            });
-
-            $(document).on('click', '.insuficient_check', function () {
-
-                var id = $(this).attr("id");
-                // alert(employee_id)
-                $('#spe_approval').val(id);
-                $('#in_balanced_order_modal').modal('show');
-            });
-
-        })
+            })
+            .catch(error => console.log('error', error));
 
 
+    }
 
-        function fetchtable() {
-            var fromdate = $('#fromdate').val();
-            var todate = $('#todate').val();
+    function view_order(id) {
+        if (id != "") {
             var requestOptions = {
                 method: 'GET',
                 redirect: 'follow'
             };
-            console.log(
-                "<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>"
-            )
-            fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
-                fromdate + "&to=" + todate + "",
-                requestOptions)
+            console.log("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "");
+            fetch("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "", requestOptions)
                 .then(response => response.json())
                 .then(response => {
                     console.log(response)
+                    if (response.length > 0) {
+                        product_price_backlog.clear().draw();
 
-                    table.clear().draw();
-                    $.each(response, function (index, data) {
-                        var status = data.status_value;
-                        console.log(status)
-                        var status_value = '';
+                        $.each(response, function(index, data) {
+                            product_price_backlog.row.add([
+                                index + 1,
+                                data.date,
+                                data.name,
+                                // data.name,
+                                data.product_name,
+                                data.rate,
+                                data.quantity,
+                                data.delivery_based,
+                                data.consignee_name,
+                                parseFloat(data.amount).toLocaleString()
 
-                        if (status == 'pending') {
-                            status_value =
-                                '<span id=' + data.id +
-                                ' class="badge rounded-pill cursor-pointer bg-primary approved_check" data-key="t-new">' +
-                                status + '</span>';
-                        } else if (status == 'Not Yet Processed') {
-                            status_value =
-                                '<span id=' + data.id +
-                                ' class="badge rounded-pill cursor-pointer bg-info" data-key="t-new">Pending</span>';
-                        } else if (status == 'Completely Processed') {
-                            status_value =
-                                '<span id=' + data.id +
-                                ' class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">Released</span>';
-                        } else if (status == 3) {
-                            status_value =
-                                '<span id=' + data.id +
-                                ' class="badge rounded-pill cursor-pointer bg-danger" data-key="t-new">Cancel</span>';
-                        } else if (status == 4) {
-                            status_value =
-                                '<span id=' + data.id +
-                                ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Special Approval</span>';
-                        } else if (status == 5) {
-                            status_value =
-                                '<span id=' + data.id +
-                                ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
-                        }
-                        // 
-                        // message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
-                        d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
-                        track = (data.is_tracker == 1) ? "<a href='trip_board_salesOrder.php?no=" + data
-                            .SaleOrder +
-                            "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>" :
-                            "----";
-                        console.log(data.is_tracker)
-                        console.log(data.SaleOrder)
+                            ]).draw(false);
 
-                        if (parseInt(data.delivered_status) === 1) {
-                            // If data.is_tracker is 1, generate track link
-                            message = "Invoiced";
-                        } else {
-                            // If data.is_tracker is not 1, display ----
-
-                            if (status == 'Not Yet Processed' || status == 'pending') {
-                                message = "---";
-
-                            } else {
-                                message = "Scheduled";
-                            }
-                        }
-
-                        table.row.add([
-                            index + 1,
-                            data.created_at,
-                            data.sap_no,
-                            data.name,
-                            data.usersnames,
-
-                            // data.name,
-                            d_type,
-                            data.consignee_name,
-                            parseFloat(data.total_amount).toLocaleString(),
-                            // data.legder_balance,
-                            data.SaleOrder,
-                            status_value,
-                            message,
-                            '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
-                            data.id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
-                            track,
-                            // '<button type="button" id="delete" name="delete" onclick="deleteData(' +
-                            // data.id +
-                            // ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button>'
-                        ]).draw(false);
-                    });
+                        });
+                    }
+                    $('#products_price_backlog_modal').modal('show');
                 })
                 .catch(error => console.log('error', error));
 
-
         }
 
-        function view_order(id) {
-            if (id != "") {
-                var requestOptions = {
-                    method: 'GET',
-                    redirect: 'follow'
-                };
-                console.log("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "");
-                fetch("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "", requestOptions)
-                    .then(response => response.json())
-                    .then(response => {
-                        console.log(response)
-                        if (response.length > 0) {
-                            product_price_backlog.clear().draw();
-
-                            $.each(response, function (index, data) {
-                                product_price_backlog.row.add([
-                                    index + 1,
-                                    data.date,
-                                    data.name,
-                                    // data.name,
-                                    data.product_name,
-                                    data.rate,
-                                    data.quantity,
-                                    data.delivery_based,
-                                    data.consignee_name,
-                                    parseFloat(data.amount).toLocaleString()
-
-                                ]).draw(false);
-
-                            });
-                        }
-                        $('#products_price_backlog_modal').modal('show');
-                    })
-                    .catch(error => console.log('error', error));
-
-            }
-
-        }
+    }
     </script>
 </body>
 

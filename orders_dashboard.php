@@ -9,7 +9,7 @@
 
     <meta charset="utf-8" />
     <title>
-        Order |
+        ORDER DASHBORAD |
         <?php echo $_SESSION['user_name']; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -133,7 +133,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3">
-                            <label for="inputEmail4">Region</label>
+                            <label for="inputEmail4">REGION</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="regions"
                                 name="regions" required multiple>
@@ -145,7 +145,7 @@
 
                         </div>
                         <div class="col-md-3">
-                            <label for="inputEmail4">Province</label>
+                            <label for="inputEmail4">PROVINCE</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="province"
                                 name="province" required multiple>
@@ -157,7 +157,7 @@
 
                         </div>
                         <div class="col-md-3">
-                            <label for="inputEmail4">City</label>
+                            <label for="inputEmail4">CITY</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="city" name="city"
                                 required multiple>
@@ -169,7 +169,7 @@
 
                         </div>
                         <div class="col-md-3">
-                            <label for="inputEmail4">District</label>
+                            <label for="inputEmail4">DISTRICT</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="district"
                                 name="district" required multiple>
@@ -222,7 +222,7 @@
                                             </div>
 
                                             <div class="flex-grow-1 ms-3">
-                                                <h6 class="mb-0 font-size-15">Order</h6>
+                                                <h6 class="mb-0 font-size-15">ORDER</h6>
                                             </div>
 
                                             <div class="flex-grow-1 ms-3">
@@ -449,23 +449,25 @@
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">S.No</th>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Site Name</th>
-                                        <th class="text-center">TM Name</th>
-                                        <th class="text-center">Mode</th>
-                                        <th class="text-center">Depot</th>
-                                        <th class="text-center">Total Amount</th>
-                                        <!-- <th class="text-center">Ledger Amount</th> -->
-                                        <th class="text-center">Sales Order</th>
-                                        <th class="text-center">Sap Status</th>
-                                        <th class="text-center">Execution Status</th>
-                                        <th class="text-center">City</th>
-                                        <th class="text-center">Province</th>
-                                        <th class="text-center">Region</th>
-                                        <th class="text-center">Amount Receivable</th>
-                                        <th class="text-center">View Orders</th>
-                                        <th class="text-center">Track</th>
+                                        <th class="text-center">S.NO</th>
+                                        <th class="text-center">DATE</th>
+                                        <th class="text-center">SITE CODE</th>
+                                        <th class="text-center">SITE NAME</th>
+                                        <th class="text-center">TERRITORY MANAGER</th>
+                                        <th class="text-center">MODE</th>
+                                        <th class="text-center">DEPOT</th>
+                                        <th class="text-center">TOTAL AMOUNT</th>
+                                        <!-- <th class="text-center">LEDGER AMOUNT</th> -->
+                                        <th class="text-center">SALES ORDER</th>
+                                        <th class="text-center">SAP STATUS</th>
+                                        <th class="text-center">EXECUTION STATUS</th>
+                                        <th class="text-center">CITY</th>
+                                        <th class="text-center">PROVINCE</th>
+                                        <th class="text-center">REGION</th>
+                                        <th class="text-center">AMOUNT RECEIVABLE</th>
+                                        <th class="text-center">VIEW ORDERS</th>
+                                        <th class="text-center">TRACK</th>
+
 
                                         <!-- <th class="text-center">Edit</th>
                                         <th class="text-center">Delete</th> -->
@@ -1469,8 +1471,11 @@
             method: 'GET',
             redirect: 'follow'
         };
-        console.log("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "");
-        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
+        console.log(
+            "<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+            fromdate + "&to=" + todate + "");
+        fetch("<?php echo $api_url; ?>get/get_all_main_orders.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -1542,7 +1547,7 @@
                     } else {
                         // If data.is_tracker is not 1, display ----
 
-                        if (status == 'Not Yet Processed' || status=='pending') {
+                        if (status == 'Not Yet Processed' || status == 'pending') {
                             message = "---";
 
                         } else {
@@ -1561,6 +1566,7 @@
                             table.row.add([
                                 index + 1,
                                 data.created_at,
+                                data.sap_no,
                                 data.name,
                                 data.usersnames,
                                 d_type,
@@ -1588,9 +1594,9 @@
                         });
 
 
-                    if (data.delivered_status == '0') {
+                    if (data.delivered_status == '1') {
                         pendingCount_order++;
-                    } else if (data.delivered_status == '1') {
+                    } else if (data.delivered_status == '0') {
                         completeCount_order++;
                     }
                 });
@@ -1662,7 +1668,8 @@
             })
             .catch(error => console.log('error', error));
 
-        fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
+        fetch("<?php echo $api_url; ?>get/inspection/all_dealers_inspection.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>&from=" +
+                fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -1853,7 +1860,7 @@
             }
         });
 
-        
+
     }
 
     function update_pass(id) {
@@ -2174,7 +2181,7 @@
             } else {
                 // If data.is_tracker is not 1, display ----
 
-                if (status == 'Not Yet Processed' || status=='pending') {
+                if (status == 'Not Yet Processed' || status == 'pending') {
                     message = "---";
 
                 } else {
@@ -2191,6 +2198,7 @@
                     table.row.add([
                         index + 1,
                         data.created_at,
+                        data.sap_no,
                         data.name,
                         d_type,
                         data.consignee_name,
@@ -2215,9 +2223,9 @@
                     // Handle error
                 });
 
-            if (data.delivered_status == '0') {
+            if (data.delivered_status == '1') {
                 pendingCount_order++;
-            } else if (data.delivered_status == '1') {
+            } else if (data.delivered_status == '0') {
                 completeCount_order++;
             }
         });
@@ -3044,6 +3052,7 @@
             }
         });
     }
+
     function blocking() {
         $.blockUI({
             message: '<h1>Please Wait...</h1>',

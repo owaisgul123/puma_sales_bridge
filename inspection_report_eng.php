@@ -9,7 +9,7 @@
 
     <meta charset="utf-8" />
     <title>
-        INSPECTION REPORT |
+        Visits |
         <?php echo $_SESSION['user_name']; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -114,29 +114,21 @@
                     </div> -->
                     <div class="card">
                         <div class="card-body" style="overflow: auto;">
-                            <h3>INSPECTION REPORT</h3>
+                            <h3>Inspection Report</h3>
 
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
 
                                     <tr>
-                                        <th class="text-center">S.NO</th>
-                                        <th class="text-center">DATE</th>
-                                        <th class="text-center">COMPLETE TIME</th>
-                                        <th class="text-center">DEALER SIGN</th>
-                                        <th class="text-center">USER</th>
-                                        <th class="text-center">ROLE</th>
-                                        <th class="text-center">SITE CODE</th>
-                                        <th class="text-center">SITE NAME</th>
-                                        <th class="text-center">MODE</th>
-                                        <th class="text-center">STATUS</th>
-                                        <th class="text-center">INSPECTION</th>
-                                        <th class="text-center">SALES PERFORMANCE</th>
-                                        <th class="text-center">MEASUREMENT & PRICE</th>
-                                        <th class="text-center">WET STOCK MANAGEMENT</th>
-                                        <th class="text-center">DISPENSING UNIT METER READING</th>
-                                        <th class="text-center">STOCK VARIATIONS</th>
-
+                                        <th class="text-center">S.No</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Complete Time</th>
+                                        <th class="text-center">Dealer Sign</th>
+                                        <th class="text-center">User</th>
+                                        <th class="text-center">Dealer</th>
+                                        <th class="text-center">Mode</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Inspection</th>
 
                                     </tr>
 
@@ -1612,10 +1604,9 @@
             redirect: 'follow'
         };
         console.log(
-            "<?php echo $api_url; ?>get/get_all_dealers_inspection_report_data.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&id=<?php echo $_SESSION['user_id'] ?>&from=" +
+            "<?php echo $api_url; ?>get/eng/get_all_dealers_inspection_report_data.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&id=<?php echo $_SESSION['user_id'] ?>&from=" +
             fromdate + "&to=" + todate + "");
-        fetch("<?php echo $api_url; ?>get/get_all_dealers_inspection_report_data.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&id=<?php echo $_SESSION['user_id'] ?>&from=" +
-                fromdate + "&to=" + todate + "",
+        fetch("<?php echo $api_url; ?>get/eng/get_all_dealers_inspection_report_data.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -1745,19 +1736,10 @@
                             data.visit_close_time,
                             dealer_sign,
                             data.name,
-                            data.privilege,
-                            data.sap_no,
-
                             data.dealer_name,
                             type_txt,
                             current_status,
-                            inpection,
-                            sales_performance,
-                            measurements,
-                            wet_stocks,
-                            dispensing_units,
-                            stock_variations,
-                            (data.status == 1) ? emailer : "---",
+                            inpection
                         ]).draw(false);
                         $.unblockUI();
 
@@ -1822,16 +1804,12 @@
         };
 
         var page_link = '';
-        if (privilege != 'RM') {
-            page_link = 'get_dealer_survey_response';
-        } else {
-            page_link = 'get_dealer_survey_response_rm';
-        }
-        console.log("<?php echo $api_url; ?>get/" + page_link + ".php?key=03201232927&inspection_id=" +
+
+        console.log("<?php echo $api_url; ?>get/eng/get_dealer_survey_response.php?key=03201232927&inspection_id=" +
             inspection_id +
             "&task_id=" + id + "&dealer_id=" + dealer_id + "")
 
-        fetch("<?php echo $api_url; ?>get/" + page_link + ".php?key=03201232927&inspection_id=" +
+        fetch("<?php echo $api_url; ?>get/eng/get_dealer_survey_response.php?key=03201232927&inspection_id=" +
                 inspection_id +
                 "&task_id=" + id + "&dealer_id=" + dealer_id + "", requestOptions)
             .then(response => response.json())

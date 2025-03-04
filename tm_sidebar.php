@@ -97,6 +97,19 @@
 
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <span class="menu-item" data-key="t-multi-level">Manage Inspection (Eng)</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+
+                        <li><a href="inspection_report_eng.php" data-key="t-level-1.14">All Inspection</a></li>
+                        <li><a href="follow_ups.php" data-key="t-level-1.14">Inspection Follow-Up</a></li>
+
+
+
+                    </ul>
+                </li>
                 <!-- <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fas fa-money-check-alt icon nav-icon"></i>

@@ -252,6 +252,7 @@ input:checked+.slider:before {
                                     <option value="">Select Role</option>
                                     <option value="Admin">Admin</option>
                                     <option value="Sales">Sales</option>
+                                    <option value="Eng">Engineering</option>
                                     <option value="Order">Order (GM-BSM)</option>
                                     <option value="Order (GM Team)">Order (GM Team)</option>
                                     <option value="Logistics">Logistics</option>

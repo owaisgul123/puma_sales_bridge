@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Dealers Reconciliation |
+    <title>Reconciliation Analyzing Report |
         <?php echo $_SESSION['user_name']; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +24,12 @@ table {
     width: 100%;
     border-collapse: collapse;
     /* Ensures no double borders */
+}
+
+.table-wrapper {
+    overflow-y: auto;
+    height: 80vh;
+    /* Adjust the height as needed */
 }
 
 /* Apply border to table cells */
@@ -70,378 +76,175 @@ td {
                             <h3>Reconciliation Analyzing Report</h3>
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-primary-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">Total Recons</h6>
-                                                        </div>
-
-
-
-                                                    </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22" id="total_recons">0</h4>
-
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="card shadow-lg rounded-lg">
+                                        <div class="card-header bg-primary text-white text-center">
+                                            <h4 class="mb-0 text-white">Recon Statistics : <span class=" text-white" id="total_recons">0</span></h4>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-primary-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">No of Sites Recons</h6>
-                                                        </div>
-
-
-
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <!-- First Column -->
+                                                <div class="col-md-6">
+                                                    
+                                                    <div class="p-3 border-bottom">
+                                                        <i class="bx bx-buildings text-primary font-size-24"></i>
+                                                        <!-- Blue -->
+                                                        <span class="fw-bold ms-2">No of Unique Sites Recons:</span>
+                                                        <span class="float-end text-dark"
+                                                            id="total_sites_recons">0</span>
                                                     </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22" id="total_sites_recons">
-                                                            0</h4>
-
+                                                    <div class="p-3 border-bottom d-none">
+                                                        <i class="bx bx-calendar text-warning font-size-24"></i>
+                                                        <!-- Yellow -->
+                                                        <span class="fw-bold ms-2">Avg No of Days:</span>
+                                                        <span class="float-end text-dark" id="avg_day">0</span>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-success-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">Average no of days</h6>
-                                                        </div>
-
-
-
+                                                    <div class="p-3 border-bottom">
+                                                        <i class="bx bx-gas-pump text-danger font-size-24"></i>
+                                                        <!-- Red -->
+                                                        <span class="fw-bold ms-2">Total External Upliftment:</span>
+                                                        <span class="float-end text-dark"
+                                                            id="total_external_upliftment">0 Litres</span>
                                                     </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22" id="avg_day">0</h4>
-
+                                                    <div class="p-3 border-bottom">
+                                                        <i class="bx bx-droplet text-info font-size-24"></i>
+                                                        <!-- Light Blue -->
+                                                        <span class="fw-bold ms-2">Total External Upliftment
+                                                            (PMG):</span>
+                                                        <span class="float-end text-dark"
+                                                            id="total_external_upliftment_pmg">0 Litres</span>
+                                                    </div>
+                                                    <div class="p-3 border-bottom">
+                                                    <i class="bx bx-droplet text-info font-size-24"></i>
+                                                        <!-- Gray -->
+                                                        <span class="fw-bold ms-2">Total External Upliftment
+                                                            (HSD):</span>
+                                                        <span class="float-end text-dark"
+                                                            id="total_external_upliftment_hsd">0 Litres</span>
+                                                    </div>
+                                                    <div class="p-3 border-bottom d-none">
+                                                    <i class="bx bx-droplet text-info font-size-24"></i>
+                                                        <!-- Purple -->
+                                                        <span class="fw-bold ms-2">Total External Upliftment
+                                                            (Hasron):</span>
+                                                        <span class="float-end text-dark"
+                                                            id="total_external_upliftment_hasron">0 Litres</span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-info-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
 
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">Total External Upliftment</h6>
-                                                        </div>
-
-
-
+                                                <!-- Second Column -->
+                                                <div class="col-md-6">
+                                                    
+                                                    <div class="p-3 border-bottom">
+                                                        <i class="bx bx-stats text-success font-size-24"></i>
+                                                        <!-- Green -->
+                                                        <span class="fw-bold ms-2">Monthly Nozzle Potential
+                                                            (MF):</span>
+                                                        <span class="float-end text-dark" id="mix_potential">0
+                                                            Litres</span>
                                                     </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22"
-                                                            id="total_external_upliftment">0</h4><span>Litres</span>
-
+                                                    <div class="p-3 border-bottom">
+                                                        <i class="bx bx-bar-chart text-primary font-size-24"></i>
+                                                        <!-- Blue -->
+                                                        <span class="fw-bold ms-2">Monthly Nozzle Potential
+                                                            (PMG):</span>
+                                                        <span class="float-end text-dark" id="pmg_potential">0
+                                                            Litres</span>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-warning-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">Total External Upliftment
-                                                                (PMG)</h6>
-                                                        </div>
-
-
-
+                                                    <div class="p-3 border-bottom">
+                                                        <i class="bx bx-trending-up text-warning font-size-24"></i>
+                                                        <!-- Yellow -->
+                                                        <span class="fw-bold ms-2">Monthly Nozzle Potential
+                                                            (HSD):</span>
+                                                        <span class="float-end text-dark" id="hsd_potential">0
+                                                            Litres</span>
                                                     </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22"
-                                                            id="total_external_upliftment_pmg">0</h4><span>Litres</span>
-
+                                                    <div class="p-3 border-bottom d-none">
+                                                        <i class="bx bx-line-chart text-danger font-size-24"></i>
+                                                        <!-- Red -->
+                                                        <span class="fw-bold ms-2">Monthly Nozzle Potential
+                                                            (Hasron):</span>
+                                                        <span class="float-end text-dark" id="hasron_potential">0
+                                                            Litres</span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-danger-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">Total External Upliftment
-                                                                (HSD)</h6>
-                                                        </div>
-
-
-
-                                                    </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22"
-                                                            id="total_external_upliftment_hsd">0</h4><span>Litres</span>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 d-none">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-danger-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">Total External Upliftment
-                                                                (HASRON)</h6>
-                                                        </div>
-
-
-
-                                                    </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22"
-                                                            id="total_external_upliftment_hasron">0</h4>
-                                                        <span>Litres</span>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-danger-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">Monthly Nozzle Potential (MIX)
-                                                            </h6>
-                                                        </div>
-
-
-
-                                                    </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22" id="mix_potential">0
-                                                        </h4><span>Litres</span>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-danger-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">Monthly Nozzle Potential (PMG)
-                                                            </h6>
-                                                        </div>
-
-
-
-                                                    </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22" id="pmg_potential">0
-                                                        </h4><span>Litres</span>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-danger-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">Monthly Nozzle Potential (HSD)
-                                                            </h6>
-                                                        </div>
-
-
-
-                                                    </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22" id="hsd_potential">0
-                                                        </h4><span>Litres</span>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 d-none">
-                                        <div class="card" style="height: 200px;">
-                                            <div class="card-body">
-                                                <div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar">
-                                                            <div class="avatar-title rounded bg-danger-subtle ">
-                                                                <i
-                                                                    class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="mb-0 font-size-15">Monthly Nozzle Potential
-                                                                (HASRON)</h6>
-                                                        </div>
-
-
-
-                                                    </div>
-
-                                                    <div>
-                                                        <h4 class="mt-4 pt-1 mb-0 font-size-22" id="hasron_potential">0
-                                                        </h4><span>Litres</span>
-
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </div> <!-- End of Row -->
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-12" style="overflow: auto;">
                                         <!-- <button id="exportButton" class="btn btn-success">Export to Excel</button> -->
-
-                                        <table id="recon_table" style="width:100%"
-                                            class="table table-bordered dataTable">
-                                            <thead>
-                                                <!-- <tr>
+                                        <div class="table-wrapper">
+                                            <table id="recon_table" style="width:100%"
+                                                class="table table-bordered dataTable">
+                                                <thead>
+                                                    <!-- <tr>
                                                     <th colspan="9"></th>
                                                     <th colspan="6" class="table-active text-center">Diesel</th>
                                                     <th colspan="6" class="table-success text-center">Gasoline</th>
                                                     <th colspan="6" class="table-success text-center">Gasoline 95</th>
                                                 </tr> -->
-                                                <tr>
-                                                    <th>S #</th>
-                                                    <th>Sap Code</th>
-                                                    <th>Site</th>
-                                                    <th>TM</th>
-                                                    <!-- <th>Territory</th> -->
-                                                    <th>Region</th>
-                                                    <th>Product </th>
-                                                    <th>Tank Behaviour</th>
-                                                    <th>External Dumping</th>
-                                                    <th>External Upliftment</th>
-                                                    <!-- <th>Opening Date</th>
-                                                    <th>Closing Date</th> -->
-                                                    <th>No of Days</th>
-                                                    <th>Daily Sales-L</th>
-                                                    <th>Opening Stock</th>
-                                                    <th>Physical Stock</th>
-                                                    <th>Receipts</th>
-                                                    <th>Sales</th>
-                                                    <th>Book</th>
-                                                    <th>Variance</th>
-                                                    <th>Variance %</th>
-                                                    <th>Remark</th>
+                                                    <tr>
+                                                        <th>S #</th>
+                                                        <th>Site Code</th>
+                                                        <th>Site Name</th>
+                                                        <th>Territory Manager</th>
+                                                        <!-- <th>Territory</th> -->
+                                                        <th>Region</th>
+                                                        <th>Product</th>
+                                                        <th>Tank Behaviour</th>
+                                                        <th>External Dumping</th>
+                                                        <th>External Upliftment</th>
+                                                        <!-- <th>Opening Date</th>
+                                                        <th>Closing Date</th> -->
+                                                        <th>No of Days</th>
+                                                        <th>Daily Sales-L</th>
+                                                        <th>Opening Stock</th>
+                                                        <th>Physical Stock</th>
+                                                        <th>Receipts</th>
+                                                        <th>Sales</th>
+                                                        <th>Book</th>
+                                                        <th>Variance</th>
+                                                        <th>Variance %</th>
+                                                        <th>Remark</th>
 
 
-                                                </tr>
-                                            </thead>
-                                            <tbody id="data-table-body">
-                                                <!-- Data will be populated here by JavaScript -->
-                                            </tbody>
-                                        </table>
+
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>S #</th>
+                                                        <th>SAP Code</th>
+                                                        <th>Site</th>
+                                                        <th>Territory Manager</th>
+                                                        <!-- <th>Territory</th> -->
+                                                        <th>Region</th>
+                                                        <th>Product</th>
+                                                        <th>Tank Behaviour</th>
+                                                        <th>External Dumping</th>
+                                                        <th>External Upliftment</th>
+                                                        <!-- <th>Opening Date</th>
+                                                        <th>Closing Date</th> -->
+                                                        <th>No of Days</th>
+                                                        <th>Daily Sales-L</th>
+                                                        <th>Opening Stock</th>
+                                                        <th>Physical Stock</th>
+                                                        <th>Receipts</th>
+                                                        <th>Sales</th>
+                                                        <th>Book</th>
+                                                        <th>Variance</th>
+                                                        <th>Variance %</th>
+                                                        <th>Remark</th>
+
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody id="data-table-body">
+                                                    <!-- Data will be populated here by JavaScript -->
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -734,20 +537,20 @@ td {
                                             data.region,
                                             data.product_name,
                                             `<span style="color: transparent;">${data.tank_beharior}</span>
-                                        ${(data.tank_beharior === false) ? 
-                                            '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpYbUIFfRi0gF6G2i5iC3NasuR-00Cvn8fLg&s" alt="description" width="10" height="10">' : 
-                                            '<img src="https://i.pinimg.com/736x/ae/39/6e/ae396e7d69a673158406ce2359206097.jpg" alt="description" width="10" height="10">'
-                                        }`,
+                                        ${(data.tank_beharior === false) ?
+                                                    '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpYbUIFfRi0gF6G2i5iC3NasuR-00Cvn8fLg&s" alt="description" width="10" height="10">' :
+                                                    '<img src="https://i.pinimg.com/736x/ae/39/6e/ae396e7d69a673158406ce2359206097.jpg" alt="description" width="10" height="10">'
+                                                }`,
                                             `<span style="color: transparent;">${data.external_dumping}</span>
-                                        ${(data.external_dumping === false) ? 
-                                            '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpYbUIFfRi0gF6G2i5iC3NasuR-00Cvn8fLg&s" alt="description" width="10" height="10">' : 
-                                            '<img src="https://i.pinimg.com/736x/ae/39/6e/ae396e7d69a673158406ce2359206097.jpg" alt="description" width="10" height="10">'
-                                        }`,
+                                        ${(data.external_dumping === false) ?
+                                                    '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpYbUIFfRi0gF6G2i5iC3NasuR-00Cvn8fLg&s" alt="description" width="10" height="10">' :
+                                                    '<img src="https://i.pinimg.com/736x/ae/39/6e/ae396e7d69a673158406ce2359206097.jpg" alt="description" width="10" height="10">'
+                                                }`,
                                             `<span style="color: transparent;">${data.external_upliftment}</span>
-                                        ${(data.external_upliftment === false) ? 
-                                            '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpYbUIFfRi0gF6G2i5iC3NasuR-00Cvn8fLg&s" alt="description" width="10" height="10">' : 
-                                            '<img src="https://i.pinimg.com/736x/ae/39/6e/ae396e7d69a673158406ce2359206097.jpg" alt="description" width="10" height="10">'
-                                        }`,
+                                        ${(data.external_upliftment === false) ?
+                                                    '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpYbUIFfRi0gF6G2i5iC3NasuR-00Cvn8fLg&s" alt="description" width="10" height="10">' :
+                                                    '<img src="https://i.pinimg.com/736x/ae/39/6e/ae396e7d69a673158406ce2359206097.jpg" alt="description" width="10" height="10">'
+                                                }`,
                                             data.no_os_days,
                                             (Number(data.daily_sales) || 0).toLocaleString(),
                                             (Number(data.opening_stock) || 0).toLocaleString(),
@@ -808,8 +611,10 @@ td {
                 'copy', 'csv', 'excel', 'print'
             ],
             initComplete: function() {
-                // Add search input to the first 4 columns
-                this.api().columns([1, 2, 3, 4, 5, 6, 7,8]).every(function() {
+                var api = this.api();
+
+                // Add search input to the first 4 columns in the header
+                api.columns([1, 2, 3, 4, 5, 6, 7, 8]).every(function() {
                     var column = this;
                     var input = $('<input type="text" placeholder="Search">').appendTo($(column
                             .header()))
@@ -819,20 +624,24 @@ td {
                             }
                         });
                 });
+
+                // Add search input to the footer in the same way
+                api.columns([1, 2, 3, 4, 5, 6, 7, 8]).every(function() {
+                    var column = this;
+                    var input = $('<input type="text" placeholder="Search">').appendTo($(column
+                            .footer()))
+                        .on('keyup change', function() {
+                            if (column.search() !== this.value) {
+                                column.search(this.value).draw();
+                            }
+                        });
+                });
             },
             createdRow: function(row, data, dataIndex) {
-                // Assuming the 15th column contains tank_beharior
-                // if (data[15] === true) {
-                //     // If true, set the background color to green
-                //     $('td', row).eq(15).css('background-color', 'green');
-                // } else {
-                //     // Otherwise, set the background color to white
-                //     $('td', row).eq(15).css('background-color', 'white');
-                // }
+                // Example for setting row-specific styles
             }
         });
     }
-
 
     function blocking() {
         $.blockUI({

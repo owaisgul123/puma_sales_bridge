@@ -11,7 +11,7 @@
 
     <meta charset="utf-8" />
     <title>
-        Orders |
+        TRIP BOARD |
         <?php echo $_SESSION['user_name']; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -163,7 +163,7 @@ i.fa {
                                                 </div>
 
                                                 <div class="flex-grow-1 ms-3">
-                                                    <h6 class="mb-0 font-size-15">Total Trips</h6>
+                                                    <h6 class="mb-0 font-size-15">TOTAL TRIPS</h6>
                                                 </div>
 
 
@@ -191,7 +191,7 @@ i.fa {
                                                 </div>
 
                                                 <div class="flex-grow-1 ms-3">
-                                                    <h6 class="mb-0 font-size-15">With Tracker</h6>
+                                                    <h6 class="mb-0 font-size-15">WITH TRACKER</h6>
                                                 </div>
 
 
@@ -219,7 +219,7 @@ i.fa {
                                                 </div>
 
                                                 <div class="flex-grow-1 ms-3">
-                                                    <h6 class="mb-0 font-size-15">WithOut Tracker</h6>
+                                                    <h6 class="mb-0 font-size-15">WITH-OUT TRACKER</h6>
                                                 </div>
 
 

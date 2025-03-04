@@ -9,7 +9,7 @@
 
     <meta charset="utf-8" />
     <title>
-        Dealers |
+        DEALERS DASHBOARD |
         <?php echo $_SESSION['user_name']; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,35 +82,36 @@
         color: red;
         font-size: 24px;
     }
+
     .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
 
-.loader-bar {
-    position: relative;
-    width: 70%;
-    height: 30px;
-    background: #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-}
+    .loader-bar {
+        position: relative;
+        width: 70%;
+        height: 30px;
+        background: #ccc;
+        border-radius: 10px;
+        overflow: hidden;
+    }
 
-.loader-percentage {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background: #3498db;
-    color: #fff;
-    text-align: center;
-    line-height: 30px;
-    border-radius: 10px;
-    transition: width 0.1s;
-}
+    .loader-percentage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: #3498db;
+        color: #fff;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 10px;
+        transition: width 0.1s;
+    }
     </style>
 </head>
 
@@ -210,7 +211,7 @@
 
                         </div>
                         <div class="col-md-3">
-                            <label for="inputEmail4">RM</label>
+                            <label for="inputEmail4">Regional Manager</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="tm_user"
                                 name="tm_user" required multiple>
@@ -222,7 +223,7 @@
 
                         </div>
                         <div class="col-md-3">
-                            <label for="inputEmail4">TM</label>
+                            <label for="inputEmail4">Territory Manager</label>
 
                             <select data-live-search="true" class="form-control selectpicker" id="asm_users"
                                 name="asm_users" required multiple>
@@ -311,7 +312,7 @@
                                             </div>
 
                                             <div class="flex-grow-1 ms-3">
-                                                <h6 class="mb-0 font-size-12">Visits Task</h6>
+                                                <h6 class="mb-0 font-size-15">Visit Task</h6>
                                             </div>
                                             <div class="flex-grow-1 ms-3">
                                                 <h6 onclick="check_task_status('Pending')" class="mb-0 font-size-12"
@@ -365,10 +366,11 @@
                                             </div>
 
                                             <div class="flex-grow-1 ms-3">
-                                                <h6 class="mb-0 font-size-15">RM</h6>
+                                                <h6 class="mb-0 font-size-15">Regional Manager</h6>
                                             </div>
 
-                                            <div class="flex-grow-1 ms-3" onclick="getting_listing('TM')">
+                                            <div class="flex-grow-1 ms-3"
+                                                onclick="getting_listing('TERRITORY MANAGER')">
                                                 <svg style="float: right;" xmlns="http://www.w3.org/2000/svg" width="24"
                                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -402,7 +404,7 @@
                                             </div>
 
                                             <div class="flex-grow-1 ms-3">
-                                                <h6 class="mb-0 font-size-15">TM</h6>
+                                                <h6 class="mb-0 font-size-15">Territory Manager</h6>
                                             </div>
                                             <div class="flex-grow-1 ms-3" onclick="getting_listing('ASM')">
                                                 <svg style="float: right;" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -442,7 +444,7 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-body" style="height: 400px;">
-                                    <strong>RM Approve Status</strong>
+                                    <strong>Regional Manager Approve Status</strong>
                                     <canvas id="task_status"></canvas>
 
                                 </div>
@@ -465,7 +467,7 @@
 
 
                                 <div class="card-body pt-1" style="height: 400px; overflow:auto">
-                                    <h5 class="card-title mb-0">RM Approve Status</h5>
+                                    <h5 class="card-title mb-0">Regional Manager Approve Status</h5>
                                     <div class="mx-n4" id='atgs' data-simplebar>
 
                                     </div>
@@ -544,7 +546,7 @@
                         <!-- <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body" style="height: 350px;">
-                                    <strong>RM Approve Status</strong>
+                                    <strong>REGIONAL MANAGER APPROVE STATUS</strong>
                                     <canvas id="task_status"></canvas>
 
                                 </div>
@@ -561,18 +563,20 @@
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">S.No</th>
+                                        <th class="text-center">S. No</th>
                                         <th class="text-center">Site Name</th>
-                                        <th class="text-center">SAP #</th>
-                                        <th class="text-center">Is Verified </th>
-                                        <th class="text-center">RM</th>
-                                        <th class="text-center">TM</th>
+                                        <th class="text-center">Site Code</th>
+                                        <th class="text-center">Is Verified</th>
+                                        <th class="text-center">Regional Manager</th>
+                                        <th class="text-center">Territory Manager</th>
                                         <th class="text-center">Contact</th>
                                         <th class="text-center">Location</th>
-                                        <th class="text-center">Is-login</th>
+                                        <th class="text-center">Is-Login</th>
                                         <th class="text-center">City</th>
                                         <th class="text-center">Province</th>
                                         <th class="text-center">Region</th>
+
+
                                         <!-- <th class="text-center">Created Time</th> -->
 
                                         <!-- <th class="text-center">Edit</th>
@@ -595,19 +599,21 @@
                                     <table id="task_table" class="display" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>S.No</th>
+                                                <th>S. No</th>
                                                 <th>User</th>
-                                                <th>Site SAP</th>
+                                                <th>Site Code</th>
                                                 <th>Site Name</th>
                                                 <th>Planned Date</th>
-                                                <th>Dealer sign</th>
+                                                <th>Dealer Sign</th>
                                                 <th>Complete Time</th>
-                                                <th>RM Approved Time</th>
-                                                <th>RM Approval Status</th>
-                                                <th>View RM Approval</th>
+                                                <th>Regional Manager Approved Time</th>
+                                                <th>Regional Manager Approval Status</th>
+                                                <th>View Regional Manager Approval</th>
                                                 <th>Visit Status</th>
                                                 <th>Description</th>
                                                 <th>Created At</th>
+
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -640,7 +646,7 @@
                             <div class="container-fluid user_lists" id="tm_div">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4>RM List</h4>
+                                        <h4>Regional Manager List</h4>
 
                                         <div class="card">
                                             <div class="card-body">
@@ -695,7 +701,7 @@
                             <div class="container-fluid user_lists" id="asm_div">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4>TM List</h4>
+                                        <h4>Territory Manager List</h4>
                                         <div class="card">
                                             <div class="card-body">
 
@@ -814,7 +820,7 @@
     <!-- chat offcanvas -->
     <div class="offcanvas offcanvas-end w-75" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header border-bottom">
-            <h5 id="offcanvasRightLabel">Create Dealers</h5>
+            <h5 id="offcanvasRightLabel">Create DEALERS</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -919,14 +925,14 @@
                             </select>
                         </div>
                         <div class="form-group col-md-2 d-none">
-                            <label for="inputAddress">RM</label>
+                            <label for="inputAddress">REGIONAL MANAGER</label>
 
                             <select class="form-control" id="tm" name="tm" onchange='get_tm_asm(this.value)'>
 
                             </select>
                         </div>
                         <div class="form-group col-md-2 d-none">
-                            <label for="inputAddress">TM</label>
+                            <label for="inputAddress">TERRITORY MANAGER</label>
 
                             <select class="form-control" id="asm" name="asm">
 
@@ -1048,7 +1054,7 @@
                 <div class="modal-header">
                     <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
                     <h5 class="modal-title" id="myModalLabel">
-                        <h5 id="labelc">RM Approval Form</h5>
+                        <h5 id="labelc">REGIONAL MANAGER Approval Form</h5>
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -1587,8 +1593,8 @@
                 chart_datas(response, 'region_chart', 'region', 'Region')
                 chart_datas(response, 'city_chart', 'city', 'City')
                 chart_datas(response, 'terr_chart', 'district', 'District')
-                chart_datas(response, 'rm_chart', 'tm', 'RM')
-                chart_datas(response, 'tm_chart', 'asm', 'TM')
+                chart_datas(response, 'rm_chart', 'tm', 'REGIONAL MANAGER')
+                chart_datas(response, 'tm_chart', 'asm', 'TERRITORY MANAGER')
                 // chart_datas(response, 'depot_chart', 'actual_depot', 'Depot')
                 // chart_datas(response, 'rural_urban', 'cat_2', 'Cat-2')
 
@@ -1713,14 +1719,14 @@
                     var lang = data.privilege;
                     if (lang == 'ZM') {
                         lang = 'GRM';
-                    } else if (lang == 'TM') {
-                        lang = 'RM';
+                    } else if (lang == 'TERRITORY MANAGER') {
+                        lang = 'REGIONAL MANAGER';
 
                     } else if (lang == 'Admin') {
                         lang = 'Admin';
 
                     } else if (lang == 'ASM') {
-                        lang = 'TM';
+                        lang = 'TERRITORY MANAGER';
 
                     } else {
                         lang = data.privilege;
@@ -1999,7 +2005,7 @@
                 $('#tm').empty();
                 $('#tm').append($('<option>', {
                     value: '',
-                    text: 'Select RM'
+                    text: 'Select REGIONAL MANAGER'
                 }));
                 $.each(data, function(index, item) {
 
@@ -2030,7 +2036,7 @@
                 $('#asm').empty();
                 $('#asm').append($('<option>', {
                     value: '',
-                    text: 'Select TM'
+                    text: 'Select TERRITORY MANAGER'
                 }));
                 $.each(data, function(index, item) {
 
@@ -2166,7 +2172,7 @@
         $('#tm_counts').text(distinctASMCount);
 
         // Output the results
-        // console.log('Distinct TM Count:', distinctTmCount);
+        // console.log('Distinct TERRITORY MANAGER Count:', distinctTmCount);
         // console.log('Distinct ASM No Count:', distinctASMCount);
         var verifiedCount = 0;
         var nonVerifiedCount = 0;
@@ -2209,8 +2215,8 @@
         chart_datas(filteredData, 'region_chart', 'region', 'Region')
         chart_datas(filteredData, 'city_chart', 'city', 'City')
         chart_datas(filteredData, 'terr_chart', 'district', 'District')
-        chart_datas(filteredData, 'rm_chart', 'tm', 'RM')
-        chart_datas(filteredData, 'tm_chart', 'asm', 'TM')
+        chart_datas(filteredData, 'rm_chart', 'tm', 'REGIONAL MANAGER')
+        chart_datas(filteredData, 'tm_chart', 'asm', 'TERRITORY MANAGER')
 
 
         var filteredTaskData = task_data.filter(function(item) {
@@ -2249,20 +2255,20 @@
             }
             task_table.row.add([
                 index + 1,
-                        '<a href="inspection_report.php?name=' + data.user_name +
-                        '" target="_blank">' + data.user_name + '</a>',
-                        data.sap_no,
-                        data.dealer_name,
-                        data.time,
-                        dealer_sign,
-                        (data.visit_close_time != null) ? data.visit_close_time : "---",
-                        (data.approved_at != null) ? data.approved_at : "---",
-                        data.approval_status,
-                        rm_approval,
-                        data.current_status,
-                        // (data.status === '1') ? 'Complete' : 'Pending',
-                        data.description,
-                        data.task_create_time,
+                '<a href="inspection_report.php?name=' + data.user_name +
+                '" target="_blank">' + data.user_name + '</a>',
+                data.sap_no,
+                data.dealer_name,
+                data.time,
+                dealer_sign,
+                (data.visit_close_time != null) ? data.visit_close_time : "---",
+                (data.approved_at != null) ? data.approved_at : "---",
+                data.approval_status,
+                rm_approval,
+                data.current_status,
+                // (data.status === '1') ? 'Complete' : 'Pending',
+                data.description,
+                data.task_create_time,
 
             ]).draw(false);
         });
@@ -3021,7 +3027,7 @@
 
     function getting_listing(user) {
         $('.user_lists').addClass('d-none')
-        if (user == 'TM') {
+        if (user == 'TERRITORY MANAGER') {
             $('#tm_div').removeClass('d-none')
 
         } else if (user == 'ASM') {

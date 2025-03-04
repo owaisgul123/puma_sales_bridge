@@ -1,5 +1,31 @@
+
+<?php include 'env_set.php'; ?>
 <?php 
+
 session_start();
+$user_id = $_SESSION['user_id'];
+// $mypassword = hash('sha256', $mypassword); 
+// $mypassword = md5($mypassword);
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+    CURLOPT_URL => ''.$api_url.'get/log_out.php?key=03201232927&user_id='.$user_id.'',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+)
+);
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+
+
 
 // Unset all session variables
 session_unset();
@@ -10,7 +36,7 @@ session_destroy();
 // Redirect the user to the login page or another destination
 // header("Location: inde.php");
 ?>
-<?php include 'env_set.php'; ?>
+
 <!doctype html>
 <html lang="en">
 

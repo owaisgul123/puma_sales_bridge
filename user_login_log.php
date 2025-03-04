@@ -66,8 +66,8 @@
                                     <tr>
                                         <th>S. No</th>
                                         <th>Activity</th>
-                                        <th>Created At</th>
-                                        <th>Created By</th>
+                                        <th>Action By</th>
+                                        <th>Action TIme</th>
 
 
 
@@ -407,7 +407,7 @@
             redirect: 'follow'
         };
 
-        fetch("<?php echo $api_url; ?>get/get_users_log.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
+        fetch("<?php echo $api_url; ?>get/get_user_login_log.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -417,9 +417,9 @@
                 $.each(response, function(index, data) {
                     table.row.add([
                         index + 1,
-                        data.message,
-                        data.created_at,
-                        data.username
+                        data.type,
+                        data.username,
+                        data.created_at
                     ]).draw(false);
                 });
             })

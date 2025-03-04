@@ -175,7 +175,7 @@ dea
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
-                    <div class="row <?php echo $$disabledAttribute;?>" >
+                    <div class="row <?php echo $$disabledAttribute;?>">
 
                         <div class="col-md-6">
 
@@ -193,13 +193,13 @@ dea
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">S.No</th>
+                                        <th class="text-center">S. No</th>
                                         <th class="text-center">Site Name</th>
-                                        <th class="text-center">Sap</th>
+                                        <th class="text-center">Site Code</th>
                                         <th class="text-center">Cell No</th>
                                         <th class="text-center">Ledger Balance</th>
-                                        <th class="text-center">RM</th>
-                                        <th class="text-center">TM</th>
+                                        <th class="text-center">Regional Manager</th>
+                                        <th class="text-center">Territory Manager</th>
                                         <th class="text-center">View</th>
                                         <th class="text-center">View Sales</th>
                                         <?php if ($pre == 'Admin') { ?>
@@ -208,6 +208,8 @@ dea
                                         <th class="text-center">Edit Password</th>
                                         <th class="text-center">Edit</th>
                                         <?php } ?>
+
+
 
                                     </tr>
                                 </thead>
@@ -324,7 +326,8 @@ dea
                         <div class="form-group col-md-2">
                             <label for="inputEmail4">Password</label>
                             <span id="lorry_span">
-                                <input type="text" class="form-control" id="password" name="password" pattern="^[a-zA-Z0-9\s]*$" required>
+                                <input type="text" class="form-control" id="password" name="password"
+                                    pattern="^[a-zA-Z0-9\s]*$" required>
 
                             </span>
                         </div>
@@ -910,12 +913,14 @@ dea
             method: 'GET',
             redirect: 'follow'
         };
-        console.log("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>");
+        console.log(
+            "<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>"
+        );
         fetch("<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
-                
+
                 table.clear().draw();
                 $.each(response, function(index, data) {
                     // console.log(data.contact)
@@ -928,7 +933,7 @@ dea
                     var encryptedId = encryptId(originalId, key, iv);
                     table.row.add([
                         index + 1,
-                        capitalizeFirstLetter(data.name),
+                        data.name,
                         data.sap_no,
                         data.contact,
                         parseFloat(data.acount).toLocaleString(),
@@ -942,7 +947,10 @@ dea
                         '" target="_blank" class="btn btn-soft-warning waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></a></td>',
                         (prel == 'Admin' ?
                             (data.indent_price == '1' ?
-                                '<td><button class="btn btn-info" onclick="sent_notification(' +data.id + ',' + data.contact + ', \'' + data.password +'\', \'' + data.contact +'\')"><i class="mdi mdi-send-check"></i> - ' + data.no_of_msg_send +
+                                '<td><button class="btn btn-info" onclick="sent_notification(' +
+                                data.id + ',' + data.contact + ', \'' + data.password + '\', \'' +
+                                data.contact + '\')"><i class="mdi mdi-send-check"></i> - ' + data
+                                .no_of_msg_send +
                                 '</button></td>' :
                                 '<td>---</td>') :
                             ''),
@@ -951,8 +959,13 @@ dea
                             .id + '" onclick="check(' +
                             data.id + ')" ' + (data.indent_price == 0 ? '' : 'checked') +
                             '> <span class="slider round"></span></label></td>' : ''),
-                        (prel == 'Admin' ? '<td><button type="button" id="edit" name="edit_pa" onclick="update_pass(' +data.id +')" class="btn btn-soft-warning waves-effect waves-light"><i class="bx bx-edit-alt font-size-16 align-middle"></i></button></td>' :''),
-                        (prel == 'Admin' ? '<td><button type="button" id="edit" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" name="edit" onclick="editData(' +
+                        (prel == 'Admin' ?
+                            '<td><button type="button" id="edit" name="edit_pa" onclick="update_pass(' +
+                            data.id +
+                            ')" class="btn btn-soft-warning waves-effect waves-light"><i class="bx bx-edit-alt font-size-16 align-middle"></i></button></td>' :
+                            ''),
+                        (prel == 'Admin' ?
+                            '<td><button type="button" id="edit" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" name="edit" onclick="editData(' +
                             data.id +
                             ')" class="btn btn-soft-warning waves-effect waves-light"><i class="bx bx-edit-alt font-size-16 align-middle"></i></button></td>' :
                             '')
@@ -1042,7 +1055,7 @@ dea
 
     }
 
-    function sent_notification(id, contact, password,contact2) {
+    function sent_notification(id, contact, password, contact2) {
         // alert(contact2)
         var msg = `Dear Customer, This is an automatic SMS from PUMA, please note the followings to login into dealer application.
         Login ID: ${contact2}
@@ -1057,8 +1070,9 @@ dea
                 method: "GET",
                 redirect: "follow"
             };
-            console.log("<?php echo $api_url; ?>services/send_dealers_msg.php?contact="+contact2+"&msg="+msg+"");
-            fetch("<?php echo $api_url; ?>services/send_dealers_msg.php?contact="+contact2+"&msg="+msg+"",
+            console.log("<?php echo $api_url; ?>services/send_dealers_msg.php?contact=" + contact2 + "&msg=" + msg +
+                "");
+            fetch("<?php echo $api_url; ?>services/send_dealers_msg.php?contact=" + contact2 + "&msg=" + msg + "",
                     requestOptions)
                 .then((response) => response.text())
                 .then((result) => {

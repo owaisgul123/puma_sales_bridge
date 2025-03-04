@@ -9,7 +9,7 @@
 
     <meta charset="utf-8" />
     <title>
-        USERS LOGS | <?php echo $_SESSION['user_name'];?>
+        Users Dealers | <?php echo $_SESSION['user_name'];?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="BYCO" name="description" />
@@ -48,7 +48,7 @@
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
-                    <!-- <div class="row">
+                    <div class="row">
 
                         <div class="col-md-6">
                             <button class="btn btn-soft-primary waves-effect waves-light" type="button"
@@ -56,20 +56,18 @@
                                 aria-controls="offcanvasRight"><i
                                     class="bx bxs-add-to-queue font-size-16 align-middle me-2 cursor-pointer"></i>Add</button>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="card">
                         <div class="card-body">
-                            <h3>Users Logs</h3>
+                            <h3>Users Dealers</h3>
 
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>S. No</th>
-                                        <th>Activity</th>
-                                        <th>Created At</th>
-                                        <th>Created By</th>
-
-
+                                        <th>S.No</th>
+                                        <th>User</th>
+                                        <th>Dealer</th>
+                                        <th>Delete</th>
 
                                     </tr>
                                 </thead>
@@ -111,14 +109,34 @@
         </div>
         <div class="offcanvas-body">
             <div class="container-fluid">
+            <div class="form-group col-md-12">
+                    <label for="inputAddress">Region <br><small>(If you want to select all Dealers under specific
+                            region.)</small></label>
+
+                    <select class="form-control" id="regions" name="regions" onchange='get_regions_dealers(this.value)'
+                        required>
+
+                    </select>
+                </div>
+                <hr>
                 <form method="post" id="insert_form" enctype="multipart/form-data">
 
 
                     <div class="form-row mb-4">
                         <div class="form-group col-md-12">
-                            <label for="inputEmail4">Sizes</label>
-                            <input type="number" class="form-control" id="name" name="name" placeholder="Enter Username"
+                            <label for="inputEmail4">Users</label>
+                            <select class="w-100 form-control" id="users" name="users" required
+                              >
+                              <!-- onchange="get_user_dealers(this.value)" -->
+                                <!-- <option value="">Select TM</option> -->
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputEmail4">Dealers</label>
+                            <select class="w-100 multiple_select" id="dealers" name="dealers[]" multiple="multiple"
                                 required>
+                                <!-- <option value="">Select TM</option> -->
+                            </select>
                         </div>
 
 
@@ -155,30 +173,9 @@
     var subtype;
     $(document).ready(function() {
         // $('.js-example-basic-multiple').select2();
+        all_dealers();
 
-
-        $("#role").on("change", function() {
-            var selectedRole = $(this).val();
-            // Hide all secondary dropdowns
-            $("#salesRole, #zmRole, #tmRole,#logisticsSelect").hide();
-            if (selectedRole === "Sales") {
-                $("#salesRole").show();
-            } else if (selectedRole === "Logistics") {
-                $("#logisticsSelect").show();
-            }
-        });
-
-        $("#sales").on("change", function() {
-            var selectedSalesRole = $(this).val();
-            // alert(selectedSalesRole)
-            // Hide all secondary dropdowns
-            $("#zmRole, #tmRole").hide();
-            if (selectedSalesRole === "TM") {
-                $("#zmRole").show();
-            } else if (selectedSalesRole === "ASM") {
-                $("#tmRole").show();
-            }
-        });
+        $('.multiple_select').select2();
 
         table = $('#myTable').DataTable({
             dom: 'Bfrtip',
@@ -188,157 +185,130 @@
 
         });
         fetchtable();
-        $('#add_btn').click(function() {
 
-            $('#row_id').val("");
-
-            $('#insert_form')[0].reset();
-            // alert("running")
-
-        });
 
         $('#insert_form').on("submit", function(event) {
             event.preventDefault();
-            // alert("Name")
-            update_id = $('#row_id').val();
 
-            if (update_id == 0) {
-                var data = new FormData(this);
-                $.ajax({
-                    url: "<?php echo $api_url; ?>create/create_containers_sizes.php",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: "POST",
-                    data: data,
-                    beforeSend: function() {
-                        $('#insert').val("Saving");
-                        document.getElementById("insert").disabled = true;
 
-                    },
-                    success: function(data) {
-                        console.log(data)
+            var data = new FormData(this);
+            $.ajax({
+                url: "<?php echo $api_url; ?>create/assign_user_dealers.php",
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: "POST",
+                data: data,
+                beforeSend: function() {
+                    $('#insert').val("Saving");
+                    document.getElementById("insert").disabled = true;
 
-                        if (data != 1) {
+                },
+                success: function(data) {
+                    console.log(data)
+
+                    if (data != 1) {
+                        Swal.fire(
+                            'Server Error!',
+                            'Record Not Created',
+                            'error'
+                        )
+                        $('#insert').val("Save");
+                        document.getElementById("insert").disabled = false;
+                    } else {
+
+
+                        setTimeout(function() {
                             Swal.fire(
-                                'Server Error!',
-                                'Record Not Created',
-                                'error'
+                                'Success!',
+                                'Record Created Successfully',
+                                'success'
                             )
+                            $('#insert_form')[0].reset();
+                            $('#offcanvasRight').modal('hide');
+                            fetchtable();
+                            $("#salesRole, #zmRole, #tmRole,#logisticsSelect")
+                                .hide();
                             $('#insert').val("Save");
                             document.getElementById("insert").disabled = false;
-                        } else {
+
+                            location.reload();
 
 
-                            setTimeout(function() {
-                                Swal.fire(
-                                    'Success!',
-                                    'Record Created Successfully',
-                                    'success'
-                                )
-                                $('#insert_form')[0].reset();
-                                $('#offcanvasRight').modal('hide');
-                                fetchtable();
-                                $("#salesRole, #zmRole, #tmRole,#logisticsSelect")
-                                    .hide();
-                                $('#insert').val("Save");
-                                document.getElementById("insert").disabled = false;
-
-                                location.reload();
-
-
-                            }, 2000);
-
-                        }
+                        }, 2000);
 
                     }
-                });
-            } else {
 
-                var data = new FormData(this);
+                },
+                error: function(xhr, status, error) {
+                    // Handle API errors
+                    console.log('Error:', error);
+                    console.log('Status:', status);
+                    console.log('Response:', xhr.responseText);
+                }
+            });
 
-                $.ajax({
-                    url: "<?php echo $api_url; ?>update/container_size.php",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: "POST",
-                    data: data,
-                    beforeSend: function() {
-                        $('#insert').val("Saving");
-                        document.getElementById("insert").disabled = true;
-
-                    },
-                    success: function(data) {
-                        console.log(data)
-
-                        if (data != 1) {
-                            Swal.fire(
-                                'Server Error!',
-                                'Record Not Updated',
-                                'error'
-                            )
-                            $('#insert').val("Save");
-                            document.getElementById("insert").disabled = false;
-                        } else {
-
-
-                            setTimeout(function() {
-                                Swal.fire(
-                                    'Success!',
-                                    'Record Updated Successfully',
-                                    'success'
-                                )
-                                $('#insert_form')[0].reset();
-                                $('#offcanvasRight').modal('hide');
-                                fetchtable();
-                                $("#salesRole, #zmRole, #tmRole,#logisticsSelect")
-                                    .hide();
-                                $('#insert').val("Save");
-                                document.getElementById("insert").disabled = false;
-
-                                location.reload();
-
-
-                            }, 2000);
-
-                        }
-
-                    }
-                });
-
-            }
 
         });
         load_all_select();
     })
-    //     function deleteData(id){
 
-    // var settings = {
-    //         "url": "<?php echo $api_url; ?>get/get_container_sizes.php?key=03201232927&id=" + id + "",
-    //         "method": "GET",
-    //         "timeout": 0,
-    //     };
+    function all_dealers() {
+        fetch(
+                "<?php echo $api_url; ?>get/dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>"
+            )
+            .then(response => response.json())
+            .then(response => {
+                response.forEach(data => {
+                    $('#dealers').append(new Option(data.name, data.id)).trigger('change');
+                });
+            })
+            .catch(error => console.log('Error fetching dealers:', error));
 
-    //     $.ajax({
-    //         ...settings,
-    //         statusCode: {
-    //             200: function(response) {
+        fetch(
+                "<?php echo $api_url; ?>get/get_eng_users.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&user_id=<?php echo $_SESSION['user_id'] ?>"
+            )
+            .then(response => response.json())
+            .then(response => {
+                $('#users').append(new Option('Select', '')).trigger('change');
+                response.forEach(data => {
+                    $('#users').append(new Option(data.name, data.id)).trigger('change');
+                });
+            })
+            .catch(error => console.log('Error fetching dealers:', error));
+    }
 
-    //                 $('#row_id').val(response[0]['id'])
-    //                 $('#name').val(response[0]['sizes']);
+    function get_user_dealers(user_id) {
+        fetch(
+                `<?php echo $api_url; ?>get/get_user_dealers.php?key=03201232927&pre=<?php echo $_SESSION['privilege']; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&id=${user_id}`
+            )
+            .then(response => response.json())
+            .then(response => {
+                console.log("API Response:", response); // Debugging
 
-    //             }
-    //         }
-    //     })
-    //     $('#offcanvasRight').offcanvas('show');
+                // Check if response is valid and not empty
+                if (Array.isArray(response) && response.length > 0) {
+                    let dealerIds = response.map(data => data.dealer_id); // Extract all dealer IDs
+                    $('#dealers').val(dealerIds).trigger('change'); // Set values & trigger update
+                } else {
+                    console.warn("No dealers found for user_id:", user_id);
+                    $('#dealers').val(null).trigger('change'); // Clear selection if no data
+                }
+            })
+            .catch(error => console.error('Error fetching dealers:', error));
+    }
 
-    // }
 
-    function deleteData(id) {
+    function deleteAssign(id) {
+    var result = confirm("Are you sure you want to delete this record?");
+
+    // If the user confirms, proceed with deletion
+    if (result) {
+        // Call a function to delete the item
+
 
         var settings = {
-            "url": "<?php echo $api_url; ?>delete/delete_container_size.php?key=03201232927&id=" + id + "",
+            "url": "<?php echo $api_url; ?>delete/delete_eng_dealer.php?key=03201232927&id=" + id + "",
             "method": "GET",
             "timeout": 0,
         };
@@ -354,7 +324,7 @@
                     )
                     setTimeout(function() {
 
-                        // location.reload();
+                        location.reload();
 
 
                     }, 2000);
@@ -374,9 +344,9 @@
                 }
             }
         })
-
     }
 
+}
     function editData(id) {
 
         var settings = {
@@ -407,7 +377,7 @@
             redirect: 'follow'
         };
 
-        fetch("<?php echo $api_url; ?>get/get_users_log.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
+        fetch("<?php echo $api_url; ?>get/get_users_dealers.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
@@ -417,9 +387,13 @@
                 $.each(response, function(index, data) {
                     table.row.add([
                         index + 1,
-                        data.message,
-                        data.created_at,
-                        data.username
+                        data.username,
+                        data.dealer_name,
+                       
+
+                        '<button type="button" id="delete" name="delete" onclick="deleteAssign(' +
+                        data.id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button>'
                     ]).draw(false);
                 });
             })
@@ -429,6 +403,33 @@
     }
 
     function load_all_select() {
+        $.ajax({
+            url: '<?php echo $api_url; ?>get/get_dealers_region.php?key=03201232927',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // $('#zm').empty(); 
+                console.log('ZM')
+                console.log(data)
+                $('#regions').append($('<option>', {
+                    value: '',
+                    text: 'Select Region'
+                }));
+                // Iterate through the data and append options to the select element
+                $.each(data, function(index, item) {
+                    $('#regions').append($('<option>', {
+                        value: item.region,
+                        text: item.region
+                    }));
+                });
+
+                // Refresh the Select2 element to display the newly added options
+                $('#regions').trigger('change.select2');
+            },
+            error: function(error) {
+                console.error('Error fetching data:', error);
+            }
+        });
 
         $.ajax({
             url: '<?php echo $api_url;?>get/get_tm.php?key=03201232927',
@@ -480,6 +481,32 @@
 
 
 
+    }
+    function get_regions_dealers(id) {
+        // alert(id)
+        if (id != "") {
+            $.ajax({
+                url: '<?php echo $api_url; ?>get/dealers_region.php?key=03201232927&region=' + id + '',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+
+                    var region = [];
+                    $.each(data, function(index, item) {
+                        region.push(parseInt(item.id));
+
+                    });
+                    console.log(region)
+                    $('#dealers').val(region).trigger('change');
+
+                },
+                error: function(error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+
+        }
     }
     </script>
 </body>
