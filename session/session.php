@@ -38,9 +38,14 @@ $data = json_decode($response, true);
  if ($result != 0) {
     $data_res = $data['data'];
    
+    if($data_res['privilege']=='ZM'){
 
+        $_SESSION['user_id'] = 2;
+    }else{
+        
+        $_SESSION['user_id'] = $data_res['id'];
+    }
     $_SESSION['email'] = $data_res['login'];
-    $_SESSION['user_id'] = $data_res['id'];
     $_SESSION['user_name'] = $data_res['name'];
     $_SESSION['privilege'] = $data_res['privilege'];
     $_SESSION['password'] = $data_res['description'];

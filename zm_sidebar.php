@@ -48,9 +48,9 @@
 
                         <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
                         <!-- <li><a href="nozle.php" data-key="t-level-1.6"> Products Price </a></li> -->
-                        <li><a href="all_dealers_recons_product_wise_new.php" data-key="t-level-1.14"> Gain / Loss
+                        <li><a href="all_dealers_recons_product_wise_dashboard.php" data-key="t-level-1.14"> Gain / Loss
                                 Board</a></li>
-                                <li><a href="user_login_log.php" data-key="t-level-1.15">User Login / Logout Logs</a></li>
+                                <li><a href="user_login_log.php" data-key="t-level-1.15">Team Activity</a></li>
 
                         <!-- <li>
                             <a href="javascript: void(0);" class="has-arrow">
@@ -88,13 +88,16 @@
                             <ul class="sub-menu" aria-expanded="true">
 
                                 <li><a href="inspection_report.php" data-key="t-level-1.14">All Inspection</a></li>
+                                <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
+
                                 <!-- <li><a href="dealers_wise_recon.php" data-key="t-level-1.14">Dealers Reconciliation Report</a></li> -->
                                 <!-- <li><a href="all_dealers_recons.php" data-key="t-level-1.14">Reconciliation Report</a></li> -->
                                 <li><a href="all_dealers_recons_new.php" data-key="t-level-1.14">Reconciliation
                                         Report</a></li>
 
+                                        <li><a href="all_visit_info.php" data-key="t-level-1.14">Visit History Report</a></li>
 
-
+                                        <li><a href="admin_recon_report_3.php" data-key="t-level-1.14">Visit Calander Report</a></li>
 
                             </ul>
                         </li>
@@ -107,6 +110,22 @@
                                 <li><a href="inspection_report_eng.php" data-key="t-level-1.14">All Inspection</a></li>
                                 <li><a href="follow_ups.php" data-key="t-level-1.14">Inspection Follow-Up</a></li>
 
+                                <!-- <li><a href="multiple_task_eng.php" data-key="t-level-1.10"> Plan Task</a></li> -->
+
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
+                                <span class="menu-item" data-key="t-multi-level">Manage Orders</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="orders_dashboard.php" data-key="t-level-1.16"> Order Dashboard</a></li>
+                                <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li>
+                                <li><a href="manage_blocked_orders.php" data-key="t-level-1.3">Blocked Orders </a></li>
+                                <li><a href="order_shortage.php" data-key="t-level-1.3">Orders Shortages</a></li>
 
 
                             </ul>

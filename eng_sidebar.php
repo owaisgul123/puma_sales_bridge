@@ -33,76 +33,18 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu" user>
-                <li class="menu-title" data-key="t-menu">Dashboard</li>
+                <li class="menu-title" data-key="t-menu">Dashboard </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fas fa-user-cog icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-multi-level">Admin Admin</span>
+                        <span class="menu-item" data-key="t-multi-level">Admin GRM</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
-                        <li><a href="dealer_dashboard.php" data-key="t-level-1.5"> Admin Dashboard</a></li>
-
-                        <li><a href="users.php" data-key="t-level-1.1"> Users </a></li>
-                        <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
-                        <li><a href="omcs_pumps.php" data-key="t-level-1.15">OMCS Dealer</a></li>
-                        <li><a href="user_logs.php" data-key="t-level-1.15">User Logs</a></li>
-                        <li><a href="user_login_log.php" data-key="t-level-1.15">Team Activity</a></li>
-
-                        <li><a href="all_dealers_recons_product_wise_dashboard.php" data-key="t-level-1.14"> Gain / Loss
-                                Board</a></li>
-
-                        <?php
-                        $current_date = date('Y-m-d');
-                        $next_dat = date('Y-m-d', strtotime($current_date . '+1 day'));
-                        ?>
-                        <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>"
-                                data-key="t-level-1.16"> Trip Board</a></li>
-
-
-                        <!-- <li><a href="special_orders.php" data-key="t-level-1.4"> Approved Orders </a></li> -->
-                        <!-- <li><a href="approved_orders.php" data-key="t-level-1.5"> Complete Orders </a></li> -->
-                        <li><a href="nozle.php" data-key="t-level-1.6"> Products Price </a></li>
-                        <!-- <li><a href="order_report.php" data-key="t-level-1.7"> Order Report </a></li> -->
-
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
-                                <span class="menu-item" data-key="t-multi-level">Manage Orders</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="orders_dashboard.php" data-key="t-level-1.16"> Order Dashboard</a></li>
-                                <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li>
-                                <li><a href="manage_blocked_orders.php" data-key="t-level-1.3">Blocked Orders </a></li>
-                                <li><a href="order_shortage.php" data-key="t-level-1.3">Orders Shortages</a></li>
-
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
-                                <span class="menu-item" data-key="t-multi-level">Manage Inspection</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="servey_category.php" data-key="t-level-1.8"> Survey Category </a></li>
-                                <li><a href="survey_questions.php" data-key="t-level-1.9"> Survey Questions </a></li>
-                                <li><a href="servey_category_rm.php" data-key="t-level-1.8">RM Survey Category </a></li>
-                                <li><a href="survey_questions_rm.php" data-key="t-level-1.9"> RM Survey Questions </a></li>
-                                <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
-                                <!-- <li><a href="dealers_sales_performance.php" data-key="t-level-1.11">Dealers Sales
-                                        Performance</a></li> -->
-                                <li><a href="manage_calander.php" data-key="t-level-1.12"> Task Calander</a></li>
-                                <li><a href="dealers_heri.php" data-key="t-level-1.13"> Retail Hierarchy</a></li>
-                                <!-- <li><a href="inspection_report.php" data-key="t-level-1.14">All Inspection</a></li> -->
-                                <!-- <li><a href="dealers_recons_tm.php" data-key="t-level-1.14">Dealers Reconciliation Report</a></li> -->
-                                <!-- <li><a href="all_dealers_recons.php" data-key="t-level-1.14">Dealers Reconciliation Report</a></li> -->
+                        <!-- <li><a href="users.php" data-key="t-level-1.1"> Users </a></li> -->
 
 
 
-                            </ul>
-                        </li>
 
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
@@ -123,110 +65,12 @@
 
                             </ul>
                         </li>
+
                         
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
-                                <span class="menu-item" data-key="t-multi-level">Reports</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="true">
-                               
-                                <li><a href="inspection_report.php" data-key="t-level-1.14">All Inspection</a></li>
-                                <!-- <li><a href="dealers_wise_recon.php" data-key="t-level-1.14">Dealers Reconciliation Report</a></li> -->
-                                <li><a href="all_dealers_recons_new.php" data-key="t-level-1.14">Reconciliation Report</a></li>
-                                <li><a href="all_dealers_recons_latest.php" data-key="t-level-1.14">Reconciliation with Measurement Report</a></li>
-                                <li><a href="admin_recon_report_3.php" data-key="t-level-1.14">Visit Calander Report</a></li>
-                                <li><a href="all_visit_info.php" data-key="t-level-1.14">Visit History Report</a></li>
-                                <!-- <li><a href="all_dealers_recons_product_wise_dashboard.php" data-key="t-level-1.14"> Reconciliation Analyzing Report</a></li> -->
-
-
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <span class="menu-item" data-key="t-multi-level">Setup</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="containers_sizes.php" data-key="t-level-1.10"> Container Sizes </a></li>
-                                <!-- <li><a href="complaint_object_part.php" data-key="t-level-1.1">Object Part</a></li> -->
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <span class="menu-item" data-key="t-multi-level">Lubes Setup</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="lubes_category.php" data-key="t-level-1.1">Category</a></li>
-                                <li><a href="lubes_sizes.php" data-key="t-level-1.1">Sizes</a>
-                                </li>
-                                <li><a href="lubes_products.php" data-key="t-level-1.1">Products</a>
-                                <li><a href="all_lubes_orders.php" data-key="t-level-1.1">Lubes Orders</a>
-
-
-                            </ul>
-                        </li>
-                        <!-- <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                
-                                <span class="menu-item" data-key="t-multi-level">Uniform Setup</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="uniform_grades.php" data-key="t-level-1.1">Grade</a></li>
-                              
-                            </ul>
-                        </li> -->
-
                     </ul>
                 </li>
-                <!-- <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="fas fa-money-check-alt icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-multi-level">Finance</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="true">
-                        <li><a href="#" data-key="t-disabled-item">Ledgers Balance</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Orders</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Approved Orders</a></li>
+               
 
-                    </ul>
-                </li> -->
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="fas fa-shipping-fast icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-multi-level">Logistics</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="true">
-
-                        <!-- <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1.2">Admin Dasboard</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" data-key="t-level-2.1">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);" data-key="t-level-2.2">Level 2.2</a></li>
-                            </ul>
-                        </li>
-
-                        <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1.2">Tracker Dasboard</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" data-key="t-level-2.1">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);" data-key="t-level-2.2">Level 2.2</a></li>
-                            </ul>
-                        </li> -->
-
-
-                        <!-- <li><a href="javascript: void(0);" data-key="t-level-1.1">Trip Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Sap Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Intransit Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Sales Dashboard</a></li> -->
-                        <li><a onclick="post_new_data()" data-key="t-level-1.1">Track Map</a></li>
-                        <li><a href="playback.php" data-key="t-level-1.2">Playback </a></li>
-                        <!-- <li><a href="javascript: void(0);" data-key="t-level-1.1">Manage Geofence</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Playback</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Fence Details</a></li> -->
-
-                    </ul>
-                </li>
 
 
             </ul>
@@ -816,68 +660,68 @@
 
 
 <script>
-var username = '';
+    var username = '';
 
-function get_settings() {
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    console.log("<?php echo $api_url; ?>get/get_settings.php?key=03201232927")
-    fetch("<?php echo $api_url; ?>get/get_settings.php?key=03201232927", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            console.log(result)
+    function get_settings() {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        console.log("<?php echo $api_url; ?>get/get_settings.php?key=03201232927")
+        fetch("<?php echo $api_url; ?>get/get_settings.php?key=03201232927", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
 
-            var username = result['name']
-            var logo = result['logo']
-            var color = result['color']
-            var text_color = result['text_color']
-            var inactive_color = result['inactive_color']
-
-
-            if (color != "") {
-                $('#sidebar_color').css("background-color", color);
-
-            }
-
-            if (text_color != "") {
-
-                // $("#sidebar_color").find("*").css("color", text_color);
-                $('#sidebar_color  .active').css('color', text_color);
-
-            }
-            if (inactive_color != "") {
-                $("#sidebar_color").find("*").css("color", inactive_color);
-                $('#sidebar_color  .active').css('color', text_color);
-
-                // $('.active').css('color', text_color);
-
-            }
+                var username = result['name']
+                var logo = result['logo']
+                var color = result['color']
+                var text_color = result['text_color']
+                var inactive_color = result['inactive_color']
 
 
-            var image = $(".logo_image");
+                if (color != "") {
+                    $('#sidebar_color').css("background-color", color);
 
-            // Change the src attribute of the image
-            image.attr("src", "<?php echo $api_url; ?>" + logo);
-            $(".small_logo").attr("src", "<?php echo $api_url; ?>" + logo);
-            $('.project_name').text(username);
+                }
 
-            console.log(username)
-        })
-        .catch(error => console.log('error', error));
-}
-get_settings();
+                if (text_color != "") {
+
+                    // $("#sidebar_color").find("*").css("color", text_color);
+                    $('#sidebar_color  .active').css('color', text_color);
+
+                }
+                if (inactive_color != "") {
+                    $("#sidebar_color").find("*").css("color", inactive_color);
+                    $('#sidebar_color  .active').css('color', text_color);
+
+                    // $('.active').css('color', text_color);
+
+                }
+
+
+                var image = $(".logo_image");
+
+                // Change the src attribute of the image
+                image.attr("src", "<?php echo $api_url; ?>" + logo);
+                $(".small_logo").attr("src", "<?php echo $api_url; ?>" + logo);
+                $('.project_name').text(username);
+
+                console.log(username)
+            })
+            .catch(error => console.log('error', error));
+    }
+    get_settings();
 </script>
 <script>
-function post_new_data() {
-    var user_id = "<?php echo $_SESSION['user_id'] ?>";
-    var pre = "<?php echo $_SESSION['privilege'] ?>";
-    var u_name = "<?php echo $_SESSION['user_name']; ?>";
+    function post_new_data() {
+        var user_id = "<?php echo $_SESSION['user_id'] ?>";
+        var pre = "<?php echo $_SESSION['privilege'] ?>";
+        var u_name = "<?php echo $_SESSION['user_name']; ?>";
 
-    localStorage.setItem("user_id", user_id);
-    localStorage.setItem("prev", pre);
-    localStorage.setItem("name", u_name);
-    window.open('fleet/maps-google.php', '_blank');
-}
+        localStorage.setItem("user_id", user_id);
+        localStorage.setItem("prev", pre);
+        localStorage.setItem("name", u_name);
+        window.open('fleet/maps-google.php', '_blank');
+    }
 </script>

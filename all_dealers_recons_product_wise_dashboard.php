@@ -770,7 +770,7 @@ td {
 
                     $('#total_recons').text(recon_count);
                     $('#avg_day').text(Math.round(averageDays));
-                    $('#total_external_upliftment').text(upliftment_count.toLocaleString());
+                    $('#total_external_upliftment').text(Math.floor(upliftment_count).toLocaleString());
                     $('#total_external_upliftment_pmg').text(upliftment_count_pmg.toLocaleString());
                     $('#total_external_upliftment_hsd').text(upliftment_count_hsd.toLocaleString());
                     $('#total_external_upliftment_hasron').text(upliftment_count_hasron.toLocaleString());
@@ -781,10 +781,11 @@ td {
                     $('#total_external_dumping_hasron').text('-' + dumping_count_hasron.toLocaleString());
 
                     $('#total_sites_recons').text(total_sites_recons);
-                    $('#mix_potential').text((totalOverall * 30).toLocaleString());
-                    $('#pmg_potential').text((totalPMG * 30).toLocaleString());
-                    $('#hsd_potential').text((totalHSD * 30).toLocaleString());
-                    $('#hasron_potential').text((totalHasron * 30).toLocaleString());
+                    $('#mix_potential').text(Math.floor(totalOverall * 30).toLocaleString());
+                    $('#pmg_potential').text(Math.floor(totalPMG * 30).toLocaleString());
+                    $('#hsd_potential').text(Math.floor(totalHSD * 30).toLocaleString());
+                    $('#hasron_potential').text(Math.floor(totalHasron * 30).toLocaleString());
+
                 }
             } catch (error) {
                 console.error('Error fetching dealer data:', error);
@@ -899,7 +900,7 @@ td {
                     <p class="m-0"><strong>Total Visits:</strong> ${t_total_count}</p>
                     <p class="m-0"><strong>Total Unique Visits:</strong> ${t_distinct_count}</p>
                     <p class="m-0"><strong>Total Dumping:</strong> -${t_dumping.toLocaleString()}</p>
-                    <p class="m-0"><strong>Total External Upliftment:</strong> ${t_external.toLocaleString()}</p>
+                    <p class="m-0"><strong>Total External Upliftment:</strong>${Math.floor(t_external).toLocaleString()}</p>
                     <p class="m-0"><strong>Network Coverage:</strong> ${network_efficiency}</p>
                     </div>`;
                     $('#total_recons').text(t_total_count);

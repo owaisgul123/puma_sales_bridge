@@ -32,4 +32,8 @@ elseif($_SESSION['privilege'] == 'Logistics'){
     include 'inspection_monit_sidebar.php';
     
 }
+elseif($_SESSION['privilege'] == 'Eng'){
+    include 'eng_sidebar.php';
+    
+}
 ?>

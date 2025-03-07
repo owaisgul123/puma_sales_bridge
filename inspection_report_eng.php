@@ -112,411 +112,499 @@
                                     class="bx bxs-add-to-queue font-size-16 align-middle me-2 cursor-pointer"></i>Add</button>
                         </div>
                     </div> -->
-                    <div class="card">
-                        <div class="card-body" style="overflow: auto;">
-                            <h3>Inspection Report</h3>
 
-                            <table id="myTable" class="display" style="width:100%">
-                                <thead>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar">
+                                                <div class="avatar-title rounded bg-primary-subtle ">
+                                                    <i class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
+                                                </div>
+                                            </div>
 
-                                    <tr>
-                                        <th class="text-center">S.No</th>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Complete Time</th>
-                                        <th class="text-center">Dealer Sign</th>
-                                        <th class="text-center">User</th>
-                                        <th class="text-center">Dealer</th>
-                                        <th class="text-center">Mode</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-center">Inspection</th>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6 class="mb-0 font-size-15">Total Visits</h6>
+                                            </div>
 
-                                    </tr>
 
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
 
+                                        </div>
+
+                                        <div>
+                                            <h4 class="mt-4 pt-1 mb-0 font-size-22" id="total_visits">0</h4>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar">
+                                                <div class="avatar-title rounded bg-primary-subtle ">
+                                                    <i class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6 class="mb-0 font-size-15">Total Pending Visits</h6>
+                                            </div>
+
+
+
+                                        </div>
+
+                                        <div>
+                                            <h4 class="mt-4 pt-1 mb-0 font-size-22" id="total_p_visits">0</h4>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar">
+                                                <div class="avatar-title rounded bg-primary-subtle ">
+                                                    <i class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6 class="mb-0 font-size-15">Total Complete Visits</h6>
+                                            </div>
+
+
+
+                                        </div>
+
+                                        <div>
+                                            <h4 class="mt-4 pt-1 mb-0 font-size-22" id="total_c_visits">0</h4>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
 
                 </div>
-                <!-- container-fluid -->
-            </div>
-            <!-- End Page-content -->
 
-            <?php include 'footer.php'; ?>
+                <div class="card">
+                    <div class="card-body" style="overflow: auto;">
+                        <h3>Inspection Report</h3>
 
-        </div>
-        <!-- end main content-->
-        <div id="survey_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-            data-bs-scroll="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
-                        <h5 class="modal-title" id="myModalLabel">
-                            <h5 id="labelc">Survey Response</h5>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <table id="myTable" class="display" style="width:100%">
+                            <thead>
+
+                                <tr>
+                                    <th class="text-center">S.No</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Complete Time</th>
+                                    <th class="text-center">Dealer Sign</th>
+                                    <th class="text-center">User</th>
+                                    <th class="text-center">Dealer</th>
+                                    <th class="text-center">Mode</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Inspection</th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
                     </div>
-                    <div class="modal-body">
+                </div>
+
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        <?php include 'footer.php'; ?>
+
+    </div>
+    <!-- end main content-->
+    <div id="survey_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        data-bs-scroll="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">Survey Response</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <button class="btn btn-info" id="exportBtn" style="float: right;">Export to
+                                PDF</button>
+                        </div>
+
+                    </div>
+                    <div class="container-fluid" id="exporting">
+
                         <div class="row">
                             <div class="col-md-12">
+                                <img src="<?php echo $api_url . '' . $logo; ?>" alt="Image description"
+                                    style="width: 100px;">
 
-                                <button class="btn btn-info" id="exportBtn" style="float: right;">Export to
-                                    PDF</button>
                             </div>
-
-                        </div>
-                        <div class="container-fluid" id="exporting">
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <img src="<?php echo $api_url . '' . $logo; ?>" alt="Image description"
-                                        style="width: 100px;">
-
-                                </div>
-                                <div class="col-md-12">
-                                    Planned Date : <span id="survey_time"></span>
-                                </div>
-                                <!-- <div class="col-md-12">
+                            <div class="col-md-12">
+                                Planned Date : <span id="survey_time"></span>
+                            </div>
+                            <!-- <div class="col-md-12">
                                     Completion Date : <span id="survey_complete_time"></span>
                                 </div> -->
-                                <div id='last_recon'>
-
-                                </div>
-
-                                <div class="col-md-12">
-                                    Site Name : <span id="survey_dealer_name"></span>
-                                </div>
-                                <div class="col-md-12">
-                                    TM Name : <span id="survey_ispector_name"></span>
-                                </div>
-                                <div class="col-md-12 d-none">
-                                    Planned Type : <span id="survey_type"></span>
-                                </div>
-                            </div>
-                            <div class="row" id="survey-container">
+                            <div id='last_recon'>
 
                             </div>
+
+                            <div class="col-md-12">
+                                Site Name : <span id="survey_dealer_name"></span>
+                            </div>
+                            <div class="col-md-12">
+                                TM Name : <span id="survey_ispector_name"></span>
+                            </div>
+                            <div class="col-md-12 d-none">
+                                Planned Type : <span id="survey_type"></span>
+                            </div>
+                        </div>
+                        <div class="row" id="survey-container">
 
                         </div>
 
-
                     </div>
 
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
 
-        <div id="sales_performance" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-            data-bs-scroll="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
-                        <h5 class="modal-title" id="myModalLabel">
-                            <h5 id="labelc">Sales Performance</h5>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
+                </div>
 
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-nowrap table-hover mb-1" id="sale_table">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <th class="text-center">S.No</th>
-                                                <th class="text-center">Product</th>
-                                                <th class="text-center">Monthly Target (L)</th>
-                                                <th class="text-center">Target Achived (L)</th>
-                                                <th class="text-center">Difference (L)</th>
-                                                <th class="text-center">Reason</th>
-                                                <th class="text-center">Time</th>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+    <div id="sales_performance" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        data-bs-scroll="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">Sales Performance</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
-        <div id="wet_stock_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-            data-bs-scroll="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
-                        <h5 class="modal-title" id="myModalLabel">
-                            <h5 id="labelc">Wet Stock Management</h5>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-nowrap table-hover mb-1" id="wet_stock">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <th class="text-center">S.No</th>
-                                                <th class="text-center">Product</th>
-                                                <th class="text-center">Tank #</th>
-                                                <th class="text-center">Old Dip</th>
-                                                <th class="text-center">New Dip</th>
-                                                <th class="text-center">Time</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
-
-        <div id="despensing_unit_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel"
-            aria-hidden="true" data-bs-scroll="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
-                        <h5 class="modal-title" id="myModalLabel">
-                            <h5 id="labelc">Dispensing Unit Meter Reading</h5>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-nowrap table-hover mb-1" id="despensing_unit_table">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <th class="text-center">S.No</th>
-                                                <th class="text-center">Product</th>
-                                                <th class="text-center">Nozel #</th>
-                                                <th class="text-center">Old Dip</th>
-                                                <th class="text-center">New Dip</th>
-                                                <th class="text-center">Time</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
-
-        <div id="stock_variations_modal_new" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel"
-            aria-hidden="true" data-bs-scroll="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
-                        <h5 class="modal-title" id="myModalLabel">
-                            <h5 id="labelc">Survey Response</h5>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
+                    <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
+                                <table class="table table-nowrap table-hover mb-1" id="sale_table">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th class="text-center">S.No</th>
+                                            <th class="text-center">Product</th>
+                                            <th class="text-center">Monthly Target (L)</th>
+                                            <th class="text-center">Target Achived (L)</th>
+                                            <th class="text-center">Difference (L)</th>
+                                            <th class="text-center">Reason</th>
+                                            <th class="text-center">Time</th>
 
-                                <button class="btn btn-info" id="exportBtn" style="float: right;">Export to
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <div id="wet_stock_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        data-bs-scroll="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">Wet Stock Management</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-nowrap table-hover mb-1" id="wet_stock">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th class="text-center">S.No</th>
+                                            <th class="text-center">Product</th>
+                                            <th class="text-center">Tank #</th>
+                                            <th class="text-center">Old Dip</th>
+                                            <th class="text-center">New Dip</th>
+                                            <th class="text-center">Time</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div id="despensing_unit_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        data-bs-scroll="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">Dispensing Unit Meter Reading</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-nowrap table-hover mb-1" id="despensing_unit_table">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th class="text-center">S.No</th>
+                                            <th class="text-center">Product</th>
+                                            <th class="text-center">Nozel #</th>
+                                            <th class="text-center">Old Dip</th>
+                                            <th class="text-center">New Dip</th>
+                                            <th class="text-center">Time</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div id="stock_variations_modal_new" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel"
+        aria-hidden="true" data-bs-scroll="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">Survey Response</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <button class="btn btn-info" id="exportBtn" style="float: right;">Export to
+                                PDF</button>
+                        </div>
+
+                    </div>
+                    <div class="container-fluid" id="exporting">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img src="<?php echo $api_url . '' . $logo; ?>" alt="Image description"
+                                    style="width: 100px;">
+
+                            </div>
+                            <div class="col-md-12">
+                                Time : <span id="survey_time_stock_variation"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                Site Name : <span id="survey_dealer_name_stock_variation"></span>
+                            </div>
+                        </div>
+                        <div class="row" id="survey-container">
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <div id="stock_variations_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        data-bs-scroll="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">Stock Variations</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12" style="overflow:auto">
+                                <table class="table table-nowrap table-hover mb-1" id="stock_variations_table">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th class="text-center">S.No</th>
+                                            <th class="text-center">Product</th>
+                                            <th class="text-center">Opening Stock</th>
+                                            <th class="text-center">Purchase During Inspection period</th>
+                                            <th class="text-center">Total Product Available for Sale</th>
+                                            <th class="text-center">Sales as per meter reading</th>
+                                            <th class="text-center">Book Stock</th>
+                                            <th class="text-center">Current Physical Stock</th>
+                                            <th class="text-center">Gain/Loss</th>
+                                            <th class="text-center">Time</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div id="m_p_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        data-bs-scroll="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <h5 id="labelc">Measurement & Price</h5>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button class="btn btn-info" id="expoert_measure_price" style="float: right;">Export
+                                    to
                                     PDF</button>
-                            </div>
-
-                        </div>
-                        <div class="container-fluid" id="exporting">
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <img src="<?php echo $api_url . '' . $logo; ?>" alt="Image description"
-                                        style="width: 100px;">
-
-                                </div>
-                                <div class="col-md-12">
-                                    Time : <span id="survey_time_stock_variation"></span>
-                                </div>
-
-                                <div class="col-md-12">
-                                    Site Name : <span id="survey_dealer_name_stock_variation"></span>
-                                </div>
-                            </div>
-                            <div class="row" id="survey-container">
 
                             </div>
 
                         </div>
+                        <div class="row" id="maesurement_price_div">
+                            <!-- Main Data Div -->
+                            <div class="col-md-12">
+                                <table id="main_data">
+                                    <thead>
 
+                                        <th>Appreciation Of Dealer </th>
+                                        <th>Measure taken to overcome shortage</th>
+                                        <th>Warning</th>
+                                        <th>PMG OGRA Price</th>
+                                        <th>PMG Pump Price</th>
+                                        <th>PMG Variance</th>
+                                        <th>HSD OGRA Price</th>
+                                        <th>HSD Pump price</th>
+                                        <th>HSD Variance</th>
+                                    </thead>
+                                    <tbody>
 
-                    </div>
-
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
-        <div id="stock_variations_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel"
-            aria-hidden="true" data-bs-scroll="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
-                        <h5 class="modal-title" id="myModalLabel">
-                            <h5 id="labelc">Stock Variations</h5>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12" style="overflow:auto">
-                                    <table class="table table-nowrap table-hover mb-1" id="stock_variations_table">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <th class="text-center">S.No</th>
-                                                <th class="text-center">Product</th>
-                                                <th class="text-center">Opening Stock</th>
-                                                <th class="text-center">Purchase During Inspection period</th>
-                                                <th class="text-center">Total Product Available for Sale</th>
-                                                <th class="text-center">Sales as per meter reading</th>
-                                                <th class="text-center">Book Stock</th>
-                                                <th class="text-center">Current Physical Stock</th>
-                                                <th class="text-center">Gain/Loss</th>
-                                                <th class="text-center">Time</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
 
                             </div>
+                            <div class="col-md-12">
+                                <table id="sub_data">
+                                    <thead>
+
+                                        <th>S # </th>
+                                        <th>Dispenser</th>
+                                        <th>PMG Accurate</th>
+                                        <th>PMG Shorage (%)</th>
+                                        <th>HSD Accurate</th>
+                                        <th>HSD Shorage (%)</th>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <!-- Sub Data Div -->
 
                         </div>
 
-
                     </div>
 
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
 
-        <div id="m_p_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
-            data-bs-scroll="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
-                        <h5 class="modal-title" id="myModalLabel">
-                            <h5 id="labelc">Measurement & Price</h5>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
+                </div>
 
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <button class="btn btn-info" id="expoert_measure_price" style="float: right;">Export
-                                        to
-                                        PDF</button>
-
-                                </div>
-
-                            </div>
-                            <div class="row" id="maesurement_price_div">
-                                <!-- Main Data Div -->
-                                <div class="col-md-12">
-                                    <table id="main_data">
-                                        <thead>
-
-                                            <th>Appreciation Of Dealer </th>
-                                            <th>Measure taken to overcome shortage</th>
-                                            <th>Warning</th>
-                                            <th>PMG OGRA Price</th>
-                                            <th>PMG Pump Price</th>
-                                            <th>PMG Variance</th>
-                                            <th>HSD OGRA Price</th>
-                                            <th>HSD Pump price</th>
-                                            <th>HSD Variance</th>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                <div class="col-md-12">
-                                    <table id="sub_data">
-                                        <thead>
-
-                                            <th>S # </th>
-                                            <th>Dispenser</th>
-                                            <th>PMG Accurate</th>
-                                            <th>PMG Shorage (%)</th>
-                                            <th>HSD Accurate</th>
-                                            <th>HSD Shorage (%)</th>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-
-                                <!-- Sub Data Div -->
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
     </div>
     <!-- END layout-wrapper -->
 
@@ -616,28 +704,6 @@
 
         });
 
-        $("#role").on("change", function() {
-            var selectedRole = $(this).val();
-            // Hide all secondary dropdowns
-            $("#salesRole, #zmRole, #tmRole,#logisticsSelect").hide();
-            if (selectedRole === "Sales") {
-                $("#salesRole").show();
-            } else if (selectedRole === "Logistics") {
-                $("#logisticsSelect").show();
-            }
-        });
-
-        $("#sales").on("change", function() {
-            var selectedSalesRole = $(this).val();
-            // alert(selectedSalesRole)
-            // Hide all secondary dropdowns
-            $("#zmRole, #tmRole").hide();
-            if (selectedSalesRole === "TM") {
-                $("#zmRole").show();
-            } else if (selectedSalesRole === "ASM") {
-                $("#tmRole").show();
-            }
-        });
 
         lubes_table = $('#myTable').DataTable({
             dom: 'Bfrtip',
@@ -653,1126 +719,88 @@
             // alert(usersnames);
             lubes_table.search(usersnames).draw();
         }
-        $('#add_btn').click(function() {
 
-            $('#row_id').val("");
-
-            $('#insert_form')[0].reset();
-            // alert("running")
-
-        });
-
-        $('#insert_form').on("submit", function(event) {
-            event.preventDefault();
-            // alert("Name")
-            update_id = $('#row_id').val();
-
-            if (update_id == 0) {
-                var data = new FormData(this);
-                $.ajax({
-                    url: "<?php echo $api_url; ?>create/create_containers_sizes.php",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: "POST",
-                    data: data,
-                    beforeSend: function() {
-                        $('#insert').val("Saving");
-                        document.getElementById("insert").disabled = true;
-
-                    },
-                    success: function(data) {
-                        console.log(data)
-
-                        if (data != 1) {
-                            Swal.fire(
-                                'Server Error!',
-                                'Record Not Created',
-                                'error'
-                            )
-                            $('#insert').val("Save");
-                            document.getElementById("insert").disabled = false;
-                        } else {
-
-
-                            setTimeout(function() {
-                                Swal.fire(
-                                    'Success!',
-                                    'Record Created Successfully',
-                                    'success'
-                                )
-                                $('#insert_form')[0].reset();
-                                $('#offcanvasRight').modal('hide');
-                                fetchtable();
-                                $("#salesRole, #zmRole, #tmRole,#logisticsSelect")
-                                    .hide();
-                                $('#insert').val("Save");
-                                document.getElementById("insert").disabled = false;
-
-                                location.reload();
-
-
-                            }, 2000);
-
-                        }
-
-                    }
-                });
-            } else {
-
-                var data = new FormData(this);
-
-                $.ajax({
-                    url: "<?php echo $api_url; ?>update/container_size.php",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: "POST",
-                    data: data,
-                    beforeSend: function() {
-                        $('#insert').val("Saving");
-                        document.getElementById("insert").disabled = true;
-
-                    },
-                    success: function(data) {
-                        console.log(data)
-
-                        if (data != 1) {
-                            Swal.fire(
-                                'Server Error!',
-                                'Record Not Updated',
-                                'error'
-                            )
-                            $('#insert').val("Save");
-                            document.getElementById("insert").disabled = false;
-                        } else {
-
-
-                            setTimeout(function() {
-                                Swal.fire(
-                                    'Success!',
-                                    'Record Updated Successfully',
-                                    'success'
-                                )
-                                $('#insert_form')[0].reset();
-                                $('#offcanvasRight').modal('hide');
-                                fetchtable();
-                                $("#salesRole, #zmRole, #tmRole,#logisticsSelect")
-                                    .hide();
-                                $('#insert').val("Save");
-                                document.getElementById("insert").disabled = false;
-
-                                location.reload();
-
-
-                            }, 2000);
-
-                        }
-
-                    }
-                });
-
-            }
-
-        });
-        // load_all_select();
-    })
-    //     function deleteData(id){
-
-    // var settings = {
-    //         "url": "<?php echo $api_url; ?>get/get_container_sizes.php?key=03201232927&id=" + id + "",
-    //         "method": "GET",
-    //         "timeout": 0,
-    //     };
-
-    //     $.ajax({
-    //         ...settings,
-    //         statusCode: {
-    //             200: function(response) {
-
-    //                 $('#row_id').val(response[0]['id'])
-    //                 $('#name').val(response[0]['sizes']);
-
-    //             }
-    //         }
-    //     })
-    //     $('#offcanvasRight').offcanvas('show');
-
-    // }
-
-    function deleteData(id) {
-
-        var settings = {
-            "url": "<?php echo $api_url; ?>delete/delete_container_size.php?key=03201232927&id=" + id + "",
-            "method": "GET",
-            "timeout": 0,
-        };
-
-        $.ajax({
-            ...settings,
-            statusCode: {
-                200: function(response) {
-                    Swal.fire(
-                        'Success!',
-                        'Record Deleted Successfully',
-                        'success'
-                    )
-                    setTimeout(function() {
-
-                        // location.reload();
-
-
-                    }, 2000);
-
-                },
-                success: function(data) {
-                    // Additional success handling if needed
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Deleted',
-                        'error'
-                    )
-
-                    // console.log("Request failed with status code: " + xhr.status);
-                }
-            }
-        })
-
-    }
-
-    function editData(id) {
-
-        var settings = {
-            "url": "<?php echo $api_url; ?>get/get_container_sizes.php?key=03201232927&id=" + id + "",
-            "method": "GET",
-            "timeout": 0,
-        };
-
-        $.ajax({
-            ...settings,
-            statusCode: {
-                200: function(response) {
-
-                    $('#row_id').val(response[0]['id'])
-                    $('#name').val(response[0]['sizes']);
-
-                }
-            }
-        })
-        $('#offcanvasRight').offcanvas('show');
-
-    }
-
-    function get_tas_sales_data(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
-        // Clear existing content
-        // $('#survey-container').empty();
-        var currentDate = new Date();
-
-        // Format the date as needed
-        var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
-
-        // Display the formatted date
-        $('#labelc').text('Sales Performance');
-        $('#survey_time').text(isp_date);
-        $('#survey_complete_time').text(comp_date);
-
-        $('#survey_dealer_name').text(dealer_name);
-        $('#survey_ispector_name').text(username);
-        $('#survey_type').text(type);
-
-        last_vists_dates('sales_performance', last_visit_id, comp_date, task_id);
-
-        $('#survey-container').empty();
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/get_dealers_sales_performance.php?key=03201232927&task_id=" +
-                task_id +
-                "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.length > 0) {
-                    var first = result.length > 0 ? result[0] : null;
-                    var second = result.length > 0 ? result[1] : null;
-
-                    var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Sales Performance</h6>
-                        <table class="dynamic_table" style="width:100%">
-                    <tr>
-                        <th></th>
-                        <th>${first ? first.name : '---'}</th>
-                        <th>${second ? second.name : '---'}</th>
-                        <th>---</th>
-                        <th>---</th>
-                    </tr>
-                    <tr>
-                        <th>Target For the month (Ltr)</th>
-                        <td>${first ? parseFloat(first.monthly_target).toLocaleString() : '---'}</td>
-                        <td>${second ? parseFloat(second.monthly_target).toLocaleString() : '---'}</td>
-                        <td>---</td>
-                        <td>---</td>
-                    </tr>
-                    <tr>
-                    <th>Actual todate (Ltr)</th>
-                        <td>${first ? parseFloat(first.target_achived).toLocaleString() : '---'}</td>
-                        <td>${second ? parseFloat(second.target_achived).toLocaleString() : '---'}</td>
-                        <td>---</td>
-                        <td>---</td>
-                    </tr>
-                    <tr>
-                    <th>Variance (Ltr)</th>
-                        <td>${first ? parseFloat(first.differnce).toLocaleString() : '---'}</td>
-                        <td>${second ? parseFloat(second.differnce).toLocaleString() : '---'}</td>
-                        <td>---</td>
-                        <td>---</td>
-                    </tr>
-                    <tr>
-                    <th>Reason For Variation</th>
-                        <td>${first ? first.reason : '---'}</td>
-                        <td>${second ? second.reason : '---'}</td>
-                        <td>---</td>
-                        <td>---</td>
-                    </tr>
-                    
-                   
-                   
-                </table>`;
-
-                    $('#survey-container').append(table);
-                    // sale_table.clear().draw();
-
-                    // $.each(result, function(index, data) {
-                    //     sale_table.row.add([
-                    //         index + 1,
-                    //         data.name,
-                    //         data.monthly_target,
-                    //         // data.name,
-                    //         data.target_achived,
-                    //         data.differnce,
-                    //         data.reason,
-                    //         data.created_at
-
-                    //     ]).draw(false);
-
-                    // });
-                }
-                $('#survey_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
-
-
-
-    }
-
-    function get_task_wet_stock(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
-        // Clear existing content
-        // $('#survey-container').empty();
-        var currentDate = new Date();
-
-        // Format the date as needed
-        var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
-
-        // Display the formatted date
-        $('#labelc').text('Wet Stock Management');
-        $('#survey_time').text(isp_date);
-        $('#survey_complete_time').text(comp_date);
-
-        $('#survey_dealer_name').text(dealer_name);
-        $('#survey_ispector_name').text(username);
-        $('#survey_type').text(type);
-        last_vists_dates('wet_stock', last_visit_id, comp_date, task_id);
-
-        $('#survey-container').empty();
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/get_dealer_wet_stock.php?key=03201232927&task_id=" + task_id +
-                "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.length > 0) {
-                    var t1_1 = result.length > 1 ? result[0] : null;
-                    var t1_2 = result.length > 1 ? result[1] : null;
-                    var t1_3 = result.length > 1 ? result[2] : null;
-                    var t1_4 = result.length > 1 ? result[3] : null;
-                    var sumPMG = 0;
-                    var sumHSD = 0;
-                    var limitPMG = 0;
-                    var limitHSD = 0;
-
-                    // Iterate through the JSON data
-                    $.each(result, function(index, item) {
-                        // Calculate the difference (dip_new - dip_old)
-                        // var difference = parseInt(item.dip_new) - parseInt(item.dip_old);
-                        var difference = parseInt(item.dip_new);
-                        // Check the product name
-                        if (item.name === "PMG") {
-                            sumPMG += difference; // Add the difference to PMG sum
-                        } else if (item.name === "HSD") {
-                            sumHSD += difference; // Add the difference to HSD sum
-                        }
-                    });
-
-                    console.log("Sum of PMG: ", sumPMG);
-                    console.log("Sum of HSD: ", sumHSD);
-                    var PMGArray = [];
-                    var HSDArray = [];
-                    var PMGArraylimit = [];
-                    var HSDArraylimit = [];
-
-                    // Initialize arrays with empty strings
-                    for (var i = 0; i < 4; i++) {
-                        PMGArray.push('---');
-                        HSDArray.push('---');
-                        PMGArraylimit.push('---');
-                        HSDArraylimit.push('---');
-                    }
-
-                    // Iterate through the JSON data
-                    $.each(result, function(index, item) {
-                        // Calculate the difference (dip_new - dip_old)
-                        // var difference = parseInt(item.dip_new) - parseInt(item.dip_old);
-                        var difference = parseInt(item.dip_new);
-
-                        // Check the product name and store the difference in the corresponding array
-                        if (item.name === "PMG") {
-                            PMGArray[index] = difference
-                                .toLocaleString(); // Convert to string to keep consistency with empty strings
-                            PMGArraylimit[index] = (item.max_limit).toLocaleString();
-                        } else if (item.name === "HSD") {
-                            HSDArray[index] = difference
-                                .toLocaleString(); // Convert to string to keep consistency with empty strings
-                            HSDArraylimit[index] = (item.max_limit).toLocaleString();
-
-                        }
-                    });
-
-                    console.log("PMG Array: ", PMGArray);
-                    console.log("HSD Array: ", HSDArray);
-
-                    var sumPMG = 0;
-
-                    // Iterate over the array and accumulate the values
-                    $.each(PMGArray, function(index, value) {
-
-                        if (value !== '---') {
-                            // Remove commas and parse the string to float
-                            var floatValue = parseFloat(value.replace(/,/g, ''));
-                            // Add the float value to the sum
-                            sumPMG += floatValue;
-                        }
-                    });
-
-                    var sumHSD = 0;
-
-                    // Iterate over the array and accumulate the values
-                    $.each(HSDArray, function(index, value) {
-                        if (value !== '---') {
-                            // Remove commas and parse the string to float
-                            var floatValue = parseFloat(value.replace(/,/g, ''));
-                            // Add the float value to the sum
-                            sumHSD += floatValue;
-                        }
-                    });
-
-                    var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Wet Stock Management</h6>
-                        <table class="dynamic_table" style="width:100%">
-                    <tr>
-                        <th>Date</th>
-                        <th>Product</th>
-                        <th>Tank-1</th>
-                        <th>Tank-2</th>
-                        <th>Tank-3</th>
-                        <th>Tank-4</th>
-                    </tr>
-                    <tr>
-                        <td>${t1_1 ? t1_1.created_at : '---'}</td>
-                        <th>PMG</th>
-                        <td>${PMGArraylimit[0]}</td>
-                        <td>${PMGArraylimit[1]}</td>
-                        <td>${PMGArraylimit[2]}</td>
-                        <td>${PMGArraylimit[3]}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <th>HSD</th>
-                        <td>${HSDArraylimit[0]}</td>
-                        <td>${HSDArraylimit[1]}</td>
-                        <td>${HSDArraylimit[2]}</td>
-                        <td>${HSDArraylimit[3]}</td>
-                    </tr>
-                   
-                    
-                   
-                   
-                </table>
-                <h6>Total Stock available</h6>
-                <table class="dynamic_table" style="width:100%">
-                <tr>
-                        <th>Product</th>
-                        <th>SUM</th>
-                        <th>Tank-1</th>
-                        <th>Tank-2</th>
-                        <th>Tank-3</th>
-                        <th>Tank-4</th>
-                    </tr>
-                    <tr>
-                        <td>PMG</td>
-                        <td>${sumPMG}</td>
-                        <td>${PMGArray[0]}</td>
-                        <td>${PMGArray[1]}</td>
-                        <td>${PMGArray[2]}</td>
-                        <td>${PMGArray[3]}</td>
-                    </tr>
-                    <tr>
-                        <td>HSD</td>
-                        <td>${sumHSD}</td>
-                        <td>${HSDArray[0]}</td>
-                        <td>${HSDArray[1]}</td>
-                        <td>${HSDArray[2]}</td>
-                        <td>${HSDArray[3]}</td>
-                    </tr>
-                   
-                    
-                   
-                   
-                </table>
-               `;
-
-                    $('#survey-container').append(table);
-
-                    // wet_stock.clear().draw();
-
-                    // $.each(result, function (index, data) {
-                    //     wet_stock.row.add([
-                    //         index + 1,
-                    //         data.name,
-                    //         data.lorry_no,
-                    //         // data.name,
-                    //         data.dip_old,
-                    //         data.dip_new,
-                    //         data.created_at
-
-                    //     ]).draw(false);
-
-                    // });
-                }
-                $('#survey_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
-
-
-
-    }
-
-    function last_vists_dates(report, last_visit_id, comp_date, current_id) {
-        $('#last_recon').empty();
-
-        const requestOptions = {
-            method: "GET",
-            redirect: "follow"
-        };
-
-        if (last_visit_id != null) {
-
-            var t_id = last_visit_id + "," + current_id;
-        } else {
-            var t_id = current_id;
-
-        }
-        const url =
-            "<?php echo $api_url; ?>get/inspection/get_current_second_last_visit_recon.php?key=03201232927&id=" +
-            t_id + "&report=" + report;
-
-        console.log(url);
-
-        fetch(url, requestOptions)
-            .then((response) => response.json())
-            .then((result) => {
-                console.log('lastinf');
-                console.log(result.length);
-
-                if (result.length === 2) {
-                    const lastTime = result[1]['created_at'];
-                    const completeTimeStr = result[0]['created_at'];
-                    const lastVisitDateStr = result[1]['created_at'];
-
-                    $('#survey_complete_time').text(completeTimeStr);
-
-                    const completeTime = new Date(completeTimeStr);
-                    const lastVisitDate = new Date(lastVisitDateStr);
-
-                    const differenceMs = completeTime - lastVisitDate;
-                    let differenceDays = differenceMs / (1000 * 60 * 60 * 24);
-                    differenceDays = Math.round(differenceDays);
-
-                    const divs = `
-                    <div class="col-md-12">
-                                    Completion Date : <span id="">${completeTimeStr}</span>
-                                </div>
-                    <div class="col-md-12">
-                        Last Visit Date: <span id="">${lastTime}</span>
-                    </div>
-                    <div class="col-md-12">
-                        Days Since Last Visit: <span id="">${differenceDays}</span>
-                    </div>`;
-
-                    $('#last_recon').append(divs);
-                } else if (result.length === 1) {
-                    const completeTimeStr = result[0]['created_at'];
-                    const divs = `
-                    <div class="col-md-12">
-                                    Completion Date : <span id="">${completeTimeStr}</span>
-                                </div>
-                    <div class="col-md-12">
-                        Last Visit Date: <span id="">First Time</span>
-                    </div>`;
-
-                    $('#last_recon').append(divs);
-                } else {
-                    const divs = `
-                    <div class="col-md-12">
-                        Last Visit Date: <span id="">First Time</span>
-                    </div>`;
-
-                    $('#last_recon').append(divs);
-                }
-            })
-            .catch((error) => console.error('Error:', error));
-    }
-
-
-    function get_task_despensing_unit(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
-        last_visit_id) {
-        // Clear existing content
-        // $('#survey-container').empty();
-        var currentDate = new Date();
-        // alert(last_visit_id)
-        // Format the date as needed
-        var formattedDate = currentDate.toLocaleString();
-        $('#labelc').text('Dispensing Unit Meter Reading');
-        $('#survey_time').text(isp_date);
-        $('#survey_complete_time').text(comp_date);
-
-        $('#survey_dealer_name').text(dealer_name);
-        $('#survey_ispector_name').text(username);
-        $('#survey_type').text(type);
-
-
-        last_vists_dates('despensing_unit', last_visit_id, comp_date, task_id);
-
-        $('#survey-container').empty();
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        console.log("<?php echo $api_url; ?>get/get_dealer_task_despensing_unit.php?key=03201232927&task_id=" +
-            task_id +
-            "&dealer_id=" + dealer_id + "")
-        fetch("<?php echo $api_url; ?>get/get_dealer_task_despensing_unit.php?key=03201232927&task_id=" + task_id +
-                "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if (result.length > 0) {
-                    // despensing_unit_table.clear().draw();
-
-                    // $.each(result, function(index, data) {
-                    //     despensing_unit_table.row.add([
-                    //         index + 1,
-                    //         data.product_name,
-                    //         data.nozle_name,
-                    //         // data.name,
-                    //         data.old_reading,
-                    //         data.new_reading,
-                    //         data.created_at
-
-                    //     ]).draw(false);
-
-                    // });
-                    var sub_data = result;
-                    console.log(sub_data)
-                    var PMGArray = [];
-                    var HSDArray = [];
-
-                    // Initialize arrays with empty strings
-                    for (var i = 0; i < 8; i++) {
-                        PMGArray.push('---');
-                        HSDArray.push('---');
-                    }
-
-                    // Iterate through the JSON data
-                    $.each(result, function(index, item) {
-                        // Calculate the difference (dip_new - dip_old)
-                        var difference = item;
-
-                        // Check the product name and store the difference in the corresponding array
-                        if (item.product_name === "PMG") {
-                            PMGArray[index] =
-                                difference; // Convert to string to keep consistency with empty strings
-                        } else if (item.product_name === "HSD") {
-                            HSDArray[index] =
-                                difference; // Convert to string to keep consistency with empty strings
-                        }
-                    });
-
-                    console.log("PMG Array: ", PMGArray);
-                    console.log("HSD Array: ", HSDArray);
-
-                    var dis_0 = sub_data.length > 1 ? sub_data[0] : null;
-                    var dis_1 = sub_data.length > 1 ? sub_data[1] : null;
-                    var dis_2 = sub_data.length > 1 ? sub_data[2] : null;
-                    var dis_3 = sub_data.length > 1 ? sub_data[3] : null;
-                    var dis_4 = sub_data.length > 1 ? sub_data[4] : null;
-                    var dis_5 = sub_data.length > 1 ? sub_data[5] : null;
-                    var dis_6 = sub_data.length > 1 ? sub_data[6] : null;
-                    var dis_7 = sub_data.length > 1 ? sub_data[7] : null;
-
-                    var table_sub = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Dispensing Unit Meter Reading</h6>
-                <table class="dynamic_table" style="width:100%">
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th><small>${dis_0 ? dis_0.dispensor_name + " (" + dis_0.nozle_name + ")" : '---'}</small></th>
-                        <th><small>${dis_1 ? dis_1.dispensor_name + " (" + dis_1.nozle_name + ")" : '---'}</small></th>
-                        <th><small>${dis_2 ? dis_2.dispensor_name + " (" + dis_2.nozle_name + ")" : '---'}</small></th>
-                        <th><small>${dis_3 ? dis_3.dispensor_name + " (" + dis_3.nozle_name + ")" : '---'}</small></th>
-                        <th><small>${dis_4 ? dis_4.dispensor_name + " (" + dis_4.nozle_name + ")" : '---'}</small></th>
-                        <th><small>${dis_5 ? dis_5.dispensor_name + " (" + dis_5.nozle_name + ")" : '---'}</small></th>
-                        <th><small>${dis_6 ? dis_6.dispensor_name + " (" + dis_6.nozle_name + ")" : '---'}</small></th>
-                        <th><small>${dis_7 ? dis_7.dispensor_name + " (" + dis_7.nozle_name + ")" : '---'}</small></th>
-
-                       
-                    </tr>
-                    <tr>
-                        <th>Date - P</th>
-                        <th></th>
-                        <td>${PMGArray[0] != '---' ? parseFloat(PMGArray[0].new_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[1] != '---' ? parseFloat(PMGArray[1].new_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[2] != '---' ? parseFloat(PMGArray[2].new_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[3] != '---' ? parseFloat(PMGArray[3].new_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[4] != '---' ? parseFloat(PMGArray[4].new_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[5] != '---' ? parseFloat(PMGArray[5].new_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[6] != '---' ? parseFloat(PMGArray[6].new_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[7] != '---' ? parseFloat(PMGArray[7].new_reading).toLocaleString() : '---'}</td>
-                       
-                    </tr>
-                    <tr>
-                        <th>Date - L</th>
-                        <th></th>
-                        <td>${PMGArray[0] != '---' ? parseFloat(PMGArray[0].old_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[1] != '---' ? parseFloat(PMGArray[1].old_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[2] != '---' ? parseFloat(PMGArray[2].old_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[3] != '---' ? parseFloat(PMGArray[3].old_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[4] != '---' ? parseFloat(PMGArray[4].old_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[5] != '---' ? parseFloat(PMGArray[5].old_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[6] != '---' ? parseFloat(PMGArray[6].old_reading).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[7] != '---' ? parseFloat(PMGArray[7].old_reading).toLocaleString() : '---'}</td>
-                       
-                    </tr>
-                    <tr>
-                        <th>Net Sales</th>
-                        <th>PMG</th>
-                        <td>${PMGArray[0] != '---' ? (parseFloat(PMGArray[0].new_reading) - parseFloat(PMGArray[0].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[1] != '---' ? (parseFloat(PMGArray[1].new_reading) - parseFloat(PMGArray[1].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[2] != '---' ? (parseFloat(PMGArray[2].new_reading) - parseFloat(PMGArray[2].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[3] != '---' ? (parseFloat(PMGArray[3].new_reading) - parseFloat(PMGArray[3].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[4] != '---' ? (parseFloat(PMGArray[4].new_reading) - parseFloat(PMGArray[4].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[5] != '---' ? (parseFloat(PMGArray[5].new_reading) - parseFloat(PMGArray[5].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[6] != '---' ? (parseFloat(PMGArray[6].new_reading) - parseFloat(PMGArray[6].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${PMGArray[7] != '---' ? (parseFloat(PMGArray[7].new_reading) - parseFloat(PMGArray[7].old_reading)).toLocaleString() : '---'}</td>
-
-                       
-                    </tr>
-                    <tr>
-                        <th>Date - P</th>
-                        <th></th>
-                        <td>${HSDArray[0] != '---' ? parseFloat(HSDArray[0].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[1] != '---' ? parseFloat(HSDArray[1].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[2] != '---' ? parseFloat(HSDArray[2].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[3] != '---' ? parseFloat(HSDArray[3].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[4] != '---' ? parseFloat(HSDArray[4].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[5] != '---' ? parseFloat(HSDArray[5].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[6] != '---' ? parseFloat(HSDArray[6].new_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[7] != '---' ? parseFloat(HSDArray[7].new_reading).toLocaleString() : '---'}</td>
-
-                    </tr>
-                    <tr>
-                        <th>Date - L</th>
-                        <th></th>
-                        <td>${HSDArray[0] != '---' ? parseFloat(HSDArray[0].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[1] != '---' ? parseFloat(HSDArray[1].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[2] != '---' ? parseFloat(HSDArray[2].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[3] != '---' ? parseFloat(HSDArray[3].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[4] != '---' ? parseFloat(HSDArray[4].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[5] != '---' ? parseFloat(HSDArray[5].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[6] != '---' ? parseFloat(HSDArray[6].old_reading).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[7] != '---' ? parseFloat(HSDArray[7].old_reading).toLocaleString() : '---'}</td>
-
-                    </tr>
-                    <tr>
-                    <th>Net Sales</th>
-                    <th>HSD</th>
-                        <td>${HSDArray[0] != '---' ? (parseFloat(HSDArray[0].new_reading) - parseFloat(HSDArray[0].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[1] != '---' ? (parseFloat(HSDArray[1].new_reading) - parseFloat(HSDArray[1].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[2] != '---' ? (parseFloat(HSDArray[2].new_reading) - parseFloat(HSDArray[2].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[3] != '---' ? (parseFloat(HSDArray[3].new_reading) - parseFloat(HSDArray[3].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[4] != '---' ? (parseFloat(HSDArray[4].new_reading) - parseFloat(HSDArray[4].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[5] != '---' ? (parseFloat(HSDArray[5].new_reading) - parseFloat(HSDArray[5].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[6] != '---' ? (parseFloat(HSDArray[6].new_reading) - parseFloat(HSDArray[6].old_reading)).toLocaleString() : '---'}</td>
-                        <td>${HSDArray[7] != '---' ? (parseFloat(HSDArray[7].new_reading) - parseFloat(HSDArray[7].old_reading)).toLocaleString() : '---'}</td>
-
-
-                    </tr>
-                    
-                </table> <h6>P=Present</h6><h6>L=Last</h6>`;
-                    $('#survey-container').append(table_sub);
-                }
-
-                $('#survey_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
-
-
-
-    }
-
-    function get_cacual(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
-        // Clear existing content
-        var currentDate = new Date();
-
-        // Format the date as needed
-        var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
-
-        // Display the formatted date
-        $('#labelc').text('Stock Variations');
-        $('#survey_time').text(isp_date);
-        $('#survey_complete_time').text(comp_date);
-
-        $('#survey_dealer_name').text(dealer_name);
-        $('#survey_ispector_name').text(username);
-        $('#survey_type').text(type);
-        last_vists_dates('stock_variation', last_visit_id, comp_date, task_id);
-
-        $('#survey-container').empty();
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/get_cacual_visit_detail.php?key=03201232927&task_id=" + task_id +
-                "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.length > 0) {
-                    var first = result[0];
-                    var second = result.length > 1 ? result[1] : null;
-
-                    var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Casual Visit</h6><table class="dynamic_table" style="width:100%">
-                    <tr>
-                        <th>Time</th>
-                        <th>Description</th>
-                    </tr>
-                    <tr>
-                        <td>${first.visit_time}</td>
-                        <td>${first.description}</td>
-                    </tr>
-                    
-                </table>`;
-
-                    $('#survey-container').append(table);
-                }
-
-                $('#survey_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
-
-
-
-    }
-
-    function get_task_stock_variations(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
-        last_visit_id) {
-        // Clear existing content
-        var currentDate = new Date();
-
-        // Format the date as needed
-        var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
-
-        // Display the formatted date
-        $('#labelc').text('Stock Variations');
-        $('#survey_time').text(isp_date);
-        $('#survey_complete_time').text(comp_date);
-
-        $('#survey_dealer_name').text(dealer_name);
-        $('#survey_ispector_name').text(username);
-        $('#survey_type').text(type);
-        last_vists_dates('stock_variation', last_visit_id, comp_date, task_id);
-
-        $('#survey-container').empty();
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch("<?php echo $api_url; ?>get/get_dealer_task_stock_variation.php?key=03201232927&task_id=" + task_id +
-                "&dealer_id=" + dealer_id + "", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                if (result.length > 0) {
-                    var first = result[0];
-                    var second = result.length > 1 ? result[1] : null;
-
-                    var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Stock Variations</h6><table class="dynamic_table" style="width:100%">
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th>${first.name}</th>
-                        <th>${second ? second.name : ''}</th>
-                    </tr>
-                    <tr>
-                        <th>A</th>
-                        <th>Opening Stock (Total of all tanks)</th>
-                        <td>${parseFloat(first.opening_stock).toLocaleString()}</td>
-                        <td>${second ? parseFloat(second.opening_stock).toLocaleString() : ''}</td>
-                    </tr>
-                    <tr>
-                        <th>B</th>
-                        <th>Purchase during inspection period</th>
-                        <td>${parseFloat(first.purchase_during_inspection_period).toLocaleString()}</td>
-                        <td>${second ? parseFloat(second.purchase_during_inspection_period).toLocaleString() : ''}</td>
-                    </tr>
-                    <tr>
-                        <th>C=A+B</th>
-                        <th>Total Product available for sale</th>
-                        <td>${parseFloat(first.total_product_available_for_sale).toLocaleString()}</td>
-                        <td>${second ? parseFloat(second.total_product_available_for_sale).toLocaleString() : ''}</td>
-                    </tr>
-                    <tr>
-                        <th>D</th>
-                        <th>Sales As Per Meter Reading (Nozzle Sale)</th>
-                        <td>${parseFloat(first.sales_as_per_meter_reading).toLocaleString()}</td>
-                        <td>${second ? parseFloat(second.sales_as_per_meter_reading).toLocaleString() : ''}</td>
-                    </tr>
-                    <tr>
-                        <th>E=C-D</th>
-                        <th>Book Stock</th>
-                        <td>${parseFloat(first.book_stock).toLocaleString()}</td>
-                        <td>${second ? parseFloat(second.book_stock).toLocaleString() : ''}</td>
-                    </tr>
-                    <tr>
-                        <th>F</th>
-                        <th>Current Physical Stock</th>
-                        <td>${parseFloat(first.current_physical_stock).toLocaleString()}</td>
-                        <td>${second ? parseFloat(second.current_physical_stock).toLocaleString() : ''}</td>
-                    </tr>
-                    <tr>
-                        <th>G=F-E</th>
-                        <th>Gain/Loss</th>
-                        <td>${parseFloat(first.gain_loss).toLocaleString()}</td>
-                        <td>${second ? parseFloat(second.gain_loss).toLocaleString() : ''}</td>
-                    </tr>
-                </table>`;
-
-                    $('#survey-container').append(table);
-                }
-
-                $('#survey_modal').modal('show');
-            })
-            .catch(error => console.log('error', error));
-
-
-
-    }
+    });
 
     function fetchtable() {
         blocking();
+
         var fromdate = $('#fromdate').val();
         var todate = $('#todate').val();
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        console.log(
-            "<?php echo $api_url; ?>get/eng/get_all_dealers_inspection_report_data.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&id=<?php echo $_SESSION['user_id'] ?>&from=" +
-            fromdate + "&to=" + todate + "");
-        fetch("<?php echo $api_url; ?>get/eng/get_all_dealers_inspection_report_data.php?key=03201232927&pre=<?php echo $_SESSION['privilege'] ?>&id=<?php echo $_SESSION['user_id'] ?>&from=" +fromdate + "&to=" + todate + "",
-                requestOptions)
+
+        var apiUrl = "<?php echo $api_url; ?>get/eng/get_all_dealers_inspection_report_data.php";
+        var queryParams =
+            `?key=03201232927&pre=<?php echo $_SESSION['privilege']; ?>&id=<?php echo $_SESSION['user_id']; ?>&from=${fromdate}&to=${todate}`;
+
+        console.log(apiUrl + queryParams);
+
+        fetch(apiUrl + queryParams, {
+                method: 'GET',
+                redirect: 'follow'
+            })
             .then(response => response.json())
             .then(response => {
-
                 if (response.length > 0) {
-
-
+                    var t_visit = 0,
+                        p_visit = 0,
+                        c_visit = 0;
 
                     lubes_table.clear().draw();
+
                     $.each(response, function(index, data) {
-                        // console.log(data.dealer_name)
-                        // console.log(response)
+                        var emailer = (data.email_status != 1) ?
+                            `<button type="button" onclick="send_email(${data.id}, ${data.dealer_id})" class="btn btn-soft-danger waves-effect waves-light">
+                            <i class="fas fa-mail-bulk font-size-16 align-middle"></i>
+                        </button>` :
+                            `<button type="button" class="btn btn-soft-danger waves-effect waves-light">
+                            <i class="fas fa-mail-bulk font-size-16 align-middle text-danger"></i>
+                        </button>`;
 
-
-                        // if (data.current_status == 'Complete') {
-                        var emailer = '';
-                        if (data.email_status != 1) {
-                            emailer = '<button type="button"  onclick="send_email(' + data.id +
-                                ',' +
-                                data.dealer_id +
-                                ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle"></i></button>';
-                        } else {
-                            emailer =
-                                '<button type="button"  class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle text-danger"></i></button>';
-                        }
-
-                        var inspection_btn = '<button type="button"  onclick="displaySurvey(' + data.id +
-                            ',' +
-                            data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'",
-                                "\\'") +
-                            '\',\'' + data.time +
-                            '\',\'' + data.visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                            '\',' + data.last_visit_id + ',\'' + data.privilege +
-                            '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                        var inspection_btn = `<button type="button" onclick="displaySurvey(${data.id}, ${data.id}, ${data.dealer_id}, '${data.dealer_name.replace("'", "\\'")}', '${data.time}', '${data.visit_close_time}', '${data.name}', '${data.type}', ${data.last_visit_id}, '${data.privilege}')" class="btn btn-soft-danger waves-effect waves-light">
+                            <i class="fas fa-align-justify font-size-16 align-middle"></i>
+                        </button>`;
                         var inpection = (data.inspection == 1) ? inspection_btn : "---";
 
-                        var sales_performace_btn = '<button type="button" onclick="get_tas_sales_data(' +
-                            data
-                            .id + ',' + data
-                            .dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
-                            .time +
-                            '\',\'' + data.visit_close_time + '\',\'' + data.name +
-                            '\',\'' + data.type +
-                            '\',' + data.last_visit_id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                        var sales_performance = (data.sales_status == 1) ? sales_performace_btn : "---";
+                        var current_status = (data.privilege == 'RM' && data.inspection == 1) ? 'Complete' :
+                            data.current_status;
 
-                        var measurement_btn = '<button type="button" onclick="measure_price(' +
-                            data
-                            .id + ',' + data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace(
-                                "'",
-                                "\\'") + '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' +
-                            data
-                            .name +
-                            '\',\'' + data.type +
-                            '\',' + data.last_visit_id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                        var measurements = (data.measurement_status == 1) ? measurement_btn : "---";
+                        if (current_status === 'Pending') p_visit++;
+                        else if (current_status === 'Complete') c_visit++;
 
-                        var wet_stock_btn = '<button type="button"  onclick="get_task_wet_stock(' + data
-                            .id +
-                            ',' + data
-                            .dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
-                            .time +
-                            '\',\'' + data.visit_close_time + '\',\'' + data.name +
-                            '\',\'' + data.type +
-                            '\',' + data.last_visit_id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                        var wet_stocks = (data.wet_stock_status == 1) ? wet_stock_btn : "---";
+                        t_visit++;
 
-                        var dispensing_unit_btn =
-                            '<button type="button"  onclick="get_task_despensing_unit(' +
-                            data.id +
-                            ',' +
-                            data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
-                            .time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
-                            '\',\'' + data.type +
-                            '\',' + data.last_visit_id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                        var dispensing_units = (data.dispensing_status == 1) ? dispensing_unit_btn : "---";
-
-                        var stock_variatins_btn =
-                            '<button type="button"  onclick="get_task_stock_variations(' +
-                            data.id +
-                            ',' +
-                            data.dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
-                            .time + '\',\'' + data
-                            .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                            '\',' + data.last_visit_id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                        var stock_variations = (data.stock_variations_status == 1) ? stock_variatins_btn :
-                            "---";
                         var dealer_sign = (data.dealer_sign != null) ?
-                            '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + data
-                            .dealer_sign +
-                            '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
+                            `<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/${data.dealer_sign}" target="_blank">
+                            <i class="fas fa-file-image text-success" style="font-size: 20px; font-weight: bold;"></i>
+                        </a>` :
                             "---";
-
-
-
-                        var cacual_btn =
-                            '<button type="button"  onclick="get_cacual(' +
-                            data.id +
-                            ',' +
-                            data.dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
-                            .time + '\',\'' + data
-                            .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                            '\',' + data.last_visit_id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-
-                        var type_btn = (data.status == 1) ? cacual_btn : "";
-                        var insp_type = data.type + ' - ' + type_btn;
-                        var type_txt = (data.type == 'Casual') ? insp_type : data.type;
-                        var current_status = '';
-                        if (data.privilege == 'RM' && data.inspection == 1) {
-                            current_status = 'Complete';
-                        } else {
-                            current_status = data.current_status
-                        }
-
 
                         lubes_table.row.add([
-
-
                             index + 1,
                             data.time,
                             data.visit_close_time,
                             dealer_sign,
                             data.name,
                             data.dealer_name,
-                            type_txt,
+                            data.type,
                             current_status,
                             inpection
                         ]).draw(false);
-                        $.unblockUI();
-
-                        // } else {
-                        //     lubes_table.row.add([
-
-                        //         index + 1,
-                        //         data.time,
-                        //         data.name,
-                        //         data.current_status,
-                        //         '---',
-                        //         '---',
-                        //         '---',
-                        //         '---',
-                        //         '---',
-                        //         '---',
-                        //         '---',
-                        //     ]).draw(false);
-                        // }
-
-
-
                     });
-                } else {
-                    $.unblockUI();
+
+                    $('#total_visits').text(t_visit);
+                    $('#total_p_visits').text(p_visit);
+                    $('#total_c_visits').text(c_visit);
                 }
-
-
             })
-            .catch(error => console.log('error', error));
-
-
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                $.unblockUI();
+            });
     }
+
 
     function displaySurvey(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
         last_visit_id, privilege) {
