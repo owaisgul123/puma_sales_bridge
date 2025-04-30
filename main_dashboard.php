@@ -57,7 +57,12 @@ elseif ($_SESSION['privilege'] == 'Inspection Monitoring') {
 
 }
 elseif ($_SESSION['privilege'] == 'Eng') {
-    $redirectUrl = "eng_dealers_assign.php?id=$user_id&pre=$privilege";
+    $redirectUrl = "eng_dashboard.php";
+    header("Location: $redirectUrl");
+
+}
+elseif ($_SESSION['privilege'] == 'Planner') {
+    $redirectUrl = "cacual_visit_report.php";
     header("Location: $redirectUrl");
 
 }

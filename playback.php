@@ -13,8 +13,8 @@
         <?php echo $_SESSION['user_name']; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="BYCO" name="description" />
-    <meta content="P2P" name="author" />
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -388,11 +388,11 @@
             const lineSymbol = {
                 path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
             };
-            const image = "<?php echo $api_url; ?>uploads/rec.png";
-            const start = "<?php echo $api_url; ?>uploads/icon/car_icon_blue.png";
-            const end = "<?php echo $api_url; ?>uploads/icon/car_red.png";
-            const stops = "<?php echo $api_url; ?>uploads/stop-sign1.png";
-            const running = "<?php echo $api_url; ?>uploads/icon/car_icon_green.png";
+            const image = "http://151.106.17.246:8080/OMCS-CMS-APIS/uploads/rec.png";
+            const start = "http://151.106.17.246:8080/OMCS-CMS-APIS/uploads/icon/car_icon_blue.png";
+            const end = "http://151.106.17.246:8080/OMCS-CMS-APIS/uploads/icon/car_red.png";
+            const stops = "http://151.106.17.246:8080/OMCS-CMS-APIS/uploads/stop-sign1.png";
+            const running = "http://151.106.17.246:8080/OMCS-CMS-APIS/uploads/icon/car_icon_green.png";
             var div = '';
             if (vehicle != "" && from_ != "" && to_ != "") {
                 flightPlanCoordinates = [];
@@ -1158,7 +1158,7 @@
             .catch(error => console.log('error', error));
 
         function marker_creation(lat, lng, consignee) {
-            const image = "<?php echo $api_url; ?>uploads/rec.png";
+            const image = "http://151.106.17.246:8080/OMCS-CMS-APIS/uploads/rec.png";
             var positiona = new google.maps.LatLng(lat, lng);
             var marker = new google.maps.Marker({
                 position: positiona,

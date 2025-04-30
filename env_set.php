@@ -1,5 +1,5 @@
 <?php
-$api_url = "http://151.106.17.246:8080/OMCS-CMS-APIS/";
+$api_url = "http://localhost/OMCS-CMS-APIS/";
 
 
 

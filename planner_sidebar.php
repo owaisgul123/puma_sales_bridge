@@ -38,7 +38,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fas fa-user-cog icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-multi-level">Engineering</span>
+                        <span class="menu-item" data-key="t-multi-level">Planner</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
                         <!-- <li><a href="users.php" data-key="t-level-1.1"> Users </a></li> -->
@@ -48,23 +48,11 @@
 
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
-                                <span class="menu-item" data-key="t-multi-level">Manage Inspection (Eng)</span>
+                                <span class="menu-item" data-key="t-multi-level">Manage Inspection</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="eng_dashboard.php" data-key="t-level-1.5"> Dashboard</a></li>
-                                <li><a href="dealers_asset_verification.php" data-key="t-level-1.5"> Dealers Asset Verification</a></li>
-
-                                <li><a href="eng_dealers_assign.php" data-key="t-level-1.1">Users Dealers (Eng)</a>
-
-                                <li><a href="servey_category_eng.php" data-key="t-level-1.8"> Survey Category </a></li>
-                                <li><a href="survey_questions_eng.php" data-key="t-level-1.9"> Survey Questions </a>
-                                </li>
-
-                                <li><a href="multiple_task_eng.php" data-key="t-level-1.10"> Plan Task</a></li>
-
-                                <li><a href="inspection_report_eng.php" data-key="t-level-1.14">All Inspection</a></li>
-                                <li><a href="follow_ups.php" data-key="t-level-1.14">Inspection Follow-Up</a></li>
-
+                                <li><a href="cacual_visit_report.php" data-key="t-level-1.5"> Cacual Visits</a></li>
+                               
 
 
                             </ul>

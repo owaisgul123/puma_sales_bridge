@@ -42,7 +42,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
     
-                        <li><a href="inspection_report.php" data-key="t-level-1.2"> Inspection Report </a></li>
+                        <!-- <li><a href="inspection_report.php" data-key="t-level-1.2"> Inspection Report </a></li> -->
                         <li><a href="dealers.php" data-key="t-level-1.2"> Dealers </a></li>
                         
                           
@@ -50,7 +50,28 @@
 
                     </ul>
                 </li>
-               
+                <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
+                                <span class="menu-item" data-key="t-multi-level">Reports</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="true">
+
+                                <li><a href="inspection_report.php" data-key="t-level-1.14">All Inspection</a></li>
+                                <!-- <li><a href="dealers_wise_recon.php" data-key="t-level-1.14">Dealers Reconciliation Report</a></li> -->
+                                <li><a href="all_dealers_recons_new.php" data-key="t-level-1.14">Reconciliation
+                                        Report</a></li>
+                                <li><a href="all_dealers_recons_latest.php" data-key="t-level-1.14">Reconciliation with
+                                        Measurement Report</a></li>
+                                <li><a href="admin_recon_report_3.php" data-key="t-level-1.14">Visit Calander Report</a>
+                                </li>
+                                <li><a href="all_visit_info.php" data-key="t-level-1.14">Visit History Report</a></li>
+                                <!-- <li><a href="all_dealers_recons_product_wise_dashboard.php" data-key="t-level-1.14"> Reconciliation Analyzing Report</a></li> -->
+
+
+
+                            </ul>
+                        </li>
               
 
 

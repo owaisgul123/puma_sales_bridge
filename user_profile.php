@@ -42,65 +42,94 @@
 
 </head>
 <style>
-#map {
-    height: 400px;
-    width: 100%;
-}
-
-#profile_img {
-    height: 200px;
-    object-fit: fill;
-}
-
-.select2-container--default .select2-selection--multiple .select2-selection__rendered {
-    width: 200px;
-}
-
-@media only screen and (max-width: 450px) {
-    #profile_img {
-        height: 150px;
-        object-fit: cover;
+    #map {
+        height: 400px;
+        width: 100%;
     }
-}
 
-.user-profile-img .overlay-content {
-    background-color: transparent;
-}
+    #profile_img {
+        height: 200px;
+        object-fit: fill;
+    }
 
-.nav-pills .nav-link {
-    border: 1px solid #005ac6;
-}
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+        width: 200px;
+    }
 
-#main_data,
-#sub_data,
-.dynamic_table {
-    border: 1px solid;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
+    @media only screen and (max-width: 450px) {
+        #profile_img {
+            height: 150px;
+            object-fit: cover;
+        }
+    }
 
-#main_data th,
-#sub_data th,
-.dynamic_table th {
-    border: 1px solid;
-    padding: 8px;
-    text-align: left;
-    background-color: #f2f2f2;
-}
+    .user-profile-img .overlay-content {
+        background-color: transparent;
+    }
+
+    .nav-pills .nav-link {
+        border: 1px solid #005ac6;
+    }
+
+    #main_data,
+    #sub_data,
+    .dynamic_table {
+        border: 1px solid;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    #main_data th,
+    #sub_data th,
+    .dynamic_table th {
+        border: 1px solid;
+        padding: 8px;
+        text-align: left;
+        background-color: #f2f2f2;
+    }
 
 
-#main_data td,
-#sub_data td,
-.dynamic_table td {
-    border: 1px solid;
-    padding: 8px;
-    text-align: left;
-}
+    #main_data td,
+    #sub_data td,
+    .dynamic_table td {
+        border: 1px solid;
+        padding: 8px;
+        text-align: left;
+    }
 
-.checkmark {
-    color: green;
-    /* Change color as needed */
-}
+    .checkmark {
+        color: green;
+        /* Change color as needed */
+    }
+
+    #new_reports ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #new_reports li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: #f9f9f9;
+    }
+
+    button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
 </style>
 
 <body>
@@ -362,6 +391,11 @@
                                             <a class="nav-link" data-bs-toggle="tab" href="#sale_performance"
                                                 role="tab">
                                                 <span>Sales Performance</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#new_reports" role="tab">
+                                                <span>Asset verification Report</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -799,6 +833,33 @@
                                 </div>
                             </div>
 
+
+                            <div class="tab-pane" id="new_reports" role="tabpanel">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="mx-n3 px-3" data-simplebar style="max-height: 580px;">
+
+                                            <h2>Asset Verification</h2>
+                                            <ul>
+                                                <li>Dispensers Setups <button onclick="viewReport('dispensor')">View
+                                                        Report</button></li>
+                                                <li>Tanks Setup <button onclick="viewReport('tanks')">View
+                                                        Report</button></li>
+                                                <li>Signage / Components Form <button
+                                                        onclick="viewReport('signage')">View
+                                                        Report</button></li>
+                                                <li>General Equipments <button onclick="viewReport('Generals')">View
+                                                        Report</button></li>
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- end card body -->
+                                </div>
+
+                            </div>
+
                         </div>
 
                     </div>
@@ -1017,6 +1078,48 @@
                                 </div>
                             </div>
                             <div class="row" id="survey-container">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <div id="new_report_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+            data-bs-scroll="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- <h5 class="modal-title" id="myModalLabel">Create Permit Type</h5> -->
+                        <h5 class="modal-title" id="myModalLabel">
+                            <h5 id="new_report_name">Survey Response</h5>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <div class="row">
+                            <div class="col-md-12">
+
+                                <button class="btn btn-info" id="exportBtn" style="float: right;">Export to
+                                    PDF</button>
+                            </div>
+
+                        </div> -->
+                        <div class="container-fluid" id="exporting">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img src="<?php echo $api_url . '' . $logo; ?>" alt="Image description"
+                                        style="width: 100px;">
+
+                                </div>
+
+                            </div>
+                            <div class="row" id="new_report_container">
 
                             </div>
 
@@ -2060,2069 +2163,2105 @@
 
 
 <script>
-var table;
-var lat, lng;
-var geofence;
-var marker;
-var coordinates;
-let map;
-var circle;
-
-// ================================================================ modal intitailize start
-
-$(document).on('click', '#update_ledgers', function() {
-
-    // var id = $(this).attr("id");
-    $('#ledger_modal').modal('show');
-})
-$(document).on('click', '#add', function() {
-
-    // var id = $(this).attr("id");
-    $('#add_facility').modal('show');
-});
-
-$(document).on('click', '#addnozel', function() {
-
-    // var id = $(this).attr("id");
-    $('#add_nozel').modal('show');
-});
-
-$(document).on('click', '#add_dispenser', function() {
-
-    // var id = $(this).attr("id");
-    $('#dispenser_modal').modal('show');
-});
-
-$(document).on('click', '#add_tanks', function() {
-
-    // var id = $(this).attr("id");
-    $('#add_tanks_modal').modal('show');
-});
-
-$(document).on('click', '#nozel_tanks_panel_add', function() {
-
-    // var id = $(this).attr("id");
-    $('#add_nozel_tanks').modal('show');
-});
-$(document).on('click', '#add_complaints', function() {
-
-    // var id = $(this).attr("id");
-    $('#complaints_modals').modal('show');
-});
-$(document).on('click', '#add_users', function() {
-
-    // var id = $(this).attr("id");
-    $('#users_modal').modal('show');
-});
-
-$(document).on('click', '#add_products', function() {
-
-    // var id = $(this).attr("id");
-    $('#products_modal').modal('show');
-});
-
-$(document).on('click', '#add_targets', function() {
-
-    // var id = $(this).attr("id");
-    $('#target_modal').modal('show');
-});
-
-//=============================================================modal intitailize start
-
-//  ============================================================tabel instailize start
-
-
-
-
-table2 = $('#myTable2').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-table3 = $('#myTable3').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-table4 = $('#tanks_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-table = $('#myTable').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-nozel_tanks_table = $('#nozel_tanks_panel_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-complaint_table = $('#complaint_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-users_table = $('#users_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-products_table = $('#products_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-product_price_backlog = $('#product_price_backlog').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-suborders_tables = $('#suborders_tables').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-lubes_table = $('#lubes_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-targeted_table = $('#targeted_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-sale_table = $('#sale_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-wet_stock = $('#wet_stock').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-despensing_unit_table = $('#despensing_unit_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-stock_variations_table = $('#stock_variations_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-dispenser_table = $('#dispenser_table').DataTable({
-    dom: 'Bfrtip',
-
-
-    buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
-
-});
-
-
-//========================================================== tabel intailize end
-
-var decryptedId
-$(document).ready(function() {
-    var encryptedIdFromUrl = '<?php echo $_GET['id'];?>'; // Replace with the actual encrypted ID
-    var key = 'Hamza Ansari';
-    var iv = CryptoJS.lib.WordArray.random(16);
-
-    // Decrypt the ID
-
-    decryptedId = decryptId(encryptedIdFromUrl, key, iv);
-    $('input[name="dealer_id"]').val(decryptedId);
-    // Display the decrypted ID on the page or perform any other action
-    // console.log('Encrypted ID from URL:', encryptedIdFromUrl);
-    // console.log('Decrypted ID:', decryptedId);
-    // alert(decryptedId)
-    var encryptedId = encryptId(decryptedId, key, iv);
-
-    $('#setup_tag').attr('href', 'user_setup.php?id=' + encodeURIComponent(encryptedId));
-
-
-    fetchtable();
-    order_details();
-    orderlist();
-    // facilities();
-    // nozels();
-    tanks_view();
-    // nozels_tanks_form();
-    // multiselect();
-    // tank_select();
-    dealers_complaints();
-    dealers_products();
-    // dealers_users();
-    dealers_visits();
-    get_dealer_target();
-    // d_dispenser();
-    // get_response_answers(1);
-    // all_products();
-    // get_ledger_backlog()
-    $('.multi_select').select2({
-        dropdownParent: $('#add_nozel_tanks')
+    var table;
+    var lat, lng;
+    var geofence;
+    var marker;
+    var coordinates;
+    let map;
+    var circle;
+
+    // ================================================================ modal intitailize start
+
+    $(document).on('click', '#update_ledgers', function () {
+
+        // var id = $(this).attr("id");
+        $('#ledger_modal').modal('show');
+    })
+    $(document).on('click', '#add', function () {
+
+        // var id = $(this).attr("id");
+        $('#add_facility').modal('show');
     });
-    ////=================================================== graph 
 
-    var options = {
-        series: [{
-            name: 'Inflation',
-            data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
-        }],
-        chart: {
-            height: 350,
-            type: 'bar',
-        },
-        plotOptions: {
-            bar: {
-                borderRadius: 10,
-                dataLabels: {
-                    position: 'top', // top, center, bottom
-                },
-            }
-        },
-        dataLabels: {
-            enabled: true,
-            formatter: function(val) {
-                return val + "%";
-            },
-            offsetY: -20,
-            style: {
-                fontSize: '12px',
-                colors: ["#304758"]
-            }
-        },
+    $(document).on('click', '#addnozel', function () {
 
-        xaxis: {
-            categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
-                "Dec"
-            ],
-            position: 'top',
-            axisBorder: {
-                show: false
+        // var id = $(this).attr("id");
+        $('#add_nozel').modal('show');
+    });
+
+    $(document).on('click', '#add_dispenser', function () {
+
+        // var id = $(this).attr("id");
+        $('#dispenser_modal').modal('show');
+    });
+
+    $(document).on('click', '#add_tanks', function () {
+
+        // var id = $(this).attr("id");
+        $('#add_tanks_modal').modal('show');
+    });
+
+    $(document).on('click', '#nozel_tanks_panel_add', function () {
+
+        // var id = $(this).attr("id");
+        $('#add_nozel_tanks').modal('show');
+    });
+    $(document).on('click', '#add_complaints', function () {
+
+        // var id = $(this).attr("id");
+        $('#complaints_modals').modal('show');
+    });
+    $(document).on('click', '#add_users', function () {
+
+        // var id = $(this).attr("id");
+        $('#users_modal').modal('show');
+    });
+
+    $(document).on('click', '#add_products', function () {
+
+        // var id = $(this).attr("id");
+        $('#products_modal').modal('show');
+    });
+
+    $(document).on('click', '#add_targets', function () {
+
+        // var id = $(this).attr("id");
+        $('#target_modal').modal('show');
+    });
+
+    //=============================================================modal intitailize start
+
+    //  ============================================================tabel instailize start
+
+
+
+
+    table2 = $('#myTable2').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+    table3 = $('#myTable3').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    table4 = $('#tanks_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    table = $('#myTable').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    nozel_tanks_table = $('#nozel_tanks_panel_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+    complaint_table = $('#complaint_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    users_table = $('#users_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+    products_table = $('#products_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    product_price_backlog = $('#product_price_backlog').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+    suborders_tables = $('#suborders_tables').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    lubes_table = $('#lubes_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    targeted_table = $('#targeted_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    sale_table = $('#sale_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    wet_stock = $('#wet_stock').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    despensing_unit_table = $('#despensing_unit_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    stock_variations_table = $('#stock_variations_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+    dispenser_table = $('#dispenser_table').DataTable({
+        dom: 'Bfrtip',
+
+
+        buttons: ['copy', 'excel', 'csv', 'pdf', 'print']
+
+    });
+
+
+    //========================================================== tabel intailize end
+
+    var decryptedId
+    $(document).ready(function () {
+        var encryptedIdFromUrl = '<?php echo $_GET['id']; ?>'; // Replace with the actual encrypted ID
+        var key = 'Hamza Ansari';
+        var iv = CryptoJS.lib.WordArray.random(16);
+
+        // Decrypt the ID
+
+        decryptedId = decryptId(encryptedIdFromUrl, key, iv);
+        $('input[name="dealer_id"]').val(decryptedId);
+        // Display the decrypted ID on the page or perform any other action
+        // console.log('Encrypted ID from URL:', encryptedIdFromUrl);
+        // console.log('Decrypted ID:', decryptedId);
+        // alert(decryptedId)
+        var encryptedId = encryptId(decryptedId, key, iv);
+
+        $('#setup_tag').attr('href', 'user_setup.php?id=' + encodeURIComponent(encryptedId));
+
+
+        fetchtable();
+        order_details();
+        orderlist();
+        // facilities();
+        // nozels();
+        tanks_view();
+        // nozels_tanks_form();
+        // multiselect();
+        // tank_select();
+        dealers_complaints();
+        dealers_products();
+        // dealers_users();
+        dealers_visits();
+        get_dealer_target();
+        // d_dispenser();
+        // get_response_answers(1);
+        // all_products();
+        // get_ledger_backlog()
+        $('.multi_select').select2({
+            dropdownParent: $('#add_nozel_tanks')
+        });
+        ////=================================================== graph 
+
+        var options = {
+            series: [{
+                name: 'Inflation',
+                data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
+            }],
+            chart: {
+                height: 350,
+                type: 'bar',
             },
-            axisTicks: {
-                show: false
-            },
-            crosshairs: {
-                fill: {
-                    type: 'gradient',
-                    gradient: {
-                        colorFrom: '#D8E3F0',
-                        colorTo: '#BED1E6',
-                        stops: [0, 100],
-                        opacityFrom: 0.4,
-                        opacityTo: 0.5,
-                    }
+            plotOptions: {
+                bar: {
+                    borderRadius: 10,
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
                 }
             },
-            tooltip: {
+            dataLabels: {
                 enabled: true,
-            }
-        },
-        yaxis: {
-            axisBorder: {
-                show: false
-            },
-            axisTicks: {
-                show: false,
-            },
-            labels: {
-                show: false,
-                formatter: function(val) {
+                formatter: function (val) {
                     return val + "%";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+
+            xaxis: {
+                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                    "Dec"
+                ],
+                position: 'top',
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 0.4,
+                            opacityTo: 0.5,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                }
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function (val) {
+                        return val + "%";
+                    }
+                }
+
+            },
+            title: {
+                text: 'Monthly Inflation in Argentina, 2002',
+                floating: true,
+                offsetY: 330,
+                align: 'center',
+                style: {
+                    color: '#444'
                 }
             }
+        };
 
-        },
-        title: {
-            text: 'Monthly Inflation in Argentina, 2002',
-            floating: true,
-            offsetY: 330,
-            align: 'center',
-            style: {
-                color: '#444'
-            }
-        }
-    };
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
 
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
+    });
 
-});
+    ///================================================================ get functions start 
+    function product_tankss() {
+        var product = $('#nozzels_products').val();
+        // alert(product)
 
-///================================================================ get functions start 
-function product_tankss() {
-    var product = $('#nozzels_products').val();
-    // alert(product)
-
-    $.ajax({
-        url: '<?php echo $api_url; ?>get/get_dealers_product_tank.php?key=03201232927&dealer_id=' +
-            decryptedId + '&product=' +
-            product + '',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            console.log(data)
-            $('#product_tank').empty();
-            // Iterate through the data and append options to the select element
-            $('#product_tank').append($('<option>', {
-                value: '',
-                text: 'Select Tank '
-            }));
-            $.each(data, function(index, item) {
-
+        $.ajax({
+            url: '<?php echo $api_url; ?>get/get_dealers_product_tank.php?key=03201232927&dealer_id=' +
+                decryptedId + '&product=' +
+                product + '',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                $('#product_tank').empty();
+                // Iterate through the data and append options to the select element
                 $('#product_tank').append($('<option>', {
-                    value: item.id,
-                    text: item.lorry_no
+                    value: '',
+                    text: 'Select Tank '
                 }));
-            });
+                $.each(data, function (index, item) {
 
-            // Refresh the Select2 element to display the newly added options
-            // $('#depots').trigger('change.select2');
-        },
-        error: function(error) {
-            console.error('Error fetching data:', error);
-        }
-    });
-}
-
-
-function multiselect() {
-    $.ajax({
-        url: '<?php echo $api_url; ?>get/get_dealers_tanks.php?key=03201232927&dealer_id=' + decryptedId +
-            '&key=03201232927',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            // Iterate through the data and append options to the select element
-            $('#tanks_select').append($('<option>', {
-                value: '',
-                text: 'Select Tank '
-            }));
-            $.each(data, function(index, item) {
-
-                $('#tanks_select').append($('<option>', {
-                    value: item.id,
-                    text: item.lorry_no
-                }));
-            });
-
-            // Refresh the Select2 element to display the newly added options
-            // $('#depots').trigger('change.select2');
-        },
-        error: function(error) {
-            console.error('Error fetching data:', error);
-        }
-    });
-}
-
-function tank_select() {
-    $.ajax({
-        url: '<?php echo $api_url; ?>get/get_dealers_nozels.php?key=03201232927&dealer_id=' + decryptedId +
-            '&key=03201232927',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            // Iterate through the data and append options to the select element
-            $('#nozel_select').append($('<option>', {
-                value: '',
-                text: 'Select Nozel '
-            }));
-            $.each(data, function(index, item) {
-
-                $('#nozel_select').append($('<option>', {
-                    value: item.id,
-                    text: item.name
-                }));
-            });
-
-            // Refresh the Select2 element to display the newly added options
-            // $('#depots').trigger('change.select2');
-        },
-        error: function(error) {
-            console.error('Error fetching data:', error);
-        }
-    });
-}
-
-
-
-
-function initMap() {
-
-    gmarkers = [];
-    map = new google.maps.Map(document.getElementById("map-canvas"), {
-        center: {
-            lat: parseFloat(30.3753),
-            lng: parseFloat(69.3451)
-        },
-        zoom: 16,
-        mapTypeId: "roadmap",
-
-    });
-
-
-    // google.maps.event.addListener(drawingManager, 'polygoncomplete', polygon);
-}
-
-function fetchtable() {
-
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("<?php echo $api_url; ?>get/dealer_profile.php?id=" + decryptedId + "&key=03201232927", requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            // var cordinates = response[0]['cordinates'];
-            // var index = cordinates.indexOf(',');
-            //  lat = cordinates.substring(0, index);
-            //  long = cordinates.substring(index + 1); 
-            //  console.log(lat+"lat");
-            //  console.log(long+"long");
-            console.log(response);
-
-            coordinates = response[0]['co-ordinates'];
-            [lat, lng] = coordinates.split(', ');
-            console.log("Latitude (lat):", lat);
-            console.log("Longitude (lng):", lng);
-            $('#user').text(response[0]['name'])
-            $('#position').text(response[0]['housekeeping']);
-            $('#date').text(response[0]['created_at']);
-            $('#location').text(response[0]['location']);
-            $('#phone_no').text(response[0]['contact']);
-            $('#email').text(response[0]['email']);
-            $('#indent_price').text(response[0]['indent_price']);
-            $('#nozel_price').text(response[0]['Nozel_price']);
-            $('#ledger').text(response[0]['acount']);
-            $('#ledger_old_value').val(response[0]['acount']);
-            $('#ledger_amount').val(response[0]['acount']);
-
-
-
-            var banner = response[0]['banner'];
-            var logo = response[0]['logo'];
-            var base_url = '<?php echo $api_url; ?>';
-
-            if (banner != '') {
-                banner = base_url + 'uploads/' + banner;
-
-                $("#profile_img").attr("src", banner);
-
-            } else {
-
-            }
-
-            if (logo != '') {
-                logo = base_url + 'uploads/' + logo;
-                $("#profile_logo").attr("src", logo);
-
-            } else {
-
-            }
-            const newCenter = {
-                lat: parseFloat(lat),
-                lng: parseFloat(lng)
-            }; // New center coordinates
-            map.setCenter(newCenter);
-
-            var circle = new google.maps.Circle({
-                center: {
-                    lat: parseFloat(lat),
-                    lng: parseFloat(lng)
-                },
-                radius: 100, // in meters
-                map: map,
-                fillColor: '#FF0000',
-                fillOpacity: 0.2,
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.4,
-                strokeWeight: 2
-            });
-
-            // Create a marker
-            var marker = new google.maps.Marker({
-                position: {
-                    lat: parseFloat(lat),
-                    lng: parseFloat(lng)
-                },
-                map: map,
-            });
-            var infoWindow = new google.maps.InfoWindow({
-                content: response[0]['name']
-            });
-
-            // // Open the info window on the marker by default
-            infoWindow.open(map, marker);
-
-        })
-        .catch(error => console.log('error', error));
-
-
-}
-
-function order_details() {
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("<?php echo $api_url; ?>get/dealers_order_count.php?id=" + decryptedId + "&key=03201232927",
-            requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response);
-            $('#total_orders').text(response[0]['total']);
-        })
-        .catch(error => console.log('error', error));
-
-
-}
-
-function orderlist() {
-
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("<?php echo $api_url; ?>get/dealers_syb_orders.php?id=" + decryptedId + "&key=03201232927",
-            requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
-
-            table.clear().draw();
-            $.each(response, function(index, data) {
-                $('#loader').hide();
-                var status = data.status_value;
-                // console.log(status)
-                var status_value = '';
-
-                if (status == 'pending') {
-                    status_value =
-                        '<span id=' + data.id +
-                        ' class="badge rounded-pill cursor-pointer bg-primary approved_check" data-key="t-new">' +
-                        status + '</span>';
-                } else if (status == 'Not Yet Processed') {
-                    status_value =
-                        '<span id=' + data.id +
-                        ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Pending</span>';
-                } else if (status == 'Completely Processed') {
-                    status_value =
-                        '<span id=' + data.id +
-                        ' class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">Released</span>';
-                } else if (status == 3) {
-                    status_value =
-                        '<span id=' + data.id +
-                        ' class="badge rounded-pill cursor-pointer bg-danger" data-key="t-new">Cancel</span>';
-                } else if (status == 4) {
-                    status_value =
-                        '<span id=' + data.id +
-                        ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Special Approval</span>';
-                } else if (status == 5) {
-                    status_value =
-                        '<span id=' + data.id +
-                        ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
-                }
-
-                // message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
-                // Initialize variables
-                var track = "";
-                var message = "";
-                var d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
-                var payableAmount = ''; // Initialize payableAmount variable
-
-                // Log data for debugging
-                // console.log(data.is_tracker);
-                // console.log(data.SaleOrder);
-
-                // Check if data.is_tracker is equal to 1
-                if (parseInt(data.is_tracker) === 1) {
-                    // If data.is_tracker is 1, generate track link
-                    track = "<a href='trip_board_salesOrder.php?no=" + data.SaleOrder +
-                        "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>";
-                } else {
-                    // If data.is_tracker is not 1, display ----
-                    track = "----";
-                }
-
-
-                if (parseInt(data.delivered_status) === 1) {
-                    // If data.is_tracker is 1, generate track link
-                    message = "Invoiced";
-                } else {
-                    // If data.is_tracker is not 1, display ----
-
-                    if (status == 'Not Yet Processed' || status == 'pending') {
-                        message = "---";
-
-                    } else {
-                        message = "Scheduled";
-                    }
-                }
-
-
-                // Call amount_payable function
-                amount_payable(data.SaleOrder)
-                    .then(amount => {
-                        // Store the amount in a variable
-                        payableAmount = amount;
-
-                        // Add row to table after getting the amount
-                        table.row.add([
-                            index + 1,
-                            data.created_at,
-                            data.name,
-                            data.usersnames,
-                            d_type,
-                            data.consignee_name,
-                            parseFloat(data.total_amount).toLocaleString(),
-                            data.SaleOrder,
-                            status_value,
-                            message,
-                            data.city,
-                            data.province,
-                            data.region,
-                            parseFloat(payableAmount)
-                            .toLocaleString(), // Use payableAmount here
-                            '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
-                            data.id +
-                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
-                            track,
-                        ]).draw();
-                    })
-
-
-                    .catch(error => {
-                        // console.error("Error:", error);
-                        // Handle error
-                    });
-
-
-
-            });
-
-        })
-        .catch(error => console.log('error', error));
-
-
-}
-
-function amount_payable(salesOrders) {
-    return new Promise((resolve, reject) => {
-        if (salesOrders != "") {
-            var requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-            };
-            // console.log(
-            //     "<?php echo $api_url; ?>get/payment_api/get_InitialSet9.php?key=03201232927&SalesOrder=" +
-            //     salesOrders + "");
-            fetch("<?php echo $api_url; ?>get/payment_api/get_InitialSet9.php?key=03201232927&SalesOrder=" +
-                    salesOrders + "", requestOptions)
-                .then(response => response.json())
-                .then(response => {
-                    // console.log(response)
-                    if (response.length > 0) {
-                        var amounts = response.map(data => data.CUSTOMER_PAYABLE);
-                        var totalAmount = amounts.reduce((total, amount) => total + parseFloat(amount),
-                            0);
-                        // $('#orderSalesAmountModal').modal('show');
-                        resolve(totalAmount);
-                    } else {
-                        // reject("No data found for the given sales order.");
-                    }
-                })
-                .catch(error => {
-                    // console.log('error', error);
-                    reject(error);
+                    $('#product_tank').append($('<option>', {
+                        value: item.id,
+                        text: item.lorry_no
+                    }));
                 });
-        } else {
-            // reject("Invalid sales order.");
-        }
-    });
-}
 
-function dealers_complaints() {
+                // Refresh the Select2 element to display the newly added options
+                // $('#depots').trigger('change.select2');
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    }
 
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("<?php echo $api_url; ?>get/get_dealers_complaints.php?id=" + decryptedId + "&key=03201232927",
+
+    function multiselect() {
+        $.ajax({
+            url: '<?php echo $api_url; ?>get/get_dealers_tanks.php?key=03201232927&dealer_id=' + decryptedId +
+                '&key=03201232927',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // Iterate through the data and append options to the select element
+                $('#tanks_select').append($('<option>', {
+                    value: '',
+                    text: 'Select Tank '
+                }));
+                $.each(data, function (index, item) {
+
+                    $('#tanks_select').append($('<option>', {
+                        value: item.id,
+                        text: item.lorry_no
+                    }));
+                });
+
+                // Refresh the Select2 element to display the newly added options
+                // $('#depots').trigger('change.select2');
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    }
+
+    function tank_select() {
+        $.ajax({
+            url: '<?php echo $api_url; ?>get/get_dealers_nozels.php?key=03201232927&dealer_id=' + decryptedId +
+                '&key=03201232927',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // Iterate through the data and append options to the select element
+                $('#nozel_select').append($('<option>', {
+                    value: '',
+                    text: 'Select Nozel '
+                }));
+                $.each(data, function (index, item) {
+
+                    $('#nozel_select').append($('<option>', {
+                        value: item.id,
+                        text: item.name
+                    }));
+                });
+
+                // Refresh the Select2 element to display the newly added options
+                // $('#depots').trigger('change.select2');
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    }
+
+
+
+
+    function initMap() {
+
+        gmarkers = [];
+        map = new google.maps.Map(document.getElementById("map-canvas"), {
+            center: {
+                lat: parseFloat(30.3753),
+                lng: parseFloat(69.3451)
+            },
+            zoom: 16,
+            mapTypeId: "roadmap",
+
+        });
+
+
+        // google.maps.event.addListener(drawingManager, 'polygoncomplete', polygon);
+    }
+
+    function fetchtable() {
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch("<?php echo $api_url; ?>get/dealer_profile.php?id=" + decryptedId + "&key=03201232927", requestOptions)
+            .then(response => response.json())
+            .then(response => {
+                // var cordinates = response[0]['cordinates'];
+                // var index = cordinates.indexOf(',');
+                //  lat = cordinates.substring(0, index);
+                //  long = cordinates.substring(index + 1); 
+                //  console.log(lat+"lat");
+                //  console.log(long+"long");
+                console.log(response);
+
+                coordinates = response[0]['co-ordinates'];
+                [lat, lng] = coordinates.split(', ');
+                console.log("Latitude (lat):", lat);
+                console.log("Longitude (lng):", lng);
+                $('#user').text(response[0]['name'])
+                $('#position').text(response[0]['housekeeping']);
+                $('#date').text(response[0]['created_at']);
+                $('#location').text(response[0]['location']);
+                $('#phone_no').text(response[0]['contact']);
+                $('#email').text(response[0]['email']);
+                $('#indent_price').text(response[0]['indent_price']);
+                $('#nozel_price').text(response[0]['Nozel_price']);
+                $('#ledger').text(response[0]['acount']);
+                $('#ledger_old_value').val(response[0]['acount']);
+                $('#ledger_amount').val(response[0]['acount']);
+
+
+
+                var banner = response[0]['banner'];
+                var logo = response[0]['logo'];
+                var base_url = '<?php echo $api_url; ?>';
+
+                if (banner != '') {
+                    banner = base_url + 'uploads/' + banner;
+
+                    $("#profile_img").attr("src", banner);
+
+                } else {
+
+                }
+
+                if (logo != '') {
+                    logo = base_url + 'uploads/' + logo;
+                    $("#profile_logo").attr("src", logo);
+
+                } else {
+
+                }
+                const newCenter = {
+                    lat: parseFloat(lat),
+                    lng: parseFloat(lng)
+                }; // New center coordinates
+                map.setCenter(newCenter);
+
+                var circle = new google.maps.Circle({
+                    center: {
+                        lat: parseFloat(lat),
+                        lng: parseFloat(lng)
+                    },
+                    radius: 100, // in meters
+                    map: map,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.2,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.4,
+                    strokeWeight: 2
+                });
+
+                // Create a marker
+                var marker = new google.maps.Marker({
+                    position: {
+                        lat: parseFloat(lat),
+                        lng: parseFloat(lng)
+                    },
+                    map: map,
+                });
+                var infoWindow = new google.maps.InfoWindow({
+                    content: response[0]['name']
+                });
+
+                // // Open the info window on the marker by default
+                infoWindow.open(map, marker);
+
+            })
+            .catch(error => console.log('error', error));
+
+
+    }
+
+    function order_details() {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch("<?php echo $api_url; ?>get/dealers_order_count.php?id=" + decryptedId + "&key=03201232927",
             requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
-
-            complaint_table.clear().draw();
-            $.each(response, function(index, data) {
-
-
-
-                complaint_table.row.add([
-
-                    index + 1,
-                    data.created_at,
-                    data.name,
-                    data.email,
-                    data.phone,
-                    data.priority,
-                    data.subject,
-                    data.message,
-                    data.status_value
-                ]).draw(false);
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                $('#total_orders').text(response[0]['total']);
+            })
+            .catch(error => console.log('error', error));
 
 
-            });
+    }
 
-        })
-        .catch(error => console.log('error', error));
+    function orderlist() {
 
-
-}
-
-
-function dealers_visits() {
-    // alert('Hamza')
-    console.log("<?php echo $api_url; ?>get/get_dealers_inspections.php?id=" + decryptedId + "&key=03201232927");
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("<?php echo $api_url; ?>get/get_dealers_inspections.php?id=" + decryptedId + "&key=03201232927",
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch("<?php echo $api_url; ?>get/dealers_syb_orders.php?id=" + decryptedId + "&key=03201232927",
             requestOptions)
-        .then(response => response.json())
-        .then(response => {
-
-            lubes_table.clear().draw();
-            $.each(response, function(index, data) {
-                console.log('Visit')
+            .then(response => response.json())
+            .then(response => {
                 console.log(response)
 
+                table.clear().draw();
+                $.each(response, function (index, data) {
+                    $('#loader').hide();
+                    var status = data.status_value;
+                    // console.log(status)
+                    var status_value = '';
 
-                // if (data.current_status == 'Complete') {
-                var emailer = '';
-                if (data.email_status != 1) {
-                    emailer = '<button type="button"  onclick="send_email(' + data.id +
-                        ',' +
-                        data.dealer_id +
-                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle"></i></button>';
-                } else {
-                    emailer =
-                        '<button type="button"  class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle text-danger"></i></button>';
-                }
+                    if (status == 'pending') {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-primary approved_check" data-key="t-new">' +
+                            status + '</span>';
+                    } else if (status == 'Not Yet Processed') {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Pending</span>';
+                    } else if (status == 'Completely Processed') {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-success" data-key="t-new">Released</span>';
+                    } else if (status == 3) {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-danger" data-key="t-new">Cancel</span>';
+                    } else if (status == 4) {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-warning" data-key="t-new">Special Approval</span>';
+                    } else if (status == 5) {
+                        status_value =
+                            '<span id=' + data.id +
+                            ' class="badge rounded-pill cursor-pointer bg-dark approved_check" data-key="t-new">ASM Approved</span>';
+                    }
 
-                var inspection_btn = '<button type="button"  onclick="displaySurvey(' + data.id + ',' +
-                    data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") +
-                    '\',\'' + data.time +
-                    '\',\'' + data.visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                    '\',' + data.last_visit_id + ',\'' + data.privilege +
-                    '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                var inpection = (data.inspection == 1) ? inspection_btn : "---";
+                    // message = (data.delivered_status == 1) ? "Invoiced" : "Scheduled";
+                    // Initialize variables
+                    var track = "";
+                    var message = "";
+                    var d_type = (data.type == 'ZDL') ? "Delivered" : "EX-Rack Self";
+                    var payableAmount = ''; // Initialize payableAmount variable
 
-                var sales_performace_btn = '<button type="button" onclick="get_tas_sales_data(' +
-                    data
-                    .id + ',' + data
-                    .dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data.time +
-                    '\',\'' + data.visit_close_time + '\',\'' + data.name +
-                    '\',\'' + data.type +
-                    '\',' + data.last_visit_id +
-                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                var sales_performance = (data.sales_status == 1) ? sales_performace_btn : "---";
+                    // Log data for debugging
+                    // console.log(data.is_tracker);
+                    // console.log(data.SaleOrder);
 
-                var measurement_btn = '<button type="button" onclick="measure_price(' +
-                    data
-                    .id + ',' + data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'",
-                        "\\'") + '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data
-                    .name +
-                    '\',\'' + data.type +
-                    '\',' + data.last_visit_id +
-                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                var measurements = (data.measurement_status == 1) ? measurement_btn : "---";
-
-                var wet_stock_btn = '<button type="button"  onclick="get_task_wet_stock(' + data
-                    .id +
-                    ',' + data
-                    .dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data.time +
-                    '\',\'' + data.visit_close_time + '\',\'' + data.name +
-                    '\',\'' + data.type +
-                    '\',' + data.last_visit_id +
-                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                var wet_stocks = (data.wet_stock_status == 1) ? wet_stock_btn : "---";
-
-                var dispensing_unit_btn =
-                    '<button type="button"  onclick="get_task_despensing_unit(' +
-                    data.id +
-                    ',' +
-                    data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
-                    .time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
-                    '\',\'' + data.type +
-                    '\',' + data.last_visit_id +
-                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                var dispensing_units = (data.dispensing_status == 1) ? dispensing_unit_btn : "---";
-
-                var stock_variatins_btn =
-                    '<button type="button"  onclick="get_task_stock_variations(' +
-                    data.id +
-                    ',' +
-                    data.dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
-                    .time + '\',\'' + data
-                    .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
-                    '\',' + data.last_visit_id +
-                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
-                var stock_variations = (data.stock_variations_status == 1) ? stock_variatins_btn :
-                    "---";
-                var dealer_sign = (data.dealer_sign != null) ?
-                    '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + data.dealer_sign +
-                    '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
-                    "---";
+                    // Check if data.is_tracker is equal to 1
+                    if (parseInt(data.is_tracker) === 1) {
+                        // If data.is_tracker is 1, generate track link
+                        track = "<a href='trip_board_salesOrder.php?no=" + data.SaleOrder +
+                            "' target='_blank'><i class='fas fa-route font-size-16 align-middle'></i></a>";
+                    } else {
+                        // If data.is_tracker is not 1, display ----
+                        track = "----";
+                    }
 
 
-                lubes_table.row.add([
+                    if (parseInt(data.delivered_status) === 1) {
+                        // If data.is_tracker is 1, generate track link
+                        message = "Invoiced";
+                    } else {
+                        // If data.is_tracker is not 1, display ----
+
+                        if (status == 'Not Yet Processed' || status == 'pending') {
+                            message = "---";
+
+                        } else {
+                            message = "Scheduled";
+                        }
+                    }
 
 
-                    index + 1,
-                    data.time,
-                    data.visit_close_time,
-                    dealer_sign,
-                    data.name,
-                    data.dealer_name,
-                    data.type,
-                    data.current_status,
-                    inpection,
-                    sales_performance,
-                    measurements,
-                    wet_stocks,
-                    dispensing_units,
-                    stock_variations,
-                    (data.status == 1) ? emailer : "---",
-                ]).draw(false);
+                    // Call amount_payable function
+                    amount_payable(data.SaleOrder)
+                        .then(amount => {
+                            // Store the amount in a variable
+                            payableAmount = amount;
 
-                // } else {
-                //     lubes_table.row.add([
+                            // Add row to table after getting the amount
+                            table.row.add([
+                                index + 1,
+                                data.created_at,
+                                data.name,
+                                data.usersnames,
+                                d_type,
+                                data.consignee_name,
+                                parseFloat(data.total_amount).toLocaleString(),
+                                data.SaleOrder,
+                                status_value,
+                                message,
+                                data.city,
+                                data.province,
+                                data.region,
+                                parseFloat(payableAmount)
+                                    .toLocaleString(), // Use payableAmount here
+                                '<button type="button" id="view_order" name="view_order" onclick="view_order(' +
+                                data.id +
+                                ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></button>',
+                                track,
+                            ]).draw();
+                        })
 
-                //         index + 1,
-                //         data.time,
-                //         data.name,
-                //         data.current_status,
-                //         '---',
-                //         '---',
-                //         '---',
-                //         '---',
-                //         '---',
-                //         '---',
-                //         '---',
-                //     ]).draw(false);
-                // }
+
+                        .catch(error => {
+                            // console.error("Error:", error);
+                            // Handle error
+                        });
 
 
 
-            });
+                });
 
-        })
-        .catch(error => console.log('error', error));
+            })
+            .catch(error => console.log('error', error));
 
 
-}
+    }
 
-function tanks_view() {
+    function amount_payable(salesOrders) {
+        return new Promise((resolve, reject) => {
+            if (salesOrders != "") {
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
+                // console.log(
+                //     "<?php echo $api_url; ?>get/payment_api/get_InitialSet9.php?key=03201232927&SalesOrder=" +
+                //     salesOrders + "");
+                fetch("<?php echo $api_url; ?>get/payment_api/get_InitialSet9.php?key=03201232927&SalesOrder=" +
+                    salesOrders + "", requestOptions)
+                    .then(response => response.json())
+                    .then(response => {
+                        // console.log(response)
+                        if (response.length > 0) {
+                            var amounts = response.map(data => data.CUSTOMER_PAYABLE);
+                            var totalAmount = amounts.reduce((total, amount) => total + parseFloat(amount),
+                                0);
+                            // $('#orderSalesAmountModal').modal('show');
+                            resolve(totalAmount);
+                        } else {
+                            // reject("No data found for the given sales order.");
+                        }
+                    })
+                    .catch(error => {
+                        // console.log('error', error);
+                        reject(error);
+                    });
+            } else {
+                // reject("Invalid sales order.");
+            }
+        });
+    }
 
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("<?php echo $api_url; ?>get/get_dealers_tanks.php?key=03201232927&dealer_id=" + decryptedId + "",
+    function dealers_complaints() {
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch("<?php echo $api_url; ?>get/get_dealers_complaints.php?id=" + decryptedId + "&key=03201232927",
             requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
 
-            table4.clear().draw();
-            if (response.length > 0) {
+                complaint_table.clear().draw();
+                $.each(response, function (index, data) {
 
 
-                $.each(response, function(index, data) {
 
-                    table4.row.add([
+                    complaint_table.row.add([
 
                         index + 1,
-                        data.lorry_no,
+                        data.created_at,
                         data.name,
-                        data.min_limit,
-                        data.max_limit,
-                        data.current_dip,
-                        '<button type="button" id="tank_dip" name="tank_dip" onclick="add_dip(' +
+                        data.email,
+                        data.phone,
+                        data.priority,
+                        data.subject,
+                        data.message,
+                        data.status_value
+                    ]).draw(false);
+
+
+                });
+
+            })
+            .catch(error => console.log('error', error));
+
+
+    }
+
+
+    function dealers_visits() {
+        // alert('Hamza')
+        console.log("<?php echo $api_url; ?>get/get_dealers_inspections.php?id=" + decryptedId + "&key=03201232927");
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch("<?php echo $api_url; ?>get/get_dealers_inspections.php?id=" + decryptedId + "&key=03201232927",
+            requestOptions)
+            .then(response => response.json())
+            .then(response => {
+
+                lubes_table.clear().draw();
+                $.each(response, function (index, data) {
+                    console.log('Visit')
+                    console.log(response)
+
+
+                    // if (data.current_status == 'Complete') {
+                    var emailer = '';
+                    if (data.email_status != 1) {
+                        emailer = '<button type="button"  onclick="send_email(' + data.id +
+                            ',' +
+                            data.dealer_id +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle"></i></button>';
+                    } else {
+                        emailer =
+                            '<button type="button"  class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-mail-bulk font-size-16 align-middle text-danger"></i></button>';
+                    }
+
+                    var inspection_btn = '<button type="button"  onclick="displaySurvey(' + data.id + ',' +
+                        data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") +
+                        '\',\'' + data.time +
+                        '\',\'' + data.visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
+                        '\',' + data.last_visit_id + ',\'' + data.privilege +
+                        '\')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                    var inpection = (data.inspection == 1) ? inspection_btn : "---";
+
+                    var sales_performace_btn = '<button type="button" onclick="get_tas_sales_data(' +
                         data
-                        .id + ',' + data.current_dip +
+                            .id + ',' + data
+                            .dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data.time +
+                        '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                        '\',\'' + data.type +
+                        '\',' + data.last_visit_id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                    var sales_performance = (data.sales_status == 1) ? sales_performace_btn : "---";
+
+                    var measurement_btn = '<button type="button" onclick="measure_price(' +
+                        data
+                            .id + ',' + data.id + ',' + data.dealer_id + ',  \'' + data.dealer_name.replace("'",
+                                "\\'") + '\',\'' + data.time + '\',\'' + data.visit_close_time + '\',\'' + data
+                            .name +
+                        '\',\'' + data.type +
+                        '\',' + data.last_visit_id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                    var measurements = (data.measurement_status == 1) ? measurement_btn : "---";
+
+                    var wet_stock_btn = '<button type="button"  onclick="get_task_wet_stock(' + data
+                        .id +
+                        ',' + data
+                            .dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data.time +
+                        '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                        '\',\'' + data.type +
+                        '\',' + data.last_visit_id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                    var wet_stocks = (data.wet_stock_status == 1) ? wet_stock_btn : "---";
+
+                    var dispensing_unit_btn =
+                        '<button type="button"  onclick="get_task_despensing_unit(' +
+                        data.id +
+                        ',' +
+                        data.dealer_id + ',  \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
+                            .time + '\',\'' + data.visit_close_time + '\',\'' + data.name +
+                        '\',\'' + data.type +
+                        '\',' + data.last_visit_id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                    var dispensing_units = (data.dispensing_status == 1) ? dispensing_unit_btn : "---";
+
+                    var stock_variatins_btn =
+                        '<button type="button"  onclick="get_task_stock_variations(' +
+                        data.id +
+                        ',' +
+                        data.dealer_id + ', \'' + data.dealer_name.replace("'", "\\'") + '\',\'' + data
+                            .time + '\',\'' + data
+                            .visit_close_time + '\',\'' + data.name + '\',\'' + data.type +
+                        '\',' + data.last_visit_id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>';
+                    var stock_variations = (data.stock_variations_status == 1) ? stock_variatins_btn :
+                        "---";
+                    var dealer_sign = (data.dealer_sign != null) ?
+                        '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + data.dealer_sign +
+                        '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>' :
+                        "---";
+
+
+                    lubes_table.row.add([
+
+
+                        index + 1,
+                        data.time,
+                        data.visit_close_time,
+                        dealer_sign,
+                        data.name,
+                        data.dealer_name,
+                        data.type,
+                        data.current_status,
+                        inpection,
+                        sales_performance,
+                        measurements,
+                        wet_stocks,
+                        dispensing_units,
+                        stock_variations,
+                        (data.status == 1) ? emailer : "---",
+                    ]).draw(false);
+
+                    // } else {
+                    //     lubes_table.row.add([
+
+                    //         index + 1,
+                    //         data.time,
+                    //         data.name,
+                    //         data.current_status,
+                    //         '---',
+                    //         '---',
+                    //         '---',
+                    //         '---',
+                    //         '---',
+                    //         '---',
+                    //         '---',
+                    //     ]).draw(false);
+                    // }
+
+
+
+                });
+
+            })
+            .catch(error => console.log('error', error));
+
+
+    }
+
+    function tanks_view() {
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch("<?php echo $api_url; ?>get/get_dealers_tanks.php?key=03201232927&dealer_id=" + decryptedId + "",
+            requestOptions)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+
+                table4.clear().draw();
+                if (response.length > 0) {
+
+
+                    $.each(response, function (index, data) {
+
+                        table4.row.add([
+
+                            index + 1,
+                            data.lorry_no,
+                            data.name,
+                            data.min_limit,
+                            data.max_limit,
+                            data.current_dip,
+                            '<button type="button" id="tank_dip" name="tank_dip" onclick="add_dip(' +
+                            data
+                                .id + ',' + data.current_dip +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-plus-square font-size-16 align-middle"></i></button>',
+                            '<button type="button" id="tank_dip" name="tank_dip" onclick="get_dip_backlog(' +
+                            data
+                                .id + ',' + data.current_dip +
+                            ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
+
+
+                        ]).draw(false);
+
+                        $('#atgs').append('<div class="border-bottom loyal-customers-box pt-2">' +
+                            ' <div class="d-flex align-items-center">' +
+                            '<i class="fas fa-truck-moving font-size-14 text-dark ms-1"></i>' +
+                            '<div class="flex-grow-1 ms-3 overflow-hidden">' +
+                            '<h5 class="font-size-15 mb-1 text-truncate">' + data.lorry_no + '</h5>' +
+                            '<p>' + data.update_time + '</p>' +
+                            '</div>' +
+                            '<div class="flex-shrink-0">' +
+                            '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center"> ' +
+                            data.current_dip +
+                            '</h5>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>')
+
+
+
+
+                    });
+                } else {
+                    $('#atgs').append('<div class="border-bottom loyal-customers-box pt-2">' +
+                        ' <div class="d-flex align-items-center">' +
+                        '<i class="fas fa-truck-moving font-size-14 text-dark ms-1"></i>' +
+                        '<div class="flex-grow-1 ms-3 overflow-hidden">' +
+                        '<h5 class="font-size-15 mb-1 text-truncate">No ATGS Found</h5>' +
+                        '</div>' +
+                        '<div class="flex-shrink-0">' +
+                        '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center"> ---</h5>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>')
+                }
+
+            })
+            .catch(error => console.log('error', error));
+
+
+
+
+    }
+
+    function dealers_products() {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch("<?php echo $api_url; ?>get/dealers_products.php?key=03201232927&dealer_id=" + decryptedId + "",
+            requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                var selectElement = $("#dealer_products");
+                var nozzels_products = $("#nozzels_products");
+
+                selectElement.append($('<option>', {
+                    value: '',
+                    text: 'Select Product'
+                }));
+
+                var targeted_product = $("#targeted_product");
+
+                targeted_product.append($('<option>', {
+                    value: '',
+                    text: 'Select Product'
+                }));
+
+                nozzels_products.append($('<option>', {
+                    value: '',
+                    text: 'Select Product'
+                }));
+                $.each(result, function (index, data) {
+
+                    console.log(data.name)
+                    selectElement.append($('<option>', {
+                        value: data.id,
+                        text: data.name
+                    }));
+                    nozzels_products.append($('<option>', {
+                        value: data.id,
+                        text: data.name
+                    }));
+                    targeted_product.append($('<option>', {
+                        value: data.id,
+                        text: data.name
+                    }));
+
+                    products_table.row.add([
+
+                        index + 1,
+                        data.name,
+                        data.from,
+                        data.to,
+                        data.indent_price,
+                        data.nozel_price,
+                        data.update_time,
+                        '<button type="button" id="tank_dip" name="tank_dip" onclick="edit_product_price(' +
+                        data
+                            .id +
                         ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-plus-square font-size-16 align-middle"></i></button>',
-                        '<button type="button" id="tank_dip" name="tank_dip" onclick="get_dip_backlog(' +
+                        '<button type="button" id="tank_dip" name="tank_dip" onclick="get_product_price_backlog(' +
                         data
-                        .id + ',' + data.current_dip +
+                            .id +
                         ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
 
 
                     ]).draw(false);
 
-                    $('#atgs').append('<div class="border-bottom loyal-customers-box pt-2">' +
+                    $('#currents_products').append('<div class="border-bottom loyal-customers-box pt-2">' +
                         ' <div class="d-flex align-items-center">' +
-                        '<i class="fas fa-truck-moving font-size-14 text-dark ms-1"></i>' +
+                        '<i class="fas fa-gas-pump font-size-14 text-dark ms-1"></i>' +
                         '<div class="flex-grow-1 ms-3 overflow-hidden">' +
-                        '<h5 class="font-size-15 mb-1 text-truncate">' + data.lorry_no + '</h5>' +
-                        '<p>' + data.update_time + '</p>' +
+                        '<h5 class="font-size-15 mb-1 text-truncate">' + data.name + '</h5>' +
+                        '<p>Duration : ' + data.from + ' - ' + data.to + '</p>' +
+                        '<p>Indent Price : ' + data.indent_price + '</p>' +
+                        '<p>Nozel Price : ' + data.nozel_price + '</p>' +
                         '</div>' +
                         '<div class="flex-shrink-0">' +
-                        '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center"> ' +
-                        data.current_dip +
+                        '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-3 rounded text-center"> ' +
+                        data.update_time +
                         '</h5>' +
                         '</div>' +
                         '</div>' +
                         '</div>')
+                });
+            })
+            .catch(error => console.log('error', error));
+    }
 
+    function all_products() {
+        // alert('Hamza')
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
+        fetch("<?php echo $api_url; ?>get/get_all_products.php?key=03201232927",
+            requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                var products_name = $("#products_name");
+
+                products_name.append($('<option>', {
+                    value: '',
+                    text: 'Select Product'
+                }));
+
+                $.each(result, function (index, data) {
+                    console.log('all products')
+                    console.log(data.name)
+                    products_name.append($('<option>', {
+                        value: data.name,
+                        text: data.name
+                    }));
 
 
                 });
-            } else {
-                $('#atgs').append('<div class="border-bottom loyal-customers-box pt-2">' +
-                    ' <div class="d-flex align-items-center">' +
-                    '<i class="fas fa-truck-moving font-size-14 text-dark ms-1"></i>' +
-                    '<div class="flex-grow-1 ms-3 overflow-hidden">' +
-                    '<h5 class="font-size-15 mb-1 text-truncate">No ATGS Found</h5>' +
-                    '</div>' +
-                    '<div class="flex-shrink-0">' +
-                    '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-2 rounded text-center"> ---</h5>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>')
-            }
+            })
+            .catch(error => console.log('error', error));
+    }
 
-        })
-        .catch(error => console.log('error', error));
+    function dealers_users() {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
-
-
-
-}
-
-function dealers_products() {
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-
-    fetch("<?php echo $api_url; ?>get/dealers_products.php?key=03201232927&dealer_id=" + decryptedId + "",
+        fetch("<?php echo $api_url; ?>get/dealer_users.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            var selectElement = $("#dealer_products");
-            var nozzels_products = $("#nozzels_products");
+            .then(response => response.json())
+            .then(result => {
 
-            selectElement.append($('<option>', {
-                value: '',
-                text: 'Select Product'
-            }));
+                $.each(result, function (index, data) {
 
-            var targeted_product = $("#targeted_product");
+                    console.log(data.name)
 
-            targeted_product.append($('<option>', {
-                value: '',
-                text: 'Select Product'
-            }));
+                    users_table.row.add([
 
-            nozzels_products.append($('<option>', {
-                value: '',
-                text: 'Select Product'
-            }));
-            $.each(result, function(index, data) {
-
-                console.log(data.name)
-                selectElement.append($('<option>', {
-                    value: data.id,
-                    text: data.name
-                }));
-                nozzels_products.append($('<option>', {
-                    value: data.id,
-                    text: data.name
-                }));
-                targeted_product.append($('<option>', {
-                    value: data.id,
-                    text: data.name
-                }));
-
-                products_table.row.add([
-
-                    index + 1,
-                    data.name,
-                    data.from,
-                    data.to,
-                    data.indent_price,
-                    data.nozel_price,
-                    data.update_time,
-                    '<button type="button" id="tank_dip" name="tank_dip" onclick="edit_product_price(' +
-                    data
-                    .id +
-                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-plus-square font-size-16 align-middle"></i></button>',
-                    '<button type="button" id="tank_dip" name="tank_dip" onclick="get_product_price_backlog(' +
-                    data
-                    .id +
-                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-align-justify font-size-16 align-middle"></i></button>',
+                        index + 1,
+                        data.name,
+                        data.email,
+                        data.password,
+                        data.contact,
+                        data.contact,
+                        '<button type="button" id="tank_dip" name="tank_dip" onclick="edit_dealers_users(' +
+                        data
+                            .id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-edit font-size-16 align-middle"></i></button>',
+                        '<button type="button" id="tank_dip" name="tank_dip" onclick="get_product_price_backlog(' +
+                        data
+                            .id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-trash-alt font-size-16 align-middle"></i></button>',
 
 
-                ]).draw(false);
+                    ]).draw(false);
 
-                $('#currents_products').append('<div class="border-bottom loyal-customers-box pt-2">' +
-                    ' <div class="d-flex align-items-center">' +
-                    '<i class="fas fa-gas-pump font-size-14 text-dark ms-1"></i>' +
-                    '<div class="flex-grow-1 ms-3 overflow-hidden">' +
-                    '<h5 class="font-size-15 mb-1 text-truncate">' + data.name + '</h5>' +
-                    '<p>Duration : ' + data.from + ' - ' + data.to + '</p>' +
-                    '<p>Indent Price : ' + data.indent_price + '</p>' +
-                    '<p>Nozel Price : ' + data.nozel_price + '</p>' +
-                    '</div>' +
-                    '<div class="flex-shrink-0">' +
-                    '<h5 class="font-size-14 mb-0 text-truncate w-xs bg-light p-3 rounded text-center"> ' +
-                    data.update_time +
-                    '</h5>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>')
-            });
-        })
-        .catch(error => console.log('error', error));
-}
 
-function all_products() {
-    // alert('Hamza')
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
+                });
+            })
+            .catch(error => console.log('error', error));
+    }
 
-    fetch("<?php echo $api_url; ?>get/get_all_products.php?key=03201232927",
+    function get_dealer_target() {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch("<?php echo $api_url; ?>get/get_dealers_product_target.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            var products_name = $("#products_name");
+            .then(response => response.json())
+            .then(result => {
 
-            products_name.append($('<option>', {
-                value: '',
-                text: 'Select Product'
-            }));
+                $.each(result, function (index, data) {
 
-            $.each(result, function(index, data) {
-                console.log('all products')
-                console.log(data.name)
-                products_name.append($('<option>', {
-                    value: data.name,
-                    text: data.name
-                }));
+                    console.log(data.name)
+
+                    targeted_table.row.add([
+
+                        index + 1,
+                        data.name,
+                        data.date_month,
+                        data.target_amount,
+                        data.description
 
 
-            });
-        })
-        .catch(error => console.log('error', error));
-}
+                    ]).draw(false);
 
-function dealers_users() {
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
 
-    fetch("<?php echo $api_url; ?>get/dealer_users.php?key=03201232927&dealer_id=" + decryptedId + "",
+                });
+            })
+            .catch(error => console.log('error', error));
+    }
+
+
+
+    function facilities() {
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch("<?php echo $api_url; ?>get/facilities_get.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-        .then(response => response.json())
-        .then(result => {
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
 
-            $.each(result, function(index, data) {
+                table2.clear().draw();
+                $.each(response, function (index, data) {
 
-                console.log(data.name)
+                    table2.row.add([
 
-                users_table.row.add([
-
-                    index + 1,
-                    data.name,
-                    data.email,
-                    data.password,
-                    data.contact,
-                    data.contact,
-                    '<button type="button" id="tank_dip" name="tank_dip" onclick="edit_dealers_users(' +
-                    data
-                    .id +
-                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-edit font-size-16 align-middle"></i></button>',
-                    '<button type="button" id="tank_dip" name="tank_dip" onclick="get_product_price_backlog(' +
-                    data
-                    .id +
-                    ')" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-trash-alt font-size-16 align-middle"></i></button>',
+                        index + 1,
+                        data.name,
+                        data.created_at
 
 
-                ]).draw(false);
+                    ]).draw(false);
 
 
-            });
-        })
-        .catch(error => console.log('error', error));
-}
+                });
 
-function get_dealer_target() {
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
+            })
+            .catch(error => console.log('error', error));
 
-    fetch("<?php echo $api_url; ?>get/get_dealers_product_target.php?key=03201232927&dealer_id=" + decryptedId + "",
+
+    }
+
+    $('#insert').click(function () {
+
+        $('#row_id').val("");
+        // alert("running")
+
+    });
+
+    function d_dispenser() {
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch("<?php echo $api_url; ?>get/get_dealers_dispenser.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-        .then(response => response.json())
-        .then(result => {
-
-            $.each(result, function(index, data) {
-
-                console.log(data.name)
-
-                targeted_table.row.add([
-
-                    index + 1,
-                    data.name,
-                    data.date_month,
-                    data.target_amount,
-                    data.description
-
-
-                ]).draw(false);
-
-
-            });
-        })
-        .catch(error => console.log('error', error));
-}
-
-
-
-function facilities() {
-
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("<?php echo $api_url; ?>get/facilities_get.php?key=03201232927&dealer_id=" + decryptedId + "",
-            requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
-
-            table2.clear().draw();
-            $.each(response, function(index, data) {
-
-                table2.row.add([
-
-                    index + 1,
-                    data.name,
-                    data.created_at
-
-
-                ]).draw(false);
-
-
-            });
-
-        })
-        .catch(error => console.log('error', error));
-
-
-}
-
-$('#insert').click(function() {
-
-    $('#row_id').val("");
-    // alert("running")
-
-});
-
-function d_dispenser() {
-
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("<?php echo $api_url; ?>get/get_dealers_dispenser.php?key=03201232927&dealer_id=" + decryptedId + "",
-            requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            $('#product_dispenser').append($('<option>', {
-                value: '',
-                text: 'Select Dispenser '
-            }));
-            dispenser_table.clear().draw();
-            $.each(response, function(index, data) {
-
-                dispenser_table.row.add([
-
-                    index + 1,
-                    data.name,
-                    data.description,
-                    data.created_at
-
-
-                ]).draw(false);
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
                 $('#product_dispenser').append($('<option>', {
-                    value: data.id,
-                    text: data.name
+                    value: '',
+                    text: 'Select Dispenser '
                 }));
+                dispenser_table.clear().draw();
+                $.each(response, function (index, data) {
+
+                    dispenser_table.row.add([
+
+                        index + 1,
+                        data.name,
+                        data.description,
+                        data.created_at
 
 
-            });
+                    ]).draw(false);
+                    $('#product_dispenser').append($('<option>', {
+                        value: data.id,
+                        text: data.name
+                    }));
 
-        })
-        .catch(error => console.log('error', error));
+
+                });
+
+            })
+            .catch(error => console.log('error', error));
 
 
-}
+    }
 
-function nozels() {
+    function nozels() {
 
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("<?php echo $api_url; ?>get/get_dealers_nozels.php?key=03201232927&dealer_id=" + decryptedId + "",
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch("<?php echo $api_url; ?>get/get_dealers_nozels.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
 
-            table3.clear().draw();
-            $.each(response, function(index, data) {
+                table3.clear().draw();
+                $.each(response, function (index, data) {
 
-                table3.row.add([
+                    table3.row.add([
 
-                    index + 1,
-                    data.name,
-                    data.product_name,
-                    data.tank_name,
-                    data.dispenser_name,
-                    data.created_at
-
-
-                ]).draw(false);
+                        index + 1,
+                        data.name,
+                        data.product_name,
+                        data.tank_name,
+                        data.dispenser_name,
+                        data.created_at
 
 
-            });
-
-        })
-        .catch(error => console.log('error', error));
+                    ]).draw(false);
 
 
-}
+                });
 
-function nozels_tanks_form() {
+            })
+            .catch(error => console.log('error', error));
 
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    fetch("<?php echo $api_url; ?>get/get_dealers_tank_nozzels.php?key=03201232927&dealer_id=" + decryptedId + "",
+
+    }
+
+    function nozels_tanks_form() {
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch("<?php echo $api_url; ?>get/get_dealers_tank_nozzels.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
 
-            nozel_tanks_table.clear().draw();
-            $.each(response, function(index, data) {
+                nozel_tanks_table.clear().draw();
+                $.each(response, function (index, data) {
 
-                nozel_tanks_table.row.add([
+                    nozel_tanks_table.row.add([
 
-                    index + 1,
-                    data.name,
-                    data.lorry_no,
-                    data.created_at
-
-
-                ]).draw(false);
+                        index + 1,
+                        data.name,
+                        data.lorry_no,
+                        data.created_at
 
 
-            });
-
-        })
-        .catch(error => console.log('error', error));
+                    ]).draw(false);
 
 
-}
+                });
 
-// $('#insert').click(function() {
-
-//     $('#row_id').val("");
-//     // alert("running")
-
-// });
+            })
+            .catch(error => console.log('error', error));
 
 
-/// ============================================================== get functions end 
+    }
 
-// ================================================================= post Functions 
+    // $('#insert').click(function() {
 
+    //     $('#row_id').val("");
+    //     // alert("running")
 
-$('#insert_form_ledgers').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var data = new FormData(this);
-
-    $.ajax({
-        url: "<?php echo $api_url; ?>update/update_dealers_ledger.php",
-        cache: false,
-        contentType: false,
-        processData: false,
-        method: "POST",
-        data: data,
-        beforeSend: function() {
-            $('#insert_l').val("Saving");
-            document.getElementById("insert").disabled = true;
-
-        },
-        success: function(data) {
-            console.log(data)
-
-            if (data != 1) {
-                Swal.fire(
-                    'Server Error!',
-                    'Record Not Created',
-                    'error'
-                )
-                $('#insert_l').val("Save");
-                document.getElementById("insert_l").disabled = false;
-            } else {
+    // });
 
 
-                setTimeout(function() {
+    /// ============================================================== get functions end 
+
+    // ================================================================= post Functions 
+
+
+    $('#insert_form_ledgers').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var data = new FormData(this);
+
+        $.ajax({
+            url: "<?php echo $api_url; ?>update/update_dealers_ledger.php",
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            data: data,
+            beforeSend: function () {
+                $('#insert_l').val("Saving");
+                document.getElementById("insert").disabled = true;
+
+            },
+            success: function (data) {
+                console.log(data)
+
+                if (data != 1) {
                     Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
                     )
-                    $('#insert_form_ledgers')[0].reset();
-                    $('#add_facility').modal('hide');
-                    facilities();
                     $('#insert_l').val("Save");
                     document.getElementById("insert_l").disabled = false;
-                    location.reload();
+                } else {
 
-                }, 2000);
 
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#insert_form_ledgers')[0].reset();
+                        $('#add_facility').modal('hide');
+                        facilities();
+                        $('#insert_l').val("Save");
+                        document.getElementById("insert_l").disabled = false;
+                        location.reload();
+
+                    }, 2000);
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+                // Handle API errors
+                console.log('Error:', error);
+                console.log('Status:', status);
+                console.log('Response:', xhr.responseText);
             }
+        });
 
-        },
-        error: function(xhr, status, error) {
-            // Handle API errors
-            console.log('Error:', error);
-            console.log('Status:', status);
-            console.log('Response:', xhr.responseText);
-        }
     });
+    $('#insert_form').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var data = new FormData(this);
 
-});
-$('#insert_form').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var data = new FormData(this);
+        $.ajax({
+            url: "<?php echo $api_url; ?>create/dealer_facitlities.php",
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            data: data,
+            beforeSend: function () {
+                $('#insert').val("Saving");
+                document.getElementById("insert").disabled = true;
 
-    $.ajax({
-        url: "<?php echo $api_url; ?>create/dealer_facitlities.php",
-        cache: false,
-        contentType: false,
-        processData: false,
-        method: "POST",
-        data: data,
-        beforeSend: function() {
-            $('#insert').val("Saving");
-            document.getElementById("insert").disabled = true;
+            },
+            success: function (data) {
+                console.log(data)
 
-        },
-        success: function(data) {
-            console.log(data)
-
-            if (data != 1) {
-                Swal.fire(
-                    'Server Error!',
-                    'Record Not Created',
-                    'error'
-                )
-                $('#insert').val("Save");
-                document.getElementById("insert").disabled = false;
-            } else {
-
-
-                setTimeout(function() {
+                if (data != 1) {
                     Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
                     )
-                    $('#insert_form')[0].reset();
-                    $('#add_facility').modal('hide');
-                    facilities();
                     $('#insert').val("Save");
                     document.getElementById("insert").disabled = false;
-                    location.reload();
+                } else {
 
-                }, 2000);
+
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#insert_form')[0].reset();
+                        $('#add_facility').modal('hide');
+                        facilities();
+                        $('#insert').val("Save");
+                        document.getElementById("insert").disabled = false;
+                        location.reload();
+
+                    }, 2000);
+
+                }
 
             }
+        });
 
-        }
     });
+    $('#users_from').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var data = new FormData(this);
 
-});
-$('#users_from').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var data = new FormData(this);
+        $.ajax({
+            url: "<?php echo $api_url; ?>create/dealers_users.php",
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            data: data,
+            beforeSend: function () {
+                $('#users_btn').val("Saving");
+                document.getElementById("users_btn").disabled = true;
 
-    $.ajax({
-        url: "<?php echo $api_url; ?>create/dealers_users.php",
-        cache: false,
-        contentType: false,
-        processData: false,
-        method: "POST",
-        data: data,
-        beforeSend: function() {
-            $('#users_btn').val("Saving");
-            document.getElementById("users_btn").disabled = true;
+            },
+            success: function (data) {
+                console.log(data)
 
-        },
-        success: function(data) {
-            console.log(data)
-
-            if (data != 1) {
-                Swal.fire(
-                    'Server Error!',
-                    'Record Not Created',
-                    'error'
-                )
-                $('#users_btn').val("Save");
-                document.getElementById("users_btn").disabled = false;
-            } else {
-
-
-                setTimeout(function() {
+                if (data != 1) {
                     Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
                     )
-                    $('#users_from')[0].reset();
-                    $('#users_modal').modal('hide');
-                    facilities();
                     $('#users_btn').val("Save");
                     document.getElementById("users_btn").disabled = false;
-                    location.reload();
+                } else {
 
 
-                }, 2000);
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#users_from')[0].reset();
+                        $('#users_modal').modal('hide');
+                        facilities();
+                        $('#users_btn').val("Save");
+                        document.getElementById("users_btn").disabled = false;
+                        location.reload();
 
+
+                    }, 2000);
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+                // Handle API errors
+                console.log('Error:', error);
+                console.log('Status:', status);
+                console.log('Response:', xhr.responseText);
             }
 
-        },
-        error: function(xhr, status, error) {
-            // Handle API errors
-            console.log('Error:', error);
-            console.log('Status:', status);
-            console.log('Response:', xhr.responseText);
-        }
+        });
 
     });
 
-});
+    $('#dispenser_form').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var data = new FormData(this);
 
-$('#dispenser_form').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var data = new FormData(this);
+        $.ajax({
+            url: "<?php echo $api_url; ?>create/create_dispenser.php",
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            data: data,
+            beforeSend: function () {
+                $('#dispenser_btn').val("Saving");
+                document.getElementById("dispenser_btn").disabled = true;
 
-    $.ajax({
-        url: "<?php echo $api_url; ?>create/create_dispenser.php",
-        cache: false,
-        contentType: false,
-        processData: false,
-        method: "POST",
-        data: data,
-        beforeSend: function() {
-            $('#dispenser_btn').val("Saving");
-            document.getElementById("dispenser_btn").disabled = true;
+            },
+            success: function (data) {
+                console.log(data)
 
-        },
-        success: function(data) {
-            console.log(data)
-
-            if (data != 1) {
-                Swal.fire(
-                    'Server Error!',
-                    'Record Not Created',
-                    'error'
-                )
-                $('#dispenser_btn').val("Save");
-                document.getElementById("dispenser_btn").disabled = false;
-            } else {
-
-
-                setTimeout(function() {
+                if (data != 1) {
                     Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
                     )
-                    $('#insert_form1')[0].reset();
-                    $('#add_nozel').modal('hide');
-                    facilities();
                     $('#dispenser_btn').val("Save");
                     document.getElementById("dispenser_btn").disabled = false;
-                    location.reload();
+                } else {
 
 
-                }, 2000);
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#insert_form1')[0].reset();
+                        $('#add_nozel').modal('hide');
+                        facilities();
+                        $('#dispenser_btn').val("Save");
+                        document.getElementById("dispenser_btn").disabled = false;
+                        location.reload();
+
+
+                    }, 2000);
+
+                }
 
             }
+        });
 
-        }
     });
 
-});
+    $('#insert_form1').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var data = new FormData(this);
 
-$('#insert_form1').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var data = new FormData(this);
+        $.ajax({
+            url: "<?php echo $api_url; ?>create/nozzels.php",
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            data: data,
+            beforeSend: function () {
+                $('#insert1').val("Saving");
+                document.getElementById("insert1").disabled = true;
 
-    $.ajax({
-        url: "<?php echo $api_url; ?>create/nozzels.php",
-        cache: false,
-        contentType: false,
-        processData: false,
-        method: "POST",
-        data: data,
-        beforeSend: function() {
-            $('#insert1').val("Saving");
-            document.getElementById("insert1").disabled = true;
+            },
+            success: function (data) {
+                console.log(data)
 
-        },
-        success: function(data) {
-            console.log(data)
-
-            if (data != 1) {
-                Swal.fire(
-                    'Server Error!',
-                    'Record Not Created',
-                    'error'
-                )
-                $('#insert1').val("Save");
-                document.getElementById("insert1").disabled = false;
-            } else {
-
-
-                setTimeout(function() {
+                if (data != 1) {
                     Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
                     )
-                    $('#insert_form1')[0].reset();
-                    $('#add_nozel').modal('hide');
-                    facilities();
                     $('#insert1').val("Save");
                     document.getElementById("insert1").disabled = false;
-                    location.reload();
+                } else {
 
 
-                }, 2000);
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#insert_form1')[0].reset();
+                        $('#add_nozel').modal('hide');
+                        facilities();
+                        $('#insert1').val("Save");
+                        document.getElementById("insert1").disabled = false;
+                        location.reload();
+
+
+                    }, 2000);
+
+                }
 
             }
+        });
 
-        }
     });
 
-});
 
 
+    $('#tank_form').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var data = new FormData(this);
 
-$('#tank_form').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var data = new FormData(this);
+        $.ajax({
+            url: "<?php echo $api_url; ?>create/create_dealers_tanks.php",
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            data: data,
+            beforeSend: function () {
+                $('#tank_form_btn').val("Saving");
+                document.getElementById("tank_form_btn").disabled = true;
 
-    $.ajax({
-        url: "<?php echo $api_url; ?>create/create_dealers_tanks.php",
-        cache: false,
-        contentType: false,
-        processData: false,
-        method: "POST",
-        data: data,
-        beforeSend: function() {
-            $('#tank_form_btn').val("Saving");
-            document.getElementById("tank_form_btn").disabled = true;
+            },
+            success: function (data) {
+                console.log(data)
 
-        },
-        success: function(data) {
-            console.log(data)
-
-            if (data != 1) {
-                Swal.fire(
-                    'Server Error!',
-                    'Record Not Created',
-                    'error'
-                )
-                $('#tank_form_btn').val("Save");
-                document.getElementById("tank_form_btn").disabled = false;
-            } else {
-
-
-                setTimeout(function() {
+                if (data != 1) {
                     Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
                     )
-                    $('#tank_form')[0].reset();
-
-                    facilities();
                     $('#tank_form_btn').val("Save");
                     document.getElementById("tank_form_btn").disabled = false;
-                    location.reload();
+                } else {
 
 
-                }, 2000);
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#tank_form')[0].reset();
+
+                        facilities();
+                        $('#tank_form_btn').val("Save");
+                        document.getElementById("tank_form_btn").disabled = false;
+                        location.reload();
+
+
+                    }, 2000);
+
+                }
 
             }
+        });
 
-        }
     });
 
-});
+    $('#nozel_tank_form').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var formData = $(this).serialize();
+        console.log(formData);
+        $.ajax({
+            url: "<?php echo $api_url; ?>create/create_dealers_tanks_nozels.php",
+            type: 'POST',
+            data: formData,
+            beforeSend: function () {
+                $('#nozel_tank_btn').val("Saving");
+                document.getElementById("nozel_tank_btn").disabled = true;
 
-$('#nozel_tank_form').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var formData = $(this).serialize();
-    console.log(formData);
-    $.ajax({
-        url: "<?php echo $api_url; ?>create/create_dealers_tanks_nozels.php",
-        type: 'POST',
-        data: formData,
-        beforeSend: function() {
-            $('#nozel_tank_btn').val("Saving");
-            document.getElementById("nozel_tank_btn").disabled = true;
+            },
+            success: function (data) {
+                console.log(data)
 
-        },
-        success: function(data) {
-            console.log(data)
-
-            if (data != 1) {
-                Swal.fire(
-                    'Server Error!',
-                    'Record Not Created',
-                    'error'
-                )
-                $('#nozel_tank_btn').val("Save");
-                document.getElementById("nozel_tank_btn").disabled = false;
-            } else {
-
-
-                setTimeout(function() {
+                if (data != 1) {
                     Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
                     )
-                    $('#nozel_tank_form')[0].reset();
-
-                    facilities();
                     $('#nozel_tank_btn').val("Save");
                     document.getElementById("nozel_tank_btn").disabled = false;
-                    location.reload();
+                } else {
 
 
-                }, 2000);
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#nozel_tank_form')[0].reset();
 
+                        facilities();
+                        $('#nozel_tank_btn').val("Save");
+                        document.getElementById("nozel_tank_btn").disabled = false;
+                        location.reload();
+
+
+                    }, 2000);
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+                // Handle API errors
+                console.log('Error:', error);
+                console.log('Status:', status);
+                console.log('Response:', xhr.responseText);
             }
 
-        },
-        error: function(xhr, status, error) {
-            // Handle API errors
-            console.log('Error:', error);
-            console.log('Status:', status);
-            console.log('Response:', xhr.responseText);
-        }
+        });
+        console.log('ajax end')
 
     });
-    console.log('ajax end')
 
-});
+    $('#tank_dip_form').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var formData = $(this).serialize();
+        console.log(formData);
+        $.ajax({
+            url: "<?php echo $api_url; ?>update/dealer_tank_dip.php",
+            type: 'POST',
+            data: formData,
+            beforeSend: function () {
+                $('#dip_btn').val("Saving");
+                document.getElementById("dip_btn").disabled = true;
 
-$('#tank_dip_form').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var formData = $(this).serialize();
-    console.log(formData);
-    $.ajax({
-        url: "<?php echo $api_url; ?>update/dealer_tank_dip.php",
-        type: 'POST',
-        data: formData,
-        beforeSend: function() {
-            $('#dip_btn').val("Saving");
-            document.getElementById("dip_btn").disabled = true;
+            },
+            success: function (data) {
+                console.log(data)
 
-        },
-        success: function(data) {
-            console.log(data)
-
-            if (data != 1) {
-                Swal.fire(
-                    'Server Error!',
-                    'Record Not Created',
-                    'error'
-                )
-                $('#dip_btn').val("Save");
-                document.getElementById("dip_btn").disabled = false;
-            } else {
-
-
-                setTimeout(function() {
+                if (data != 1) {
                     Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
                     )
-                    $('#tank_dip_form')[0].reset();
-
-                    facilities();
                     $('#dip_btn').val("Save");
                     document.getElementById("dip_btn").disabled = false;
-                    location.reload();
+                } else {
 
 
-                }, 2000);
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#tank_dip_form')[0].reset();
 
+                        facilities();
+                        $('#dip_btn').val("Save");
+                        document.getElementById("dip_btn").disabled = false;
+                        location.reload();
+
+
+                    }, 2000);
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+                // Handle API errors
+                console.log('Error:', error);
+                console.log('Status:', status);
+                console.log('Response:', xhr.responseText);
             }
 
-        },
-        error: function(xhr, status, error) {
-            // Handle API errors
-            console.log('Error:', error);
-            console.log('Status:', status);
-            console.log('Response:', xhr.responseText);
-        }
+        });
 
     });
 
-});
+    $('#targeted_from').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var formData = $(this).serialize();
+        console.log(formData);
+        $.ajax({
+            url: "<?php echo $api_url; ?>create/create_dealers_product_target.php",
+            type: 'POST',
+            data: formData,
+            beforeSend: function () {
+                $('#target_btn').val("Saving");
+                document.getElementById("target_btn").disabled = true;
 
-$('#targeted_from').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var formData = $(this).serialize();
-    console.log(formData);
-    $.ajax({
-        url: "<?php echo $api_url; ?>create/create_dealers_product_target.php",
-        type: 'POST',
-        data: formData,
-        beforeSend: function() {
-            $('#target_btn').val("Saving");
-            document.getElementById("target_btn").disabled = true;
+            },
+            success: function (data) {
+                console.log(data)
 
-        },
-        success: function(data) {
-            console.log(data)
+                if (data != 1) {
+                    Swal.fire(
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
+                    )
+                    $('#target_btn').val("Save");
+                    document.getElementById("target_btn").disabled = false;
+                } else {
 
-            if (data != 1) {
+
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#targeted_from')[0].reset();
+
+                        // facilities();
+                        $('#target_btn').val("Save");
+                        document.getElementById("target_btn").disabled = false;
+                        location.reload();
+
+
+                    }, 2000);
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+                // Handle API errors
                 Swal.fire(
                     'Server Error!',
-                    'Record Not Created',
+                    'Duplicate Month Entry',
                     'error'
                 )
                 $('#target_btn').val("Save");
                 document.getElementById("target_btn").disabled = false;
-            } else {
-
-
-                setTimeout(function() {
-                    Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
-                    )
-                    $('#targeted_from')[0].reset();
-
-                    // facilities();
-                    $('#target_btn').val("Save");
-                    document.getElementById("target_btn").disabled = false;
-                    location.reload();
-
-
-                }, 2000);
-
+                console.log('Error:', error);
+                console.log('Status:', status);
+                console.log('Response:', xhr.responseText);
             }
 
-        },
-        error: function(xhr, status, error) {
-            // Handle API errors
-            Swal.fire(
-                'Server Error!',
-                'Duplicate Month Entry',
-                'error'
-            )
-            $('#target_btn').val("Save");
-            document.getElementById("target_btn").disabled = false;
-            console.log('Error:', error);
-            console.log('Status:', status);
-            console.log('Response:', xhr.responseText);
-        }
+        });
 
     });
 
-});
+    $('#productts_form').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var formData = $(this).serialize();
+        console.log(formData);
+        $.ajax({
+            url: "<?php echo $api_url; ?>create/create_dealers_products.php",
+            type: 'POST',
+            data: formData,
+            beforeSend: function () {
+                $('#products_btn').val("Saving");
+                document.getElementById("products_btn").disabled = true;
 
-$('#productts_form').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var formData = $(this).serialize();
-    console.log(formData);
-    $.ajax({
-        url: "<?php echo $api_url; ?>create/create_dealers_products.php",
-        type: 'POST',
-        data: formData,
-        beforeSend: function() {
-            $('#products_btn').val("Saving");
-            document.getElementById("products_btn").disabled = true;
+            },
+            success: function (data) {
+                console.log(data)
 
-        },
-        success: function(data) {
-            console.log(data)
-
-            if (data != 1) {
-                Swal.fire(
-                    'Server Error!',
-                    'Record Not Created',
-                    'error'
-                )
-                $('#products_btn').val("Save");
-                document.getElementById("products_btn").disabled = false;
-            } else {
-
-
-                setTimeout(function() {
+                if (data != 1) {
                     Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
                     )
-                    $('#productts_form')[0].reset();
-
-                    // facilities();
                     $('#products_btn').val("Save");
                     document.getElementById("products_btn").disabled = false;
-                    location.reload();
+                } else {
 
 
-                }, 2000);
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#productts_form')[0].reset();
 
+                        // facilities();
+                        $('#products_btn').val("Save");
+                        document.getElementById("products_btn").disabled = false;
+                        location.reload();
+
+
+                    }, 2000);
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+                // Handle API errors
+                console.log('Error:', error);
+                console.log('Status:', status);
+                console.log('Response:', xhr.responseText);
             }
 
-        },
-        error: function(xhr, status, error) {
-            // Handle API errors
-            console.log('Error:', error);
-            console.log('Status:', status);
-            console.log('Response:', xhr.responseText);
-        }
+        });
 
     });
 
-});
+    $('#complaint_form').on("submit", function (event) {
+        event.preventDefault();
+        // alert("Name")
+        var formData = $(this).serialize();
+        console.log(formData);
+        $.ajax({
+            url: "<?php echo $api_url; ?>create/create_complaints.php",
+            type: 'POST',
+            data: formData,
+            beforeSend: function () {
+                $('#complaint_btn').val("Saving");
+                document.getElementById("complaint_btn").disabled = true;
 
-$('#complaint_form').on("submit", function(event) {
-    event.preventDefault();
-    // alert("Name")
-    var formData = $(this).serialize();
-    console.log(formData);
-    $.ajax({
-        url: "<?php echo $api_url; ?>create/create_complaints.php",
-        type: 'POST',
-        data: formData,
-        beforeSend: function() {
-            $('#complaint_btn').val("Saving");
-            document.getElementById("complaint_btn").disabled = true;
+            },
+            success: function (data) {
+                console.log(data)
 
-        },
-        success: function(data) {
-            console.log(data)
-
-            if (data != 1) {
-                Swal.fire(
-                    'Server Error!',
-                    'Record Not Created',
-                    'error'
-                )
-                $('#complaint_btn').val("Save");
-                document.getElementById("complaint_btn").disabled = false;
-            } else {
-
-
-                setTimeout(function() {
+                if (data != 1) {
                     Swal.fire(
-                        'Success!',
-                        'Record Created Successfully',
-                        'success'
+                        'Server Error!',
+                        'Record Not Created',
+                        'error'
                     )
-                    $('#complaint_form')[0].reset();
-
-
                     $('#complaint_btn').val("Save");
                     document.getElementById("complaint_btn").disabled = false;
-                    location.reload();
+                } else {
 
 
-                }, 2000);
+                    setTimeout(function () {
+                        Swal.fire(
+                            'Success!',
+                            'Record Created Successfully',
+                            'success'
+                        )
+                        $('#complaint_form')[0].reset();
 
+
+                        $('#complaint_btn').val("Save");
+                        document.getElementById("complaint_btn").disabled = false;
+                        location.reload();
+
+
+                    }, 2000);
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+                // Handle API errors
+                console.log('Error:', error);
+                console.log('Status:', status);
+                console.log('Response:', xhr.responseText);
             }
 
-        },
-        error: function(xhr, status, error) {
-            // Handle API errors
-            console.log('Error:', error);
-            console.log('Status:', status);
-            console.log('Response:', xhr.responseText);
-        }
+        });
 
     });
 
-});
+    function add_dip(id, old_dip) {
 
-function add_dip(id, old_dip) {
+        $('#tank_id').val(id)
+        $('#old_dip').val(old_dip)
+        $('#tank_dip_modal').modal('show')
+    }
 
-    $('#tank_id').val(id)
-    $('#old_dip').val(old_dip)
-    $('#tank_dip_modal').modal('show')
-}
+    function edit_product_price(id) {
 
-function edit_product_price(id) {
+        $('#row_id').val(id)
+        $.ajax({
+            url: "<?php echo $api_url; ?>get/get_dealer_specific_product.php?key=03201232927&dealer_id=" +
+                decryptedId + "&id=" +
+                id + "",
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                data = data[0];
+                console.log(data.indent_price)
 
-    $('#row_id').val(id)
-    $.ajax({
-        url: "<?php echo $api_url; ?>get/get_dealer_specific_product.php?key=03201232927&dealer_id=" +
-            decryptedId + "&id=" +
-            id + "",
-        method: "GET",
-        dataType: "json",
-        success: function(data) {
-            data = data[0];
-            console.log(data.indent_price)
+                $('#products_name').val(data.name);
+                $('#from_date').val(data.from);
+                $('#to_date').val(data.to);
+                $('#indent_price_pro').val(parseFloat(data.indent_price));
+                $('#nozel_price_pro').val(parseFloat(data.nozel_price));
+            }
+        });
+        $('#products_modal').modal('show')
+    }
 
-            $('#products_name').val(data.name);
-            $('#from_date').val(data.from);
-            $('#to_date').val(data.to);
-            $('#indent_price_pro').val(parseFloat(data.indent_price));
-            $('#nozel_price_pro').val(parseFloat(data.nozel_price));
-        }
-    });
-    $('#products_modal').modal('show')
-}
+    function edit_dealers_users(id) {
 
-function edit_dealers_users(id) {
+        $('#dealer_user_id').val(id)
+        $.ajax({
+            url: "<?php echo $api_url; ?>get/get_dealers_users.php?key=03201232927&dealer_id=" + decryptedId +
+                "&id=" +
+                id + "",
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                data = data[0];
+                console.log(data.indent_price)
 
-    $('#dealer_user_id').val(id)
-    $.ajax({
-        url: "<?php echo $api_url; ?>get/get_dealers_users.php?key=03201232927&dealer_id=" + decryptedId +
-            "&id=" +
-            id + "",
-        method: "GET",
-        dataType: "json",
-        success: function(data) {
-            data = data[0];
-            console.log(data.indent_price)
+                $('#usernames').val(data.name);
+                $('#user_email').val(data.email);
+                $('#user_password').val(data.password);
+                $('#user_phone').val(parseInt(data.contact));
+            }
+        });
+        $('#users_modal').modal('show');
+    }
 
-            $('#usernames').val(data.name);
-            $('#user_email').val(data.email);
-            $('#user_password').val(data.password);
-            $('#user_phone').val(parseInt(data.contact));
-        }
-    });
-    $('#users_modal').modal('show');
-}
+    function get_ledger_backlog() {
 
-function get_ledger_backlog() {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-
-    fetch("<?php echo $api_url; ?>get/get_dealer_ledger_log.php?key=03201232927&dealer_id=" + decryptedId + "",
+        fetch("<?php echo $api_url; ?>get/get_dealer_ledger_log.php?key=03201232927&dealer_id=" + decryptedId + "",
             requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            $('#ledger_logs').empty();
-            if (response.length > 0) {
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+                $('#ledger_logs').empty();
+                if (response.length > 0) {
 
 
-                $.each(response, function(index, data) {
+                    $.each(response, function (index, data) {
 
-                    var originalDate = data.datetime;
-                    var dateObject = new Date(originalDate);
+                        var originalDate = data.datetime;
+                        var dateObject = new Date(originalDate);
 
-                    var day = dateObject.getDate(); // Extract the day (returns 25)
-                    var month = dateObject.toLocaleString('en-US', {
-                        month: 'short'
-                    }); // Extract the month (returns "Oct")
+                        var day = dateObject.getDate(); // Extract the day (returns 25)
+                        var month = dateObject.toLocaleString('en-US', {
+                            month: 'short'
+                        }); // Extract the month (returns "Oct")
 
-                    console.log("Day:", day);
-                    console.log("Month:", month);
+                        console.log("Day:", day);
+                        console.log("Month:", month);
+                        $('#ledger_logs').append('<div class="row timeline-right">' +
+                            '<div class="col-md-6">' +
+                            ' <div class="timeline-icon">' +
+                            '<i class="bx bx-briefcase-alt-2 text-primary h2 mb-0"></i>' +
+                            ' </div>' +
+                            '</div>' +
+                            '<div class="col-md-6">' +
+                            '<div class="timeline-box">' +
+                            '<div class="timeline-date bg-primary text-center rounded">' +
+                            '<h3 class="text-white mb-0 font-size-20">' + day + '</h3>' +
+                            '<p class="mb-0 text-white-50">' + month + '</p>' +
+                            '</div>' +
+                            '<div class="event-content">' +
+                            '<div class="timeline-text">' +
+                            // '<h3 class="font-size-17">' + data.description + '</h3>' +
+                            // '<p class="mb-0 mt-2 pt-1 text-muted">Previous Ledger : ' + data.old_ledger +
+                            // '</p>' +
+
+                            '<p class="mb-0 mt-2 pt-1 text-muted">Update Ledger : ' + data.new_ledger +
+                            '</p>' +
+                            '<p class="mb-0 mt-2 pt-1 text-muted">Date : ' + data.datetime +
+                            '<p class="mb-0 mt-2 pt-1 text-muted">Doc NO : ' + data.doc_no + '</p>' +
+                            '<p class="mb-0 mt-2 pt-1 text-muted">Debit/Credit : ' + data.debit_no +
+                            '</p>' +
+                            '<p class="mb-0 mt-2 pt-1 text-muted">Document Type : ' + data.document_type +
+                            '</p>' +
+                            '<p class="mb-0 mt-2 pt-1 text-muted">Record Time : ' + data.created_at +
+                            '</p>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>');
+
+                    });
+                } else {
                     $('#ledger_logs').append('<div class="row timeline-right">' +
                         '<div class="col-md-6">' +
                         ' <div class="timeline-icon">' +
@@ -4132,93 +4271,89 @@ function get_ledger_backlog() {
                         '<div class="col-md-6">' +
                         '<div class="timeline-box">' +
                         '<div class="timeline-date bg-primary text-center rounded">' +
-                        '<h3 class="text-white mb-0 font-size-20">' + day + '</h3>' +
-                        '<p class="mb-0 text-white-50">' + month + '</p>' +
+                        '<h3 class="text-white mb-0 font-size-20">---</h3>' +
+                        '<p class="mb-0 text-white-50">--</p>' +
                         '</div>' +
                         '<div class="event-content">' +
                         '<div class="timeline-text">' +
-                        // '<h3 class="font-size-17">' + data.description + '</h3>' +
-                        // '<p class="mb-0 mt-2 pt-1 text-muted">Previous Ledger : ' + data.old_ledger +
-                        // '</p>' +
-
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Update Ledger : ' + data.new_ledger +
-                        '</p>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Date : ' + data.datetime +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Doc NO : ' + data.doc_no + '</p>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Debit/Credit : ' + data.debit_no +
-                        '</p>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Document Type : ' + data.document_type +
-                        '</p>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Record Time : ' + data.created_at +
-                        '</p>' +
+                        '<h3 class="font-size-17">Log Not Found</h3>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : --- </p>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : --- </p>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : --- </p>' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>');
-
-                });
-            } else {
-                $('#ledger_logs').append('<div class="row timeline-right">' +
-                    '<div class="col-md-6">' +
-                    ' <div class="timeline-icon">' +
-                    '<i class="bx bx-briefcase-alt-2 text-primary h2 mb-0"></i>' +
-                    ' </div>' +
-                    '</div>' +
-                    '<div class="col-md-6">' +
-                    '<div class="timeline-box">' +
-                    '<div class="timeline-date bg-primary text-center rounded">' +
-                    '<h3 class="text-white mb-0 font-size-20">---</h3>' +
-                    '<p class="mb-0 text-white-50">--</p>' +
-                    '</div>' +
-                    '<div class="event-content">' +
-                    '<div class="timeline-text">' +
-                    '<h3 class="font-size-17">Log Not Found</h3>' +
-                    '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : --- </p>' +
-                    '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : --- </p>' +
-                    '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : --- </p>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>');
-            }
-            $('#ledger_backlog_modal').modal('show');
-        })
-        .catch(error => console.log('error', error));
+                }
+                $('#ledger_backlog_modal').modal('show');
+            })
+            .catch(error => console.log('error', error));
 
 
 
-}
+    }
 
 
-function get_dip_backlog(id, old_dip) {
+    function get_dip_backlog(id, old_dip) {
 
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
-    fetch("<?php echo $api_url; ?>get/get_dealers_tanks_dip_log.php?key=03201232927&tank_id=" + id + "", requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            $('#order_logs').empty();
-            if (response.length > 0) {
+        fetch("<?php echo $api_url; ?>get/get_dealers_tanks_dip_log.php?key=03201232927&tank_id=" + id + "", requestOptions)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+                $('#order_logs').empty();
+                if (response.length > 0) {
 
 
-                $.each(response, function(index, data) {
+                    $.each(response, function (index, data) {
 
-                    var originalDate = data.created_at;
-                    var dateObject = new Date(originalDate);
+                        var originalDate = data.created_at;
+                        var dateObject = new Date(originalDate);
 
-                    var day = dateObject.getDate(); // Extract the day (returns 25)
-                    var month = dateObject.toLocaleString('en-US', {
-                        month: 'short'
-                    }); // Extract the month (returns "Oct")
+                        var day = dateObject.getDate(); // Extract the day (returns 25)
+                        var month = dateObject.toLocaleString('en-US', {
+                            month: 'short'
+                        }); // Extract the month (returns "Oct")
 
-                    console.log("Day:", day);
-                    console.log("Month:", month);
+                        console.log("Day:", day);
+                        console.log("Month:", month);
+                        $('#order_logs').append('<div class="row timeline-right">' +
+                            '<div class="col-md-6">' +
+                            ' <div class="timeline-icon">' +
+                            '<i class="bx bx-briefcase-alt-2 text-primary h2 mb-0"></i>' +
+                            ' </div>' +
+                            '</div>' +
+                            '<div class="col-md-6">' +
+                            '<div class="timeline-box">' +
+                            '<div class="timeline-date bg-primary text-center rounded">' +
+                            '<h3 class="text-white mb-0 font-size-20">' + day + '</h3>' +
+                            '<p class="mb-0 text-white-50">' + month + '</p>' +
+                            '</div>' +
+                            '<div class="event-content">' +
+                            '<div class="timeline-text">' +
+                            // '<h3 class="font-size-17">' + data.description + '</h3>' +
+                            '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : ' + data.previous_dip +
+                            '</p>' +
+
+                            '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : ' + data.current_dip +
+                            '</p>' +
+                            '<p class="mb-0 mt-2 pt-1 text-muted">Description : ' + data.description +
+                            '</p>' +
+                            '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : ' + data.created_at +
+                            '</p>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>');
+
+                    });
+                } else {
                     $('#order_logs').append('<div class="row timeline-right">' +
                         '<div class="col-md-6">' +
                         ' <div class="timeline-icon">' +
@@ -4228,242 +4363,210 @@ function get_dip_backlog(id, old_dip) {
                         '<div class="col-md-6">' +
                         '<div class="timeline-box">' +
                         '<div class="timeline-date bg-primary text-center rounded">' +
-                        '<h3 class="text-white mb-0 font-size-20">' + day + '</h3>' +
-                        '<p class="mb-0 text-white-50">' + month + '</p>' +
+                        '<h3 class="text-white mb-0 font-size-20">---</h3>' +
+                        '<p class="mb-0 text-white-50">--</p>' +
                         '</div>' +
                         '<div class="event-content">' +
                         '<div class="timeline-text">' +
-                        // '<h3 class="font-size-17">' + data.description + '</h3>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : ' + data.previous_dip +
-                        '</p>' +
-
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : ' + data.current_dip +
-                        '</p>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Description : ' + data.description +
-                        '</p>' +
-                        '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : ' + data.created_at +
-                        '</p>' +
+                        '<h3 class="font-size-17">Log Not Found</h3>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : --- </p>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : --- </p>' +
+                        '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : --- </p>' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>' +
                         '</div>');
-
-                });
-            } else {
-                $('#order_logs').append('<div class="row timeline-right">' +
-                    '<div class="col-md-6">' +
-                    ' <div class="timeline-icon">' +
-                    '<i class="bx bx-briefcase-alt-2 text-primary h2 mb-0"></i>' +
-                    ' </div>' +
-                    '</div>' +
-                    '<div class="col-md-6">' +
-                    '<div class="timeline-box">' +
-                    '<div class="timeline-date bg-primary text-center rounded">' +
-                    '<h3 class="text-white mb-0 font-size-20">---</h3>' +
-                    '<p class="mb-0 text-white-50">--</p>' +
-                    '</div>' +
-                    '<div class="event-content">' +
-                    '<div class="timeline-text">' +
-                    '<h3 class="font-size-17">Log Not Found</h3>' +
-                    '<p class="mb-0 mt-2 pt-1 text-muted">Previous Dip : --- </p>' +
-                    '<p class="mb-0 mt-2 pt-1 text-muted">Update Dip : --- </p>' +
-                    '<p class="mb-0 mt-2 pt-1 text-muted">Action Time : --- </p>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>');
-            }
-            $('#dip_backlog_modal').modal('show');
-        })
-        .catch(error => console.log('error', error));
+                }
+                $('#dip_backlog_modal').modal('show');
+            })
+            .catch(error => console.log('error', error));
 
 
 
-}
+    }
 
-function get_product_price_backlog(id) {
+    function get_product_price_backlog(id) {
 
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    // console.log("<?php echo $api_url; ?>get/get_dealers_price_backlog.php?key=03201232927&dealer_id="+decryptedId+"&product_id=" +id + "");
-    fetch("<?php echo $api_url; ?>get/get_dealers_price_backlog.php?key=03201232927&dealer_id=" + decryptedId +
-            "&product_id=" +
-            id + "", requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            if (response.length > 0) {
-                product_price_backlog.clear().draw();
-
-                $.each(response, function(index, data) {
-                    product_price_backlog.row.add([
-
-                        index + 1,
-                        data.name,
-                        data.from,
-                        data.to,
-                        data.indent_price,
-                        data.nozel_price,
-                        data.created_at,
-
-                    ]).draw(false);
-
-                });
-            }
-            $('#products_price_backlog_modal').modal('show');
-        })
-        .catch(error => console.log('error', error));
-
-
-
-}
-
-function view_order(id) {
-    if (id != "") {
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
         };
-        console.log("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "");
-        fetch("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "", requestOptions)
+        // console.log("<?php echo $api_url; ?>get/get_dealers_price_backlog.php?key=03201232927&dealer_id="+decryptedId+"&product_id=" +id + "");
+        fetch("<?php echo $api_url; ?>get/get_dealers_price_backlog.php?key=03201232927&dealer_id=" + decryptedId +
+            "&product_id=" +
+            id + "", requestOptions)
             .then(response => response.json())
             .then(response => {
                 console.log(response)
                 if (response.length > 0) {
-                    suborders_tables.clear().draw();
+                    product_price_backlog.clear().draw();
 
-                    $.each(response, function(index, data) {
-                        suborders_tables.row.add([
+                    $.each(response, function (index, data) {
+                        product_price_backlog.row.add([
+
                             index + 1,
-                            data.date,
                             data.name,
-                            // data.name,
-                            data.product_name,
-                            data.rate,
-                            data.quantity,
-                            data.delivery_based,
-                            data.consignee_name,
-                            parseFloat(data.amount).toLocaleString(),
+                            data.from,
+                            data.to,
+                            data.indent_price,
+                            data.nozel_price,
+                            data.created_at,
 
                         ]).draw(false);
 
                     });
                 }
-                $('#sub_orders_main').modal('show');
+                $('#products_price_backlog_modal').modal('show');
             })
             .catch(error => console.log('error', error));
 
+
+
     }
 
-}
+    function view_order(id) {
+        if (id != "") {
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+            console.log("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "");
+            fetch("<?php echo $api_url; ?>get/get_main_sub_orders.php?key=03201232927&id=" + id + "", requestOptions)
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response)
+                    if (response.length > 0) {
+                        suborders_tables.clear().draw();
 
+                        $.each(response, function (index, data) {
+                            suborders_tables.row.add([
+                                index + 1,
+                                data.date,
+                                data.name,
+                                // data.name,
+                                data.product_name,
+                                data.rate,
+                                data.quantity,
+                                data.delivery_based,
+                                data.consignee_name,
+                                parseFloat(data.amount).toLocaleString(),
 
+                            ]).draw(false);
 
-function displaySurvey(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
-    last_visit_id, privilege) {
-    // Clear existing content
-    // alert(dealer_name);
-    var currentDate = new Date();
+                        });
+                    }
+                    $('#sub_orders_main').modal('show');
+                })
+                .catch(error => console.log('error', error));
 
-    // Format the date as needed
-    var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
+        }
 
-    var pril = "<?php echo $_SESSION['privilege'] ?>";
-
-    // Display the formatted date
-    $('#labelc').text('Inspection');
-    $('#survey_time').text(isp_date);
-    $('#survey_complete_time').text(comp_date);
-
-    $('#survey_dealer_name').text(dealer_name);
-    $('#survey_ispector_name').text(username);
-    $('#survey_type').text(type);
-
-    last_vists_dates('inspection', last_visit_id, comp_date, inspection_id);
-
-    $('#survey-container').empty();
-
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-
-    var page_link = '';
-    if (privilege != 'RM') {
-        page_link = 'get_dealer_survey_response';
-    } else {
-        page_link = 'get_dealer_survey_response_rm';
     }
-    console.log("<?php echo $api_url; ?>get/" + page_link + ".php?key=03201232927&inspection_id=" +
-        inspection_id +
-        "&task_id=" + id + "&dealer_id=" + dealer_id + "")
 
-    fetch("<?php echo $api_url; ?>get/" + page_link + ".php?key=03201232927&inspection_id=" +
+
+
+    function displaySurvey(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
+        last_visit_id, privilege) {
+        // Clear existing content
+        // alert(dealer_name);
+        var currentDate = new Date();
+
+        // Format the date as needed
+        var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
+
+        var pril = "<?php echo $_SESSION['privilege'] ?>";
+
+        // Display the formatted date
+        $('#labelc').text('Inspection');
+        $('#survey_time').text(isp_date);
+        $('#survey_complete_time').text(comp_date);
+
+        $('#survey_dealer_name').text(dealer_name);
+        $('#survey_ispector_name').text(username);
+        $('#survey_type').text(type);
+
+        last_vists_dates('inspection', last_visit_id, comp_date, inspection_id);
+
+        $('#survey-container').empty();
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        var page_link = '';
+        if (privilege != 'RM') {
+            page_link = 'get_dealer_survey_response';
+        } else {
+            page_link = 'get_dealer_survey_response_rm';
+        }
+        console.log("<?php echo $api_url; ?>get/" + page_link + ".php?key=03201232927&inspection_id=" +
+            inspection_id +
+            "&task_id=" + id + "&dealer_id=" + dealer_id + "")
+
+        fetch("<?php echo $api_url; ?>get/" + page_link + ".php?key=03201232927&inspection_id=" +
             inspection_id +
             "&task_id=" + id + "&dealer_id=" + dealer_id + "", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            console.log(result)
-            create_div(result)
-        })
-        .catch(error => console.log('error', error));
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                create_div(result)
+            })
+            .catch(error => console.log('error', error));
 
 
 
-}
+    }
 
-function measure_price(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
-    last_visit_id) {
-    // Clear existing content
-    var currentDate = new Date();
+    function measure_price(id, inspection_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
+        last_visit_id) {
+        // Clear existing content
+        var currentDate = new Date();
 
-    // Format the date as needed
-    var formattedDate = currentDate.toLocaleString();
-    $('#labelc').text('Measurement & Price');
-    $('#survey_time').text(isp_date);
-    $('#survey_complete_time').text(comp_date);
+        // Format the date as needed
+        var formattedDate = currentDate.toLocaleString();
+        $('#labelc').text('Measurement & Price');
+        $('#survey_time').text(isp_date);
+        $('#survey_complete_time').text(comp_date);
 
-    $('#survey_dealer_name').text(dealer_name);
-    $('#survey_ispector_name').text(username);
-    $('#survey_type').text(type);
-    last_vists_dates('price_measurement', last_visit_id, comp_date, inspection_id);
-    $('#survey-container').empty();
+        $('#survey_dealer_name').text(dealer_name);
+        $('#survey_ispector_name').text(username);
+        $('#survey_type').text(type);
+        last_vists_dates('price_measurement', last_visit_id, comp_date, inspection_id);
+        $('#survey-container').empty();
 
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
-    fetch("<?php echo $api_url; ?>get/get_dealers_measurement_price_inspection.php?key=03201232927&inspection_id=" +
+        fetch("<?php echo $api_url; ?>get/get_dealers_measurement_price_inspection.php?key=03201232927&inspection_id=" +
             inspection_id +
             "&task_id=" + id + "&dealer_id=" + dealer_id + "", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            // displayMainData(result[0].main_data);
-            // displaySubData(result[0].sub_data);
-            var main_data = result[0].main_data;
-            var sub_data = result[0].sub_data;
-            var dis_0 = sub_data.length > 1 ? sub_data[0] : null;
-            var dis_1 = sub_data.length > 1 ? sub_data[1] : null;
-            var dis_2 = sub_data.length > 1 ? sub_data[2] : null;
-            var dis_3 = sub_data.length > 1 ? sub_data[3] : null;
-            var dis_4 = sub_data.length > 1 ? sub_data[4] : null;
-            var dis_5 = sub_data.length > 1 ? sub_data[5] : null;
-            var dis_6 = sub_data.length > 1 ? sub_data[6] : null;
-            var dis_7 = sub_data.length > 1 ? sub_data[7] : null;
-            console.log(sub_data)
+            .then(response => response.json())
+            .then(result => {
+                // displayMainData(result[0].main_data);
+                // displaySubData(result[0].sub_data);
+                var main_data = result[0].main_data;
+                var sub_data = result[0].sub_data;
+                var dis_0 = sub_data.length > 1 ? sub_data[0] : null;
+                var dis_1 = sub_data.length > 1 ? sub_data[1] : null;
+                var dis_2 = sub_data.length > 1 ? sub_data[2] : null;
+                var dis_3 = sub_data.length > 1 ? sub_data[3] : null;
+                var dis_4 = sub_data.length > 1 ? sub_data[4] : null;
+                var dis_5 = sub_data.length > 1 ? sub_data[5] : null;
+                var dis_6 = sub_data.length > 1 ? sub_data[6] : null;
+                var dis_7 = sub_data.length > 1 ? sub_data[7] : null;
+                console.log(sub_data)
 
 
-            // var sub_row_data =  main_data.length > 1 ? main_data : null;
-            // console.log(sub_row_data)
-            console.log(main_data.appreation)
+                // var sub_row_data =  main_data.length > 1 ? main_data : null;
+                // console.log(sub_row_data)
+                console.log(main_data.appreation)
 
 
-            var table_main = `
+                var table_main = `
                 <table class="dynamic_table" style="width:100%">
                     <tr>
                         <th>Appreciation Of Dealer if correct</th>
@@ -4492,7 +4595,7 @@ function measure_price(id, inspection_id, dealer_id, dealer_name, isp_date, comp
                     
                 </table>`;
 
-            var table_sub = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Measurement & Price</h6>
+                var table_sub = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Measurement & Price</h6>
                 <table class="dynamic_table" style="width:100%">
                     <tr>
                         <th></th>
@@ -4557,86 +4660,86 @@ function measure_price(id, inspection_id, dealer_id, dealer_name, isp_date, comp
                     
                     
                 </table>`;
-            $('#survey-container').append(table_sub);
+                $('#survey-container').append(table_sub);
 
-            $('#survey-container').append(table_main);
+                $('#survey-container').append(table_main);
 
-            $('#survey_modal').modal('show');
-            // displayData(result[0].main_data, result[0].sub_data);
-        })
-        .catch(error => console.log('error', error));
-
-
-
-}
-
-function displayData(mainData, subData) {
-    $('#main_data tbody').empty();
-    $('#sub_data tbody').empty();
-
-    // Main Data Section
-    console.log(mainData)
-    var newRow = '<tr><td>' + mainData.appreation + '</td><td>' + mainData.measure_taken + '</td><td>' + mainData
-        .warning + '</td><td>' + mainData.pmg_ogra_price + '</td><td>' + mainData.pmg_pump_price + '</td><td>' +
-        mainData.pmg_variance + '</td><td>' + mainData.hsd_ogra_price + '</td><td>' + mainData.hsd_pump_price +
-        '</td><td>' + mainData.hsd_variance + '</td></tr>';
-    $('#main_data tbody').append(newRow);;
+                $('#survey_modal').modal('show');
+                // displayData(result[0].main_data, result[0].sub_data);
+            })
+            .catch(error => console.log('error', error));
 
 
 
-    // Sub Data Section
+    }
+
+    function displayData(mainData, subData) {
+        $('#main_data tbody').empty();
+        $('#sub_data tbody').empty();
+
+        // Main Data Section
+        console.log(mainData)
+        var newRow = '<tr><td>' + mainData.appreation + '</td><td>' + mainData.measure_taken + '</td><td>' + mainData
+            .warning + '</td><td>' + mainData.pmg_ogra_price + '</td><td>' + mainData.pmg_pump_price + '</td><td>' +
+            mainData.pmg_variance + '</td><td>' + mainData.hsd_ogra_price + '</td><td>' + mainData.hsd_pump_price +
+            '</td><td>' + mainData.hsd_variance + '</td></tr>';
+        $('#main_data tbody').append(newRow);;
 
 
-    // Add table rows
-    var ii = 1;
-    $.each(subData, function(index, item) {
-        console.log(item)
 
-        var newRow = '<tr><td>' + ii + '</td><td>' + item.dispensor_name + '</td><td>' + item.pmg_accurate +
-            '</td><td>' + item.shortage_pmg + '</td><td>' + item.hsd_accurate + '</td><td>' + item
-            .shortage_hsd + '</td></tr>';
-        $('#sub_data tbody').append(newRow);;
-        ii++;
-    });
-    $('#m_p_modal').modal('show');
-}
+        // Sub Data Section
 
-function get_tas_sales_data(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
-    // Clear existing content
-    // $('#survey-container').empty();
-    var currentDate = new Date();
 
-    // Format the date as needed
-    var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
+        // Add table rows
+        var ii = 1;
+        $.each(subData, function (index, item) {
+            console.log(item)
 
-    // Display the formatted date
-    $('#labelc').text('Sales Performance');
-    $('#survey_time').text(isp_date);
-    $('#survey_complete_time').text(comp_date);
+            var newRow = '<tr><td>' + ii + '</td><td>' + item.dispensor_name + '</td><td>' + item.pmg_accurate +
+                '</td><td>' + item.shortage_pmg + '</td><td>' + item.hsd_accurate + '</td><td>' + item
+                    .shortage_hsd + '</td></tr>';
+            $('#sub_data tbody').append(newRow);;
+            ii++;
+        });
+        $('#m_p_modal').modal('show');
+    }
 
-    $('#survey_dealer_name').text(dealer_name);
-    $('#survey_ispector_name').text(username);
-    $('#survey_type').text(type);
+    function get_tas_sales_data(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
+        // Clear existing content
+        // $('#survey-container').empty();
+        var currentDate = new Date();
 
-    last_vists_dates('sales_performance', last_visit_id, comp_date, task_id);
+        // Format the date as needed
+        var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
 
-    $('#survey-container').empty();
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
+        // Display the formatted date
+        $('#labelc').text('Sales Performance');
+        $('#survey_time').text(isp_date);
+        $('#survey_complete_time').text(comp_date);
 
-    fetch("<?php echo $api_url; ?>get/get_dealers_sales_performance.php?key=03201232927&task_id=" +
+        $('#survey_dealer_name').text(dealer_name);
+        $('#survey_ispector_name').text(username);
+        $('#survey_type').text(type);
+
+        last_vists_dates('sales_performance', last_visit_id, comp_date, task_id);
+
+        $('#survey-container').empty();
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch("<?php echo $api_url; ?>get/get_dealers_sales_performance.php?key=03201232927&task_id=" +
             task_id +
             "&dealer_id=" + dealer_id + "", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            console.log(result)
-            if (result.length > 0) {
-                var first = result.length > 0 ? result[0] : null;
-                var second = result.length > 0 ? result[1] : null;
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                if (result.length > 0) {
+                    var first = result.length > 0 ? result[0] : null;
+                    var second = result.length > 0 ? result[1] : null;
 
-                var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Sales Performance</h6>
+                    var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Sales Performance</h6>
                         <table class="dynamic_table" style="width:100%">
                     <tr>
                         <th></th>
@@ -4678,147 +4781,147 @@ function get_tas_sales_data(task_id, dealer_id, dealer_name, isp_date, comp_date
                    
                 </table>`;
 
-                $('#survey-container').append(table);
-                // sale_table.clear().draw();
+                    $('#survey-container').append(table);
+                    // sale_table.clear().draw();
 
-                // $.each(result, function(index, data) {
-                //     sale_table.row.add([
-                //         index + 1,
-                //         data.name,
-                //         data.monthly_target,
-                //         // data.name,
-                //         data.target_achived,
-                //         data.differnce,
-                //         data.reason,
-                //         data.created_at
+                    // $.each(result, function(index, data) {
+                    //     sale_table.row.add([
+                    //         index + 1,
+                    //         data.name,
+                    //         data.monthly_target,
+                    //         // data.name,
+                    //         data.target_achived,
+                    //         data.differnce,
+                    //         data.reason,
+                    //         data.created_at
 
-                //     ]).draw(false);
+                    //     ]).draw(false);
 
-                // });
-            }
-            $('#survey_modal').modal('show');
-        })
-        .catch(error => console.log('error', error));
-
-
-
-}
-
-function get_task_wet_stock(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
-    // Clear existing content
-    // $('#survey-container').empty();
-    var currentDate = new Date();
-    // alert('Runnung')
-    // Format the date as needed
-    var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
-
-    // Display the formatted date
-    $('#labelc').text('Wet Stock Management');
-    $('#survey_time').text(isp_date);
-    $('#survey_complete_time').text(comp_date);
-
-    $('#survey_dealer_name').text(dealer_name);
-    $('#survey_ispector_name').text(username);
-    $('#survey_type').text(type);
-    last_vists_dates('wet_stock', last_visit_id, comp_date, task_id);
-
-    $('#survey-container').empty();
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-
-    fetch("<?php echo $api_url; ?>get/get_dealer_wet_stock.php?key=03201232927&task_id=" + task_id +
-            "&dealer_id=" + dealer_id + "", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            console.log(result)
-            if (result.length > 0) {
-                var t1_1 = result.length > 1 ? result[0] : null;
-                var t1_2 = result.length > 1 ? result[1] : null;
-                var t1_3 = result.length > 1 ? result[2] : null;
-                var t1_4 = result.length > 1 ? result[3] : null;
-                var sumPMG = 0;
-                var sumHSD = 0;
-                var limitPMG = 0;
-                var limitHSD = 0;
-
-                // Iterate through the JSON data
-                $.each(result, function(index, item) {
-                    // Calculate the difference (dip_new - dip_old)
-                    // var difference = parseInt(item.dip_new) - parseInt(item.dip_old);
-                    var difference = parseInt(item.dip_new);
-                    // Check the product name
-                    if (item.name === "PMG") {
-                        sumPMG += difference; // Add the difference to PMG sum
-                    } else if (item.name === "HSD") {
-                        sumHSD += difference; // Add the difference to HSD sum
-                    }
-                });
-
-                console.log("Sum of PMG: ", sumPMG);
-                console.log("Sum of HSD: ", sumHSD);
-                var PMGArray = [];
-                var HSDArray = [];
-                var PMGArraylimit = [];
-                var HSDArraylimit = [];
-
-                // Initialize arrays with empty strings
-                for (var i = 0; i < 4; i++) {
-                    PMGArray.push('---');
-                    HSDArray.push('---');
-                    PMGArraylimit.push('---');
-                    HSDArraylimit.push('---');
+                    // });
                 }
+                $('#survey_modal').modal('show');
+            })
+            .catch(error => console.log('error', error));
 
-                // Iterate through the JSON data
-                $.each(result, function(index, item) {
-                    // Calculate the difference (dip_new - dip_old)
-                    // var difference = parseInt(item.dip_new) - parseInt(item.dip_old);
-                    var difference = parseInt(item.dip_new);
 
-                    // Check the product name and store the difference in the corresponding array
-                    if (item.name === "PMG") {
-                        PMGArray[index] = difference
-                            .toLocaleString(); // Convert to string to keep consistency with empty strings
-                        PMGArraylimit[index] = (item.max_limit).toLocaleString();
-                    } else if (item.name === "HSD") {
-                        HSDArray[index] = difference
-                            .toLocaleString(); // Convert to string to keep consistency with empty strings
-                        HSDArraylimit[index] = (item.max_limit).toLocaleString();
 
+    }
+
+    function get_task_wet_stock(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
+        // Clear existing content
+        // $('#survey-container').empty();
+        var currentDate = new Date();
+        // alert('Runnung')
+        // Format the date as needed
+        var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
+
+        // Display the formatted date
+        $('#labelc').text('Wet Stock Management');
+        $('#survey_time').text(isp_date);
+        $('#survey_complete_time').text(comp_date);
+
+        $('#survey_dealer_name').text(dealer_name);
+        $('#survey_ispector_name').text(username);
+        $('#survey_type').text(type);
+        last_vists_dates('wet_stock', last_visit_id, comp_date, task_id);
+
+        $('#survey-container').empty();
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch("<?php echo $api_url; ?>get/get_dealer_wet_stock.php?key=03201232927&task_id=" + task_id +
+            "&dealer_id=" + dealer_id + "", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                if (result.length > 0) {
+                    var t1_1 = result.length > 1 ? result[0] : null;
+                    var t1_2 = result.length > 1 ? result[1] : null;
+                    var t1_3 = result.length > 1 ? result[2] : null;
+                    var t1_4 = result.length > 1 ? result[3] : null;
+                    var sumPMG = 0;
+                    var sumHSD = 0;
+                    var limitPMG = 0;
+                    var limitHSD = 0;
+
+                    // Iterate through the JSON data
+                    $.each(result, function (index, item) {
+                        // Calculate the difference (dip_new - dip_old)
+                        // var difference = parseInt(item.dip_new) - parseInt(item.dip_old);
+                        var difference = parseInt(item.dip_new);
+                        // Check the product name
+                        if (item.name === "PMG") {
+                            sumPMG += difference; // Add the difference to PMG sum
+                        } else if (item.name === "HSD") {
+                            sumHSD += difference; // Add the difference to HSD sum
+                        }
+                    });
+
+                    console.log("Sum of PMG: ", sumPMG);
+                    console.log("Sum of HSD: ", sumHSD);
+                    var PMGArray = [];
+                    var HSDArray = [];
+                    var PMGArraylimit = [];
+                    var HSDArraylimit = [];
+
+                    // Initialize arrays with empty strings
+                    for (var i = 0; i < 4; i++) {
+                        PMGArray.push('---');
+                        HSDArray.push('---');
+                        PMGArraylimit.push('---');
+                        HSDArraylimit.push('---');
                     }
-                });
 
-                console.log("PMG Array: ", PMGArray);
-                console.log("HSD Array: ", HSDArray);
+                    // Iterate through the JSON data
+                    $.each(result, function (index, item) {
+                        // Calculate the difference (dip_new - dip_old)
+                        // var difference = parseInt(item.dip_new) - parseInt(item.dip_old);
+                        var difference = parseInt(item.dip_new);
 
-                var sumPMG = 0;
+                        // Check the product name and store the difference in the corresponding array
+                        if (item.name === "PMG") {
+                            PMGArray[index] = difference
+                                .toLocaleString(); // Convert to string to keep consistency with empty strings
+                            PMGArraylimit[index] = (item.max_limit).toLocaleString();
+                        } else if (item.name === "HSD") {
+                            HSDArray[index] = difference
+                                .toLocaleString(); // Convert to string to keep consistency with empty strings
+                            HSDArraylimit[index] = (item.max_limit).toLocaleString();
 
-                // Iterate over the array and accumulate the values
-                $.each(PMGArray, function(index, value) {
+                        }
+                    });
 
-                    if (value !== '---') {
-                        // Remove commas and parse the string to float
-                        var floatValue = parseFloat(value.replace(/,/g, ''));
-                        // Add the float value to the sum
-                        sumPMG += floatValue;
-                    }
-                });
+                    console.log("PMG Array: ", PMGArray);
+                    console.log("HSD Array: ", HSDArray);
 
-                var sumHSD = 0;
+                    var sumPMG = 0;
 
-                // Iterate over the array and accumulate the values
-                $.each(HSDArray, function(index, value) {
-                    if (value !== '---') {
-                        // Remove commas and parse the string to float
-                        var floatValue = parseFloat(value.replace(/,/g, ''));
-                        // Add the float value to the sum
-                        sumHSD += floatValue;
-                    }
-                });
+                    // Iterate over the array and accumulate the values
+                    $.each(PMGArray, function (index, value) {
 
-                var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Wet Stock Management</h6>
+                        if (value !== '---') {
+                            // Remove commas and parse the string to float
+                            var floatValue = parseFloat(value.replace(/,/g, ''));
+                            // Add the float value to the sum
+                            sumPMG += floatValue;
+                        }
+                    });
+
+                    var sumHSD = 0;
+
+                    // Iterate over the array and accumulate the values
+                    $.each(HSDArray, function (index, value) {
+                        if (value !== '---') {
+                            // Remove commas and parse the string to float
+                            var floatValue = parseFloat(value.replace(/,/g, ''));
+                            // Add the float value to the sum
+                            sumHSD += floatValue;
+                        }
+                    });
+
+                    var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Wet Stock Management</h6>
                         <table class="dynamic_table" style="width:100%">
                     <tr>
                         <th>Date</th>
@@ -4882,74 +4985,74 @@ function get_task_wet_stock(task_id, dealer_id, dealer_name, isp_date, comp_date
                 </table>
                `;
 
-                $('#survey-container').append(table);
+                    $('#survey-container').append(table);
 
-                // wet_stock.clear().draw();
+                    // wet_stock.clear().draw();
 
-                // $.each(result, function (index, data) {
-                //     wet_stock.row.add([
-                //         index + 1,
-                //         data.name,
-                //         data.lorry_no,
-                //         // data.name,
-                //         data.dip_old,
-                //         data.dip_new,
-                //         data.created_at
+                    // $.each(result, function (index, data) {
+                    //     wet_stock.row.add([
+                    //         index + 1,
+                    //         data.name,
+                    //         data.lorry_no,
+                    //         // data.name,
+                    //         data.dip_old,
+                    //         data.dip_new,
+                    //         data.created_at
 
-                //     ]).draw(false);
+                    //     ]).draw(false);
 
-                // });
-            }
-            $('#survey_modal').modal('show');
-        })
-        .catch(error => console.log('error', error));
+                    // });
+                }
+                $('#survey_modal').modal('show');
+            })
+            .catch(error => console.log('error', error));
 
 
-
-}
-
-function last_vists_dates(report, last_visit_id, comp_date, current_id) {
-    $('#last_recon').empty();
-
-    const requestOptions = {
-        method: "GET",
-        redirect: "follow"
-    };
-
-    if (last_visit_id != null) {
-
-        var t_id = last_visit_id + "," + current_id;
-    } else {
-        var t_id = current_id;
 
     }
-    const url =
-        "<?php echo $api_url; ?>get/inspection/get_current_second_last_visit_recon.php?key=03201232927&id=" +
-        t_id + "&report=" + report;
 
-    console.log(url);
+    function last_vists_dates(report, last_visit_id, comp_date, current_id) {
+        $('#last_recon').empty();
 
-    fetch(url, requestOptions)
-        .then((response) => response.json())
-        .then((result) => {
-            console.log('lastinf');
-            console.log(result.length);
+        const requestOptions = {
+            method: "GET",
+            redirect: "follow"
+        };
 
-            if (result.length === 2) {
-                const lastTime = result[1]['created_at'];
-                const completeTimeStr = result[0]['created_at'];
-                const lastVisitDateStr = result[1]['created_at'];
+        if (last_visit_id != null) {
 
-                $('#survey_complete_time').text(completeTimeStr);
+            var t_id = last_visit_id + "," + current_id;
+        } else {
+            var t_id = current_id;
 
-                const completeTime = new Date(completeTimeStr);
-                const lastVisitDate = new Date(lastVisitDateStr);
+        }
+        const url =
+            "<?php echo $api_url; ?>get/inspection/get_current_second_last_visit_recon.php?key=03201232927&id=" +
+            t_id + "&report=" + report;
 
-                const differenceMs = completeTime - lastVisitDate;
-                let differenceDays = differenceMs / (1000 * 60 * 60 * 24);
-                differenceDays = Math.round(differenceDays);
+        console.log(url);
 
-                const divs = `
+        fetch(url, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('lastinf');
+                console.log(result.length);
+
+                if (result.length === 2) {
+                    const lastTime = result[1]['created_at'];
+                    const completeTimeStr = result[0]['created_at'];
+                    const lastVisitDateStr = result[1]['created_at'];
+
+                    $('#survey_complete_time').text(completeTimeStr);
+
+                    const completeTime = new Date(completeTimeStr);
+                    const lastVisitDate = new Date(lastVisitDateStr);
+
+                    const differenceMs = completeTime - lastVisitDate;
+                    let differenceDays = differenceMs / (1000 * 60 * 60 * 24);
+                    differenceDays = Math.round(differenceDays);
+
+                    const divs = `
                     <div class="col-md-12">
                                     Completion Date : <span id="">${completeTimeStr}</span>
                                 </div>
@@ -4960,10 +5063,10 @@ function last_vists_dates(report, last_visit_id, comp_date, current_id) {
                         Days Since Last Visit: <span id="">${differenceDays}</span>
                     </div>`;
 
-                $('#last_recon').append(divs);
-            } else if (result.length === 1) {
-                const completeTimeStr = result[0]['created_at'];
-                const divs = `
+                    $('#last_recon').append(divs);
+                } else if (result.length === 1) {
+                    const completeTimeStr = result[0]['created_at'];
+                    const divs = `
                     <div class="col-md-12">
                                     Completion Date : <span id="">${completeTimeStr}</span>
                                 </div>
@@ -4971,106 +5074,106 @@ function last_vists_dates(report, last_visit_id, comp_date, current_id) {
                         Last Visit Date: <span id="">First Time</span>
                     </div>`;
 
-                $('#last_recon').append(divs);
-            } else {
-                const divs = `
+                    $('#last_recon').append(divs);
+                } else {
+                    const divs = `
                     <div class="col-md-12">
                         Last Visit Date: <span id="">First Time</span>
                     </div>`;
 
-                $('#last_recon').append(divs);
-            }
-        })
-        .catch((error) => console.error('Error:', error));
-}
-
-
-function get_task_despensing_unit(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
-    last_visit_id) {
-    // Clear existing content
-    // $('#survey-container').empty();
-    var currentDate = new Date();
-    // alert(last_visit_id)
-    // Format the date as needed
-    var formattedDate = currentDate.toLocaleString();
-    $('#labelc').text('Dispensing Unit Meter Reading');
-    $('#survey_time').text(isp_date);
-    $('#survey_complete_time').text(comp_date);
-
-    $('#survey_dealer_name').text(dealer_name);
-    $('#survey_ispector_name').text(username);
-    $('#survey_type').text(type);
-
-
-    last_vists_dates('despensing_unit', last_visit_id, comp_date, task_id);
-
-    $('#survey-container').empty();
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    console.log("<?php echo $api_url; ?>get/get_dealer_task_despensing_unit.php?key=03201232927&task_id=" +
-        task_id +
-        "&dealer_id=" + dealer_id + "")
-    fetch("<?php echo $api_url; ?>get/get_dealer_task_despensing_unit.php?key=03201232927&task_id=" + task_id +
-            "&dealer_id=" + dealer_id + "", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            if (result.length > 0) {
-                // despensing_unit_table.clear().draw();
-
-                // $.each(result, function(index, data) {
-                //     despensing_unit_table.row.add([
-                //         index + 1,
-                //         data.product_name,
-                //         data.nozle_name,
-                //         // data.name,
-                //         data.old_reading,
-                //         data.new_reading,
-                //         data.created_at
-
-                //     ]).draw(false);
-
-                // });
-                var sub_data = result;
-                console.log(sub_data)
-                var PMGArray = [];
-                var HSDArray = [];
-
-                // Initialize arrays with empty strings
-                for (var i = 0; i < 8; i++) {
-                    PMGArray.push('---');
-                    HSDArray.push('---');
+                    $('#last_recon').append(divs);
                 }
+            })
+            .catch((error) => console.error('Error:', error));
+    }
 
-                // Iterate through the JSON data
-                $.each(result, function(index, item) {
-                    // Calculate the difference (dip_new - dip_old)
-                    var difference = item;
 
-                    // Check the product name and store the difference in the corresponding array
-                    if (item.product_name === "PMG") {
-                        PMGArray[index] =
-                            difference; // Convert to string to keep consistency with empty strings
-                    } else if (item.product_name === "HSD") {
-                        HSDArray[index] =
-                            difference; // Convert to string to keep consistency with empty strings
+    function get_task_despensing_unit(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
+        last_visit_id) {
+        // Clear existing content
+        // $('#survey-container').empty();
+        var currentDate = new Date();
+        // alert(last_visit_id)
+        // Format the date as needed
+        var formattedDate = currentDate.toLocaleString();
+        $('#labelc').text('Dispensing Unit Meter Reading');
+        $('#survey_time').text(isp_date);
+        $('#survey_complete_time').text(comp_date);
+
+        $('#survey_dealer_name').text(dealer_name);
+        $('#survey_ispector_name').text(username);
+        $('#survey_type').text(type);
+
+
+        last_vists_dates('despensing_unit', last_visit_id, comp_date, task_id);
+
+        $('#survey-container').empty();
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        console.log("<?php echo $api_url; ?>get/get_dealer_task_despensing_unit.php?key=03201232927&task_id=" +
+            task_id +
+            "&dealer_id=" + dealer_id + "")
+        fetch("<?php echo $api_url; ?>get/get_dealer_task_despensing_unit.php?key=03201232927&task_id=" + task_id +
+            "&dealer_id=" + dealer_id + "", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result.length > 0) {
+                    // despensing_unit_table.clear().draw();
+
+                    // $.each(result, function(index, data) {
+                    //     despensing_unit_table.row.add([
+                    //         index + 1,
+                    //         data.product_name,
+                    //         data.nozle_name,
+                    //         // data.name,
+                    //         data.old_reading,
+                    //         data.new_reading,
+                    //         data.created_at
+
+                    //     ]).draw(false);
+
+                    // });
+                    var sub_data = result;
+                    console.log(sub_data)
+                    var PMGArray = [];
+                    var HSDArray = [];
+
+                    // Initialize arrays with empty strings
+                    for (var i = 0; i < 8; i++) {
+                        PMGArray.push('---');
+                        HSDArray.push('---');
                     }
-                });
 
-                console.log("PMG Array: ", PMGArray);
-                console.log("HSD Array: ", HSDArray);
+                    // Iterate through the JSON data
+                    $.each(result, function (index, item) {
+                        // Calculate the difference (dip_new - dip_old)
+                        var difference = item;
 
-                var dis_0 = sub_data.length > 1 ? sub_data[0] : null;
-                var dis_1 = sub_data.length > 1 ? sub_data[1] : null;
-                var dis_2 = sub_data.length > 1 ? sub_data[2] : null;
-                var dis_3 = sub_data.length > 1 ? sub_data[3] : null;
-                var dis_4 = sub_data.length > 1 ? sub_data[4] : null;
-                var dis_5 = sub_data.length > 1 ? sub_data[5] : null;
-                var dis_6 = sub_data.length > 1 ? sub_data[6] : null;
-                var dis_7 = sub_data.length > 1 ? sub_data[7] : null;
+                        // Check the product name and store the difference in the corresponding array
+                        if (item.product_name === "PMG") {
+                            PMGArray[index] =
+                                difference; // Convert to string to keep consistency with empty strings
+                        } else if (item.product_name === "HSD") {
+                            HSDArray[index] =
+                                difference; // Convert to string to keep consistency with empty strings
+                        }
+                    });
 
-                var table_sub = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Dispensing Unit Meter Reading</h6>
+                    console.log("PMG Array: ", PMGArray);
+                    console.log("HSD Array: ", HSDArray);
+
+                    var dis_0 = sub_data.length > 1 ? sub_data[0] : null;
+                    var dis_1 = sub_data.length > 1 ? sub_data[1] : null;
+                    var dis_2 = sub_data.length > 1 ? sub_data[2] : null;
+                    var dis_3 = sub_data.length > 1 ? sub_data[3] : null;
+                    var dis_4 = sub_data.length > 1 ? sub_data[4] : null;
+                    var dis_5 = sub_data.length > 1 ? sub_data[5] : null;
+                    var dis_6 = sub_data.length > 1 ? sub_data[6] : null;
+                    var dis_7 = sub_data.length > 1 ? sub_data[7] : null;
+
+                    var table_sub = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Dispensing Unit Meter Reading</h6>
                 <table class="dynamic_table" style="width:100%">
                     <tr>
                         <th></th>
@@ -5168,51 +5271,51 @@ function get_task_despensing_unit(task_id, dealer_id, dealer_name, isp_date, com
                     </tr>
                     
                 </table> <h6>P=Present</h6><h6>L=Last</h6>`;
-                $('#survey-container').append(table_sub);
-            }
+                    $('#survey-container').append(table_sub);
+                }
 
-            $('#survey_modal').modal('show');
-        })
-        .catch(error => console.log('error', error));
+                $('#survey_modal').modal('show');
+            })
+            .catch(error => console.log('error', error));
 
 
 
-}
+    }
 
-function get_cacual(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
-    // Clear existing content
-    var currentDate = new Date();
+    function get_cacual(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type, last_visit_id) {
+        // Clear existing content
+        var currentDate = new Date();
 
-    // Format the date as needed
-    var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
+        // Format the date as needed
+        var formattedDate = currentDate.toLocaleString(); // Adjust the format based on your requirements
 
-    // Display the formatted date
-    $('#labelc').text('Stock Variations');
-    $('#survey_time').text(isp_date);
-    $('#survey_complete_time').text(comp_date);
+        // Display the formatted date
+        $('#labelc').text('Stock Variations');
+        $('#survey_time').text(isp_date);
+        $('#survey_complete_time').text(comp_date);
 
-    $('#survey_dealer_name').text(dealer_name);
-    $('#survey_ispector_name').text(username);
-    $('#survey_type').text(type);
-    last_vists_dates('stock_variation', last_visit_id, comp_date, task_id);
+        $('#survey_dealer_name').text(dealer_name);
+        $('#survey_ispector_name').text(username);
+        $('#survey_type').text(type);
+        last_vists_dates('stock_variation', last_visit_id, comp_date, task_id);
 
-    $('#survey-container').empty();
+        $('#survey-container').empty();
 
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
-    fetch("<?php echo $api_url; ?>get/get_cacual_visit_detail.php?key=03201232927&task_id=" + task_id +
+        fetch("<?php echo $api_url; ?>get/get_cacual_visit_detail.php?key=03201232927&task_id=" + task_id +
             "&dealer_id=" + dealer_id + "", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            console.log(result)
-            if (result.length > 0) {
-                var first = result[0];
-                var second = result.length > 1 ? result[1] : null;
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                if (result.length > 0) {
+                    var first = result[0];
+                    var second = result.length > 1 ? result[1] : null;
 
-                var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Casual Visit</h6><table class="dynamic_table" style="width:100%">
+                    var table = `<h6 style="text-align: center;padding: 3px 11px;background: #f2f2f2;">Casual Visit</h6><table class="dynamic_table" style="width:100%">
                     <tr>
                         <th>Time</th>
                         <th>Description</th>
@@ -5224,18 +5327,18 @@ function get_cacual(task_id, dealer_id, dealer_name, isp_date, comp_date, userna
                     
                 </table>`;
 
-                $('#survey-container').append(table);
-            }
+                    $('#survey-container').append(table);
+                }
 
-            $('#survey_modal').modal('show');
-        })
-        .catch(error => console.log('error', error));
+                $('#survey_modal').modal('show');
+            })
+            .catch(error => console.log('error', error));
 
 
 
-}
+    }
 
-function get_task_stock_variations(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
+    function get_task_stock_variations(task_id, dealer_id, dealer_name, isp_date, comp_date, username, type,
         last_visit_id) {
         // Clear existing content
         var currentDate = new Date();
@@ -5261,7 +5364,7 @@ function get_task_stock_variations(task_id, dealer_id, dealer_name, isp_date, co
         };
 
         fetch("<?php echo $api_url; ?>get/get_dealer_task_stock_variation.php?key=03201232927&task_id=" + task_id +
-                "&dealer_id=" + dealer_id + "", requestOptions)
+            "&dealer_id=" + dealer_id + "", requestOptions)
             .then(response => response.json())
             .then(result => {
                 console.log(result)
@@ -5331,300 +5434,655 @@ function get_task_stock_variations(task_id, dealer_id, dealer_name, isp_date, co
 
     }
 
-function send_email(task_id, dealer_id) {
+    function send_email(task_id, dealer_id) {
 
-    if (task_id != "" && dealer_id != "") {
+        if (task_id != "" && dealer_id != "") {
 
 
 
-        let timerInterval;
-        Swal.fire({
-            title: "Email Sending !",
-            html: "I will close in <b></b> milliseconds.",
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: () => {
-                Swal.showLoading();
-                const timer = Swal.getPopup().querySelector("b");
-                timerInterval = setInterval(() => {
-                    timer.textContent = `${Swal.getTimerLeft()}`;
-                }, 100);
-            },
-            willClose: () => {
-                clearInterval(timerInterval);
-            }
-        }).then((result) => {
-            /* Read more about handling dismissals below */
-            if (result.dismiss === Swal.DismissReason.timer) {
-                console.log("I was closed by the timer");
-            }
+            let timerInterval;
+            Swal.fire({
+                title: "Email Sending !",
+                html: "I will close in <b></b> milliseconds.",
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+                        timer.textContent = `${Swal.getTimerLeft()}`;
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log("I was closed by the timer");
+                }
+            });
+
+
+
+
+
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+
+            fetch("<?php echo $api_url; ?>emailer/puma_inpection_reports.php?dealer_id=" + dealer_id + "&task_id=" +
+                task_id + "",
+                requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result)
+                    if (result != 0) {
+                        Swal.fire(
+                            'Success!',
+                            'Email Send Successfully',
+                            'success'
+                        )
+
+                        setTimeout(function () {
+
+
+                            location.reload();
+
+
+                        }, 2000);
+
+                    } else {
+                        Swal.fire(
+                            'Server Error!',
+                            'Email Not Send',
+                            'error'
+                        )
+                    }
+                })
+                .catch(error => console.log('error', error));
+        } else {
+            alert('ID Required')
+        }
+
+    }
+
+    function create_div(response) {
+        // Iterate through the API response
+        var total_ques = 0;
+        var r_yes = 0;
+        var r_no = 0;
+        var r_n_a = 0;
+
+        var $sectionDiv = $('<div class="col-md-12"></div>');
+        var table1 = $('<table class="dynamic_table">').attr('id', 'questions_toral');
+        var tableHead1 = $('<thead>');
+        var tableBody1 = $('<tbody>');
+
+        var headerRow1 = $('<tr>');
+        headerRow1.append($('<th>').text('Total Questions'));
+        headerRow1.append($('<th>').text('Yes'));
+        headerRow1.append($('<th>').text('No'));
+        headerRow1.append($('<th>').text('N/A'));
+        headerRow1.append($('<th>').text('%'));
+        tableHead1.append(headerRow1);
+        table1.append(tableHead1);
+        response.forEach(function (section) {
+            section.Questions.forEach(function (question) {
+                console.log(question.response)
+                total_ques++;
+                if (question.response == 'Yes') {
+                    r_yes++;
+                } else if (question.response == 'No') {
+                    r_no++;
+                } else if (question.response == 'N/A') {
+                    r_n_a++;
+                }
+            })
+
+            console.log('Ques ' + total_ques);
+        })
+
+        var percentage = (r_yes / (total_ques - r_n_a)) * 100;
+        var row1 = $('<tr>');
+        row1.append($('<td>').text(total_ques));
+        row1.append($('<td>').text(r_yes));
+        row1.append($('<td>').text(r_no));
+        row1.append($('<td>').text(r_n_a));
+        row1.append($('<td>').text(Math.round(percentage)));
+        tableBody1.append(row1);
+
+        table1.append(tableBody1);
+
+        // Append table to the body of the document
+        // $('body').append(table);
+
+        $sectionDiv.append(table1);
+
+        response.forEach(function (section) {
+            //  $sectionDiv = $('<div class="col-md-12"></div>');
+            // Create a div for each section
+            var output = "";
+
+            // Append section name
+            var i = 1;
+
+
+            // $sectionDiv.append('<h5>' + section.name + '</h5>');
+
+
+            // Create a div for each question
+            // output = '<div class="table-responsive"><style>table, th, td {border: 1px solid black;border-collapse: collapse;}th, td {padding:10px;}</style> ';
+
+
+
+
+
+            var table = $('<table class="dynamic_table">').attr('id', 'questionsTable' + (i));
+            var tableHead = $('<thead>');
+            var tableBody = $('<tbody>');
+
+            // Create table headers
+            var headerRow = $('<tr>');
+            headerRow.append($('<th>').text('SNo'));
+            headerRow.append($('<th>').text(section.name));
+            headerRow.append($('<th>').text('Yes'));
+            headerRow.append($('<th>').text('No'));
+            headerRow.append($('<th>').text('N/A'));
+            headerRow.append($('<th>').text('Comments'));
+            headerRow.append($('<th>').text('File'));
+            tableHead.append(headerRow);
+            table.append(tableHead);
+            var j = 1;
+            section.Questions.forEach(function (question) {
+                // Create a div for each question
+
+                var row = $('<tr>');
+                row.append($('<td>').text(j));
+                row.append($('<td>').text(question.question));
+                row.append($('<td>').html(question.response === 'Yes' ?
+                    '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                    ''));
+                row.append($('<td>').html(question.response === 'No' ?
+                    '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                    ''));
+                row.append($('<td>').html(question.response === 'N/A' ?
+                    '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
+                    ''));
+                row.append($('<td>').text(question.comment));
+                row.append($('<td>').html(question.cancel_file === null ? '---' :
+                    '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + question
+                        .cancel_file +
+                    '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>'
+                ));
+                tableBody.append(row);
+
+
+                // Append table body to table
+                j++;
+            });
+            table.append(tableBody);
+
+            // Append table to the body of the document
+            // $('body').append(table);
+
+            $sectionDiv.append(table);
+            i++;
+            // Append section div to the survey container
+            $('#survey-container').append($sectionDiv);
         });
+        $('#survey_modal').modal('show');
+    }
+
+    function getPDF() {
+        var currentDate = new Date();
+
+        // Format the date as needed
+        var formattedDate = currentDate.toLocaleString();
+        var element = document.getElementById('exporting');
+        var opt = {
+            margin: 0.5, // Decrease the margin
+            filename: 'Inspection-Result-' + formattedDate + '.pdf',
+            image: {
+                type: 'text',
+                quality: 0.98
+            },
+            html2canvas: {
+                scale: 2 // Adjust scale for better resolution
+            },
+            jsPDF: {
+                unit: 'in',
+                format: 'A4',
+                orientation: 'landscape',
+                userUnit: 1.0 // Disable text selection
+            }
+        };
+
+        html2pdf().from(element).set(opt).save();
+        $('#exportBtn').prop('disabled', false);
+
+        setTimeout(function () {
+            $('#exportBtn').text('Export PDF');
+        }, 2000);
+
+    };
 
 
+    // Attach click event to the export button
+    $('#exportBtn').on('click', function () {
+        console.log("Click");
+        $('#exportBtn').prop('disabled', true).text('Downloading');
+
+        getPDF();
+    });
+
+    function getPDF2() {
+
+        // var HTML_Width = $("#maesurement_price_div").width();
+        var element = document.getElementById('maesurement_price_div');
+        var opt = {
+            margin: 1,
+            filename: 'Measurement & Price Result.pdf',
+            image: {
+                type: 'jpeg',
+                quality: 0.98
+            },
+            html2canvas: {
+                scale: 2
+            },
+            jsPDF: {
+                unit: 'in',
+                format: 'letter',
+                orientation: 'portrait'
+            }
+        };
+
+        html2pdf().from(element).set(opt).save();
+        setTimeout(function () {
+            maesurement_price_div
+            $('#expoert_measure_price').text('Export PDF');
+        }, 2000);
+
+    };
+
+    $('#expoert_measure_price').on('click', function () {
+        console.log("Click");
+        $('#expoert_measure_price').prop('disabled', true).text('Downloading');
+
+        getPDF2();
+    });
+
+    function decryptId(encryptedId, key, iv) {
+        var decrypted = CryptoJS.AES.decrypt(encryptedId, key, {
+            iv: iv
+        });
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+
+    function encryptId(originalId, key, iv) {
+        var cipher = CryptoJS.AES.encrypt(originalId.toString(), key, {
+            iv: iv
+        });
+        return cipher.toString();
+    }
 
 
+    function viewReport(report_name) {
+        // alert(report_name)
 
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
         };
+        if (report_name == 'dispensor') {
 
-        fetch("<?php echo $api_url; ?>emailer/puma_inpection_reports.php?dealer_id=" + dealer_id + "&task_id=" +
-                task_id + "",
+            fetch("<?php echo $api_url; ?>get/get_dealer_dispensor_report.php?key=03201232927&dealer_id=" + decryptedId +
+                "",
                 requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                console.log(result)
-                if (result != 0) {
-                    Swal.fire(
-                        'Success!',
-                        'Email Send Successfully',
-                        'success'
-                    )
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    if (result.length > 0) {
+                        var data = result[0];
 
-                    setTimeout(function() {
+                        console.log(data);
+                        dispensor_dom(data)
+                    }
 
+                })
+                .catch(error => console.log('error', error));
+        } else if (report_name == 'tanks') {
 
-                        location.reload();
+            fetch("<?php echo $api_url; ?>get/get_dealers_tanks_report.php?key=03201232927&dealer_id=" + decryptedId +
+                "",
+                requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    if (result.length > 0) {
+                        var data = result[0];
 
+                        console.log(data);
+                        tanks_dom(data)
+                    }
 
-                    }, 2000);
+                })
+                .catch(error => console.log('error', error));
+        } else if (report_name == 'signage') {
 
-                } else {
-                    Swal.fire(
-                        'Server Error!',
-                        'Email Not Send',
-                        'error'
-                    )
-                }
-            })
-            .catch(error => console.log('error', error));
-    } else {
-        alert('ID Required')
+            fetch("<?php echo $api_url; ?>get/get_dealers_signage_report.php?key=03201232927&dealer_id=" + decryptedId +
+                "",
+                requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    if (result.length > 0) {
+                        var data = result[0];
+
+                        console.log(data);
+                        signage_dom(data);
+                    }
+
+                })
+                .catch(error => console.log('error', error));
+        } else if (report_name == 'Generals') {
+
+            fetch("<?php echo $api_url; ?>get/get_dealer_generals_eq_report.php?key=03201232927&dealer_id=" + decryptedId +
+                "",
+                requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    if (result.length > 0) {
+                        var data = result[0];
+
+                        console.log(data);
+                        generals_dom(data);
+                    }
+
+                })
+                .catch(error => console.log('error', error));
+        }
+
     }
 
-}
+    function dispensor_dom(data) {
+        $('#new_report_name').text('Dispensers Setups Report');
+        $('#new_report_container').empty();
 
-function create_div(response) {
-    // Iterate through the API response
-    var total_ques = 0;
-    var r_yes = 0;
-    var r_no = 0;
-    var r_n_a = 0;
+        var json_data = JSON.parse(data.json_data); // JSON string کو object میں convert کریں
+        var no_dispensor = data.no_dispensor;
+        var no_fuel_system = data.no_fuel_system;
+        var no_sub_motor = data.no_sub_motor;
 
-    var $sectionDiv = $('<div class="col-md-12"></div>');
-    var table1 = $('<table class="dynamic_table">').attr('id', 'questions_toral');
-    var tableHead1 = $('<thead>');
-    var tableBody1 = $('<tbody>');
+        var div = `<div class="card">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="popular-product-img p-2">
+                        <img src="https://pumaenergy.com/wp-content/uploads/2023/05/Fuel-Pump.jpg.webp" alt="">
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="row g-0 mt-3 pt-1 align-items-end">
+                        <div class="col-4">
+                            <div class="mt-1">
+                                <h4 class="font-size-16">No Of Dispensers</h4>
+                                <p class="text-muted mb-1">${no_dispensor} </p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mt-1">
+                                <h4 class="font-size-16">No Of Sub Meter</h4>
+                                <p class="text-muted mb-1">${no_sub_motor}</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mt-1">
+                                <h4 class="font-size-16">No Of Fuel System</h4>
+                                <p class="text-muted mb-1">${no_fuel_system}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    var headerRow1 = $('<tr>');
-    headerRow1.append($('<th>').text('Total Questions'));
-    headerRow1.append($('<th>').text('Yes'));
-    headerRow1.append($('<th>').text('No'));
-    headerRow1.append($('<th>').text('N/A'));
-    headerRow1.append($('<th>').text('%'));
-    tableHead1.append(headerRow1);
-    table1.append(tableHead1);
-    response.forEach(function(section) {
-        section.Questions.forEach(function(question) {
-            console.log(question.response)
-            total_ques++;
-            if (question.response == 'Yes') {
-                r_yes++;
-            } else if (question.response == 'No') {
-                r_no++;
-            } else if (question.response == 'N/A') {
-                r_n_a++;
-            }
-        })
+            <!-- Accordion Start -->
+            <div class="accordion mt-4" id="dispensersAccordion">`;
 
-        console.log('Ques ' + total_ques);
-    })
+        // Loop through each dispenser entry in json_data
+        $.each(json_data, function (index, item) {
+            let dispenserId = `dispenser_${index}`;
+            div += `<div class="accordion-item">
+            <h2 class="accordion-header" id="heading_${index}">
+                <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button" data-bs-toggle="collapse" data-bs-target="#${dispenserId}" aria-expanded="true" aria-controls="${dispenserId}">
+                    ${item.Dispensers || 'Dispensers'} - ${item["Type of Dispensers"] || 'Type'}
+                </button>
+            </h2>
+            <div id="${dispenserId}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" aria-labelledby="heading_${index}" data-bs-parent="#dispensersAccordion">
+                <div class="accordion-body">
+                    <table class="table table-bordered">
+                        <tbody>`;
 
-    var percentage = (r_yes  / (total_ques-r_n_a)) * 100;
-    var row1 = $('<tr>');
-    row1.append($('<td>').text(total_ques));
-    row1.append($('<td>').text(r_yes));
-    row1.append($('<td>').text(r_no));
-    row1.append($('<td>').text(r_n_a));
-    row1.append($('<td>').text(Math.round(percentage)));
-    tableBody1.append(row1);
+            // ✅ **Dynamically Add Headings & Values**
+            $.each(item, function (key, value) {
+                div += `<tr>
+                <th>${key}</th>
+                <td>${value || 'N/A'}</td>
+            </tr>`;
+            });
 
-    table1.append(tableBody1);
-
-    // Append table to the body of the document
-    // $('body').append(table);
-
-    $sectionDiv.append(table1);
-
-    response.forEach(function(section) {
-        //  $sectionDiv = $('<div class="col-md-12"></div>');
-        // Create a div for each section
-        var output = "";
-
-        // Append section name
-        var i = 1;
-
-
-        // $sectionDiv.append('<h5>' + section.name + '</h5>');
-
-
-        // Create a div for each question
-        // output = '<div class="table-responsive"><style>table, th, td {border: 1px solid black;border-collapse: collapse;}th, td {padding:10px;}</style> ';
-
-
-
-
-
-        var table = $('<table class="dynamic_table">').attr('id', 'questionsTable' + (i));
-        var tableHead = $('<thead>');
-        var tableBody = $('<tbody>');
-
-        // Create table headers
-        var headerRow = $('<tr>');
-        headerRow.append($('<th>').text('SNo'));
-        headerRow.append($('<th>').text(section.name));
-        headerRow.append($('<th>').text('Yes'));
-        headerRow.append($('<th>').text('No'));
-        headerRow.append($('<th>').text('N/A'));
-        headerRow.append($('<th>').text('Comments'));
-        headerRow.append($('<th>').text('File'));
-        tableHead.append(headerRow);
-        table.append(tableHead);
-        var j = 1;
-        section.Questions.forEach(function(question) {
-            // Create a div for each question
-
-            var row = $('<tr>');
-            row.append($('<td>').text(j));
-            row.append($('<td>').text(question.question));
-            row.append($('<td>').html(question.response === 'Yes' ?
-                '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
-                ''));
-            row.append($('<td>').html(question.response === 'No' ?
-                '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
-                ''));
-            row.append($('<td>').html(question.response === 'N/A' ?
-                '<i class="fas fa-check text-success" style="font-size: 20px;font-weight: bold;"></i>' :
-                ''));
-            row.append($('<td>').text(question.comment));
-            row.append($('<td>').html(question.cancel_file === null ? '---' :
-                '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + question
-                .cancel_file +
-                '" target="_blank"><i class="fas fa-file-image text-success" style="font-size: 20px;font-weight: bold;"></i></a>'
-            ));
-            tableBody.append(row);
-
-
-            // Append table body to table
-            j++;
+            div += `</tbody></table>
+                </div>
+            </div>
+        </div>`;
         });
-        table.append(tableBody);
 
-        // Append table to the body of the document
-        // $('body').append(table);
+        div += `</div> <!-- Accordion End -->
+        </div>
+    </div>`;
 
-        $sectionDiv.append(table);
-        i++;
-        // Append section div to the survey container
-        $('#survey-container').append($sectionDiv);
-    });
-    $('#survey_modal').modal('show');
-}
+        // Add the constructed HTML to the container
+        $('#new_report_container').append(div);
+        $('#new_report_modal').modal('show');
+    }
 
-function getPDF() {
-    var currentDate = new Date();
+    function tanks_dom(data) {
+        $('#new_report_name').text('Tanks Setup');
+        $('#new_report_container').empty();
 
-    // Format the date as needed
-    var formattedDate = currentDate.toLocaleString();
-    var element = document.getElementById('exporting');
-    var opt = {
-        margin: 0.5, // Decrease the margin
-        filename: 'Inspection-Result-' + formattedDate + '.pdf',
-        image: {
-            type: 'text',
-            quality: 0.98
-        },
-        html2canvas: {
-            scale: 2 // Adjust scale for better resolution
-        },
-        jsPDF: {
-            unit: 'in',
-            format: 'A4',
-            orientation: 'landscape',
-            userUnit: 1.0 // Disable text selection
-        }
-    };
+        var json_data = JSON.parse(data.json_data); // JSON string کو object میں convert کریں
+        var no_tanks = data.no_tanks;
+        var piping_from_fill_point_to_tanks = data.piping_from_fill_point_to_tanks;
+        var piping_from_tank_to_dispenser_units = data.piping_from_tank_to_dispenser_units;
+        var off_set_tank_dec_area_unit = data.off_set_tank_dec_area_unit;
+        var tank_connected_earth = data.tank_connected_earth;
+        var vent_pip_connected_tank = data.vent_pip_connected_tank;
+        var dip_cap_install_tank = data.dip_cap_install_tank;
+        var created_at = data.created_at;
 
-    html2pdf().from(element).set(opt).save();
-    $('#exportBtn').prop('disabled', false);
+        var div = `<div class="card">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="popular-product-img p-2">
+                        <img src="https://static.wixstatic.com/media/c2cbef_01cfb367b18e405d89f07f01d62a4fc0~mv2.png/v1/fill/w_1280,h_833,al_c/c2cbef_01cfb367b18e405d89f07f01d62a4fc0~mv2.png" alt="Tanks Image">
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="row g-0 mt-3 pt-1 align-items-end">
+                        <div class="col-4"><h4 class="font-size-16">No Of Tanks</h4><p class="text-muted mb-1">${no_tanks}</p></div>
+                        <div class="col-4"><h4 class="font-size-16">Piping from fill point</h4><p class="text-muted mb-1">${piping_from_fill_point_to_tanks}</p></div>
+                        <div class="col-4"><h4 class="font-size-16">Piping to dispenser units</h4><p class="text-muted mb-1">${piping_from_tank_to_dispenser_units}</p></div>
+                        <div class="col-4"><h4 class="font-size-16">Off-set tank decantation</h4><p class="text-muted mb-1">${off_set_tank_dec_area_unit}</p></div>
+                        <div class="col-4"><h4 class="font-size-16">Connected to earth</h4><p class="text-muted mb-1">${tank_connected_earth}</p></div>
+                        <div class="col-4"><h4 class="font-size-16">Vent pipes connected</h4><p class="text-muted mb-1">${vent_pip_connected_tank}</p></div>
+                        <div class="col-4"><h4 class="font-size-16">Dip caps installed</h4><p class="text-muted mb-1">${dip_cap_install_tank}</p></div>
+                        <div class="col-4"><h4 class="font-size-16">Created At</h4><p class="text-muted mb-1">${created_at}</p></div>
+                    </div>
+                </div>
+            </div>
 
-    setTimeout(function() {
-        $('#exportBtn').text('Export PDF');
-    }, 2000);
+            <!-- ✅ Accordion Start -->
+            <div class="accordion mt-4" id="tanksAccordion">`;
 
-};
+        // ✅ Loop through each tank entry in json_data
+        $.each(json_data, function (index, item) {
+            let tankId = `tank_${index}`;
+            div += `<div class="accordion-item">
+            <h2 class="accordion-header" id="heading_${index}">
+                <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button" data-bs-toggle="collapse" data-bs-target="#${tankId}" aria-expanded="${index === 0}" aria-controls="${tankId}">
+                    ${item["TANKS NAME"] || 'Tank'} - ${item["Type of Tank"] || 'Type'}
+                </button>
+            </h2>
+            <div id="${tankId}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" aria-labelledby="heading_${index}" data-bs-parent="#tanksAccordion">
+                <div class="accordion-body">
+                    <table class="table table-bordered">
+                        <tbody>`;
 
+            // ✅ **Dynamically Add Headings & Values**
+            $.each(item, function (key, value) {
+                div += `<tr><th>${key}</th><td>${value || 'N/A'}</td></tr>`;
+            });
 
-// Attach click event to the export button
-$('#exportBtn').on('click', function() {
-    console.log("Click");
-    $('#exportBtn').prop('disabled', true).text('Downloading');
+            div += `</tbody></table>
+                </div>
+            </div>
+        </div>`;
+        });
 
-    getPDF();
-});
+        div += `</div> <!-- ✅ Accordion End -->
+        </div>
+    </div>`;
 
-function getPDF2() {
+        // ✅ Add the constructed HTML to the container
+        $('#new_report_container').append(div);
+        $('#new_report_modal').modal('show');
+    }
 
-    // var HTML_Width = $("#maesurement_price_div").width();
-    var element = document.getElementById('maesurement_price_div');
-    var opt = {
-        margin: 1,
-        filename: 'Measurement & Price Result.pdf',
-        image: {
-            type: 'jpeg',
-            quality: 0.98
-        },
-        html2canvas: {
-            scale: 2
-        },
-        jsPDF: {
-            unit: 'in',
-            format: 'letter',
-            orientation: 'portrait'
-        }
-    };
+    function signage_dom(data) {
+        $('#new_report_name').text('Signage / Components Report');
+        $('#new_report_container').empty();
 
-    html2pdf().from(element).set(opt).save();
-    setTimeout(function() {
-        maesurement_price_div
-        $('#expoert_measure_price').text('Export PDF');
-    }, 2000);
+        var json_data = JSON.parse(data.json_data);
+        var created_at = data.created_at;
 
-};
+        var div = `<div class="card">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="popular-product-img p-2">
+                        <img src="https://cdn-icons-png.flaticon.com/512/979/979570.png" alt="Signage Image">
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="row g-0 mt-3 pt-1 align-items-end">
+                        <div class="col-4"><h4 class="font-size-16">Created At</h4><p class="text-muted mb-1">${created_at}</p></div>
+                    </div>
+                </div>
+            </div>
 
-$('#expoert_measure_price').on('click', function() {
-    console.log("Click");
-    $('#expoert_measure_price').prop('disabled', true).text('Downloading');
+            <!-- ✅ Accordion Start -->
+            <div class="accordion mt-4" id="signageAccordion">`;
 
-    getPDF2();
-});
+        // ✅ Loop through each signage entry in json_data
+        $.each(json_data, function (index, item) {
+            let signageId = `signage_${index}`;
+            let isExpanded = item.selected ? 'show' : '';
+            let isCollapsed = item.selected ? '' : 'collapsed';
 
-function decryptId(encryptedId, key, iv) {
-    var decrypted = CryptoJS.AES.decrypt(encryptedId, key, {
-        iv: iv
-    });
-    return decrypted.toString(CryptoJS.enc.Utf8);
-}
+            div += `<div class="accordion-item">
+            <h2 class="accordion-header" id="heading_${index}">
+                <button class="accordion-button ${isCollapsed}" type="button" data-bs-toggle="collapse" data-bs-target="#${signageId}" aria-expanded="${item.selected}" aria-controls="${signageId}">
+                    ${item.name} - ${item.selected}
+                </button>
+            </h2>
+            <div id="${signageId}" class="accordion-collapse collapse ${isExpanded}" aria-labelledby="heading_${index}" data-bs-parent="#signageAccordion">
+                <div class="accordion-body">
+                    <table class="table table-bordered">
+                        <tbody>`;
 
-function encryptId(originalId, key, iv) {
-    var cipher = CryptoJS.AES.encrypt(originalId.toString(), key, {
-        iv: iv
-    });
-    return cipher.toString();
-}
-// Call the function with your API response
-// displaySurvey(apiResponse);
+            // ✅ **Dynamically Add Headings & Values from "data"**
+            $.each(item.data, function (key, value) {
+                div += `<tr><th>${key}</th><td>${value || 'N/A'}</td></tr>`;
+            });
+
+            div += `</tbody></table>
+                </div>
+            </div>
+        </div>`;
+        });
+
+        div += `</div> <!-- ✅ Accordion End -->
+        </div>
+    </div>`;
+
+        // ✅ Add the constructed HTML to the container
+        $('#new_report_container').append(div);
+        $('#new_report_modal').modal('show');
+    }
+    function generals_dom(data) {
+        $('#new_report_name').text('General Equipments Report');
+        $('#new_report_container').empty();
+
+        var json_data = JSON.parse(data.json_data);
+        var created_at = data.created_at;
+
+        var div = `<div class="card">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="popular-product-img p-2">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Z_rOrripDMXgpLeuhDyuccjjPZacamtYmQ&s" alt="Signage Image">
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="row g-0 mt-3 pt-1 align-items-end">
+                        <div class="col-4 " style="margin-left:10px"><h4 class="font-size-16">Created At</h4><p class="text-muted mb-1">${created_at}</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ Accordion Start -->
+            <div class="accordion mt-4" id="signageAccordion">`;
+
+        // ✅ Loop through each signage entry in json_data
+        $.each(json_data, function (index, item) {
+            let signageId = `signage_${index}`;
+            let isExpanded = item.selected ? 'show' : '';
+            let isCollapsed = item.selected ? '' : 'collapsed';
+
+            div += `<div class="accordion-item">
+            <h2 class="accordion-header" id="heading_${index}">
+                <button class="accordion-button ${isCollapsed}" type="button" data-bs-toggle="collapse" data-bs-target="#${signageId}" aria-expanded="${item.selected}" aria-controls="${signageId}">
+                    ${item.name} - ${item.selected}
+                </button>
+            </h2>
+            <div id="${signageId}" class="accordion-collapse collapse ${isExpanded}" aria-labelledby="heading_${index}" data-bs-parent="#signageAccordion">
+                <div class="accordion-body">
+                    <table class="table table-bordered">
+                        <tbody>`;
+
+            // ✅ **Dynamically Add Headings & Values from "data"**
+            $.each(item.data, function (key, value) {
+                div += `<tr><th>${key}</th><td>${value || 'N/A'}</td></tr>`;
+            });
+
+            div += `</tbody></table>
+                </div>
+            </div>
+        </div>`;
+        });
+
+        div += `</div> <!-- ✅ Accordion End -->
+        </div>
+    </div>`;
+
+        // ✅ Add the constructed HTML to the container
+        $('#new_report_container').append(div);
+        $('#new_report_modal').modal('show');
+    }
 </script>
 
 

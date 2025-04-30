@@ -734,18 +734,18 @@ td {
                                     data.product_name,
                                     `<span style="color: transparent;">${data.tank_beharior}</span>
                                         ${(data.tank_beharior === false) ?
-                                                    '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpYbUIFfRi0gF6G2i5iC3NasuR-00Cvn8fLg&s" alt="description" width="10" height="10">' :
-                                                    '<img src="https://i.pinimg.com/736x/ae/39/6e/ae396e7d69a673158406ce2359206097.jpg" alt="description" width="10" height="10">'
+                                                    '<img src="<?php echo $api_url; ?>/uploads/icon/green_dash.jpg" alt="description" width="10" height="10">' :
+                                                    '<img src="<?php echo $api_url; ?>/uploads/icon/red_dash.jpg" alt="description" width="10" height="10">'
                                                 }`,
                                     `<span style="color: transparent;">${data.external_dumping}</span>
                                         ${(data.external_dumping === false) ?
-                                                    '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpYbUIFfRi0gF6G2i5iC3NasuR-00Cvn8fLg&s" alt="description" width="10" height="10">' :
-                                                    '<img src="https://i.pinimg.com/736x/ae/39/6e/ae396e7d69a673158406ce2359206097.jpg" alt="description" width="10" height="10">'
+                                                    '<img src="<?php echo $api_url; ?>/uploads/icon/green_dash.jpg" alt="description" width="10" height="10">' :
+                                                    '<img src="<?php echo $api_url; ?>/uploads/icon/red_dash.jpg" alt="description" width="10" height="10">'
                                                 }`,
                                     `<span style="color: transparent;">${data.external_upliftment}</span>
                                         ${(data.external_upliftment === false) ?
-                                                    '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpYbUIFfRi0gF6G2i5iC3NasuR-00Cvn8fLg&s" alt="description" width="10" height="10">' :
-                                                    '<img src="https://i.pinimg.com/736x/ae/39/6e/ae396e7d69a673158406ce2359206097.jpg" alt="description" width="10" height="10">'
+                                                    '<img src="<?php echo $api_url; ?>/uploads/icon/green_dash.jpg" alt="description" width="10" height="10">' :
+                                                    '<img src="<?php echo $api_url; ?>/uploads/icon/red_dash.jpg" alt="description" width="10" height="10">'
                                                 }`,
                                     data.no_os_days,
                                     (Number(data.daily_sales) || 0).toLocaleString(),

@@ -34,7 +34,8 @@
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu" user>
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
-
+                <li><a href="all_dealers_recons_product_wise_dashboard.php" data-key="t-level-1.14"> Gain / Loss
+                                Board</a></li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fas fa-user-cog icon nav-icon"></i>

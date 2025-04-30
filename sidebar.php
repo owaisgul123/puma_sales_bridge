@@ -36,4 +36,8 @@ elseif($_SESSION['privilege'] == 'Eng'){
     include 'eng_sidebar.php';
     
 }
+elseif($_SESSION['privilege'] == 'Planner'){
+    include 'planner_sidebar.php';
+    
+}
 ?>

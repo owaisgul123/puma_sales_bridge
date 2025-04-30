@@ -45,20 +45,21 @@
                         $current_date = date('Y-m-d');
                         $next_dat = date('Y-m-d', strtotime($current_date . '+1 day'));
                         ?>
-                                <li><a href="orders_dashboard.php" data-key="t-level-1.16"> Order Dashboard</a></li>
+                        <li><a href="orders_dashboard.php" data-key="t-level-1.16"> Order Dashboard</a></li>
 
-                        <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>" data-key="t-level-1.16"> Trip Board</a></li>
+                        <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>"
+                                data-key="t-level-1.16"> Trip Board</a></li>
 
                         <!-- <li><a href="manage_order.php" data-key="t-level-1.3"> Orders </a></li> -->
                         <!-- <li><a href="special_orders.php" data-key="t-level-1.4"> Approved Orders </a></li> -->
-                       
+
 
 
 
 
                     </ul>
                 </li>
-               
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fas fa-shipping-fast icon nav-icon"></i>
@@ -66,32 +67,41 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
 
-                        <!-- <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1.2">Admin Dasboard</a>
+
+                        <li><a href="dashboard.php?id=1&from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>&title=Admin"
+                                data-key="t-level-1.16"> DashBoard</a></li>
+
+
+                        <li><a onclick="post_new_data()" data-key="t-level-1.1">Track Map</a></li>
+                        <li><a href="playback.php" data-key="t-level-1.2">Playback </a></li>
+                        <li><a href="manage_geofence.php" data-key="t-level-1.2">Manage Geofence </a></li>
+                        <li><a href="blackspots.php" data-key="t-level-1.2">Manage Black Spots </a></li>
+
+                        <li><a href="vehicle_users.php" data-key="t-level-1.2">Assign Vehicle to Cartraige </a></li>
+                        <li><a href="vehicle_list.php" data-key="t-level-1.2">vehicle List </a></li>
+
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i class="fas fa-shipping-fast icon nav-icon"></i>
+                                <span class="menu-item" data-key="t-multi-level">Report</span>
+                            </a>
                             <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" data-key="t-level-2.1">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);" data-key="t-level-2.2">Level 2.2</a></li>
+
+
+
+                                <li><a href="current_location_report.php" data-key="t-level-1.2">Current Location </a>
+                                </li>
+                                <li><a href="history_report.php" data-key="t-level-1.2">History Report </a></li>
+
+
                             </ul>
                         </li>
 
-                        <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1.2">Tracker Dasboard</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" data-key="t-level-2.1">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);" data-key="t-level-2.2">Level 2.2</a></li>
-                            </ul>
-                        </li> -->
-                       
-
-                        <!-- <li><a href="javascript: void(0);" data-key="t-level-1.1">Trip Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Sap Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Intransit Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Sales Dashboard</a></li> -->
-                        <li><a onclick="post_new_data()" data-key="t-level-1.1">Track Map</a></li>
-                        <!-- <li><a href="javascript: void(0);" data-key="t-level-1.1">Manage Geofence</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Playback</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Fence Details</a></li> -->
 
                     </ul>
                 </li>
+
 
             </ul>
         </div>

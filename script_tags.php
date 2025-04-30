@@ -32,7 +32,7 @@ var table_access = "<?php echo $pre_acc; ?>";
 // alert(table_access);
 
 setTimeout(function() {
-    if (table_access != "Admin" && table_access != "ZM") {
+    if (table_access != "Admin" && table_access != "ZM" && table_access != "Reporting" && table_access != "Order") {
         // If table_access is neither "Admin" nor "ZM", hide .dt-buttons
         $('.dt-buttons').addClass('d-none');
     }

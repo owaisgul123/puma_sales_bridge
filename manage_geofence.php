@@ -9,7 +9,7 @@
 
     <meta charset="utf-8" />
     <title>
-        ORDER SHORTAGE | <?php echo $_SESSION['user_name'];?>
+        Manage Geofence | <?php echo $_SESSION['user_name'];?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
@@ -55,27 +55,27 @@
                                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" id="add_btn"
                                 aria-controls="offcanvasRight"><i
                                     class="bx bxs-add-to-queue font-size-16 align-middle me-2 cursor-pointer"></i>Add</button> -->
+
+                            <a href="create_geofence.php" type="button"
+                                class="btn btn-soft-primary waves-effect waves-light"><i
+                                    class="bx bxs-add-to-queue font-size-16 align-middle me-2 cursor-pointer"></i>Add</a>
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-body" style="overflow: auto;">
-                            <h3>ORDER SHORTAGE</h3>
+                        <div class="card-body">
+                            <h3>Manage Geofence</h3>
 
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>S.NO</th>
-                                        <th>RECEIVED AT</th>
-                                        <th>SITE NAME</th>
-                                        <th>SITE CODE</th>
-                                        <th>ORDER #</th>
-                                        <th>SALES ORDER #</th>
-                                        <th>PRODUCT</th>
-                                        <th>ORDER QUANTITY</th>
-                                        <!-- <th>RECEIVED QUANTITY</th> -->
-                                        <th>SHORTAGE QUANTITY</th>
-                                        <th>FILE</th>
-
+                                        <th>S.No</th>
+                                        <th>Code</th>
+                                        <th>Name</th>
+                                        <th>Coordinates</th>
+                                        <th>Type</th>
+                                        <th>View</th>
+                                        <!-- <th>Edit</th> -->
+                                        <th>Delete</th>
 
                                     </tr>
                                 </thead>
@@ -123,8 +123,7 @@
                     <div class="form-row mb-4">
                         <div class="form-group col-md-12">
                             <label for="inputEmail4">Sizes</label>
-                            <input type="number" class="form-control" id="name" name="name" placeholder="Enter Username"
-                                required>
+                            <input type="number" class="form-control" id="name" name="name" required>
                         </div>
 
 
@@ -318,75 +317,61 @@
         });
         load_all_select();
     })
-    //     function deleteData(id){
-
-    // var settings = {
-    //         "url": "<?php echo $api_url; ?>get/get_container_sizes.php?key=03201232927&id=" + id + "",
-    //         "method": "GET",
-    //         "timeout": 0,
-    //     };
-
-    //     $.ajax({
-    //         ...settings,
-    //         statusCode: {
-    //             200: function(response) {
-
-    //                 $('#row_id').val(response[0]['id'])
-    //                 $('#name').val(response[0]['sizes']);
-
-    //             }
-    //         }
-    //     })
-    //     $('#offcanvasRight').offcanvas('show');
-
-    // }
 
     function deleteData(id) {
+        var result = confirm("Are you sure you want to delete this record?");
 
-        var settings = {
-            "url": "<?php echo $api_url; ?>delete/delete_container_size.php?key=03201232927&id=" + id + "",
-            "method": "GET",
-            "timeout": 0,
-        };
-
-        $.ajax({
-            ...settings,
-            statusCode: {
-                200: function(response) {
-                    Swal.fire(
-                        'Success!',
-                        'Record Deleted Successfully',
-                        'success'
-                    )
-                    setTimeout(function() {
-
-                        // location.reload();
+        // If the user confirms, proceed with deletion
+        if (result) {
+            // Call a function to delete the item
 
 
-                    }, 2000);
+            var settings = {
+                "url": "<?php echo $api_url; ?>delete/delete_geofencing.php?key=03201232927&id=" + id + "",
+                "method": "GET",
+                "timeout": 0,
+            };
 
-                },
-                success: function(data) {
-                    // Additional success handling if needed
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    Swal.fire(
-                        'Server Error!',
-                        'Record Not Deleted',
-                        'error'
-                    )
+            $.ajax({
+                ...settings,
+                statusCode: {
+                    200: function(response) {
+                        Swal.fire(
+                            'Success!',
+                            'Record Deleted Successfully',
+                            'success'
+                        )
+                        setTimeout(function() {
 
-                    // console.log("Request failed with status code: " + xhr.status);
+                            location.reload();
+
+
+                        }, 2000);
+
+                    },
+                    success: function(data) {
+                        // Additional success handling if needed
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        Swal.fire(
+                            'Server Error!',
+                            'Record Not Deleted',
+                            'error'
+                        )
+
+                        // console.log("Request failed with status code: " + xhr.status);
+                    }
                 }
-            }
-        })
+            })
+        }
+
 
     }
 
     function editData(id) {
 
         var settings = {
-            "url": "<?php echo $api_url; ?>get/get_container_sizes.php?key=03201232927&id=" + id + "",
+            "url": "<?php echo $api_url; ?>get/get_order_product_qty.php?key=03201232927&id=" + id + "",
             "method": "GET",
             "timeout": 0,
         };
@@ -413,51 +398,28 @@
             redirect: 'follow'
         };
 
-        fetch("<?php echo $api_url; ?>get/get_all_orders_shortage.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
+        fetch("<?php echo $api_url; ?>get/get_geofences.php?key=03201232927&id=<?php echo $_SESSION['user_id'] ?>",
                 requestOptions)
             .then(response => response.json())
             .then(response => {
+                console.log(response)
 
                 table.clear().draw();
                 $.each(response, function(index, data) {
-
-                    console.log(data)
-                    var product_json = data.product_json;
-                    jsonString = product_json.replace(/([{,])\s*(\w+)\s*:/g, '$1"$2":').replace(
-                        /:\s*(\w+)\s*([,}])/g, ': "$1"$2');
-
-                    const jsonData = JSON.parse(jsonString);
-
-                    console.log('jsonData');
-                    console.log(jsonData);
-
-                    const product_name = jsonData[0].product_name;
-                    const quantity = jsonData[0].quantity;
-                    const quantity_rec = jsonData[0].quantity_rec;
-                    const quantity_less = jsonData[0].quantity_less;
-
-                    // console.log('Product Name:', product_name);
-                    // console.log('Quantity:', quantity);
-                    // console.log('Quantity Received:', quantity_rec);
-                    // console.log('Quantity Less:', data.file);
-
-
-
                     table.row.add([
                         index + 1,
-                        data.created_at,
-                        data.customer_name,
-                        data.sap_no,
-                        data.order_id,
-                        data.SaleOrder,
-                        product_name,
-                        parseFloat(quantity).toLocaleString(),
-                        // parseFloat(quantity_rec).toLocaleString(),
-                        parseFloat(quantity_less).toLocaleString(),
-                        '<a href="http://151.106.17.246:8080/pumabridgeApis/uploads/' + data.file +
-                        '" target="_blank">View File</a>'
+                        data.code,
+                        data.consignee_name,
+                        data.Coordinates,
+                        data.geotype,
+                        // '<button type="button" id="edit" name="edit" onclick="editData(' +
+                        // data.id +
+                        // ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-edit-alt font-size-16 align-middle"></i></button>',
+                        '<a href="view_geofence.php?id='+data.id+'" type="button" id="delete" name="delete" onclick="" class="btn btn-soft-danger waves-effect waves-light"><i class="fas fa-eye font-size-16 align-middle"></i></a>',
 
-
+                        '<button type="button" id="delete" name="delete" onclick="deleteData(' +
+                        data.id +
+                        ')" class="btn btn-soft-danger waves-effect waves-light"><i class="bx bx-trash-alt font-size-16 align-middle"></i></button>'
                     ]).draw(false);
                 });
             })

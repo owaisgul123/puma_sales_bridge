@@ -1,13 +1,15 @@
 <?php include '../env_set.php'; ?>
+<?php  $api_url = 'http://151.106.17.246:8080/omCS-CMS-APIS/'?>
 <!doctype html>
 <html lang="en">
 <!-- Mirrored from themesbrand.com/minia/layouts/maps-google.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 31 Oct 2022 13:23:05 GMT -->
+
 
 <head>
     <meta charset="utf-8">
     <title>Vehicle Track</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="BYCO" name="description">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
     <meta content="Themesbrand" name="author">
     <!-- App favicon -->
     <link rel="shortcut icon" href="../assets/img/favicon.ico">
@@ -25,6 +27,8 @@
     <script src="assets/js/gauge.js"></script>
     <!-- <link href="https://github.hubspot.com/odometer/themes/odometer-theme-default.css" rel="stylesheet"> -->
     <!-- <script src="assets/js/odometer.js"></script> -->
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+
     <style>
     .bg-c-blue {
         background: linear-gradient(45deg, #4099ff, #73b4ff);
@@ -116,30 +120,28 @@
                             </form>
                         </div>
                     </div>
-                    <div class="dropdown d-none d-sm-inline-block">
+                    <!-- <div class="dropdown d-none d-sm-inline-block">
                         <button type="button" class="btn header-item" id="mode-setting-btn">
                             <i data-feather="moon" class="icon-lg layout-mode-dark"></i>
                             <i data-feather="sun" class="icon-lg layout-mode-light"></i>
                         </button>
-                    </div>
-                    <div class="dropdown d-inline-block">
+                    </div> -->
+                    <!-- <div class="dropdown d-inline-block">
                         <button type="button" class="btn header-item bg-soft-light border-start border-end"
                             id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img class="rounded-circle header-profile-user small_logo" src="assets/images/gno.png"
-                                alt="Header Avatar">
+                            <img class="rounded-circle header-profile-user small_logo" src="" alt="Header Avatar">
                             <span class="d-none d-xl-inline-block ms-1 fw-medium project_name" id="project_name"></span>
                             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
 
                             <a class="dropdown-item" href="../logout.php">
                                 <i class="mdi mdi-logout font-size-16 align-middle me-1"></i>
                                 Logout
                             </a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </header>
@@ -214,14 +216,14 @@
                                                                 <i class="fas fa-eye font-size-16 align-middle"></i>
                                                             </button>
                                                         </div>
-                                                        <!-- <div class="col-2 p-0">
+                                                        <div class="col-2 p-0">
                                                             <button type="button"
                                                                 class="btn btn-soft-primary waves-effect waves-light"
                                                                 id="modal_b" data-bs-toggle="modal"
                                                                 data-bs-target="#myModal">
                                                                 <i class="bx bx-filter font-size-16 align-middle"></i>
                                                             </button>
-                                                        </div> -->
+                                                        </div>
                                                     </div>
                                                     <!-- <button class="btn btn-primary" type="button"><i class="bx bx-search-alt align-middle"></i></button> -->
                                                 </div>
@@ -400,8 +402,8 @@
                 var image = $(".logo_image");
 
                 // Change the src attribute of the image
-                image.attr("src", "<?php echo $api_url;?>" + logo);
-                $(".small_logo").attr("src", "<?php echo $api_url;?>" + logo);
+                image.attr("src", "<?php echo $api_url_files;?>" + logo);
+                $(".small_logo").attr("src", "<?php echo $api_url_files;?>" + logo);
                 $('.project_name').text(username);
 
                 console.log(username)
@@ -637,7 +639,7 @@
 
                     <div class="card border border-primary">
                         <div class="card-header bg-transparent border-primary">
-                            <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow me-3"></i>End-Users</h5>
+                            <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow me-3"></i>Tracker</h5>
                         </div>
                         <div class="card-body">
                             <ul class="list-unstyled mb-0">
@@ -653,7 +655,24 @@
                         </div>
                     </div>
 
+                    <div class="card border border-primary">
+                        <div class="card-header bg-transparent border-primary">
+                            <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow me-3"></i>Cartraige
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <!-- <li>Integer molestie lorem at massa</li> -->
+                                <li>
+                                    <ul id="Cartraige_list">
 
+
+                                    </ul>
+                                </li>
+                                <!-- <li>Faucibus porta lacus fringilla vel</li> -->
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
@@ -720,7 +739,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             //console.log(data.length);
             $("#d2").empty();
 
@@ -822,12 +854,100 @@
             cache: false,
             success: function(response) {
                 // $('.info').append(html);
-                const data = JSON.parse(response);
+                var data;
+                if (typeof response === "object") {
+                    data = response;
+                } else {
+                    // Otherwise, parse the JSON string
+                    try {
+                        data = JSON.parse(response);
+                    } catch (e) {
+                        console.error("Error parsing JSON:", e);
+                        return;
+                    }
+                }
+
+                console.log("Parsed data:", data);
                 for (var i = 0; i < data.length; i++) {
 
 
                     $('#dis').append('<li class="ss2" id="' + data[i]['distributor_id'] + '">' + data[i][
                         'dis_name'
+                    ] + '</li>');
+                    // $('#dis').append('<div class="card bg-info border-primary text-white-50 p-0 "><div class="card-body p-1"><h5 class="mb-1 text-white mb-0" id="' + data[i]['distributor_id'] + '">' + data[i]['dis_name'] + '</h5></div></div>');
+                }
+
+            },
+            complete: function() {
+                $('#loading').hide();
+            }
+        });
+
+        $.ajax({
+            url: "<?php echo $api_url;?>map_apis/get_trackers.php?accesskey=12345",
+            method: "GET",
+            timeout: 0,
+            cache: false,
+            success: function(response) {
+                // $('.info').append(html);
+                var data;
+                if (typeof response === "object") {
+                    data = response;
+                } else {
+                    // Otherwise, parse the JSON string
+                    try {
+                        data = JSON.parse(response);
+                    } catch (e) {
+                        console.error("Error parsing JSON:", e);
+                        return;
+                    }
+                }
+
+                console.log("Parsed data:", data);
+                for (var i = 0; i < data.length; i++) {
+
+
+                    $('#endu').append('<li class="ss3" id="' + data[i]['id'] + '">' + data[i][
+                        'name'
+                    ] + '</li>');
+                    // $('#dis').append('<div class="card bg-info border-primary text-white-50 p-0 "><div class="card-body p-1"><h5 class="mb-1 text-white mb-0" id="' + data[i]['distributor_id'] + '">' + data[i]['dis_name'] + '</h5></div></div>');
+                }
+
+            },
+            complete: function() {
+                $('#loading').hide();
+            }
+        });
+        $.ajax({
+            url: "<?php echo $api_url;?>get/get_cart_users.php?key=03201232927",
+            method: "GET",
+            timeout: 0,
+            cache: false,
+            success: function(response) {
+                // $('.info').append(html);
+                var data;
+                if (typeof response === "object") {
+                    data = response;
+                } else {
+                    // Otherwise, parse the JSON string
+                    try {
+                        data = JSON.parse(response);
+                    } catch (e) {
+                        console.error("Error parsing JSON:", e);
+                        return;
+                    }
+                }
+
+                console.log("Parsed data:", data);
+                for (var i = 0; i < data.length; i++) {
+
+
+                    // $('#Cartraige_list').append('<li onclick="redirectToDashboard(' + data[i]['id'] + ',\'' + data[i]['name'] + '\')" class="ss3" id="' + data[i]['id'] + '">' + data[i][
+                    //     'name'
+                    // ] + '</li>');
+
+                    $('#Cartraige_list').append('<li class="ss3" id="' + data[i]['id'] + '">' + data[i][
+                        'name'
                     ] + '</li>');
                     // $('#dis').append('<div class="card bg-info border-primary text-white-50 p-0 "><div class="card-body p-1"><h5 class="mb-1 text-white mb-0" id="' + data[i]['distributor_id'] + '">' + data[i]['dis_name'] + '</h5></div></div>');
                 }
@@ -853,7 +973,20 @@
             cache: false,
             success: function(response) {
                 // $('.info').append(html);
-                const data = JSON.parse(response);
+                var data;
+                if (typeof response === "object") {
+                    data = response;
+                } else {
+                    // Otherwise, parse the JSON string
+                    try {
+                        data = JSON.parse(response);
+                    } catch (e) {
+                        console.error("Error parsing JSON:", e);
+                        return;
+                    }
+                }
+
+                console.log("Parsed data:", data);
                 for (var i = 0; i < data.length; i++) {
                     $('#endu').append('<li class="ss3" id="' + data[i]['end_user_id'] + '">' + data[
                         i]['enduser_name'] + '</li>');
@@ -867,7 +1000,7 @@
 
     });
 
-    $('#endu').on('click', ".ss3", function() {
+    $('#endu,#Cartraige_list').on('click', ".ss3", function() {
         var my_id = this.id;
 
         user_id = my_id;
@@ -886,7 +1019,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             //console.log(data.length);
             $("#d2").empty();
 
@@ -1056,7 +1202,20 @@
                 //console.log("<?php echo $api_url;?>map_apis/selected_vehicle.php?vehi=" + vehcile_selection + "&accesskey=12345");
 
                 $.ajax(settings).done(function(response) {
-                    const data = JSON.parse(response);
+                    var data;
+                    if (typeof response === "object") {
+                        data = response;
+                    } else {
+                        // Otherwise, parse the JSON string
+                        try {
+                            data = JSON.parse(response);
+                        } catch (e) {
+                            console.error("Error parsing JSON:", e);
+                            return;
+                        }
+                    }
+
+                    console.log("Parsed data:", data);
                     for (i = 0; i < data.length; i++) {
                         var lat = data[i]['lat'];
                         var lng = data[i]['lng'];
@@ -1142,7 +1301,20 @@
             };
 
             $.ajax(settings).done(function(response) {
-                const data = JSON.parse(response);
+                var data;
+                if (typeof response === "object") {
+                    data = response;
+                } else {
+                    // Otherwise, parse the JSON string
+                    try {
+                        data = JSON.parse(response);
+                    } catch (e) {
+                        console.error("Error parsing JSON:", e);
+                        return;
+                    }
+                }
+
+                console.log("Parsed data:", data);
                 //console.log(data.length);
                 var i;
                 for (i = 0; i < data.length; i++) {
@@ -1493,7 +1665,20 @@
             //console.log("<?php echo $api_url;?>map_apis/selected_vehicle.php?vehi=" + focused + "&accesskey=12345");
 
             $.ajax(settings).done(function(response) {
-                const data = JSON.parse(response);
+                var data;
+                if (typeof response === "object") {
+                    data = response;
+                } else {
+                    // Otherwise, parse the JSON string
+                    try {
+                        data = JSON.parse(response);
+                    } catch (e) {
+                        console.error("Error parsing JSON:", e);
+                        return;
+                    }
+                }
+
+                console.log("Parsed data:", data);
                 for (i = 0; i < data.length; i++) {
                     var lat = data[i]['lat'];
                     var lng = data[i]['lng'];
@@ -1616,7 +1801,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             //console.log(data.length);
             $("#d2").empty();
             var i;
@@ -1708,11 +1906,25 @@
                         "http://iot.trackfleetio.com/images/Advance_vehicletype/Truck_Running_NORTH.png";
                 }
                 var latlng = new google.maps.LatLng(data[i].lat, data[i].lng);
-                setMarker(data[i]['lat'], data[i]['lng'], data[i]['speed'], data[i]['id'], data[i][
-                    'name'
-                ], data[i]['location'], data[i]['time'], 'red', angle)
+                // setMarker(data[i]['lat'], data[i]['lng'], data[i]['speed'], data[i]['id'], data[i][
+                //     'name'
+                // ], data[i]['location'], data[i]['time'], 'red', angle)
                 // markers.push(marker);
+                var lat = data[i]['lat'];
+                var lng = data[i]['lng'];
+                var speed = data[i]['speed'];
+                var name = data[i]['name'];
+                var location = data[i]['location'];
+                var time = data[i]['time'];
+
+                setMarker(lat, lng, speed, id, name, location, time, icon, angle);
             }
+
+            // Initialize clustering after all markers are set
+            new markerClusterer.MarkerClusterer({
+                map: map,
+                markers: markersArray
+            });
         });
     });
 
@@ -1729,7 +1941,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             //console.log(data.length);
             $("#d2").empty();
             var i;
@@ -1812,11 +2037,23 @@
                 var angle = data[i]['angle'];
                 var icon;
                 var latlng = new google.maps.LatLng(data[i].lat, data[i].lng);
-                setMarker(data[i]['lat'], data[i]['lng'], data[i]['speed'], data[i]['id'], data[i][
-                    'name'
-                ], data[i]['location'], data[i]['time'], '#e62e2d', angle)
+                // setMarker(data[i]['lat'], data[i]['lng'], data[i]['speed'], data[i]['id'], data[i][
+                //     'name'
+                // ], data[i]['location'], data[i]['time'], '#e62e2d', angle)
                 // markers.push(marker);
+                var lat = data[i]['lat'];
+                var lng = data[i]['lng'];
+                var speed = data[i]['speed'];
+                var name = data[i]['name'];
+                var location = data[i]['location'];
+                var time = data[i]['time'];
+
+                setMarker(lat, lng, speed, id, name, location, time, icon, angle);
             }
+            new markerClusterer.MarkerClusterer({
+                map: map,
+                markers: markersArray
+            });
         });
     });
 
@@ -1835,7 +2072,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             //console.log(data.length);
             $("#d2").empty();
             var i;
@@ -1926,11 +2176,24 @@
                         "http://iot.trackfleetio.com/images/Advance_vehicletype/Truck_Running_NORTH.png";
                 }
                 var latlng = new google.maps.LatLng(data[i].lat, data[i].lng);
-                setMarker(data[i]['lat'], data[i]['lng'], data[i]['speed'], data[i]['id'], data[i][
-                    'name'
-                ], data[i]['location'], data[i]['time'], '#1D738D', angle)
+                // setMarker(data[i]['lat'], data[i]['lng'], data[i]['speed'], data[i]['id'], data[i][
+                //     'name'
+                // ], data[i]['location'], data[i]['time'], '#1D738D', angle)
                 // markers.push(marker);
+                var lat = data[i]['lat'];
+                var lng = data[i]['lng'];
+                var speed = data[i]['speed'];
+                var name = data[i]['name'];
+                var location = data[i]['location'];
+                var time = data[i]['time'];
+
+                setMarker(lat, lng, speed, id, name, location, time, icon, angle);
+
             }
+            new markerClusterer.MarkerClusterer({
+                map: map,
+                markers: markersArray
+            });
 
         });
     });
@@ -1951,7 +2214,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             //console.log(data.length);
             $("#d2").empty();
             var i;
@@ -2043,13 +2319,24 @@
                         "http://iot.trackfleetio.com/images/Advance_vehicletype/Truck_Running_NORTH.png";
                 }
                 var latlng = new google.maps.LatLng(data[i].lat, data[i].lng);
-                setMarker(data[i]['lat'], data[i]['lng'], data[i]['speed'], data[i]['id'], data[i][
-                    'name'
-                ], data[i]['location'], data[i]['time'], 'yellow', angle)
+                // setMarker(data[i]['lat'], data[i]['lng'], data[i]['speed'], data[i]['id'], data[i][
+                //     'name'
+                // ], data[i]['location'], data[i]['time'], 'yellow', angle)
                 // markers.push(marker);
+                var lat = data[i]['lat'];
+                var lng = data[i]['lng'];
+                var speed = data[i]['speed'];
+                var name = data[i]['name'];
+                var location = data[i]['location'];
+                var time = data[i]['time'];
+
+                setMarker(lat, lng, speed, id, name, location, time, icon, angle);
             }
 
-
+            new markerClusterer.MarkerClusterer({
+                map: map,
+                markers: markersArray
+            });
 
         });
     });
@@ -2086,7 +2373,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             //console.log(data.length);
             $("#d2").empty();
             var i;
@@ -2183,11 +2483,23 @@
                         "http://iot.trackfleetio.com/images/Advance_vehicletype/Truck_Running_NORTH.png";
                 }
                 var latlng = new google.maps.LatLng(data[i].lat, data[i].lng);
-                setMarker(data[i]['lat'], data[i]['lng'], data[i]['speed'], data[i]['id'], data[i][
-                    'name'
-                ], data[i]['location'], data[i]['time'], '#c34c9c', angle)
+                // setMarker(data[i]['lat'], data[i]['lng'], data[i]['speed'], data[i]['id'], data[i][
+                //     'name'
+                // ], data[i]['location'], data[i]['time'], '#c34c9c', angle)
                 // markers.push(marker);
+                var lat = data[i]['lat'];
+                var lng = data[i]['lng'];
+                var speed = data[i]['speed'];
+                var name = data[i]['name'];
+                var location = data[i]['location'];
+                var time = data[i]['time'];
+
+                setMarker(lat, lng, speed, id, name, location, time, icon, angle);
             }
+            new markerClusterer.MarkerClusterer({
+                map: map,
+                markers: markersArray
+            });
         });
     });
 
@@ -2206,7 +2518,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             //console.log(data.length);
             $("#d2").empty();
 
@@ -2281,6 +2606,45 @@
 
                 document.getElementById("d2").innerHTML += div;
             }
+
+            // Clear existing markers from map
+            setMapOnAll(null);
+            markersArray = [];
+            vehcile_selection.length = 0; // typo corrected
+
+            for (var i = 0; i < data.length; i++) {
+                var id = data[i]['id'];
+                var ignition = data[i]['ignition'];
+                var angle = data[i]['angle'];
+                var icon;
+
+                // Set marker icon based on ignition status
+                if (ignition === "OFF") {
+                    icon =
+                        "http://iot.trackfleetio.com/images/Advance_vehicletype/Truck_Stopped_NORTH.png";
+                } else {
+                    icon =
+                        "http://iot.trackfleetio.com/images/Advance_vehicletype/Truck_Running_NORTH.png";
+                }
+
+                var lat = data[i]['lat'];
+                var lng = data[i]['lng'];
+                var speed = data[i]['speed'];
+                var name = data[i]['name'];
+                var location = data[i]['location'];
+                var time = data[i]['time'];
+
+                // Call your existing custom marker function
+                setMarker(lat, lng, speed, id, name, location, time, icon, angle);
+            }
+
+            // Initialize clustering after all markers are set
+            new markerClusterer.MarkerClusterer({
+                map: map,
+                markers: markersArray
+            });
+
+
         });
     });
 
@@ -2305,7 +2669,20 @@
                 };
 
                 $.ajax(settings).done(function(response) {
-                    const data = JSON.parse(response);
+                    var data;
+                    if (typeof response === "object") {
+                        data = response;
+                    } else {
+                        // Otherwise, parse the JSON string
+                        try {
+                            data = JSON.parse(response);
+                        } catch (e) {
+                            console.error("Error parsing JSON:", e);
+                            return;
+                        }
+                    }
+
+                    console.log("Parsed data:", data);
                     var l;
                     if (data.length < 100) {
                         l = data.length;
@@ -2540,6 +2917,7 @@
 
 
     function activity() {
+        console.log("<?php echo $api_url;?>map_apis/running_count.php?vehi=" + focused + "&accesskey=12345");
         var settings = {
             "url": "<?php echo $api_url;?>map_apis/running_count.php?vehi=" + focused + "&accesskey=12345",
             "method": "GET",
@@ -2547,7 +2925,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             // //console.log(data);
             document.getElementById("runn").innerHTML = toHoursAndMinutes(data['run']);
             document.getElementById("stopp").innerHTML = toHoursAndMinutes(data['stop']);
@@ -2649,7 +3040,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             // //console.log(data[0]["odometer"]);
             avg = parseInt(data[0]["avg"]);
             max = parseInt(data[0]["max"]);
@@ -2668,7 +3072,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             //console.log(data[0]["odometer"]);
             odo = parseInt(data[0]["odometer"]);
             odo = odo_n - odo;
@@ -2684,7 +3101,20 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
             //console.log(data);
             flightPath = new google.maps.Polyline({
                 path: data,
@@ -2738,11 +3168,24 @@
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
 
             var i;
             for (i = 0; i < data.length; i++) {
-                var div="";
+                var div = "";
                 var server_time = moment(data[i]['time']).format('MM/DD/YYYY hh:mm A');
                 var current_time = moment().format('MM/DD/YYYY hh:mm A');
                 var a = moment(server_time, 'MM/DD/YYYY hh:mm A');
@@ -2959,31 +3402,57 @@
     }
 
     function count() {
+        console.log("<?php echo $api_url;?>map_apis/counts.php?accesskey=12345&user=" + user_id);
+
         var settings = {
-            "url": "<?php echo $api_url;?>map_apis/counts.php?accesskey=12345&user=" + user_id + "",
+            "url": "<?php echo $api_url;?>map_apis/counts.php?accesskey=12345&user=" + user_id,
             "method": "GET",
             "timeout": 0,
         };
 
         $.ajax(settings).done(function(response) {
-            const data = JSON.parse(response);
+            // If response is an object, no need to parse it
+            var data;
+            if (typeof response === "object") {
+                data = response;
+            } else {
+                // Otherwise, parse the JSON string
+                try {
+                    data = JSON.parse(response);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            }
+
+            console.log("Parsed data:", data);
+
             $("#stop").html(
                 '<i class="far fa-stop-circle d-block font-size-16" style="color: rgb(250, 8, 8);"></i><b>' +
-                data["stop"] + '</b>');
+                data["stop"] + '</b>'
+            );
             $("#running").html(
                 '<i class="fas fa-location-arrow d-block font-size-16" style="color: rgb(29, 115, 141);"></i><b>' +
-                data["running"] + '</b>');
+                data["running"] + '</b>'
+            );
             $("#idle").html(
                 '<i class="fas fa-hourglass-half d-block font-size-16" style="color: #E6B730;"></i><b>' +
-                data["idle"] + '</b>');
-            $("#inactive").html('<i class="fas fa-ban d-block font-size-16" style="color: #751386;"></i><b>' +
-                data["inactive"] + '</b>');
+                data["idle"] + '</b>'
+            );
+            $("#inactive").html(
+                '<i class="fas fa-ban d-block font-size-16" style="color: #751386;"></i><b>' +
+                data["inactive"] + '</b>'
+            );
             $("#nodata").html(
                 '<i class="fab fa-creative-commons-zero d-block font-size-16" style="color: #a70000;"></i><b>' +
-                data["nodata"] + '</b>');
+                data["nodata"] + '</b>'
+            );
             $("#total").html(
                 '<i class="fas fa-check-double align-middle d-block font-size-16" style="color: rgb(89, 7, 184);"></i><b>' +
-                data["total"] + '</b>');
+                data["total"] + '</b>'
+            );
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("AJAX error:", textStatus, errorThrown);
         });
     }
     </script>

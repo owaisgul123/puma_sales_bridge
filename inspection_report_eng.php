@@ -1165,6 +1165,81 @@
         });
         $('#m_p_modal').modal('show');
     }
+    function last_vists_dates(report, last_visit_id, comp_date, current_id) {
+        $('#last_recon').empty();
+
+        const requestOptions = {
+            method: "GET",
+            redirect: "follow"
+        };
+
+        if (last_visit_id != null) {
+
+            var t_id = last_visit_id + "," + current_id;
+        } else {
+            var t_id = current_id;
+
+        }
+        const url =
+            "<?php echo $api_url; ?>get/inspection/get_current_second_last_visit_recon.php?key=03201232927&id=" +
+            t_id + "&report=" + report;
+
+        console.log(url);
+
+        fetch(url, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('lastinf');
+                console.log(result.length);
+
+                if (result.length === 2) {
+                    const lastTime = result[1]['created_at'];
+                    const completeTimeStr = result[0]['created_at'];
+                    const lastVisitDateStr = result[1]['created_at'];
+
+                    $('#survey_complete_time').text(completeTimeStr);
+
+                    const completeTime = new Date(completeTimeStr);
+                    const lastVisitDate = new Date(lastVisitDateStr);
+
+                    const differenceMs = completeTime - lastVisitDate;
+                    let differenceDays = differenceMs / (1000 * 60 * 60 * 24);
+                    differenceDays = Math.round(differenceDays);
+
+                    const divs = `
+                    <div class="col-md-12">
+                                    Completion Date : <span id="">${completeTimeStr}</span>
+                                </div>
+                    <div class="col-md-12">
+                        Last Visit Date: <span id="">${lastTime}</span>
+                    </div>
+                    <div class="col-md-12">
+                        Days Since Last Visit: <span id="">${differenceDays}</span>
+                    </div>`;
+
+                    $('#last_recon').append(divs);
+                } else if (result.length === 1) {
+                    const completeTimeStr = result[0]['created_at'];
+                    const divs = `
+                    <div class="col-md-12">
+                                    Completion Date : <span id="">${completeTimeStr}</span>
+                                </div>
+                    <div class="col-md-12">
+                        Last Visit Date: <span id="">First Time</span>
+                    </div>`;
+
+                    $('#last_recon').append(divs);
+                } else {
+                    const divs = `
+                    <div class="col-md-12">
+                        Last Visit Date: <span id="">First Time</span>
+                    </div>`;
+
+                    $('#last_recon').append(divs);
+                }
+            })
+            .catch((error) => console.error('Error:', error));
+    }
 
     function getPDF() {
         var currentDate = new Date();

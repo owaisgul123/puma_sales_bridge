@@ -56,7 +56,7 @@
                         $current_date = date('Y-m-d');
                         $next_dat = date('Y-m-d', strtotime($current_date . '+1 day'));
                         ?>
-                        <li><a href="trip_board.php?from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>"
+                        <li><a href="trip_board.php?from=<?php echo $current_date; ?>&to=<?php echo $next_dat; ?>"
                                 data-key="t-level-1.16"> Trip Board</a></li>
 
 
@@ -89,7 +89,8 @@
                                 <li><a href="servey_category.php" data-key="t-level-1.8"> Survey Category </a></li>
                                 <li><a href="survey_questions.php" data-key="t-level-1.9"> Survey Questions </a></li>
                                 <li><a href="servey_category_rm.php" data-key="t-level-1.8">RM Survey Category </a></li>
-                                <li><a href="survey_questions_rm.php" data-key="t-level-1.9"> RM Survey Questions </a></li>
+                                <li><a href="survey_questions_rm.php" data-key="t-level-1.9"> RM Survey Questions </a>
+                                </li>
                                 <li><a href="multiple_task.php" data-key="t-level-1.10"> Plan Task</a></li>
                                 <!-- <li><a href="dealers_sales_performance.php" data-key="t-level-1.11">Dealers Sales
                                         Performance</a></li> -->
@@ -109,13 +110,16 @@
                                 <span class="menu-item" data-key="t-multi-level">Manage Inspection (Eng)</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
-                            <li><a href="eng_dealers_assign.php" data-key="t-level-1.1">Users Dealers (Eng)</a>
+                                <li><a href="eng_dashboard.php" data-key="t-level-1.5"> Dashboard</a></li>
+
+                                <li><a href="eng_dealers_assign.php" data-key="t-level-1.1">Users Dealers (Eng)</a>
 
                                 <li><a href="servey_category_eng.php" data-key="t-level-1.8"> Survey Category </a></li>
-                                <li><a href="survey_questions_eng.php" data-key="t-level-1.9"> Survey Questions </a></li>
-                                
+                                <li><a href="survey_questions_eng.php" data-key="t-level-1.9"> Survey Questions </a>
+                                </li>
+
                                 <li><a href="multiple_task_eng.php" data-key="t-level-1.10"> Plan Task</a></li>
-                                     
+
                                 <li><a href="inspection_report_eng.php" data-key="t-level-1.14">All Inspection</a></li>
                                 <li><a href="follow_ups.php" data-key="t-level-1.14">Inspection Follow-Up</a></li>
 
@@ -123,19 +127,22 @@
 
                             </ul>
                         </li>
-                        
+
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <!-- <i class="fas fa-money-check-alt icon nav-icon"></i> -->
                                 <span class="menu-item" data-key="t-multi-level">Reports</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
-                               
+
                                 <li><a href="inspection_report.php" data-key="t-level-1.14">All Inspection</a></li>
                                 <!-- <li><a href="dealers_wise_recon.php" data-key="t-level-1.14">Dealers Reconciliation Report</a></li> -->
-                                <li><a href="all_dealers_recons_new.php" data-key="t-level-1.14">Reconciliation Report</a></li>
-                                <li><a href="all_dealers_recons_latest.php" data-key="t-level-1.14">Reconciliation with Measurement Report</a></li>
-                                <li><a href="admin_recon_report_3.php" data-key="t-level-1.14">Visit Calander Report</a></li>
+                                <li><a href="all_dealers_recons_new.php" data-key="t-level-1.14">Reconciliation
+                                        Report</a></li>
+                                <li><a href="all_dealers_recons_latest.php" data-key="t-level-1.14">Reconciliation with
+                                        Measurement Report</a></li>
+                                <li><a href="admin_recon_report_3.php" data-key="t-level-1.14">Visit Calander Report</a>
+                                </li>
                                 <li><a href="all_visit_info.php" data-key="t-level-1.14">Visit History Report</a></li>
                                 <!-- <li><a href="all_dealers_recons_product_wise_dashboard.php" data-key="t-level-1.14"> Reconciliation Analyzing Report</a></li> -->
 
@@ -150,25 +157,25 @@
                             <ul class="sub-menu" aria-expanded="true">
                                 <li><a href="containers_sizes.php" data-key="t-level-1.10"> Container Sizes </a></li>
                                 <!-- <li><a href="complaint_object_part.php" data-key="t-level-1.1">Object Part</a></li> -->
-                                </li>
-
-                            </ul>
                         </li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <span class="menu-item" data-key="t-multi-level">Lubes Setup</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="lubes_category.php" data-key="t-level-1.1">Category</a></li>
-                                <li><a href="lubes_sizes.php" data-key="t-level-1.1">Sizes</a>
-                                </li>
-                                <li><a href="lubes_products.php" data-key="t-level-1.1">Products</a>
-                                <li><a href="all_lubes_orders.php" data-key="t-level-1.1">Lubes Orders</a>
 
-
-                            </ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <span class="menu-item" data-key="t-multi-level">Lubes Setup</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li><a href="lubes_category.php" data-key="t-level-1.1">Category</a></li>
+                        <li><a href="lubes_sizes.php" data-key="t-level-1.1">Sizes</a>
                         </li>
-                        <!-- <li>
+                        <li><a href="lubes_products.php" data-key="t-level-1.1">Products</a>
+                        <li><a href="all_lubes_orders.php" data-key="t-level-1.1">Lubes Orders</a>
+
+
+                    </ul>
+                </li>
+                <!-- <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 
                                 <span class="menu-item" data-key="t-multi-level">Uniform Setup</span>
@@ -179,9 +186,9 @@
                             </ul>
                         </li> -->
 
-                    </ul>
-                </li>
-                <!-- <li>
+            </ul>
+            </li>
+            <!-- <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fas fa-money-check-alt icon nav-icon"></i>
                         <span class="menu-item" data-key="t-multi-level">Finance</span>
@@ -193,40 +200,46 @@
 
                     </ul>
                 </li> -->
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="fas fa-shipping-fast icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-multi-level">Logistics</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="true">
-
-                        <!-- <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1.2">Admin Dasboard</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" data-key="t-level-2.1">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);" data-key="t-level-2.2">Level 2.2</a></li>
-                            </ul>
-                        </li>
-
-                        <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1.2">Tracker Dasboard</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" data-key="t-level-2.1">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);" data-key="t-level-2.2">Level 2.2</a></li>
-                            </ul>
-                        </li> -->
+            <li>
+                <a href="javascript: void(0);" class="has-arrow">
+                    <i class="fas fa-shipping-fast icon nav-icon"></i>
+                    <span class="menu-item" data-key="t-multi-level">Logistics</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="true">
 
 
-                        <!-- <li><a href="javascript: void(0);" data-key="t-level-1.1">Trip Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Sap Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Intransit Dashboard</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Sales Dashboard</a></li> -->
-                        <li><a onclick="post_new_data()" data-key="t-level-1.1">Track Map</a></li>
-                        <li><a href="playback.php" data-key="t-level-1.2">Playback </a></li>
-                        <!-- <li><a href="javascript: void(0);" data-key="t-level-1.1">Manage Geofence</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Playback</a></li>
-                        <li><a href="javascript: void(0);" data-key="t-level-1.1">Fence Details</a></li> -->
+                    <li><a href="dashboard.php?id=1&from=<?php echo $current_date;?>&to=<?php echo $next_dat;?>&title=Admin"
+                            data-key="t-level-1.16"> DashBoard</a></li>
 
-                    </ul>
-                </li>
+
+                    <li><a onclick="post_new_data()" data-key="t-level-1.1">Track Map</a></li>
+                    <li><a href="playback.php" data-key="t-level-1.2">Playback </a></li>
+                    <li><a href="manage_geofence.php" data-key="t-level-1.2">Manage Geofence </a></li>
+                    <li><a href="blackspots.php" data-key="t-level-1.2">Manage Black Spots </a></li>
+
+                    <li><a href="vehicle_users.php" data-key="t-level-1.2">Assign Vehicle to Cartraige </a></li>
+                    <li><a href="vehicle_list.php" data-key="t-level-1.2">vehicle List </a></li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="fas fa-shipping-fast icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-multi-level">Report</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="true">
+
+
+
+                            <li><a href="current_location_report.php" data-key="t-level-1.2">Current Location </a></li>
+                            <li><a href="history_report.php" data-key="t-level-1.2">History Report </a></li>
+
+
+                        </ul>
+                    </li>
+
+
+
+                </ul>
+            </li>
 
 
             </ul>
