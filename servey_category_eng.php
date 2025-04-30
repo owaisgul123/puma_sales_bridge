@@ -337,6 +337,7 @@
                             '<label class="switch"><input type="checkbox" id="checkbox" onclick="check(' + data.id + ')" ' +
                             (data.status == 0 ? '' : 'checked') + '> <span class="slider round"></span></label>'
 
+
                         ]).draw(false);
                     });
                 })
@@ -352,6 +353,7 @@
             $.ajax({
                 type: 'POST',
                 url: '<?php echo $api_url; ?>update/survey_cat_update_eng.php', // Replace with the path to your PHP script
+
                 data: {
                     checkboxValue: checkboxValue,
                     id: id
@@ -359,13 +361,11 @@
                 success: function (response) {
                     console.log('Record updated successfully.');
                     alert('success!')
-                },
-                error: function (error) {
-                    console.error('Error updating database:', error);
-                }
-            });
+                    alert('Status updated successfully!');
+
             // You can use the checkboxValue variable as needed
         }
+
 
         function load_all_select() {
 
