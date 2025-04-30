@@ -1,9 +1,5 @@
 <?php
-$api_url = "http://localhost/OMCS-CMS-APIS/";
 
-
-
-$curl = curl_init();
 
 curl_setopt_array($curl, array(
   CURLOPT_URL => '' . $api_url . '/get/get_settings.php?key=03201232927',
